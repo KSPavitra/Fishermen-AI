@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🐟 Fisherman-AI</title>
+    <style>
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, 'Segoe UI', sans-serif;
+            background: linear-gradient(180deg, #0a2a4a 0%, #1a5a7a 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #app {
+            max-width: 480px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            padding: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            min-height: 90vh;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        header h1 {
+            font-size: 26px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00b4d8, #0077b6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            opacity: 0.7;
+            margin-top: 4px;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+
+        .status-dot.online {
+            background: #4CAF50;
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.offline {
+            background: #f44336;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* ===== VOICE SECTION ===== */
+        .voice-section {
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        .mic-button {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #00b4d8, #0077b6);
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 30px rgba(0, 180, 216, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            position: relative;
+            touch-action: none;
+        }
+
+        .mic-button:active {
+            transform: scale(0.92);
+        }
+
+        .mic-button.recording {
+            background: linear-gradient(135deg, #f44336, #c62828);
+            animation: pulse-ring 1s infinite;
+        }
+
+        .mic-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.7); }
+            70% { box-shadow: 0 0 0 30px rgba(244, 67, 54, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0); }
+        }
+
+        #micIcon {
+            font-size: 52px;
+        }
+
+        #micText {
+            font-size: 14px;
+            margin-top: 8px;
+            font-weight: 600;
+        }
+
+        .status-text {
+            margin-top: 16px;
+            font-size: 14px;
+            opacity: 0.8;
+            min-height: 24px;
+        }
+
+        .transcript {
+            margin-top: 8px;
+            font-size: 18px;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 12px;
+            min-height: 40px;
+        }
+
+        /* ===== RESULT CARD ===== */
+        .result-container {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .result-container.visible {
+            display: block;
+        }
+
+        .decision-card {
+            padding: 20px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .decision-card.go {
+            border-color: #4CAF50;
+            background: rgba(76, 175, 80, 0.15);
+        }
+
+        .decision-card.caution {
+            border-color: #FF9800;
+            background: rgba(255, 152, 0, 0.15);
+        }
+
+        .decision-card.dontgo {
+            border-color: #f44336;
+            background: rgba(244, 67, 54, 0.15);
+        }
+
+        #decisionStatus {
+            font-size: 32px;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .score {
+            text-align: center;
+            font-size: 14px;
+            opacity: 0.6;
+            margin: 4px 0;
+        }
+
+        #decisionReasons {
+            margin-top: 12px;
+        }
+
+        #decisionReasons ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #decisionReasons li {
+            padding: 8px 12px;
+            margin: 4px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        #decisionDetails {
+            margin-top: 12px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* ===== QUICK ACTIONS ===== */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .action-btn {
+            padding: 14px 8px;
+            border: none;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            text-align: center;
+        }
+
+        .action-btn:active {
+            transform: scale(0.95);
+        }
+
+        .action-btn .icon {
+            font-size: 24px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        #sosBtn {
+            background: rgba(244, 67, 54, 0.3);
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
+
+        #historyBtn {
+            background: rgba(33, 150, 243, 0.2);
+            border: 1px solid rgba(33, 150, 243, 0.2);
+        }
+
+        #catchBtn {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+
+        #marketBtn {
+            background: rgba(255, 193, 7, 0.2);
+            border: 1px solid rgba(255, 193, 7, 0.2);
+        }
+
+        /* ===== HISTORY ===== */
+        .history-container {
+            margin-top: 20px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            display: none;
+        }
+
+        .history-container.visible {
+            display: block;
+        }
+
+        .history-container h3 {
+            margin-bottom: 12px;
+        }
+
+        .history-item {
+            padding: 10px 14px;
+            margin: 6px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history-item .fish {
+            font-weight: 600;
+        }
+
+        .history-item .profit {
+            color: #4CAF50;
+        }
+
+        .history-item .profit.negative {
+            color: #f44336;
+        }
+
+        .history-stats {
+            margin-top: 12px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            text-align: center;
+        }
+
+        .history-stats .stat {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .history-stats .stat .value {
+            font-size: 18px;
+            font-weight: 700;
+            opacity: 1;
+            display: block;
+        }
+
+        /* ===== MARKET ===== */
+        .market-container {
+            margin-top: 20px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            display: none;
+        }
+
+        .market-container.visible {
+            display: block;
+        }
+
+        .market-item {
+            padding: 10px 14px;
+            margin: 4px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .market-item .price {
+            font-weight: 700;
+            color: #FFC107;
+        }
+
+        /* ===== MODAL ===== */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.visible {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #0a2a4a;
+            padding: 30px;
+            border-radius: 24px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .modal-content h3 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .modal-content p {
+            opacity: 0.8;
+            margin: 4px 0;
+        }
+
+        .modal-content small {
+            opacity: 0.6;
+            font-size: 13px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            opacity: 0.6;
+        }
+
+        .close-btn:hover {
+            opacity: 1;
+        }
+
+        .mic-button.small {
+            width: 80px;
+            height: 80px;
+            font-size: 14px;
+            margin: 16px auto;
+        }
+
+        .mic-button.small #micIcon {
+            font-size: 28px;
+        }
+
+        .catch-result {
+            margin-top: 12px;
+            padding: 12px;
+            background: rgba(76, 175, 80, 0.15);
+            border-radius: 10px;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            display: none;
+        }
+
+        .catch-result.visible {
+            display: block;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            font-size: 12px;
+            opacity: 0.5;
+        }
+
+        /* ===== LOADING ===== */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.8s ease infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 420px) {
+            #app { padding: 16px; }
+            .mic-button { width: 130px; height: 130px; }
+            #micIcon { font-size: 40px; }
+            .quick-actions { grid-template-columns: repeat(2, 1fr); }
+            header h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header>
+            <h1>🐟 Fisherman-AI</h1>
+            <p class="subtitle">ನಿಮ್ಮ ಕಡಲ ಸಹಾಯಕ</p>
+            <p style="font-size:12px; margin-top:4px; opacity:0.5;">
+                <span class="status-dot online" id="connectionDot"></span>
+                <span id="connectionText">Connected</span>
+            </p>
+        </header>
+
+        <!-- Main -->
+        <main>
+            <!-- Voice Input -->
+            <div class="voice-section">
+                <button id="micBtn" class="mic-button">
+                    <span id="micIcon">🎤</span>
+                    <span id="micText">ಒತ್ತಿ ಮಾತನಾಡಿ</span>
+                </button>
+                <p class="status-text" id="statusText">Ready</p>
+                <div class="transcript" id="transcriptText"></div>
+            </div>
+
+            <!-- Result -->
+            <div class="result-container" id="resultContainer">
+                <div class="decision-card" id="decisionCard">
+                    <h2 id="decisionStatus">🟢 GO</h2>
+                    <div class="score" id="decisionScore"></div>
+                    <div id="decisionReasons"></div>
+                    <div id="decisionDetails"></div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <button class="action-btn" id="sosBtn">
+                    <span class="icon">🆘</span>
+                    SOS
+                </button>
+                <button class="action-btn" id="historyBtn">
+                    <span class="icon">📋</span>
+                    ಇತಿಹಾಸ
+                </button>
+                <button class="action-btn" id="catchBtn">
+                    <span class="icon">🎣</span>
+                    ದಾಖಲಿಸಿ
+                </button>
+                <button class="action-btn" id="marketBtn">
+                    <span class="icon">📊</span>
+                    ಮಾರುಕಟ್ಟೆ
+                </button>
+            </div>
+
+            <!-- History -->
+            <div class="history-container" id="historyContainer">
+                <h3>📋 ನಿಮ್ಮ ಟ್ರಿಪ್ ಇತಿಹಾಸ</h3>
+                <div id="historyList"></div>
+                <div class="history-stats" id="historyStats"></div>
+            </div>
+
+            <!-- Market -->
+            <div class="market-container" id="marketContainer">
+                <h3>📊 ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳು</h3>
+                <div id="marketList"></div>
+            </div>
+        </main>
+
+        <!-- Catch Modal -->
+        <div class="modal" id="catchModal">
+            <div class="modal-content">
+                <button class="close-btn" id="closeModalBtn">✕</button>
+                <h3>🎣 ಮೀನು ದಾಖಲಿಸಿ</h3>
+                <p>ಮೀನಿನ ಹೆಸರು ಮತ್ತು ತೂಕ ಹೇಳಿ</p>
+                <p><small>ಉದಾ: "20 ಕೆಜಿ ಬಂಗಡೆ, 10 ಕೆಜಿ ಸಾರ್ಡಿನ್"</small></p>
+                <button class="mic-button small" id="catchMicBtn">
+                    <span id="catchMicIcon">🎤</span>
+                    <span id="catchMicText">ದಾಖಲಿಸಿ</span>
+                </button>
+                <div class="catch-result" id="catchResult"></div>
+            </div>
+        </div>
+
+        <!-- SOS Modal -->
+        <div class="modal" id="sosModal">
+            <div class="modal-content" style="border-color:#f44336;">
+                <button class="close-btn" id="closeSosBtn">✕</button>
+                <h3 style="color:#f44336;">🆘 SOS EMERGENCY</h3>
+                <p id="sosLocation">Getting your location...</p>
+                <p style="margin-top:12px; font-size:14px;">
+                    📞 Call <strong>108</strong> for emergency services
+                </p>
+                <button id="sosCallBtn" style="
+                    margin-top:16px;
+                    padding:14px 32px;
+                    background:#f44336;
+                    border:none;
+                    border-radius:12px;
+                    color:white;
+                    font-size:18px;
+                    font-weight:700;
+                    cursor:pointer;
+                ">📞 CALL 108</button>
+            </div>
+        </div>
+
+        <footer>
+            <p>📴 Works offline too</p>
+            <p class="tagline" style="font-style:italic;">"Asking is easier than typing"</p>
+        </footer>
+    </div>
+
+    <script>
+        // ============================================
+        // CONFIGURATION
+        // ============================================
+        const BACKEND_URL = 'http://127.0.0.1:5000';
+
+        // ============================================
+        // DOM ELEMENTS
+        // ============================================
+        const micBtn = document.getElementById('micBtn');
+        const micIcon = document.getElementById('micIcon');
+        const micText = document.getElementById('micText');
+        const statusText = document.getElementById('statusText');
+        const transcriptText = document.getElementById('transcriptText');
+        const resultContainer = document.getElementById('resultContainer');
+        const decisionCard = document.getElementById('decisionCard');
+        const decisionStatus = document.getElementById('decisionStatus');
+        const decisionScore = document.getElementById('decisionScore');
+        const decisionReasons = document.getElementById('decisionReasons');
+        const decisionDetails = document.getElementById('decisionDetails');
+        const sosBtn = document.getElementById('sosBtn');
+        const historyBtn = document.getElementById('historyBtn');
+        const catchBtn = document.getElementById('catchBtn');
+        const marketBtn = document.getElementById('marketBtn');
+        const historyContainer = document.getElementById('historyContainer');
+        const historyList = document.getElementById('historyList');
+        const historyStats = document.getElementById('historyStats');
+        const marketContainer = document.getElementById('marketContainer');
+        const marketList = document.getElementById('marketList');
+        const catchModal = document.getElementById('catchModal');
+        const catchMicBtn = document.getElementById('catchMicBtn');
+        const catchMicIcon = document.getElementById('catchMicIcon');
+        const catchMicText = document.getElementById('catchMicText');
+        const catchResult = document.getElementById('catchResult');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const sosModal = document.getElementById('sosModal');
+        const closeSosBtn = document.getElementById('closeSosBtn');
+        const sosLocation = document.getElementById('sosLocation');
+        const sosCallBtn = document.getElementById('sosCallBtn');
+        const connectionDot = document.getElementById('connectionDot');
+        const connectionText = document.getElementById('connectionText');
+
+        // ============================================
+        // STATE
+        // ============================================
+        let isRecording = false;
+        let recognition = null;
+        let catchRecognition = null;
+        let trips = JSON.parse(localStorage.getItem('trips') || '[]');
+
+        // ============================================
+        // 1. SPEECH RECOGNITION
+        // ============================================
+        function initSpeech() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            
+            if (!SpeechRecognition) {
+                statusText.textContent = '❌ Voice not supported in this browser';
+                micBtn.disabled = true;
+                return;
+            }
+            recognition = new SpeechRecognition();
+            recognition.lang = 'kn-IN';
+            recognition.continuous = false;
+            recognition.interimResults = true;
+
+            recognition.onstart = function() {
+                isRecording = true;
+                micBtn.classList.add('recording');
+                micIcon.textContent = '🔴';
+                micText.textContent = 'ಆಲಿಸುತ್ತಿದೆ...';
+                statusText.textContent = '🎙️ ಮಾತನಾಡಿ...';
+                transcriptText.textContent = '';
+            };
+
+            recognition.onresult = function(event) {
+                let final = '';
+                let interim = '';
+                
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    if (event.results[i].isFinal) {
+                        final += event.results[i][0].transcript;
+                    } else {
+                        interim += event.results[i][0].transcript;
+                    }
+                }
+                
+                transcriptText.textContent = interim || final;
+                
+                if (final) {
+                    statusText.textContent = '📝 Processing...';
+                    processVoiceInput(final);
+                }
+            };
+
+            recognition.onerror = function(event) {
+                console.error('Speech error:', event.error);
+                statusText.textContent = '❌ Please try again';
+                stopRecording();
+            };
+
+            recognition.onend = function() {
+                stopRecording();
+            };
+
+            // Catch speech
+            catchRecognition = new SpeechRecognition();
+            catchRecognition.lang = 'kn-IN';
+            catchRecognition.continuous = false;
+            catchRecognition.interimResults = false;
+
+            catchRecognition.onstart = function() {
+                catchMicIcon.textContent = '🔴';
+                catchMicText.textContent = 'ಆಲಿಸುತ್ತಿದೆ...';
+            };
+
+            catchRecognition.onresult = function(event) {
+                const text = event.results[0][0].transcript;
+                processCatchInput(text);
+            };
+
+            catchRecognition.onend = function() {
+                catchMicIcon.textContent = '🎤';
+                catchMicText.textContent = 'ದಾಖಲಿಸಿ';
+            };
+
+            catchRecognition.onerror = function() {
+                catchMicIcon.textContent = '🎤';
+                catchMicText.textContent = 'ದಾಖಲಿಸಿ';
+            };
+
+            console.log('✅ Speech recognition ready!');
+        }
+
+        function stopRecording() {
+            isRecording = false;
+            micBtn.classList.remove('recording');
+            micIcon.textContent = '🎤';
+            micText.textContent = 'ಒತ್ತಿ ಮಾತನಾಡಿ';
+            if (statusText.textContent.includes('ಆಲಿಸುತ್ತಿದೆ')) {
+                statusText.textContent = '⏹️ Ready';
+            }
+        }
+
+        // ============================================
+        // 2. MIC BUTTON EVENTS
+        // ============================================
+        micBtn.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            if (recognition && !isRecording) {
+                recognition.start();
+            }
+        });
+
+        micBtn.addEventListener('mouseup', function(e) {
+            e.preventDefault();
+            if (recognition && isRecording) {
+                recognition.stop();
+            }
+        });
+
+        micBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            if (recognition && !isRecording) {
+                recognition.start();
+            }
+        });
+
+        micBtn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            if (recognition && isRecording) {
+                recognition.stop();
+            }
+        });
+
+        // ============================================
+        // 3. PROCESS VOICE INPUT
+        // ============================================
+        async function processVoiceInput(text) {
+            try {
+                statusText.textContent = '⏳ Thinking...';
+                
+                const response = await fetch(`${BACKEND_URL}/api/decision`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: text })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayDecision(data.decision);
+                    speakResponse(data.decision.voice_text || 'Decision ready');
+                } else {
+                    statusText.textContent = '❌ Error: ' + data.error;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                statusText.textContent = '❌ Backend not reachable. Check if Flask is running.';
+            }
+        }
+
+        // ============================================
+        // 4. DISPLAY DECISION
+        // ============================================
+        function displayDecision(decision) {
+            resultContainer.classList.add('visible');
+            
+            const status = decision.status || 'UNKNOWN';
+            const emoji = status === 'GO' ? '🟢' : status === 'CAUTION' ? '🟡' : '🔴';
+            decisionStatus.textContent = `${emoji} ${status}`;
+            
+            decisionCard.className = 'decision-card';
+            if (status === 'GO') decisionCard.classList.add('go');
+            else if (status === 'CAUTION') decisionCard.classList.add('caution');
+            else if (status === "DON'T GO") decisionCard.classList.add('dontgo');
+
+            decisionScore.textContent = `Score: ${decision.score || 0}/100`;
+
+            if (decision.reasons && decision.reasons.length) {
+                decisionReasons.innerHTML = `<ul>${decision.reasons.map(r => `<li>${r}</li>`).join('')}</ul>`;
+            } else {
+                decisionReasons.innerHTML = '';
+            }
+
+            if (decision.details) {
+                let detailsHtml = '';
+                if (decision.details.fuel_cost) detailsHtml += `⛽ Fuel: ₹${decision.details.fuel_cost}<br>`;
+                if (decision.details.profit) detailsHtml += `💰 Profit: ₹${decision.details.profit}<br>`;
+                if (decision.details.temp) detailsHtml += `🌡️ Temp: ${decision.details.temp}°C<br>`;
+                if (decision.details.wind) detailsHtml += `💨 Wind: ${decision.details.wind} km/h<br>`;
+                decisionDetails.innerHTML = detailsHtml || 'No additional details';
+            } else {
+                decisionDetails.innerHTML = '';
+            }
+
+            statusText.textContent = '✅ Done!';
+            
+            // Save to history
+            saveTripToHistory(decision);
+        }
+
+        // ============================================
+        // 5. SPEAK RESPONSE
+        // ============================================
+        function speakResponse(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'kn-IN';
+                utterance.rate = 0.9;
+                utterance.pitch = 1;
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        // ============================================
+        // 6. TRIP HISTORY
+        // ============================================
+        function saveTripToHistory(decision) {
+            const trip = {
+                date: new Date().toISOString(),
+                status: decision.status,
+                reasons: decision.reasons || [],
+                score: decision.score || 0
+            };
+            
+            trips.unshift(trip);
+            if (trips.length > 50) trips.pop();
+            localStorage.setItem('trips', JSON.stringify(trips));
+        }
+
+        function loadHistory() {
+            if (trips.length === 0) {
+                historyList.innerHTML = '<p style="text-align:center;opacity:0.6;padding:20px;">ಇನ್ನೂ ಯಾವುದೇ ಟ್ರಿಪ್ ದಾಖಲಾಗಿಲ್ಲ</p>';
+                historyStats.innerHTML = '';
+                return;
+            }
+
+            historyList.innerHTML = trips.slice(0, 10).map(trip => `
+                <div class="history-item">
+                    <span class="fish">${trip.status} ${trip.reasons.slice(0,2).join(', ')}</span>
+                    <span>${new Date(trip.date).toLocaleDateString('kn-IN')}</span>
+                </div>
+            `).join('');
+
+            // Stats
+            const goCount = trips.filter(t => t.status === 'GO').length;
+            const cautionCount = trips.filter(t => t.status === 'CAUTION').length;
+            const dontGoCount = trips.filter(t => t.status === "DON'T GO").length;
+            
+            historyStats.innerHTML = `
+                <div class="stat"><span class="value">${goCount}</span>GO</div>
+                <div class="stat"><span class="value">${cautionCount}</span>CAUTION</div>
+                <div class="stat"><span class="value">${dontGoCount}</span>DON'T GO</div>
+            `;
+        }
+
+        // ============================================
+        // 7. CATCH LOGGING
+        // ============================================
+        function processCatchInput(text) {
+            const match = text.match(/(\d+)\s*(ಕೆಜಿ|kg|kilo)?\s*(.+)/i);
+            if (match) {
+                const quantity = match[1];
+                const fish = match[3] || 'ಮೀನು';
+                const profit = Math.round(quantity * 200);
+                
+                catchResult.innerHTML = `
+                    ✅ ದಾಖಲಿಸಲಾಗಿದೆ!<br>
+                    ${quantity} ಕೆಜಿ ${fish}<br>
+                    ಅಂದಾಜು ₹${profit}
+                `;
+                catchResult.classList.add('visible');
+                
+                // Save catch
+                const catches = JSON.parse(localStorage.getItem('catches') || '[]');
+                catches.unshift({ fish, quantity, profit, date: new Date().toISOString() });
+                localStorage.setItem('catches', JSON.stringify(catches));
+                
+                setTimeout(() => {
+                    catchModal.classList.remove('visible');
+                    catchResult.classList.remove('visible');
+                }, 3000);
+            } else {
+                catchResult.innerHTML = '❌ ದಯವಿಟ್ಟು "20 ಕೆಜಿ ಬಂಗಡೆ" ಎಂದು ಹೇಳಿ';
+                catchResult.classList.add('visible');
+                catchResult.style.borderColor = '#f44336';
+                catchResult.style.background = 'rgba(244,67,54,0.15)';
+            }
+        }
+
+        // ============================================
+        // 8. SOS
+        // ============================================
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(pos) {
+                        const lat = pos.coords.latitude;
+                        const lng = pos.coords.longitude;
+                        sosLocation.innerHTML = `
+                            📍 Location: ${lat}, ${lng}<br>
+                            <a href="https://maps.google.com/?q=${lat},${lng}" target="_blank" style="color:#4FC3F7;">
+                                Open in Maps
+                            </a>
+                        `;
+                    },
+                    function() {
+                        sosLocation.textContent = '❌ Could not get location. Call 108 immediately!';
+                    }
+                );
+            } else {
+                sosLocation.textContent = '❌ Location not supported. Call 108 immediately!';
+            }
+        }
+
+        // ============================================
+        // 9. EVENT LISTENERS
+        // ============================================
+        historyBtn.addEventListener('click', function() {
+            historyContainer.classList.toggle('visible');
+            if (historyContainer.classList.contains('visible')) {
+                loadHistory();
+            }
+        });
+
+        marketBtn.addEventListener('click', function() {
+            marketContainer.classList.toggle('visible');
+            if (marketContainer.classList.contains('visible')) {
+                loadMarketPrices();
+            }
+        });
+
+        catchBtn.addEventListener('click', function() {
+            catchModal.classList.add('visible');
+            catchResult.classList.remove('visible');
+        });
+
+        closeModalBtn.addEventListener('click', function() {
+            catchModal.classList.remove('visible');
+        });
+
+        catchMicBtn.addEventListener('click', function() {
+            if (catchRecognition) {
+                catchRecognition.start();
+            }
+        });
+
+        sosBtn.addEventListener('click', function() {
+            sosModal.classList.add('visible');
+            getLocation();
+        });
+
+        closeSosBtn.addEventListener('click', function() {
+            sosModal.classList.remove('visible');
+        });
+
+        sosCallBtn.addEventListener('click', function() {
+            window.location.href = 'tel:108';
+        });
+
+        // Close modals on outside click
+        catchModal.addEventListener('click', function(e) {
+            if (e.target === this) this.classList.remove('visible');
+        });
+
+        sosModal.addEventListener('click', function(e) {
+            if (e.target === this) this.classList.remove('visible');
+        });
+
+        // ============================================
+        // 10. MARKET PRICES
+        // ============================================
+        async function loadMarketPrices() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/market-prices`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    marketList.innerHTML = data.prices.map(p => `
+                        <div class="market-item">
+                            <span>🐟 ${p.fish}</span>
+                            <span class="price">₹${p.price}/kg</span>
+                        </div>
+                    `).join('');
+                } else {
+                    // Fallback mock data
+                    const mockPrices = [
+                        { fish: 'Mackerel', price: 200 },
+                        { fish: 'Sardine', price: 150 },
+                        { fish: 'Bangda', price: 220 },
+                        { fish: 'Pomfret', price: 400 },
+                        { fish: 'Tuna', price: 350 }
+                    ];
+                    marketList.innerHTML = mockPrices.map(p => `
+                        <div class="market-item">
+                            <span>🐟 ${p.fish}</span>
+                            <span class="price">₹${p.price}/kg</span>
+                        </div>
+                    `).join('');
+                }
+            } catch (error) {
+                // Fallback mock data
+                const mockPrices = [
+                    { fish: 'Mackerel', price: 200 },
+                    { fish: 'Sardine', price: 150 },
+                    { fish: 'Bangda', price: 220 },
+                    { fish: 'Pomfret', price: 400 },
+                    { fish: 'Tuna', price: 350 }
+                ];
+                marketList.innerHTML = mockPrices.map(p => `
+                    <div class="market-item">
+                        <span>🐟 ${p.fish}</span>
+                        <span class="price">₹${p.price}/kg</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // ============================================
+        // 11. CHECK BACKEND CONNECTION
+        // ============================================
+        async function checkBackend() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/health`);
+                if (response.ok) {
+                    connectionDot.className = 'status-dot online';
+                    connectionText.textContent = 'Connected';
+                } else {
+                    throw new Error('Backend error');
+                }
+            } catch (error) {
+                connectionDot.className = 'status-dot offline';
+                connectionText.textContent = 'Offline (using cache)';
+            }
+        }
+
+        // ============================================
+        // 12. INIT
+        // ============================================
+        initSpeech();
+        checkBackend();
+        setInterval(checkBackend, 30000); // Check every 30s
+
+        console.log('🐟 Fisherman-AI loaded!');
+        console.log('📱 Ready to help fishermen!');
+    </script>
+</body>
+</html>
