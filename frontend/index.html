@@ -13,7 +13,7 @@
         }
 
         body {
-            font-family: -apple-system, 'Segoe UI', sans-serif;
+            font-family: -apple-system, 'Segoe UI', 'Noto Sans Kannada', sans-serif;
             background: linear-gradient(180deg, #0a2a4a 0%, #1a5a7a 100%);
             min-height: 100vh;
             color: white;
@@ -38,12 +38,12 @@
         /* ===== HEADER ===== */
         header {
             text-align: center;
-            padding-bottom: 20px;
+            padding-bottom: 16px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         header h1 {
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 800;
             background: linear-gradient(135deg, #00b4d8, #0077b6);
             -webkit-background-clip: text;
@@ -54,7 +54,7 @@
         .subtitle {
             font-size: 14px;
             opacity: 0.7;
-            margin-top: 4px;
+            margin-top: 2px;
         }
 
         .status-dot {
@@ -67,14 +67,15 @@
 
         .status-dot.online {
             background: #4CAF50;
-            animation: pulse 2s infinite;
+            animation: pulse-dot 2s infinite;
         }
 
         .status-dot.offline {
             background: #f44336;
+            animation: none;
         }
 
-        @keyframes pulse {
+        @keyframes pulse-dot {
             0% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.5; transform: scale(0.8); }
             100% { opacity: 1; transform: scale(1); }
@@ -83,10 +84,10 @@
         /* ===== VOICE SECTION ===== */
         .voice-section {
             text-align: center;
-            padding: 30px 0;
+            padding: 25px 0 15px;
         }
 
-        .mic-button {
+        .mic-btn {
             width: 160px;
             height: 160px;
             border-radius: 50%;
@@ -102,20 +103,19 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto;
-            position: relative;
             touch-action: none;
         }
 
-        .mic-button:active {
+        .mic-btn:active {
             transform: scale(0.92);
         }
 
-        .mic-button.recording {
+        .mic-btn.recording {
             background: linear-gradient(135deg, #f44336, #c62828);
             animation: pulse-ring 1s infinite;
         }
 
-        .mic-button:disabled {
+        .mic-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
@@ -137,7 +137,7 @@
         }
 
         .status-text {
-            margin-top: 16px;
+            margin-top: 12px;
             font-size: 14px;
             opacity: 0.8;
             min-height: 24px;
@@ -151,11 +151,12 @@
             padding: 12px;
             border-radius: 12px;
             min-height: 40px;
+            word-wrap: break-word;
         }
 
         /* ===== RESULT CARD ===== */
         .result-container {
-            margin-top: 20px;
+            margin-top: 16px;
             display: none;
         }
 
@@ -192,20 +193,20 @@
         }
 
         #decisionStatus {
-            font-size: 32px;
+            font-size: 30px;
             font-weight: 800;
             text-align: center;
         }
 
-        .score {
+        .score-text {
             text-align: center;
-            font-size: 14px;
+            font-size: 13px;
             opacity: 0.6;
             margin: 4px 0;
         }
 
         #decisionReasons {
-            margin-top: 12px;
+            margin-top: 10px;
         }
 
         #decisionReasons ul {
@@ -214,32 +215,32 @@
         }
 
         #decisionReasons li {
-            padding: 8px 12px;
-            margin: 4px 0;
+            padding: 6px 12px;
+            margin: 3px 0;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 8px;
-            font-size: 15px;
+            font-size: 14px;
         }
 
         #decisionDetails {
-            margin-top: 12px;
-            padding: 12px;
+            margin-top: 10px;
+            padding: 10px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
-            font-size: 14px;
+            font-size: 13px;
             line-height: 1.8;
         }
 
         /* ===== QUICK ACTIONS ===== */
-        .quick-actions {
+        .actions {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 10px;
-            margin-top: 24px;
+            margin-top: 20px;
         }
 
-        .action-btn {
-            padding: 14px 8px;
+        .actions button {
+            padding: 12px 8px;
             border: none;
             border-radius: 14px;
             font-size: 13px;
@@ -251,111 +252,40 @@
             text-align: center;
         }
 
-        .action-btn:active {
+        .actions button:active {
             transform: scale(0.95);
         }
 
-        .action-btn .icon {
-            font-size: 24px;
+        .actions button .icon {
+            font-size: 22px;
             display: block;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
 
-        #sosBtn {
-            background: rgba(244, 67, 54, 0.3);
-            border: 1px solid rgba(244, 67, 54, 0.3);
-        }
+        #sosBtn { background: rgba(244, 67, 54, 0.3); border: 1px solid rgba(244, 67, 54, 0.3); }
+        #historyBtn { background: rgba(33, 150, 243, 0.2); border: 1px solid rgba(33, 150, 243, 0.2); }
+        #catchBtn { background: rgba(76, 175, 80, 0.2); border: 1px solid rgba(76, 175, 80, 0.2); }
+        #marketBtn { background: rgba(255, 193, 7, 0.2); border: 1px solid rgba(255, 193, 7, 0.2); }
 
-        #historyBtn {
-            background: rgba(33, 150, 243, 0.2);
-            border: 1px solid rgba(33, 150, 243, 0.2);
-        }
-
-        #catchBtn {
-            background: rgba(76, 175, 80, 0.2);
-            border: 1px solid rgba(76, 175, 80, 0.2);
-        }
-
-        #marketBtn {
-            background: rgba(255, 193, 7, 0.2);
-            border: 1px solid rgba(255, 193, 7, 0.2);
-        }
-
-        /* ===== HISTORY ===== */
-        .history-container {
-            margin-top: 20px;
+        /* ===== CONTAINERS ===== */
+        .container-box {
+            margin-top: 16px;
             padding: 16px;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 14px;
             display: none;
         }
 
-        .history-container.visible {
+        .container-box.visible {
             display: block;
         }
 
-        .history-container h3 {
-            margin-bottom: 12px;
-        }
-
-        .history-item {
-            padding: 10px 14px;
-            margin: 6px 0;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .history-item .fish {
-            font-weight: 600;
-        }
-
-        .history-item .profit {
-            color: #4CAF50;
-        }
-
-        .history-item .profit.negative {
-            color: #f44336;
-        }
-
-        .history-stats {
-            margin-top: 12px;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            text-align: center;
-        }
-
-        .history-stats .stat {
-            font-size: 12px;
-            opacity: 0.7;
-        }
-
-        .history-stats .stat .value {
+        .container-box h3 {
+            margin-bottom: 10px;
             font-size: 18px;
-            font-weight: 700;
-            opacity: 1;
-            display: block;
         }
 
-        /* ===== MARKET ===== */
-        .market-container {
-            margin-top: 20px;
-            padding: 16px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 14px;
-            display: none;
-        }
-
-        .market-container.visible {
-            display: block;
-        }
-
-        .market-item {
+        .item-row {
             padding: 10px 14px;
             margin: 4px 0;
             background: rgba(255, 255, 255, 0.05);
@@ -365,9 +295,31 @@
             align-items: center;
         }
 
-        .market-item .price {
+        .item-row .price {
             font-weight: 700;
             color: #FFC107;
+        }
+
+        .item-row .profit {
+            color: #4CAF50;
+        }
+
+        .item-row .profit.negative {
+            color: #f44336;
+        }
+
+        /* ===== STATS ===== */
+        .stats-row {
+            display: flex;
+            gap: 16px;
+            margin-top: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .stats-row span {
+            font-size: 13px;
+            opacity: 0.8;
         }
 
         /* ===== MODAL ===== */
@@ -391,7 +343,7 @@
 
         .modal-content {
             background: #0a2a4a;
-            padding: 30px;
+            padding: 28px;
             border-radius: 24px;
             max-width: 400px;
             width: 90%;
@@ -401,7 +353,7 @@
         }
 
         .modal-content h3 {
-            font-size: 24px;
+            font-size: 22px;
             margin-bottom: 8px;
         }
 
@@ -417,12 +369,12 @@
 
         .close-btn {
             position: absolute;
-            top: 12px;
-            right: 16px;
+            top: 10px;
+            right: 14px;
             background: none;
             border: none;
             color: white;
-            font-size: 28px;
+            font-size: 26px;
             cursor: pointer;
             opacity: 0.6;
         }
@@ -431,19 +383,19 @@
             opacity: 1;
         }
 
-        .mic-button.small {
+        .mic-btn.small {
             width: 80px;
             height: 80px;
             font-size: 14px;
-            margin: 16px auto;
+            margin: 12px auto;
         }
 
-        .mic-button.small #micIcon {
+        .mic-btn.small #micIcon {
             font-size: 28px;
         }
 
         .catch-result {
-            margin-top: 12px;
+            margin-top: 10px;
             padding: 12px;
             background: rgba(76, 175, 80, 0.15);
             border-radius: 10px;
@@ -455,639 +407,649 @@
             display: block;
         }
 
+        /* ===== FISH UPLOAD ===== */
+        .fish-upload-area {
+            margin-top: 16px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+        }
+
+        .fish-upload-area h4 {
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .upload-btn {
+            padding: 12px 24px;
+            background: #0077b6;
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .upload-btn:hover {
+            background: #00b4d8;
+        }
+
+        .fish-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            margin-top: 8px;
+            font-size: 13px;
+        }
+
+        .fish-grid span {
+            padding: 4px 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+        }
+
         /* ===== FOOTER ===== */
         footer {
-            margin-top: 24px;
-            padding-top: 16px;
+            margin-top: 20px;
+            padding-top: 14px;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             text-align: center;
             font-size: 12px;
             opacity: 0.5;
         }
 
-        /* ===== LOADING ===== */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 0.8s ease infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .tagline {
+            font-style: italic;
+            margin-top: 2px;
         }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 420px) {
             #app { padding: 16px; }
-            .mic-button { width: 130px; height: 130px; }
+            .mic-btn { width: 130px; height: 130px; }
             #micIcon { font-size: 40px; }
-            .quick-actions { grid-template-columns: repeat(2, 1fr); }
+            .actions { grid-template-columns: repeat(2, 1fr); }
             header h1 { font-size: 22px; }
+            .fish-grid { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
 <body>
-    <div id="app">
-        <!-- Header -->
-        <header>
-            <h1>🐟 Fisherman-AI</h1>
-            <p class="subtitle">ನಿಮ್ಮ ಕಡಲ ಸಹಾಯಕ</p>
-            <p style="font-size:12px; margin-top:4px; opacity:0.5;">
-                <span class="status-dot online" id="connectionDot"></span>
-                <span id="connectionText">Connected</span>
-            </p>
-        </header>
 
-        <!-- Main -->
-        <main>
-            <!-- Voice Input -->
-            <div class="voice-section">
-                <button id="micBtn" class="mic-button">
-                    <span id="micIcon">🎤</span>
-                    <span id="micText">ಒತ್ತಿ ಮಾತನಾಡಿ</span>
-                </button>
-                <p class="status-text" id="statusText">Ready</p>
-                <div class="transcript" id="transcriptText"></div>
-            </div>
+<div id="app">
 
-            <!-- Result -->
-            <div class="result-container" id="resultContainer">
-                <div class="decision-card" id="decisionCard">
-                    <h2 id="decisionStatus">🟢 GO</h2>
-                    <div class="score" id="decisionScore"></div>
-                    <div id="decisionReasons"></div>
-                    <div id="decisionDetails"></div>
-                </div>
-            </div>
+    <!-- ===== HEADER ===== -->
+    <header>
+        <h1>🐟 Fisherman-AI</h1>
+        <p class="subtitle">ನಿಮ್ಮ ಕಡಲ ಸಹಾಯಕ</p>
+        <p style="font-size:12px; margin-top:4px; opacity:0.6;">
+            <span class="status-dot online" id="connectionDot"></span>
+            <span id="connectionText">Connected</span>
+        </p>
+    </header>
 
-            <!-- Quick Actions -->
-            <div class="quick-actions">
-                <button class="action-btn" id="sosBtn">
-                    <span class="icon">🆘</span>
-                    SOS
-                </button>
-                <button class="action-btn" id="historyBtn">
-                    <span class="icon">📋</span>
-                    ಇತಿಹಾಸ
-                </button>
-                <button class="action-btn" id="catchBtn">
-                    <span class="icon">🎣</span>
-                    ದಾಖಲಿಸಿ
-                </button>
-                <button class="action-btn" id="marketBtn">
-                    <span class="icon">📊</span>
-                    ಮಾರುಕಟ್ಟೆ
-                </button>
-            </div>
-
-            <!-- History -->
-            <div class="history-container" id="historyContainer">
-                <h3>📋 ನಿಮ್ಮ ಟ್ರಿಪ್ ಇತಿಹಾಸ</h3>
-                <div id="historyList"></div>
-                <div class="history-stats" id="historyStats"></div>
-            </div>
-
-            <!-- Market -->
-            <div class="market-container" id="marketContainer">
-                <h3>📊 ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳು</h3>
-                <div id="marketList"></div>
-            </div>
-        </main>
-
-        <!-- Catch Modal -->
-        <div class="modal" id="catchModal">
-            <div class="modal-content">
-                <button class="close-btn" id="closeModalBtn">✕</button>
-                <h3>🎣 ಮೀನು ದಾಖಲಿಸಿ</h3>
-                <p>ಮೀನಿನ ಹೆಸರು ಮತ್ತು ತೂಕ ಹೇಳಿ</p>
-                <p><small>ಉದಾ: "20 ಕೆಜಿ ಬಂಗಡೆ, 10 ಕೆಜಿ ಸಾರ್ಡಿನ್"</small></p>
-                <button class="mic-button small" id="catchMicBtn">
-                    <span id="catchMicIcon">🎤</span>
-                    <span id="catchMicText">ದಾಖಲಿಸಿ</span>
-                </button>
-                <div class="catch-result" id="catchResult"></div>
-            </div>
-        </div>
-
-        <!-- SOS Modal -->
-        <div class="modal" id="sosModal">
-            <div class="modal-content" style="border-color:#f44336;">
-                <button class="close-btn" id="closeSosBtn">✕</button>
-                <h3 style="color:#f44336;">🆘 SOS EMERGENCY</h3>
-                <p id="sosLocation">Getting your location...</p>
-                <p style="margin-top:12px; font-size:14px;">
-                    📞 Call <strong>108</strong> for emergency services
-                </p>
-                <button id="sosCallBtn" style="
-                    margin-top:16px;
-                    padding:14px 32px;
-                    background:#f44336;
-                    border:none;
-                    border-radius:12px;
-                    color:white;
-                    font-size:18px;
-                    font-weight:700;
-                    cursor:pointer;
-                ">📞 CALL 108</button>
-            </div>
-        </div>
-
-        <footer>
-            <p>📴 Works offline too</p>
-            <p class="tagline" style="font-style:italic;">"Asking is easier than typing"</p>
-        </footer>
+    <!-- ===== VOICE SECTION ===== -->
+    <div class="voice-section">
+        <button class="mic-btn" id="micBtn">
+            <span id="micIcon">🎤</span>
+            <span id="micText">ಒತ್ತಿ ಮಾತನಾಡಿ</span>
+        </button>
+        <div class="status-text" id="statusText">Ready</div>
+        <div class="transcript" id="transcriptText"></div>
     </div>
 
-    <script>
-        // ============================================
-        // CONFIGURATION
-        // ============================================
-        const BACKEND_URL = 'http://127.0.0.1:5000';
+    <!-- ===== RESULT ===== -->
+    <div class="result-container" id="resultContainer">
+        <div class="decision-card" id="decisionCard">
+            <h2 id="decisionStatus">🟢 GO</h2>
+            <div class="score-text" id="decisionScore"></div>
+            <div id="decisionReasons"></div>
+            <div id="decisionDetails"></div>
+        </div>
+    </div>
 
-        // ============================================
-        // DOM ELEMENTS
-        // ============================================
-        const micBtn = document.getElementById('micBtn');
-        const micIcon = document.getElementById('micIcon');
-        const micText = document.getElementById('micText');
-        const statusText = document.getElementById('statusText');
-        const transcriptText = document.getElementById('transcriptText');
-        const resultContainer = document.getElementById('resultContainer');
-        const decisionCard = document.getElementById('decisionCard');
-        const decisionStatus = document.getElementById('decisionStatus');
-        const decisionScore = document.getElementById('decisionScore');
-        const decisionReasons = document.getElementById('decisionReasons');
-        const decisionDetails = document.getElementById('decisionDetails');
-        const sosBtn = document.getElementById('sosBtn');
-        const historyBtn = document.getElementById('historyBtn');
-        const catchBtn = document.getElementById('catchBtn');
-        const marketBtn = document.getElementById('marketBtn');
-        const historyContainer = document.getElementById('historyContainer');
-        const historyList = document.getElementById('historyList');
-        const historyStats = document.getElementById('historyStats');
-        const marketContainer = document.getElementById('marketContainer');
-        const marketList = document.getElementById('marketList');
-        const catchModal = document.getElementById('catchModal');
-        const catchMicBtn = document.getElementById('catchMicBtn');
-        const catchMicIcon = document.getElementById('catchMicIcon');
-        const catchMicText = document.getElementById('catchMicText');
-        const catchResult = document.getElementById('catchResult');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-        const sosModal = document.getElementById('sosModal');
-        const closeSosBtn = document.getElementById('closeSosBtn');
-        const sosLocation = document.getElementById('sosLocation');
-        const sosCallBtn = document.getElementById('sosCallBtn');
-        const connectionDot = document.getElementById('connectionDot');
-        const connectionText = document.getElementById('connectionText');
+    <!-- ===== QUICK ACTIONS ===== -->
+    <div class="actions">
+        <button id="sosBtn"><span class="icon">🆘</span>SOS</button>
+        <button id="historyBtn"><span class="icon">📋</span>History</button>
+        <button id="catchBtn"><span class="icon">🎣</span>Catch</button>
+        <button id="marketBtn"><span class="icon">📊</span>Market</button>
+    </div>
 
-        // ============================================
-        // STATE
-        // ============================================
-        let isRecording = false;
-        let recognition = null;
-        let catchRecognition = null;
-        let trips = JSON.parse(localStorage.getItem('trips') || '[]');
+    <!-- ===== MARKET CONTAINER ===== -->
+    <div class="container-box" id="marketContainer">
+        <h3>📊 ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳು</h3>
+        <div id="marketList"></div>
+        <p style="font-size:11px; opacity:0.5; margin-top:8px;">Prices updated daily</p>
+    </div>
 
-        // ============================================
-        // 1. SPEECH RECOGNITION
-        // ============================================
-        function initSpeech() {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            
-            if (!SpeechRecognition) {
-                statusText.textContent = '❌ Voice not supported in this browser';
-                micBtn.disabled = true;
-                return;
-            }
-            recognition = new SpeechRecognition();
-            recognition.lang = 'kn-IN';
-            recognition.continuous = false;
-            recognition.interimResults = true;
+    <!-- ===== HISTORY CONTAINER ===== -->
+    <div class="container-box" id="historyContainer">
+        <h3>📋 ನಿಮ್ಮ ಟ್ರಿಪ್ ಇತಿಹಾಸ</h3>
+        <div id="historyList"></div>
+        <div class="stats-row" id="historyStats"></div>
+    </div>
 
-            recognition.onstart = function() {
-                isRecording = true;
-                micBtn.classList.add('recording');
-                micIcon.textContent = '🔴';
-                micText.textContent = 'ಆಲಿಸುತ್ತಿದೆ...';
-                statusText.textContent = '🎙️ ಮಾತನಾಡಿ...';
-                transcriptText.textContent = '';
-            };
+    <!-- ===== FISH UPLOAD ===== -->
+    <div class="fish-upload-area">
+        <h4>🐟 Identify Fish</h4>
+        <input type="file" id="fishImage" accept="image/*" style="display:none;">
+        <button class="upload-btn" onclick="document.getElementById('fishImage').click()">
+            📸 Upload Fish Photo
+        </button>
+        <div id="fishResult" style="margin-top:10px;"></div>
+        <div class="fish-grid" id="commonFish">
+            <span>🐟 ಬಂಗಡೆ (Mackerel)</span>
+            <span>🐟 ಸಾರ್ಡಿನ್ (Sardine)</span>
+            <span>🐟 ರಾವ (Pomfret)</span>
+            <span>🐟 ತುನಾ (Tuna)</span>
+            <span>🐟 ಸೀರ್ (Seer)</span>
+            <span>🐟 ಸೀಗಡಿ (Prawn)</span>
+        </div>
+    </div>
 
-            recognition.onresult = function(event) {
-                let final = '';
-                let interim = '';
-                
-                for (let i = event.resultIndex; i < event.results.length; i++) {
-                    if (event.results[i].isFinal) {
-                        final += event.results[i][0].transcript;
-                    } else {
-                        interim += event.results[i][0].transcript;
-                    }
-                }
-                
-                transcriptText.textContent = interim || final;
-                
-                if (final) {
-                    statusText.textContent = '📝 Processing...';
-                    processVoiceInput(final);
-                }
-            };
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <p>📴 Works offline too</p>
+        <p class="tagline">"Asking is easier than typing"</p>
+    </footer>
 
-            recognition.onerror = function(event) {
-                console.error('Speech error:', event.error);
-                statusText.textContent = '❌ Please try again';
-                stopRecording();
-            };
+</div>
 
-            recognition.onend = function() {
-                stopRecording();
-            };
+<!-- ===== CATCH MODAL ===== -->
+<div class="modal" id="catchModal">
+    <div class="modal-content">
+        <button class="close-btn" id="closeCatchModal">✕</button>
+        <h3>🎣 ಮೀನು ದಾಖಲಿಸಿ</h3>
+        <p>ಮೀನಿನ ಹೆಸರು ಮತ್ತು ತೂಕ ಹೇಳಿ</p>
+        <p><small>ಉದಾ: "20 ಕೆಜಿ ಬಂಗಡೆ"</small></p>
+        <button class="mic-btn small" id="catchMicBtn">
+            <span id="catchMicIcon">🎤</span>
+            <span id="catchMicText">ದಾಖಲಿಸಿ</span>
+        </button>
+        <div class="catch-result" id="catchResult"></div>
+    </div>
+</div>
 
-            // Catch speech
-            catchRecognition = new SpeechRecognition();
-            catchRecognition.lang = 'kn-IN';
-            catchRecognition.continuous = false;
-            catchRecognition.interimResults = false;
+<!-- ===== SOS MODAL ===== -->
+<div class="modal" id="sosModal">
+    <div class="modal-content" style="border-color:#f44336;">
+        <button class="close-btn" id="closeSosModal">✕</button>
+        <h3 style="color:#f44336;">🆘 SOS EMERGENCY</h3>
+        <p id="sosLocation">Getting your location...</p>
+        <p style="margin-top:12px; font-size:14px;">
+            📞 Call <strong>108</strong> for emergency services
+        </p>
+        <button onclick="window.location.href='tel:108'" style="
+            margin-top:16px;
+            padding:14px 32px;
+            background:#f44336;
+            border:none;
+            border-radius:12px;
+            color:white;
+            font-size:18px;
+            font-weight:700;
+            cursor:pointer;
+        ">📞 CALL 108</button>
+    </div>
+</div>
 
-            catchRecognition.onstart = function() {
-                catchMicIcon.textContent = '🔴';
-                catchMicText.textContent = 'ಆಲಿಸುತ್ತಿದೆ...';
-            };
+<!-- ============================================ -->
+<!-- ===== JAVASCRIPT ===== -->
+<!-- ============================================ -->
+<script>
+    // ============================================
+    // CONFIG
+    // ============================================
+    const BACKEND_URL = 'http://127.0.0.1:5000';
 
-            catchRecognition.onresult = function(event) {
-                const text = event.results[0][0].transcript;
-                processCatchInput(text);
-            };
+    // ============================================
+    // DOM REFS
+    // ============================================
+    const micBtn = document.getElementById('micBtn');
+    const micIcon = document.getElementById('micIcon');
+    const micText = document.getElementById('micText');
+    const statusText = document.getElementById('statusText');
+    const transcriptText = document.getElementById('transcriptText');
+    const resultContainer = document.getElementById('resultContainer');
+    const decisionCard = document.getElementById('decisionCard');
+    const decisionStatus = document.getElementById('decisionStatus');
+    const decisionScore = document.getElementById('decisionScore');
+    const decisionReasons = document.getElementById('decisionReasons');
+    const decisionDetails = document.getElementById('decisionDetails');
+    const connectionDot = document.getElementById('connectionDot');
+    const connectionText = document.getElementById('connectionText');
 
-            catchRecognition.onend = function() {
-                catchMicIcon.textContent = '🎤';
-                catchMicText.textContent = 'ದಾಖಲಿಸಿ';
-            };
+    const sosBtn = document.getElementById('sosBtn');
+    const historyBtn = document.getElementById('historyBtn');
+    const catchBtn = document.getElementById('catchBtn');
+    const marketBtn = document.getElementById('marketBtn');
 
-            catchRecognition.onerror = function() {
-                catchMicIcon.textContent = '🎤';
-                catchMicText.textContent = 'ದಾಖಲಿಸಿ';
-            };
+    const marketContainer = document.getElementById('marketContainer');
+    const marketList = document.getElementById('marketList');
+    const historyContainer = document.getElementById('historyContainer');
+    const historyList = document.getElementById('historyList');
+    const historyStats = document.getElementById('historyStats');
 
-            console.log('✅ Speech recognition ready!');
+    const catchModal = document.getElementById('catchModal');
+    const catchMicBtn = document.getElementById('catchMicBtn');
+    const catchMicIcon = document.getElementById('catchMicIcon');
+    const catchMicText = document.getElementById('catchMicText');
+    const catchResult = document.getElementById('catchResult');
+    const closeCatchModal = document.getElementById('closeCatchModal');
+
+    const sosModal = document.getElementById('sosModal');
+    const sosLocation = document.getElementById('sosLocation');
+    const closeSosModal = document.getElementById('closeSosModal');
+
+    const fishImage = document.getElementById('fishImage');
+    const fishResult = document.getElementById('fishResult');
+
+    // ============================================
+    // STATE
+    // ============================================
+    let isRecording = false;
+    let recognition = null;
+    let catchRecognition = null;
+
+    // ============================================
+    // 1. SPEECH RECOGNITION
+    // ============================================
+    function initSpeech() {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            statusText.textContent = '❌ Voice not supported in this browser';
+            micBtn.disabled = true;
+            return;
         }
 
-        function stopRecording() {
-            isRecording = false;
-            micBtn.classList.remove('recording');
-            micIcon.textContent = '🎤';
-            micText.textContent = 'ಒತ್ತಿ ಮಾತನಾಡಿ';
-            if (statusText.textContent.includes('ಆಲಿಸುತ್ತಿದೆ')) {
-                statusText.textContent = '⏹️ Ready';
-            }
-        }
+        recognition = new SpeechRecognition();
+        recognition.lang = 'kn-IN';
+        recognition.continuous = false;
+        recognition.interimResults = true;
 
-        // ============================================
-        // 2. MIC BUTTON EVENTS
-        // ============================================
-        micBtn.addEventListener('mousedown', function(e) {
-            e.preventDefault();
-            if (recognition && !isRecording) {
-                recognition.start();
-            }
-        });
+        recognition.onstart = function() {
+            isRecording = true;
+            micBtn.classList.add('recording');
+            micIcon.textContent = '🔴';
+            micText.textContent = 'ಆಲಿಸುತ್ತಿದೆ...';
+            statusText.textContent = '🎙️ ಮಾತನಾಡಿ...';
+            transcriptText.textContent = '';
+        };
 
-        micBtn.addEventListener('mouseup', function(e) {
-            e.preventDefault();
-            if (recognition && isRecording) {
-                recognition.stop();
-            }
-        });
-
-        micBtn.addEventListener('touchstart', function(e) {
-            e.preventDefault();
-            if (recognition && !isRecording) {
-                recognition.start();
-            }
-        });
-
-        micBtn.addEventListener('touchend', function(e) {
-            e.preventDefault();
-            if (recognition && isRecording) {
-                recognition.stop();
-            }
-        });
-
-        // ============================================
-        // 3. PROCESS VOICE INPUT
-        // ============================================
-        async function processVoiceInput(text) {
-            try {
-                statusText.textContent = '⏳ Thinking...';
-                
-                const response = await fetch(`${BACKEND_URL}/api/decision`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ text: text })
-                });
-
-                const data = await response.json();
-                
-                if (data.success) {
-                    displayDecision(data.decision);
-                    speakResponse(data.decision.voice_text || 'Decision ready');
-                } else {
-                    statusText.textContent = '❌ Error: ' + data.error;
+        recognition.onresult = function(event) {
+            let final = '';
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                if (event.results[i].isFinal) {
+                    final += event.results[i][0].transcript;
                 }
-            } catch (error) {
-                console.error('Error:', error);
-                statusText.textContent = '❌ Backend not reachable. Check if Flask is running.';
             }
+            if (final) {
+                transcriptText.textContent = '📝 "' + final + '"';
+                statusText.textContent = '⏳ Processing...';
+                sendToBackend(final);
+            }
+        };
+
+        recognition.onerror = function() {
+            statusText.textContent = '❌ Please try again';
+            stopRecording();
+        };
+
+        recognition.onend = function() {
+            stopRecording();
+        };
+
+        // Catch speech
+        catchRecognition = new SpeechRecognition();
+        catchRecognition.lang = 'kn-IN';
+        catchRecognition.continuous = false;
+        catchRecognition.interimResults = false;
+
+        catchRecognition.onstart = function() {
+            catchMicIcon.textContent = '🔴';
+            catchMicText.textContent = 'ಆಲಿಸುತ್ತಿದೆ...';
+        };
+
+        catchRecognition.onresult = function(event) {
+            const text = event.results[0][0].transcript;
+            processCatch(text);
+        };
+
+        catchRecognition.onend = function() {
+            catchMicIcon.textContent = '🎤';
+            catchMicText.textContent = 'ದಾಖಲಿಸಿ';
+        };
+
+        console.log('✅ Speech ready');
+    }
+
+    function stopRecording() {
+        isRecording = false;
+        micBtn.classList.remove('recording');
+        micIcon.textContent = '🎤';
+        micText.textContent = 'ಒತ್ತಿ ಮಾತನಾಡಿ';
+        if (statusText.textContent.includes('ಆಲಿಸುತ್ತಿದೆ')) {
+            statusText.textContent = 'Ready';
         }
+    }
 
-        // ============================================
-        // 4. DISPLAY DECISION
-        // ============================================
-        function displayDecision(decision) {
-            resultContainer.classList.add('visible');
-            
-            const status = decision.status || 'UNKNOWN';
-            const emoji = status === 'GO' ? '🟢' : status === 'CAUTION' ? '🟡' : '🔴';
-            decisionStatus.textContent = `${emoji} ${status}`;
-            
-            decisionCard.className = 'decision-card';
-            if (status === 'GO') decisionCard.classList.add('go');
-            else if (status === 'CAUTION') decisionCard.classList.add('caution');
-            else if (status === "DON'T GO") decisionCard.classList.add('dontgo');
+    // ============================================
+    // 2. MIC EVENTS
+    // ============================================
+    micBtn.addEventListener('mousedown', function(e) {
+        e.preventDefault();
+        if (recognition && !isRecording) recognition.start();
+    });
+    micBtn.addEventListener('mouseup', function(e) {
+        e.preventDefault();
+        if (recognition && isRecording) recognition.stop();
+    });
+    micBtn.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        if (recognition && !isRecording) recognition.start();
+    });
+    micBtn.addEventListener('touchend', function(e) {
+        e.preventDefault();
+        if (recognition && isRecording) recognition.stop();
+    });
 
-            decisionScore.textContent = `Score: ${decision.score || 0}/100`;
+    // ============================================
+    // 3. SEND TO BACKEND
+    // ============================================
+    async function sendToBackend(text) {
+        try {
+            const response = await fetch(BACKEND_URL + '/api/decision', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: text })
+            });
+            const data = await response.json();
 
-            if (decision.reasons && decision.reasons.length) {
-                decisionReasons.innerHTML = `<ul>${decision.reasons.map(r => `<li>${r}</li>`).join('')}</ul>`;
+            if (data.success) {
+                showResult(data.decision);
+                speakResponse(data.decision.voice_text || 'Decision ready');
+                statusText.textContent = '✅ Done!';
+                saveToHistory(data.decision);
             } else {
-                decisionReasons.innerHTML = '';
+                statusText.textContent = '❌ Error: ' + (data.error || 'Unknown');
             }
+        } catch (error) {
+            statusText.textContent = '❌ Backend not reachable. Check Flask.';
+            console.error(error);
+            checkBackend();
+        }
+    }
 
-            if (decision.details) {
-                let detailsHtml = '';
-                if (decision.details.fuel_cost) detailsHtml += `⛽ Fuel: ₹${decision.details.fuel_cost}<br>`;
-                if (decision.details.profit) detailsHtml += `💰 Profit: ₹${decision.details.profit}<br>`;
-                if (decision.details.temp) detailsHtml += `🌡️ Temp: ${decision.details.temp}°C<br>`;
-                if (decision.details.wind) detailsHtml += `💨 Wind: ${decision.details.wind} km/h<br>`;
-                decisionDetails.innerHTML = detailsHtml || 'No additional details';
-            } else {
-                decisionDetails.innerHTML = '';
-            }
+    // ============================================
+    // 4. SHOW RESULT
+    // ============================================
+    function showResult(decision) {
+        resultContainer.classList.add('visible');
 
-            statusText.textContent = '✅ Done!';
-            
-            // Save to history
-            saveTripToHistory(decision);
+        const status = decision.status || 'UNKNOWN';
+        const emoji = status === 'GO' ? '🟢' : status === 'CAUTION' ? '🟡' : '🔴';
+        decisionStatus.textContent = emoji + ' ' + status;
+
+        decisionCard.className = 'decision-card';
+        if (status === 'GO') decisionCard.classList.add('go');
+        else if (status === 'CAUTION') decisionCard.classList.add('caution');
+        else if (status === "DON'T GO") decisionCard.classList.add('dontgo');
+
+        decisionScore.textContent = 'Score: ' + (decision.score || 0) + '/100';
+
+        if (decision.reasons && decision.reasons.length) {
+            decisionReasons.innerHTML = '<ul>' + decision.reasons.map(r => '<li>' + r + '</li>').join('') + '</ul>';
+        } else {
+            decisionReasons.innerHTML = '';
         }
 
-        // ============================================
-        // 5. SPEAK RESPONSE
-        // ============================================
-        function speakResponse(text) {
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'kn-IN';
-                utterance.rate = 0.9;
-                utterance.pitch = 1;
-                speechSynthesis.speak(utterance);
-            }
+        if (decision.details) {
+            let html = '';
+            if (decision.details.temp) html += '🌡️ Temp: ' + decision.details.temp + '°C<br>';
+            if (decision.details.wind) html += '💨 Wind: ' + decision.details.wind + ' km/h<br>';
+            if (decision.details.fuel_cost) html += '⛽ Fuel: ₹' + decision.details.fuel_cost + '<br>';
+            if (decision.details.profit) html += '💰 Profit: ₹' + decision.details.profit;
+            decisionDetails.innerHTML = html;
+        }
+    }
+    // 5. SPEECH OUTPUT
+    // ============================================
+    function speakResponse(text) {
+        if ('speechSynthesis' in window) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'kn-IN';
+            utterance.rate = 0.9;
+            speechSynthesis.speak(utterance);
+        }
+    }
+
+    // ============================================
+    // 6. HISTORY
+    // ============================================
+    function saveToHistory(decision) {
+        const trips = JSON.parse(localStorage.getItem('trips') || '[]');
+        trips.push({
+            status: decision.status,
+            date: new Date().toLocaleString(),
+            reasons: decision.reasons
+        });
+        localStorage.setItem('trips', JSON.stringify(trips));
+    }
+
+    function loadHistory() {
+        const trips = JSON.parse(localStorage.getItem('trips') || '[]');
+        if (trips.length === 0) {
+            historyList.innerHTML = '<p style="text-align:center;opacity:0.6;padding:12px;">No trips yet</p>';
+            historyStats.innerHTML = '';
+            return;
         }
 
-        // ============================================
-        // 6. TRIP HISTORY
-        // ============================================
-        function saveTripToHistory(decision) {
-            const trip = {
-                date: new Date().toISOString(),
-                status: decision.status,
-                reasons: decision.reasons || [],
-                score: decision.score || 0
-            };
-            
-            trips.unshift(trip);
-            if (trips.length > 50) trips.pop();
-            localStorage.setItem('trips', JSON.stringify(trips));
+        historyList.innerHTML = trips.slice(-10).reverse().map(t => `
+            <div class="item-row">
+                <span>${t.status || 'Unknown'}</span>
+                <span style="font-size:12px;opacity:0.6;">${t.date || 'Today'}</span>
+            </div>
+        `).join('');
+
+        const go = trips.filter(t => t.status === 'GO').length;
+        const caution = trips.filter(t => t.status === 'CAUTION').length;
+        const dontgo = trips.filter(t => t.status === "DON'T GO").length;
+        historyStats.innerHTML = `
+            <span>🟢 GO: ${go}</span>
+            <span>🟡 CAUTION: ${caution}</span>
+            <span>🔴 DON'T GO: ${dontgo}</span>
+        `;
+    }
+
+    // ============================================
+    // 7. CATCH LOGGING
+    // ============================================
+    function processCatch(text) {
+        const match = text.match(/(\d+)\s*(ಕೆಜಿ|kg|kilo)?\s*(.+)/i);
+        if (match) {
+            const quantity = match[1];
+            const fish = match[3] || 'ಮೀನು';
+            const profit = Math.round(quantity * 200);
+
+            catchResult.innerHTML = '✅ ದಾಖಲಿಸಲಾಗಿದೆ!<br>' + quantity + ' ಕೆಜಿ ' + fish + '<br>ಅಂದಾಜು ₹' + profit;
+            catchResult.classList.add('visible');
+
+            // Save catch
+            const catches = JSON.parse(localStorage.getItem('catches') || '[]');
+            catches.unshift({ fish, quantity, profit, date: new Date().toISOString() });
+            localStorage.setItem('catches', JSON.stringify(catches));
+
+            setTimeout(() => {
+                catchModal.classList.remove('visible');
+                catchResult.classList.remove('visible');
+            }, 3000);
+        } else {
+            catchResult.innerHTML = '❌ ದಯವಿಟ್ಟು "20 ಕೆಜಿ ಬಂಗಡೆ" ಎಂದು ಹೇಳಿ';
+            catchResult.classList.add('visible');
+            catchResult.style.borderColor = '#f44336';
+            catchResult.style.background = 'rgba(244,67,54,0.15)';
         }
+    }
 
-        function loadHistory() {
-            if (trips.length === 0) {
-                historyList.innerHTML = '<p style="text-align:center;opacity:0.6;padding:20px;">ಇನ್ನೂ ಯಾವುದೇ ಟ್ರಿಪ್ ದಾಖಲಾಗಿಲ್ಲ</p>';
-                historyStats.innerHTML = '';
-                return;
+    // ============================================
+    // 8. MARKET
+    // ============================================
+    async function loadMarket() {
+        try {
+            const response = await fetch(BACKEND_URL + '/market-prices');
+            const data = await response.json();
+            if (data.success) {
+                marketList.innerHTML = data.prices.map(p =>
+                    `<div class="item-row"><span>🐟 ${p.fish}</span><span class="price">₹${p.price}/kg</span></div>`
+                ).join('');
             }
+        } catch {
+            marketList.innerHTML = '<p style="opacity:0.6;">Could not load prices</p>';
+        }
+    }
 
-            historyList.innerHTML = trips.slice(0, 10).map(trip => `
-                <div class="history-item">
-                    <span class="fish">${trip.status} ${trip.reasons.slice(0,2).join(', ')}</span>
-                    <span>${new Date(trip.date).toLocaleDateString('kn-IN')}</span>
+    // ============================================
+    // 9. SOS
+    // ============================================
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function(pos) {
+                    sosLocation.innerHTML = `
+                        📍 ${pos.coords.latitude}, ${pos.coords.longitude}
+                        <br><a href="https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}" target="_blank" style="color:#4FC3F7;">Open in Maps</a>
+                    `;
+                },
+                function() {
+                    sosLocation.textContent = '❌ Could not get location. Call 108!';
+                }
+            );
+        } else {
+            sosLocation.textContent = '❌ Location not supported. Call 108!';
+        }
+    }
+
+    // ============================================
+    // ============================================
+// 10. FISH IDENTIFICATION (REAL)
+// ============================================
+fishImage.addEventListener('change', async function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Show loading
+    fishResult.innerHTML = `
+        <div style="padding:15px;background:rgba(255,255,255,0.05);border-radius:10px;text-align:center;">
+            <div style="font-size:40px;">🔍</div>
+            <p>Identifying fish...</p>
+            <p style="font-size:12px;opacity:0.5;">This may take a moment</p>
+        </div>
+    `;
+
+    // Create form data
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+        const response = await fetch(BACKEND_URL + '/identify-fish', {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            fishResult.innerHTML = `
+                <div style="padding:15px;background:rgba(76,175,80,0.15);border-radius:10px;border:1px solid #4CAF50;">
+                    <p style="font-size:20px;">🐟 ${data.fish}</p>
+                    <p>📝 Kannada: ${data.kannada || 'Not available'}</p>
+                    <p>💰 Price: ₹${data.price || 'N/A'}/kg</p>
+                    <p style="font-size:12px;opacity:0.6;">Confidence: ${data.confidence || 85}%</p>
                 </div>
-            `).join('');
-
-            // Stats
-            const goCount = trips.filter(t => t.status === 'GO').length;
-            const cautionCount = trips.filter(t => t.status === 'CAUTION').length;
-            const dontGoCount = trips.filter(t => t.status === "DON'T GO").length;
-            
-            historyStats.innerHTML = `
-                <div class="stat"><span class="value">${goCount}</span>GO</div>
-                <div class="stat"><span class="value">${cautionCount}</span>CAUTION</div>
-                <div class="stat"><span class="value">${dontGoCount}</span>DON'T GO</div>
+            `;
+        } else {
+            fishResult.innerHTML = `
+                <div style="padding:15px;background:rgba(244,67,54,0.15);border-radius:10px;border:1px solid #f44336;">
+                    <p>❌ ${data.error || 'Could not identify fish'}</p>
+                    <p style="font-size:13px;opacity:0.6;margin-top:6px;">Try uploading a clearer photo</p>
+                </div>
             `;
         }
-
-        // ============================================
-        // 7. CATCH LOGGING
-        // ============================================
-        function processCatchInput(text) {
-            const match = text.match(/(\d+)\s*(ಕೆಜಿ|kg|kilo)?\s*(.+)/i);
-            if (match) {
-                const quantity = match[1];
-                const fish = match[3] || 'ಮೀನು';
-                const profit = Math.round(quantity * 200);
-                
-                catchResult.innerHTML = `
-                    ✅ ದಾಖಲಿಸಲಾಗಿದೆ!<br>
-                    ${quantity} ಕೆಜಿ ${fish}<br>
-                    ಅಂದಾಜು ₹${profit}
-                `;
-                catchResult.classList.add('visible');
-                
-                // Save catch
-                const catches = JSON.parse(localStorage.getItem('catches') || '[]');
-                catches.unshift({ fish, quantity, profit, date: new Date().toISOString() });
-                localStorage.setItem('catches', JSON.stringify(catches));
-                
-                setTimeout(() => {
-                    catchModal.classList.remove('visible');
-                    catchResult.classList.remove('visible');
-                }, 3000);
+    } catch (error) {
+        fishResult.innerHTML = `
+            <div style="padding:15px;background:rgba(244,67,54,0.15);border-radius:10px;border:1px solid #f44336;">
+                <p>❌ Backend error</p>
+                <p style="font-size:13px;opacity:0.6;">Make sure Flask is running</p>
+            </div>
+        `;
+        console.error(error);
+    }
+});
+    // ============================================
+    // 11. CHECK BACKEND
+    // ============================================
+    async function checkBackend() {
+        try {
+            const response = await fetch(BACKEND_URL + '/health');
+            if (response.ok) {
+                connectionDot.className = 'status-dot online';
+                connectionText.textContent = 'Connected';
             } else {
-                catchResult.innerHTML = '❌ ದಯವಿಟ್ಟು "20 ಕೆಜಿ ಬಂಗಡೆ" ಎಂದು ಹೇಳಿ';
-                catchResult.classList.add('visible');
-                catchResult.style.borderColor = '#f44336';
-                catchResult.style.background = 'rgba(244,67,54,0.15)';
+                throw new Error('Not OK');
             }
+        } catch {
+            connectionDot.className = 'status-dot offline';
+            connectionText.textContent = 'Offline';
         }
+    }
 
-        // ============================================
-        // 8. SOS
-        // ============================================
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    function(pos) {
-                        const lat = pos.coords.latitude;
-                        const lng = pos.coords.longitude;
-                        sosLocation.innerHTML = `
-                            📍 Location: ${lat}, ${lng}<br>
-                            <a href="https://maps.google.com/?q=${lat},${lng}" target="_blank" style="color:#4FC3F7;">
-                                Open in Maps
-                            </a>
-                        `;
-                    },
-                    function() {
-                        sosLocation.textContent = '❌ Could not get location. Call 108 immediately!';
-                    }
-                );
-            } else {
-                sosLocation.textContent = '❌ Location not supported. Call 108 immediately!';
-            }
-        }
+    // ============================================
+    // 12. EVENT LISTENERS
+    // ============================================
+    // Market
+    marketBtn.addEventListener('click', function() {
+        marketContainer.classList.toggle('visible');
+        if (marketContainer.classList.contains('visible')) loadMarket();
+    });
 
-        // ============================================
-        // 9. EVENT LISTENERS
-        // ============================================
-        historyBtn.addEventListener('click', function() {
-            historyContainer.classList.toggle('visible');
-            if (historyContainer.classList.contains('visible')) {
-                loadHistory();
-            }
-        });
+    // History
+    historyBtn.addEventListener('click', function() {
+        historyContainer.classList.toggle('visible');
+        if (historyContainer.classList.contains('visible')) loadHistory();
+    });
 
-        marketBtn.addEventListener('click', function() {
-            marketContainer.classList.toggle('visible');
-            if (marketContainer.classList.contains('visible')) {
-                loadMarketPrices();
-            }
-        });
+    // Catch
+    catchBtn.addEventListener('click', function() {
+        catchModal.classList.add('visible');
+        catchResult.classList.remove('visible');
+        catchResult.style.borderColor = 'rgba(76, 175, 80, 0.3)';
+        catchResult.style.background = 'rgba(76, 175, 80, 0.15)';
+    });
+    closeCatchModal.addEventListener('click', function() { catchModal.classList.remove('visible'); });
+    catchModal.addEventListener('click', function(e) { if (e.target === this) this.classList.remove('visible'); });
 
-        catchBtn.addEventListener('click', function() {
-            catchModal.classList.add('visible');
-            catchResult.classList.remove('visible');
-        });
+    catchMicBtn.addEventListener('click', function() {
+        if (catchRecognition) catchRecognition.start();
+    });
 
-        closeModalBtn.addEventListener('click', function() {
-            catchModal.classList.remove('visible');
-        });
+    // SOS
+    sosBtn.addEventListener('click', function() {
+        sosModal.classList.add('visible');
+        getLocation();
+    });
+    closeSosModal.addEventListener('click', function() { sosModal.classList.remove('visible'); });
+    sosModal.addEventListener('click', function(e) { if (e.target === this) this.classList.remove('visible'); });
+    // 13. INIT
+    // ============================================
+    initSpeech();
+    checkBackend();
+    setInterval(checkBackend, 30000);
 
-        catchMicBtn.addEventListener('click', function() {
-            if (catchRecognition) {
-                catchRecognition.start();
-            }
-        });
+    console.log('🐟 Fisherman-AI loaded!');
+    console.log('📡 Backend:', BACKEND_URL);
+</script>
 
-        sosBtn.addEventListener('click', function() {
-            sosModal.classList.add('visible');
-            getLocation();
-        });
-
-        closeSosBtn.addEventListener('click', function() {
-            sosModal.classList.remove('visible');
-        });
-
-        sosCallBtn.addEventListener('click', function() {
-            window.location.href = 'tel:108';
-        });
-
-        // Close modals on outside click
-        catchModal.addEventListener('click', function(e) {
-            if (e.target === this) this.classList.remove('visible');
-        });
-
-        sosModal.addEventListener('click', function(e) {
-            if (e.target === this) this.classList.remove('visible');
-        });
-
-        // ============================================
-        // 10. MARKET PRICES
-        // ============================================
-        async function loadMarketPrices() {
-            try {
-                const response = await fetch(`${BACKEND_URL}/market-prices`);
-                const data = await response.json();
-                
-                if (data.success) {
-                    marketList.innerHTML = data.prices.map(p => `
-                        <div class="market-item">
-                            <span>🐟 ${p.fish}</span>
-                            <span class="price">₹${p.price}/kg</span>
-                        </div>
-                    `).join('');
-                } else {
-                    // Fallback mock data
-                    const mockPrices = [
-                        { fish: 'Mackerel', price: 200 },
-                        { fish: 'Sardine', price: 150 },
-                        { fish: 'Bangda', price: 220 },
-                        { fish: 'Pomfret', price: 400 },
-                        { fish: 'Tuna', price: 350 }
-                    ];
-                    marketList.innerHTML = mockPrices.map(p => `
-                        <div class="market-item">
-                            <span>🐟 ${p.fish}</span>
-                            <span class="price">₹${p.price}/kg</span>
-                        </div>
-                    `).join('');
-                }
-            } catch (error) {
-                // Fallback mock data
-                const mockPrices = [
-                    { fish: 'Mackerel', price: 200 },
-                    { fish: 'Sardine', price: 150 },
-                    { fish: 'Bangda', price: 220 },
-                    { fish: 'Pomfret', price: 400 },
-                    { fish: 'Tuna', price: 350 }
-                ];
-                marketList.innerHTML = mockPrices.map(p => `
-                    <div class="market-item">
-                        <span>🐟 ${p.fish}</span>
-                        <span class="price">₹${p.price}/kg</span>
-                    </div>
-                `).join('');
-            }
-        }
-
-        // ============================================
-        // 11. CHECK BACKEND CONNECTION
-        // ============================================
-        async function checkBackend() {
-            try {
-                const response = await fetch(`${BACKEND_URL}/health`);
-                if (response.ok) {
-                    connectionDot.className = 'status-dot online';
-                    connectionText.textContent = 'Connected';
-                } else {
-                    throw new Error('Backend error');
-                }
-            } catch (error) {
-                connectionDot.className = 'status-dot offline';
-                connectionText.textContent = 'Offline (using cache)';
-            }
-        }
-
-        // ============================================
-        // 12. INIT
-        // ============================================
-        initSpeech();
-        checkBackend();
-        setInterval(checkBackend, 30000); // Check every 30s
-
-        console.log('🐟 Fisherman-AI loaded!');
-        console.log('📱 Ready to help fishermen!');
-    </script>
 </body>
 </html>
