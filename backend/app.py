@@ -77,6 +77,35 @@ def get_weather():
         'source': 'Mock (No API Key)'
     }
 
+@app.route('/tide')
+def get_tide():
+    """Get tide information for Karavali coast"""
+    import datetime
+    import math
+    
+    # Simple tide calculation (mock for demo)
+    # Real implementation would use tide API
+    
+    now = datetime.datetime.now()
+    tide_times = []
+    
+    # Generate 4 tide times per day (approx 6 hours apart)
+    for i in range(4):
+        tide_time = now + datetime.timedelta(hours=i*6)
+        tide_type = 'High' if i % 2 == 0 else 'Low'
+        tide_times.append({
+            'time': tide_time.strftime('%I:%M %p'),
+            'type': tide_type,
+            'height': round(1.5 + (i % 2) * 1.2, 1)
+        })
+    
+    return jsonify({
+        'success': True,
+        'location': 'Karavali Coast',
+        'tides': tide_times,
+        'next_tide': tide_times[0]
+    })
+
 # ============================================
 # DECISION ENGINE
 # ============================================
