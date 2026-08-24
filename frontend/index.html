@@ -235,15 +235,15 @@
         .actions {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
+            gap: 8px;
             margin-top: 20px;
         }
 
         .actions button {
-            padding: 12px 8px;
+            padding: 10px 6px;
             border: none;
-            border-radius: 14px;
-            font-size: 13px;
+            border-radius: 12px;
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
@@ -257,20 +257,23 @@
         }
 
         .actions button .icon {
-            font-size: 22px;
+            font-size: 20px;
             display: block;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
 
         #sosBtn { background: rgba(244, 67, 54, 0.3); border: 1px solid rgba(244, 67, 54, 0.3); }
         #historyBtn { background: rgba(33, 150, 243, 0.2); border: 1px solid rgba(33, 150, 243, 0.2); }
         #catchBtn { background: rgba(76, 175, 80, 0.2); border: 1px solid rgba(76, 175, 80, 0.2); }
         #marketBtn { background: rgba(255, 193, 7, 0.2); border: 1px solid rgba(255, 193, 7, 0.2); }
+        #tideBtn { background: rgba(0, 188, 212, 0.2); border: 1px solid rgba(0, 188, 212, 0.2); }
+        #dashboardBtn { background: rgba(156, 39, 176, 0.2); border: 1px solid rgba(156, 39, 176, 0.2); }
+        #fuelBtn { background: rgba(255, 152, 0, 0.2); border: 1px solid rgba(255, 152, 0, 0.2); }
 
         /* ===== CONTAINERS ===== */
         .container-box {
-            margin-top: 16px;
-            padding: 16px;
+            margin-top: 14px;
+            padding: 14px;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 14px;
             display: none;
@@ -278,15 +281,16 @@
 
         .container-box.visible {
             display: block;
+            animation: slideUp 0.3s ease;
         }
 
         .container-box h3 {
-            margin-bottom: 10px;
-            font-size: 18px;
+            margin-bottom: 8px;
+            font-size: 17px;
         }
 
         .item-row {
-            padding: 10px 14px;
+            padding: 8px 12px;
             margin: 4px 0;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
@@ -311,7 +315,7 @@
         /* ===== STATS ===== */
         .stats-row {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             margin-top: 10px;
             justify-content: center;
             flex-wrap: wrap;
@@ -343,7 +347,7 @@
 
         .modal-content {
             background: #0a2a4a;
-            padding: 28px;
+            padding: 24px;
             border-radius: 24px;
             max-width: 400px;
             width: 90%;
@@ -353,8 +357,8 @@
         }
 
         .modal-content h3 {
-            font-size: 22px;
-            margin-bottom: 8px;
+            font-size: 20px;
+            margin-bottom: 6px;
         }
 
         .modal-content p {
@@ -364,7 +368,7 @@
 
         .modal-content small {
             opacity: 0.6;
-            font-size: 13px;
+            font-size: 12px;
         }
 
         .close-btn {
@@ -374,7 +378,7 @@
             background: none;
             border: none;
             color: white;
-            font-size: 26px;
+            font-size: 24px;
             cursor: pointer;
             opacity: 0.6;
         }
@@ -387,7 +391,7 @@
             width: 80px;
             height: 80px;
             font-size: 14px;
-            margin: 12px auto;
+            margin: 10px auto;
         }
 
         .mic-btn.small #micIcon {
@@ -409,24 +413,24 @@
 
         /* ===== FISH UPLOAD ===== */
         .fish-upload-area {
-            margin-top: 16px;
-            padding: 16px;
+            margin-top: 14px;
+            padding: 14px;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 14px;
         }
 
         .fish-upload-area h4 {
-            margin-bottom: 8px;
-            font-size: 16px;
+            margin-bottom: 6px;
+            font-size: 15px;
         }
 
         .upload-btn {
-            padding: 12px 24px;
+            padding: 10px 20px;
             background: #0077b6;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             color: white;
-            font-size: 16px;
+            font-size: 15px;
             cursor: pointer;
             transition: 0.3s;
         }
@@ -438,9 +442,9 @@
         .fish-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 6px;
-            margin-top: 8px;
-            font-size: 13px;
+            gap: 4px;
+            margin-top: 6px;
+            font-size: 12px;
         }
 
         .fish-grid span {
@@ -449,10 +453,54 @@
             border-radius: 6px;
         }
 
+        /* ===== FUEL INPUTS ===== */
+        .fuel-inputs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .fuel-inputs input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            font-size: 14px;
+            min-width: 80px;
+        }
+
+        .fuel-inputs input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .fuel-inputs input:focus {
+            outline: 1px solid #00b4d8;
+        }
+
+        .calc-btn {
+            margin-top: 8px;
+            padding: 10px;
+            background: #0077b6;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            width: 100%;
+            font-size: 15px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .calc-btn:hover {
+            background: #00b4d8;
+        }
+
         /* ===== FOOTER ===== */
         footer {
-            margin-top: 20px;
-            padding-top: 14px;
+            margin-top: 18px;
+            padding-top: 12px;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             text-align: center;
             font-size: 12px;
@@ -465,13 +513,20 @@
         }
 
         /* ===== RESPONSIVE ===== */
-        @media (max-width: 420px) {
+        @media (max-width: 480px) {
             #app { padding: 16px; }
             .mic-btn { width: 130px; height: 130px; }
             #micIcon { font-size: 40px; }
-            .actions { grid-template-columns: repeat(2, 1fr); }
+            .actions { grid-template-columns: repeat(3, 1fr); }
+            .actions button { font-size: 11px; padding: 8px 4px; }
+            .actions button .icon { font-size: 18px; }
             header h1 { font-size: 22px; }
             .fish-grid { grid-template-columns: 1fr 1fr; }
+            .fuel-inputs input { min-width: 60px; font-size: 12px; }
+        }
+
+        @media (max-width: 380px) {
+            .actions { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -515,13 +570,16 @@
         <button id="historyBtn"><span class="icon">📋</span>History</button>
         <button id="catchBtn"><span class="icon">🎣</span>Catch</button>
         <button id="marketBtn"><span class="icon">📊</span>Market</button>
+        <button id="tideBtn"><span class="icon">🌊</span>Tide</button>
+        <button id="dashboardBtn"><span class="icon">📈</span>Dashboard</button>
+        <button id="fuelBtn"><span class="icon">⛽</span>Fuel</button>
     </div>
 
     <!-- ===== MARKET CONTAINER ===== -->
     <div class="container-box" id="marketContainer">
         <h3>📊 ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳು</h3>
         <div id="marketList"></div>
-        <p style="font-size:11px; opacity:0.5; margin-top:8px;">Prices updated daily</p>
+        <p style="font-size:11px; opacity:0.5; margin-top:6px;">Prices updated daily</p>
     </div>
 
     <!-- ===== HISTORY CONTAINER ===== -->
@@ -529,6 +587,29 @@
         <h3>📋 ನಿಮ್ಮ ಟ್ರಿಪ್ ಇತಿಹಾಸ</h3>
         <div id="historyList"></div>
         <div class="stats-row" id="historyStats"></div>
+    </div>
+
+    <!-- ===== TIDE CONTAINER ===== -->
+    <div class="container-box" id="tideContainer">
+        <h3>🌊 Tide Information</h3>
+        <div id="tideList"></div>
+    </div>
+
+    <!-- ===== DASHBOARD CONTAINER ===== -->
+    <div class="container-box" id="dashboardContainer">
+        <h3>📈 Profit Dashboard</h3>
+        <div id="dashboardStats"></div>
+    </div>
+
+    <!-- ===== FUEL CONTAINER ===== -->
+    <div class="container-box" id="fuelContainer">
+        <h3>⛽ Fuel Calculator</h3>
+        <div class="fuel-inputs">
+            <input type="number" id="fuelDistance" placeholder="Distance (km)" value="10">
+            <input type="number" id="fuelPrice" placeholder="Fuel Price (₹/L)" value="90">
+        </div>
+        <button class="calc-btn" onclick="calculateFuel()">Calculate Fuel Cost</button>
+        <div id="fuelResult" style="margin-top:10px;"></div>
     </div>
 
     <!-- ===== FISH UPLOAD ===== -->
@@ -582,13 +663,13 @@
             📞 Call <strong>108</strong> for emergency services
         </p>
         <button onclick="window.location.href='tel:108'" style="
-            margin-top:16px;
+            margin-top:14px;
             padding:14px 32px;
             background:#f44336;
             border:none;
             border-radius:12px;
             color:white;
-            font-size:18px;
+            font-size:17px;
             font-weight:700;
             cursor:pointer;
         ">📞 CALL 108</button>
@@ -625,12 +706,21 @@
     const historyBtn = document.getElementById('historyBtn');
     const catchBtn = document.getElementById('catchBtn');
     const marketBtn = document.getElementById('marketBtn');
+    const tideBtn = document.getElementById('tideBtn');
+    const dashboardBtn = document.getElementById('dashboardBtn');
+    const fuelBtn = document.getElementById('fuelBtn');
 
     const marketContainer = document.getElementById('marketContainer');
     const marketList = document.getElementById('marketList');
     const historyContainer = document.getElementById('historyContainer');
     const historyList = document.getElementById('historyList');
     const historyStats = document.getElementById('historyStats');
+    const tideContainer = document.getElementById('tideContainer');
+    const tideList = document.getElementById('tideList');
+    const dashboardContainer = document.getElementById('dashboardContainer');
+    const dashboardStats = document.getElementById('dashboardStats');
+    const fuelContainer = document.getElementById('fuelContainer');
+    const fuelResult = document.getElementById('fuelResult');
 
     const catchModal = document.getElementById('catchModal');
     const catchMicBtn = document.getElementById('catchMicBtn');
@@ -814,7 +904,7 @@
             decisionDetails.innerHTML = html;
         }
     }
-    // 5. SPEECH OUTPUT
+  // 5. SPEECH OUTPUT
     // ============================================
     function speakResponse(text) {
         if ('speechSynthesis' in window) {
@@ -911,7 +1001,98 @@
     }
 
     // ============================================
-    // 9. SOS
+    // 9. TIDE
+    // ============================================
+    async function loadTide() {
+        try {
+            const response = await fetch(BACKEND_URL + '/tide');
+            const data = await response.json();
+            if (data.success) {
+                let html = `<p style="opacity:0.7;font-size:13px;">📍 ${data.location}</p>`;
+                html += `<p style="font-weight:bold;margin:6px 0;">Next: ${data.next_tide.type} at ${data.next_tide.time}</p>`;
+                data.tides.forEach(t => {
+                    html += `<div class="item-row"><span>${t.type} Tide</span><span>${t.time} (${t.height}m)</span></div>`;
+                });
+                tideList.innerHTML = html;
+            }
+        } catch {
+            tideList.innerHTML = '<p style="opacity:0.6;">Could not load tide data</p>';
+        }
+    }
+
+    // ============================================
+    // 10. DASHBOARD
+    // ============================================
+    function loadDashboard() {
+        const trips = JSON.parse(localStorage.getItem('trips') || '[]');
+        const catches = JSON.parse(localStorage.getItem('catches') || '[]');
+
+        if (trips.length === 0 && catches.length === 0) {
+            dashboardStats.innerHTML = '<p style="opacity:0.6;text-align:center;padding:20px;">No data yet. Start fishing!</p>';
+            return;
+        }
+
+        const goCount = trips.filter(t => t.status === 'GO').length;
+        const cautionCount = trips.filter(t => t.status === 'CAUTION').length;
+        const dontGoCount = trips.filter(t => t.status === "DON'T GO").length;
+        const totalProfit = catches.reduce((sum, c) => sum + (c.profit || 0), 0);
+        const totalCatch = catches.reduce((sum, c) => sum + parseInt(c.quantity || 0), 0);
+
+        dashboardStats.innerHTML = `
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+                <div style="background:rgba(255,255,255,0.05);padding:12px;border-radius:10px;text-align:center;">
+                    <div style="font-size:24px;font-weight:700;">${totalCatch}</div>
+                    <div style="font-size:12px;opacity:0.6;">Total Catch (kg)</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.05);padding:12px;border-radius:10px;text-align:center;">
+                    <div style="font-size:24px;font-weight:700;color:#4CAF50;">₹${totalProfit}</div>
+                    <div style="font-size:12px;opacity:0.6;">Total Profit</div>
+                </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+                <div style="background:rgba(76,175,80,0.1);padding:8px;border-radius:8px;text-align:center;">
+                    <div style="font-size:18px;font-weight:700;">🟢 ${goCount}</div>
+                    <div style="font-size:10px;opacity:0.6;">GO</div>
+                </div>
+                <div style="background:rgba(255,152,0,0.1);padding:8px;border-radius:8px;text-align:center;">
+                    <div style="font-size:18px;font-weight:700;">🟡 ${cautionCount}</div>
+                    <div style="font-size:10px;opacity:0.6;">CAUTION</div>
+                </div>
+                <div style="background:rgba(244,67,54,0.1);padding:8px;border-radius:8px;text-align:center;">
+                    <div style="font-size:18px;font-weight:700;">🔴 ${dontGoCount}</div>
+                    <div style="font-size:10px;opacity:0.6;">DON'T GO</div>
+                </div>
+            </div>
+            <div style="margin-top:10px;font-size:12px;opacity:0.5;text-align:center;">
+                ${trips.length} trips | ${catches.length} catches
+            </div>
+        `;
+    }  
+    // 11. FUEL CALCULATOR
+    // ============================================
+    function calculateFuel() {
+        const distance = parseFloat(document.getElementById('fuelDistance').value) || 10;
+        const fuelPrice = parseFloat(document.getElementById('fuelPrice').value) || 90;
+        const consumption = 5; // liters per km
+        const fuelNeeded = distance * consumption;
+        const totalCost = fuelNeeded * fuelPrice;
+
+        fuelResult.innerHTML = `
+            <div style="padding:12px;background:rgba(255,255,255,0.05);border-radius:10px;">
+                <div style="display:flex;justify-content:space-between;">
+                    <span>⛽ Fuel Needed:</span>
+                    <span style="font-weight:700;">${fuelNeeded.toFixed(2)} L</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-top:4px;">
+                    <span>💰 Total Cost:</span>
+                    <span style="font-weight:700;color:#FFC107;">₹${totalCost.toFixed(2)}</span>
+                </div>
+            </div>
+        `;
+    }
+
+    // ============================================
+    // 12. SOS
     // ============================================
     function getLocation() {
         if (navigator.geolocation) {
@@ -932,63 +1113,56 @@
     }
 
     // ============================================
+    // 13. FISH IDENTIFICATION
     // ============================================
-// 10. FISH IDENTIFICATION (REAL)
-// ============================================
-fishImage.addEventListener('change', async function(e) {
-    const file = e.target.files[0];
-    if (!file) return;
+    fishImage.addEventListener('change', async function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
 
-    // Show loading
-    fishResult.innerHTML = `
-        <div style="padding:15px;background:rgba(255,255,255,0.05);border-radius:10px;text-align:center;">
-            <div style="font-size:40px;">🔍</div>
-            <p>Identifying fish...</p>
-            <p style="font-size:12px;opacity:0.5;">This may take a moment</p>
-        </div>
-    `;
+        fishResult.innerHTML = `
+            <div style="padding:15px;background:rgba(255,255,255,0.05);border-radius:10px;text-align:center;">
+                <div style="font-size:40px;">🔍</div>
+                <p>Identifying fish...</p>
+            </div>
+        `;
 
-    // Create form data
-    const formData = new FormData();
-    formData.append('image', file);
+        const formData = new FormData();
+        formData.append('image', file);
 
-    try {
-        const response = await fetch(BACKEND_URL + '/identify-fish', {
-            method: 'POST',
-            body: formData
-        });
+        try {
+            const response = await fetch(BACKEND_URL + '/identify-fish', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
 
-        const data = await response.json();
-
-        if (data.success) {
-            fishResult.innerHTML = `
-                <div style="padding:15px;background:rgba(76,175,80,0.15);border-radius:10px;border:1px solid #4CAF50;">
-                    <p style="font-size:20px;">🐟 ${data.fish}</p>
-                    <p>📝 Kannada: ${data.kannada || 'Not available'}</p>
-                    <p>💰 Price: ₹${data.price || 'N/A'}/kg</p>
-                    <p style="font-size:12px;opacity:0.6;">Confidence: ${data.confidence || 85}%</p>
-                </div>
-            `;
-        } else {
+            if (data.success) {
+                fishResult.innerHTML = `
+                    <div style="padding:15px;background:rgba(76,175,80,0.15);border-radius:10px;border:1px solid #4CAF50;">
+                        <p style="font-size:20px;">🐟 ${data.fish}</p>
+                        <p>📝 Kannada: ${data.kannada || 'Not available'}</p>
+                        <p>💰 Price: ₹${data.price || 'N/A'}/kg</p>
+                        <p style="font-size:12px;opacity:0.6;">Confidence: ${data.confidence || 85}%</p>
+                    </div>
+                `;
+            } else {
+                fishResult.innerHTML = `
+                    <div style="padding:15px;background:rgba(244,67,54,0.15);border-radius:10px;border:1px solid #f44336;">
+                        <p>❌ ${data.error || 'Could not identify fish'}</p>
+                    </div>
+                `;
+            }
+        } catch {
             fishResult.innerHTML = `
                 <div style="padding:15px;background:rgba(244,67,54,0.15);border-radius:10px;border:1px solid #f44336;">
-                    <p>❌ ${data.error || 'Could not identify fish'}</p>
-                    <p style="font-size:13px;opacity:0.6;margin-top:6px;">Try uploading a clearer photo</p>
+                    <p>❌ Backend error. Make sure Flask is running.</p>
                 </div>
             `;
         }
-    } catch (error) {
-        fishResult.innerHTML = `
-            <div style="padding:15px;background:rgba(244,67,54,0.15);border-radius:10px;border:1px solid #f44336;">
-                <p>❌ Backend error</p>
-                <p style="font-size:13px;opacity:0.6;">Make sure Flask is running</p>
-            </div>
-        `;
-        console.error(error);
-    }
-});
+    });
+
     // ============================================
-    // 11. CHECK BACKEND
+    // 14. CHECK BACKEND
     // ============================================
     async function checkBackend() {
         try {
@@ -1006,7 +1180,7 @@ fishImage.addEventListener('change', async function(e) {
     }
 
     // ============================================
-    // 12. EVENT LISTENERS
+    // 15. EVENT LISTENERS
     // ============================================
     // Market
     marketBtn.addEventListener('click', function() {
@@ -1018,6 +1192,26 @@ fishImage.addEventListener('change', async function(e) {
     historyBtn.addEventListener('click', function() {
         historyContainer.classList.toggle('visible');
         if (historyContainer.classList.contains('visible')) loadHistory();
+    });
+
+    // Tide
+    tideBtn.addEventListener('click', function() {
+        tideContainer.classList.toggle('visible');
+        if (tideContainer.classList.contains('visible')) loadTide();
+    });
+
+    // Dashboard
+    dashboardBtn.addEventListener('click', function() {
+        dashboardContainer.classList.toggle('visible');
+        if (dashboardContainer.classList.contains('visible')) loadDashboard();
+    });
+
+    // Fuel
+    fuelBtn.addEventListener('click', function() {
+        fuelContainer.classList.toggle('visible');
+        if (fuelContainer.classList.contains('visible')) {
+            calculateFuel();
+        }
     });
 
     // Catch
@@ -1041,14 +1235,20 @@ fishImage.addEventListener('change', async function(e) {
     });
     closeSosModal.addEventListener('click', function() { sosModal.classList.remove('visible'); });
     sosModal.addEventListener('click', function(e) { if (e.target === this) this.classList.remove('visible'); });
-    // 13. INIT
+
+    // ============================================
+    // 16. INIT
     // ============================================
     initSpeech();
     checkBackend();
     setInterval(checkBackend, 30000);
 
-    console.log('🐟 Fisherman-AI loaded!');
+    // Auto calculate fuel on load
+    setTimeout(calculateFuel, 500);
+
+    console.log('🐟 Fisherman-AI v3.0 loaded!');
     console.log('📡 Backend:', BACKEND_URL);
+    console.log('📦 Features: Voice, Weather, Tide, Dashboard, Fuel, SOS, Market, History, Catch, Fish ID');
 </script>
 
 </body>
