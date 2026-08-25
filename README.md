@@ -46,9 +46,9 @@ Voice-first AI assistant that answers:
 | Offline support | ✅ Done |
 | Catch logging | ✅ Done |
 | Trip history | ✅ Done |
-| Market prices | 🔜 Coming |
+| Market prices |✅ Done  |
 | Personal insights | 🔜 Coming |
-| Fish identification | 🔜 Coming |
+| Fish identification | ✅ Done  |
 | Community alerts | 🔜 Coming |
 
 ---
