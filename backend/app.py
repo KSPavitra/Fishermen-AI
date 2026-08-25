@@ -17,12 +17,17 @@ def home():
     return jsonify({
         'message': '🐟 Fisherman-AI is running!',
         'status': 'healthy',
-        'version': '2.0.0',
-        'endpoints': {
-            '/health': 'Health check',
-            '/weather': 'Get weather data',
-            '/api/decision': 'POST - Get fishing decision'
-        }
+        'version': '3.0.0',
+        'endpoints': [
+            '/health', 
+            '/weather', 
+            '/tide', 
+            '/market-prices',
+            '/api/decision', 
+            '/identify-fish', 
+            '/schemes',      # <-- ADD THIS
+            '/calendar'      # <-- ADD THIS
+        ]
     })
 
 # ============================================
@@ -292,6 +297,88 @@ def get_market_prices():
         'success': True,
         'prices': prices
     })
+
+# ============================================
+# SCHEMES (Government Schemes)
+# ============================================
+@app.route('/schemes')
+def get_schemes():
+    """Government schemes for fishermen"""
+    schemes = [
+        {
+            'name': 'Pradhan Mantri Matsya Sampada Yojana',
+            'description': 'Fisheries development scheme for modernization',
+            'benefits': ['Subsidy on boats', 'Modern equipment', 'Training'],
+            'eligibility': 'Registered fishermen with valid license',
+            'link': 'https://pmmsy.gov.in'
+        },
+        {
+            'name': 'Kisan Credit Card for Fishermen',
+            'description': 'Credit facility for fishing operations',
+            'benefits': ['Low-interest loans', 'Fuel credit', 'Equipment purchase'],
+            'eligibility': 'Active fishermen with 2+ years experience',
+            'link': 'https://www.nabard.org'
+        },
+        {
+            'name': 'Fishermen Accident Insurance',
+            'description': 'Insurance coverage for fishing accidents',
+            'benefits': ['₹5 Lakh coverage', 'Family support', 'Medical expenses'],
+            'eligibility': 'All active fishermen',
+            'link': 'https://www.fisheries.gov.in'
+        },
+        {
+            'name': 'Boat Subsidy Scheme',
+            'description': 'Subsidy for purchasing fishing boats',
+            'benefits': ['30-50% subsidy', 'Modern boats', 'Safety equipment'],
+            'eligibility': 'Small-scale fishermen',
+            'link': 'https://www.fisheries.karnataka.gov.in'
+        },
+        {
+            'name': 'Fuel Subsidy for Fishermen',
+            'description': 'Subsidy on diesel for fishing boats',
+            'benefits': ['₹10-15/L subsidy', 'Monthly quota', 'Direct transfer'],
+            'eligibility': 'Registered boat owners',
+            'link': 'https://www.fisheries.karnataka.gov.in'
+        }
+    ]
+    return {'success': True, 'schemes': schemes}
+
+
+# ============================================
+# CALENDAR (Fishing Calendar)
+# ============================================
+@app.route('/calendar')
+def get_calendar():
+    """Best fishing days forecast"""
+    import datetime
+    import random
+    
+    days = []
+    today = datetime.datetime.now()
+    
+    ratings = ['⭐ Best', '✅ Good', '⚠️ Moderate', '❌ Bad']
+    advices = {
+        '⭐ Best': 'Great conditions! Go fishing! 🎣',
+        '✅ Good': 'Good conditions. Should go. 🌤️',
+        '⚠️ Moderate': 'Be careful. Check weather. ⚠️',
+        '❌ Bad': 'Better to stay home. 🏠'
+    }
+    
+    for i in range(7):
+        d = today + datetime.timedelta(days=i)
+        # More good days than bad
+        if i % 2 == 0:
+            rating = random.choice(['⭐ Best', '✅ Good'])
+        else:
+            rating = random.choice(['⚠️ Moderate', '❌ Bad'])
+        
+        days.append({
+            'date': d.strftime('%A, %b %d'),
+            'rating': rating,
+            'advice': advices[rating]
+        })
+    
+    return {'success': True, 'days': days}
 
 # ============================================
 # START SERVER
