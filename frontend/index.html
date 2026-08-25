@@ -528,6 +528,97 @@
         @media (max-width: 380px) {
             .actions { grid-template-columns: repeat(2, 1fr); }
         }
+
+        /* ===== SCHEMES ===== */
+.scheme-card {
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    margin: 6px 0;
+}
+
+.scheme-card .name {
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.scheme-card .desc {
+    font-size: 13px;
+    opacity: 0.8;
+    margin: 4px 0;
+}
+
+.scheme-card .eligibility {
+    font-size: 12px;
+    color: #FFC107;
+}
+
+.scheme-card a {
+    color: #4FC3F7;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+/* ===== ALERT BANNER ===== */
+.alert-banner {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #f44336;
+    color: white;
+    padding: 16px 24px;
+    border-radius: 16px;
+    font-weight: bold;
+    z-index: 9999;
+    max-width: 90%;
+    box-shadow: 0 8px 30px rgba(244, 67, 54, 0.4);
+    animation: slideDown 0.5s ease;
+}
+
+.alert-banner .content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.alert-banner .icon {
+    font-size: 28px;
+}
+
+.alert-banner .title {
+    font-size: 18px;
+}
+
+.alert-banner .message {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.alert-banner .close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ===== NEW BUTTON COLORS ===== */
+#schemeBtn { background: rgba(139, 195, 74, 0.2); border: 1px solid rgba(139, 195, 74, 0.2); }
+#exportBtn { background: rgba(96, 125, 139, 0.2); border: 1px solid rgba(96, 125, 139, 0.2); }
+#calendarBtn { background: rgba(233, 30, 99, 0.2); border: 1px solid rgba(233, 30, 99, 0.2); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+    .actions { grid-template-columns: repeat(3, 1fr); }
+}
+
+
     </style>
 </head>
 <body>
@@ -573,6 +664,9 @@
         <button id="tideBtn"><span class="icon">🌊</span>Tide</button>
         <button id="dashboardBtn"><span class="icon">📈</span>Dashboard</button>
         <button id="fuelBtn"><span class="icon">⛽</span>Fuel</button>
+        <button id="schemeBtn"><span class="icon">🏛️</span>Schemes</button>
+        <button id="exportBtn"><span class="icon">📄</span>Export</button>
+        <button id="calendarBtn"><span class="icon">🗓️</span>Calendar</button>
     </div>
 
     <!-- ===== MARKET CONTAINER ===== -->
@@ -611,6 +705,18 @@
         <button class="calc-btn" onclick="calculateFuel()">Calculate Fuel Cost</button>
         <div id="fuelResult" style="margin-top:10px;"></div>
     </div>
+
+    <!-- ===== SCHEMES CONTAINER ===== -->
+<div class="container-box" id="schemeContainer">
+    <h3>🏛️ Government Schemes</h3>
+    <div id="schemeList"></div>
+</div>
+
+<!-- ===== CALENDAR CONTAINER ===== -->
+<div class="container-box" id="calendarContainer">
+    <h3>🗓️ Fishing Calendar</h3>
+    <div id="calendarList"></div>
+</div>
 
     <!-- ===== FISH UPLOAD ===== -->
     <div class="fish-upload-area">
@@ -1249,6 +1355,157 @@
     console.log('🐟 Fisherman-AI v3.0 loaded!');
     console.log('📡 Backend:', BACKEND_URL);
     console.log('📦 Features: Voice, Weather, Tide, Dashboard, Fuel, SOS, Market, History, Catch, Fish ID');
+    // ============================================
+// SCHEMES
+// ============================================
+document.getElementById('schemeBtn').addEventListener('click', function() {
+    const container = document.getElementById('schemeContainer');
+    container.classList.toggle('visible');
+    if (container.classList.contains('visible')) {
+        loadSchemes();
+    }
+});
+
+async function loadSchemes() {
+    try {
+        const response = await fetch(BACKEND_URL + '/schemes');
+        const data = await response.json();
+        
+        if (data.success) {
+            let html = '';
+            data.schemes.forEach(s => {
+                html += `
+                    <div class="scheme-card">
+                        <div class="name">${s.name}</div>
+                        <div class="desc">${s.description}</div>
+                        <div class="eligibility">✅ ${s.eligibility}</div>
+                        <a href="${s.link}" target="_blank">Learn More →</a>
+                    </div>
+                `;
+            });
+            document.getElementById('schemeList').innerHTML = html;
+        }
+    } catch {
+        document.getElementById('schemeList').innerHTML = '<p style="opacity:0.6;">Could not load schemes</p>';
+    }
+}
+
+// ============================================
+// CALENDAR
+// ============================================
+document.getElementById('calendarBtn').addEventListener('click', function() {
+    const container = document.getElementById('calendarContainer');
+    container.classList.toggle('visible');
+    if (container.classList.contains('visible')) {
+        loadCalendar();
+    }
+});
+
+async function loadCalendar() {
+    try {
+        const response = await fetch(BACKEND_URL + '/calendar');
+        const data = await response.json();
+        
+        if (data.success) {
+            let html = '';
+            data.days.forEach(d => {
+                const color = d.rating.includes('Best') ? '#4CAF50' :
+                             d.rating.includes('Good') ? '#8BC34A' :
+                             d.rating.includes('Moderate') ? '#FF9800' : '#f44336';
+                html += `
+                    <div class="item-row" style="border-left:4px solid ${color};">
+                        <span>${d.date}</span>
+                        <span style="color:${color};font-weight:700;">${d.rating}</span>
+                    </div>
+                `;
+            });
+            document.getElementById('calendarList').innerHTML = html;
+        }
+    } catch {
+        document.getElementById('calendarList').innerHTML = '<p style="opacity:0.6;">Could not load calendar</p>';
+    }
+}
+
+// ============================================
+// EXPORT REPORT
+// ============================================
+document.getElementById('exportBtn').addEventListener('click', function() {
+    const trips = JSON.parse(localStorage.getItem('trips') || '[]');
+    const catches = JSON.parse(localStorage.getItem('catches') || '[]');
+    
+    if (trips.length === 0 && catches.length === 0) {
+        alert('No data to export! Start fishing first! 🐟');
+        return;
+    }
+    
+    let report = '🐟 FISHERMAN-AI REPORT\n';
+    report += '=' .repeat(40) + '\n';
+    report += `Date: ${new Date().toLocaleString()}\n\n`;
+    
+    report += '📋 TRIP HISTORY:\n';
+    trips.slice(-5).forEach((t, i) => {
+        report += `  ${i+1}. ${t.status} - ${t.date}\n`;
+    });
+    
+    report += '\n🎣 CATCHES:\n';
+    catches.slice(-5).forEach((c, i) => {
+        report += `  ${i+1}. ${c.quantity}kg ${c.fish} - ₹${c.profit}\n`;
+    });
+    
+    const totalProfit = catches.reduce((sum, c) => sum + (c.profit || 0), 0);
+    report += `\n💰 Total Profit: ₹${totalProfit}`;
+    
+    const blob = new Blob([report], {type: 'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `fisherman-report-${new Date().toISOString().slice(0,10)}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+});
+
+// ============================================
+// WEATHER ALERTS
+// ============================================
+function checkWeatherAlerts() {
+    const badWeather = ['rain', 'storm', 'thunderstorm', 'heavy rain', 'cyclone'];
+    
+    fetch(BACKEND_URL + '/weather')
+        .then(r => r.json())
+        .then(data => {
+            const weather = data.weather.toLowerCase();
+            if (badWeather.some(w => weather.includes(w))) {
+                showAlert('⚠️ Bad Weather Alert!', 'Be careful, bad weather expected today');
+            }
+        })
+        .catch(() => {});
+}
+
+function showAlert(title, message) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'alert-banner';
+    alertDiv.innerHTML = `
+        <div class="content">
+            <span class="icon">⚠️</span>
+            <div>
+                <div class="title">${title}</div>
+                <div class="message">${message}</div>
+            </div>
+            <button class="close" onclick="this.parentElement.parentElement.remove()">✕</button>
+        </div>
+    `;
+    document.body.appendChild(alertDiv);
+    
+    // Voice alert
+    speakResponse(`Warning! ${title}. ${message}`);
+    
+    // Auto remove after 10 seconds
+    setTimeout(() => alertDiv.remove(), 10000);
+}
+
+// Check weather alerts every 5 minutes
+setInterval(checkWeatherAlerts, 300000);
+checkWeatherAlerts();
 </script>
 
 </body>
