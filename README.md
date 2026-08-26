@@ -51,6 +51,11 @@ Voice-first AI assistant that answers:
 | Fish identification | ✅ Done  |
 | Community alerts | 🔜 Coming |
 
+-newly added
+- 🏛️ Government Schemes
+- 🗓️ Fishing Calendar
+- 📄 Export Reports
+- 🔔 Weather Alerts
 ---
 
 ### 🚀 Quick Start
