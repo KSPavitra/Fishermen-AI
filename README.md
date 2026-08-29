@@ -56,3 +56,6 @@ python app.py
 
 # Frontend
 # Open frontend/index.html in browser
+
+### Show your Support
+If you like this project idea, give it a ⭐ on GitHub
