@@ -39,6 +39,12 @@ Built for the fishing community of Karavali (Coastal Karnataka).
 
 ---
 
+
+## 🌐 Live Demo
+
+- **Frontend:** https://fisherman-ai.vercel.app *(Coming after deployment)*
+- **Backend:** https://fisherman-ai-backend.onrender.com *(Coming after deployment)*
+
 ### 🚀 Quick Start
 
 git clone https://github.com/KSPavitra/Fishermen-AI.git
