@@ -36,6 +36,7 @@ Built for the fishing community of Karavali (Coastal Karnataka).
 | AI/ML | Web Speech API |
 | Weather | OpenWeatherMap API |
 | Database | LocalStorage |
+|Deployment | Render + Vercel|
 
 ---
 
