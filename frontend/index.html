@@ -153,6 +153,34 @@
             min-height: 40px;
             word-wrap: break-word;
         }
+        /* === LANGUAGE === */
+        .language-selector {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.lang-btn {
+    padding: 6px 14px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s;
+}
+
+.lang-btn:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.lang-btn.active {
+    background: #0077b6;
+    border-color: #0077b6;
+}
+
 
         /* ===== RESULT CARD ===== */
         .result-container {
@@ -702,6 +730,14 @@
         </p>
     </header>
 
+    <!-- Language Selector -->
+<div class="language-selector" style="text-align:center;margin:8px 0;">
+    <button class="lang-btn active" data-lang="kn">ಕನ್ನಡ</button>
+    <button class="lang-btn" data-lang="tulu">ತುಳು</button>
+    <button class="lang-btn" data-lang="konkani">ಕೊಂಕಣಿ</button>
+    <button class="lang-btn" data-lang="en">English</button>
+</div>
+
     <!-- ===== VOICE SECTION ===== -->
     <div class="voice-section">
         <button class="mic-btn" id="micBtn">
@@ -908,6 +944,82 @@
 
     const fishImage = document.getElementById('fishImage');
     const fishResult = document.getElementById('fishResult');
+
+    // ============================================
+// LANGUAGE SUPPORT
+// ============================================
+let currentLang = 'kn';
+
+const translations = {
+    'kn': {
+        'title': 'ನಿಮ್ಮ ಕಡಲ ಸಹಾಯಕ',
+        'micText': 'ಒತ್ತಿ ಮಾತನಾಡಿ',
+        'status': 'Ready',
+        'listening': '🎙️ ಮಾತನಾಡಿ...',
+        'processing': '⏳ Processing...',
+        'done': '✅ Done!',
+        'error': '❌ Please try again'
+    },
+    'tulu': {
+        'title': 'ಇರ್ದ್ ಕಡಲ್ ಸಹಾಯಕ',
+        'micText': 'ಒತ್ತಿ ಪಾತೆರ್',
+        'status': 'Ready',
+        'listening': '🎙️ ಪಾತೆರ್...',
+        'processing': '⏳ Processing...',
+        'done': '✅ ಆಂಡ್!',
+        'error': '❌ ದಯವಿಟ್ಟ್ ಒಂಜಿ ಸರ್ತಿ ಪ್ರಯತ್ನ ಮಲ್ಪುಲ'
+    },
+    'konkani': {
+        'title': 'ತುಜೊ ಕಡಲ್ ಸಹಾಯಕ',
+        'micText': 'ದಬಾವನ್ ಉಲೆ',
+        'status': 'Ready',
+        'listening': '🎙️ ಉಲೆ...',
+        'processing': '⏳ Processing...',
+        'done': '✅ ಜಾಲೆಂ!',
+        'error': '❌ ಕೃಪಯಾ ಪರತ್ ಪ್ರಯತ್ನ ಕರ್'
+    },
+    'en': {
+        'title': 'Your Marine Auxiliary',
+        'micText': 'Hold to Speak',
+        'status': 'Ready',
+        'listening': '🎙️ Speak now...',
+        'processing': '⏳ Processing...',
+        'done': '✅ Done!',
+        'error': '❌ Please try again'
+    }
+};
+
+function setLanguage(lang) {
+    currentLang = lang;
+    
+    // Update UI text
+    document.querySelector('.subtitle').textContent = translations[lang].title;
+    document.getElementById('micText').textContent = translations[lang].micText;
+    document.getElementById('statusText').textContent = translations[lang].status;
+    
+    // Update active button
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+    
+    // Update speech recognition language
+    if (recognition) {
+        const langMap = {
+            'kn': 'kn-IN',
+            'tulu': 'kn-IN',  // Tulu uses Kannada script
+            'konkani': 'kn-IN',  // Konkani uses Kannada script
+            'en': 'en-US'
+        };
+        recognition.lang = langMap[lang] || 'kn-IN';
+    }
+}
+
+// Language button click handlers
+document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        setLanguage(this.dataset.lang);
+    });
+});
 
     // ============================================
     // STATE
