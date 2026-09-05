@@ -451,6 +451,15 @@
             <div id="calendarList"></div>
         </div>
 
+        <!-- ================== PAGE: REELS ================== -->
+<div class="page" id="page-reels">
+    <h2 class="page-title">🎥 Fish Reels</h2>
+    <p style="font-size:12px;opacity:0.6;margin-bottom:10px;">Watch amazing fishing moments! 🐟</p>
+    <div id="reelsContainer">
+        <!-- Reels will load here -->
+    </div>
+</div>
+
         <!-- ================== PAGE 5: MORE ================== -->
         <div class="page" id="page-more">
             <h2 class="page-title">⚙️ More</h2>
@@ -476,6 +485,7 @@
         <button class="tab-btn active" data-page="page-home"><span class="tab-icon">🏠</span>Home</button>
         <button class="tab-btn" data-page="page-voice"><span class="tab-icon">🎤</span>Voice</button>
         <button class="tab-btn" data-page="page-market"><span class="tab-icon">📊</span>Market</button>
+        <button class="tab-btn" data page="page-reels"><span class="tab-icon">🎥</span>Reels</button>
         <button class="tab-btn" data-page="page-safety"><span class="tab-icon">🆘</span>Safety</button>
         <button class="tab-btn" data-page="page-more"><span class="tab-icon">⚙️</span>More</button>
     </div>
@@ -629,6 +639,82 @@ function setupMic(btn, iconId, textId, statusId, transcriptId) {
 
 setupMic(micBtn, 'micIcon', 'micText', 'statusText', 'transcriptText');
 setupMic(micBtn2, 'micIcon2', 'micText2', 'statusText2', 'transcriptText2');
+
+
+// ============================================
+// FISH REELS
+// ============================================
+const reelData = [
+    {
+        id: 1,
+        video: '🎥',
+        title: '🐟 Big Mackerel Catch!',
+        location: 'Malpe Beach',
+        likes: 234,
+        comments: 45,
+        user: 'Fisherman Raju'
+    },
+    {
+        id: 2,
+        video: '🎥',
+        title: '🚤 Early Morning Fishing',
+        location: 'Gangolli',
+        likes: 189,
+        comments: 32,
+        user: 'Boat Owner Kumar'
+    },
+    {
+        id: 3,
+        video: '🎥',
+        title: '🐠 Fresh Catch of the Day!',
+        location: 'Karwar',
+        likes: 312,
+        comments: 67,
+        user: 'Fisherman Shetty'
+    },
+    {
+        id: 4,
+        video: '🎥',
+        title: '🌅 Sunset Fishing Vibes',
+        location: 'Udupi',
+        likes: 156,
+        comments: 28,
+        user: 'Fishing Lover'
+    }
+];
+
+function loadReels() {
+    const container = document.getElementById('reelsContainer');
+    let html = '';
+    reelData.forEach(reel => {
+        html += `
+            <div style="background:rgba(255,255,255,0.04);border-radius:14px;padding:14px;margin-bottom:12px;border:1px solid rgba(255,255,255,0.04);">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                    <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:20px;">🐟</div>
+                    <div>
+                        <div style="font-weight:600;font-size:14px;">${reel.user}</div>
+                        <div style="font-size:11px;opacity:0.5;">📍 ${reel.location}</div>
+                    </div>
+                </div>
+                <div style="background:rgba(255,255,255,0.03);border-radius:10px;padding:20px;text-align:center;font-size:48px;min-height:120px;display:flex;align-items:center;justify-content:center;flex-direction:column;border:1px dashed rgba(255,255,255,0.06);">
+                    ${reel.video}
+                    <div style="font-size:16px;font-weight:600;margin-top:6px;">${reel.title}</div>
+                </div>
+                <div style="display:flex;gap:20px;margin-top:10px;font-size:13px;">
+                    <span>❤️ ${reel.likes}</span>
+                    <span>💬 ${reel.comments}</span>
+                    <span style="cursor:pointer;">📤 Share</span>
+                </div>
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+}
+
+// Load reels when page is shown
+document.querySelector('[data-page="page-reels"]').addEventListener('click', function() {
+    setTimeout(loadReels, 100);
+});
 
 // ============================================
 // SEND TO BACKEND
