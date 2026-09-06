@@ -31,6 +31,7 @@ Built for the fishing community of Karavali (Coastal Karnataka).
 | 19 | 🏆 Leaderboard | 🔜 |
 | 20 | 🎣 Fishing Tips | 🔜 |
 | 21 | 🎮 Fish Quiz | 🔜 |
+More Features Coming Son !!
 
 ---
 
