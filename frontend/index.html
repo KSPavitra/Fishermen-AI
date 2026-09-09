@@ -366,6 +366,15 @@
             header h1 { font-size: 20px; }
         }
 
+        /* ===== CONTEST PAGE ===== */
+#contestList {
+    max-height: 500px;
+    overflow-y: auto;
+}
+#contestList::-webkit-scrollbar { width: 3px; }
+#contestList::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); border-radius: 10px; }
+#contestList::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 10px; }
+
         /* Scrollbar hide */
         .content-area::-webkit-scrollbar { width: 2px; }
     </style>
@@ -460,6 +469,31 @@
     </div>
 </div>
 
+<!-- ================== PAGE: CONTEST ================== -->
+<div class="page" id="page-contest">
+    <h2 class="page-title">📸 Daily Catch Contest</h2>
+    <p style="font-size:12px;opacity:0.6;margin-bottom:10px;">Upload your catch and win! 🏆</p>
+    
+    <!-- Upload Section -->
+    <div style="background:rgba(255,255,255,0.04);border-radius:14px;padding:14px;margin-bottom:12px;border:1px dashed rgba(255,255,255,0.1);">
+        <input type="file" id="contestPhoto" accept="image/*" style="display:none;">
+        <button onclick="document.getElementById('contestPhoto').click()" style="width:100%;padding:14px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);border:none;border-radius:12px;color:white;font-weight:700;font-size:16px;cursor:pointer;">
+            📸 Upload Your Catch
+        </button>
+        <div style="margin-top:8px;display:flex;gap:10px;flex-wrap:wrap;">
+            <input type="text" id="contestFishName" placeholder="Fish name (e.g., Mackerel)" style="flex:1;padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.04);color:white;font-size:13px;">
+            <input type="text" id="contestLocation" placeholder="Location (e.g., Malpe)" style="flex:1;padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.04);color:white;font-size:13px;">
+        </div>
+        <button onclick="submitContestPhoto()" style="margin-top:8px;padding:10px;background:#22c55e;border:none;border-radius:10px;color:white;font-weight:600;cursor:pointer;width:100%;">✅ Submit for Contest</button>
+    </div>
+
+    <!-- Contest Entries -->
+    <div id="contestEntries" style="margin-top:10px;">
+        <h3 style="font-size:15px;margin-bottom:8px;">🏆 Today's Entries</h3>
+        <div id="contestList"></div>
+    </div>
+</div>
+
         <!-- ================== PAGE 5: MORE ================== -->
         <div class="page" id="page-more">
             <h2 class="page-title">⚙️ More</h2>
@@ -467,6 +501,7 @@
                 <button onclick="showPage('page-home')" style="padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">🏠 Home</button>
                 <button onclick="showPage('page-voice')" style="padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">🎤 Voice</button>
                 <button onclick="showPage('page-market')" style="padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">📊 Market</button>
+                <button onclick="showPage('page-contest')" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">📸 Contest</button>
                 <button onclick="showPage('page-safety')" style="padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">🆘 Safety</button>
                 <button id="historyBtn" style="padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">📋 History</button>
                 <button id="dashboardBtn" style="padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">📈 Dashboard</button>
@@ -486,6 +521,7 @@
         <button class="tab-btn" data-page="page-voice"><span class="tab-icon">🎤</span>Voice</button>
         <button class="tab-btn" data-page="page-market"><span class="tab-icon">📊</span>Market</button>
         <button class="tab-btn" data page="page-reels"><span class="tab-icon">🎥</span>Reels</button>
+        <button class="tab-btn" data page="page-contest"><span class="tab-icon">📸</span>Contest</button>
         <button class="tab-btn" data-page="page-safety"><span class="tab-icon">🆘</span>Safety</button>
         <button class="tab-btn" data-page="page-more"><span class="tab-icon">⚙️</span>More</button>
     </div>
@@ -804,6 +840,117 @@ async function checkBackend() {
     }
 }
 
+// ============================================
+// DAILY CATCH PHOTO CONTEST
+// ============================================
+
+// Contest data (stored in localStorage)
+let contestEntries = JSON.parse(localStorage.getItem('contestEntries') || '[]');
+
+function loadContestEntries() {
+    const container = document.getElementById('contestList');
+    if (contestEntries.length === 0) {
+        container.innerHTML = '<p style="opacity:0.5;text-align:center;padding:20px;">No entries yet. Be the first to upload! 📸</p>';
+        return;
+    }
+
+    // Sort by votes (highest first)
+    const sorted = [...contestEntries].sort((a, b) => (b.votes || 0) - (a.votes || 0));
+    
+    let html = '';
+    sorted.forEach((entry, index) => {
+        const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '';
+        html += `
+            <div style="background:rgba(255,255,255,0.04);border-radius:14px;padding:14px;margin-bottom:10px;border:1px solid rgba(255,255,255,0.06);">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                    <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:20px;">${medal || '🐟'}</div>
+                    <div>
+                        <div style="font-weight:600;font-size:14px;">${entry.user || 'Fisherman'}</div>
+                        <div style="font-size:11px;opacity:0.5;">📍 ${entry.location || 'Karavali'} | 🐟 ${entry.fish || 'Unknown'}</div>
+                    </div>
+                    <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
+                        <span style="font-size:18px;">❤️</span>
+                        <span style="font-weight:700;font-size:16px;">${entry.votes || 0}</span>
+                    </div>
+                </div>
+                <div style="background:rgba(255,255,255,0.03);border-radius:10px;padding:20px;text-align:center;min-height:80px;display:flex;align-items:center;justify-content:center;border:1px dashed rgba(255,255,255,0.06);">
+                    <div>
+                        <span style="font-size:48px;">📸</span>
+                        <div style="font-size:14px;opacity:0.6;margin-top:4px;">${entry.imageData ? 'Photo uploaded' : 'No image'}</div>
+                    </div>
+                </div>
+                <div style="display:flex;gap:16px;margin-top:10px;font-size:13px;">
+                    <button onclick="voteContest(${index})" style="background:none;border:none;color:white;cursor:pointer;">❤️ Vote</button>
+                    <span>💬 ${entry.comments || 0}</span>
+                    <span onclick="shareContest(${index})" style="cursor:pointer;">📤 Share</span>
+                </div>
+                ${index === 0 && contestEntries.length > 0 ? '<div style="margin-top:6px;background:rgba(34,197,94,0.15);padding:6px;border-radius:8px;text-align:center;font-size:12px;color:#22c55e;">🏆 CURRENT LEADER</div>' : ''}
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+}
+
+// Submit contest photo
+function submitContestPhoto() {
+    const fishName = document.getElementById('contestFishName').value.trim();
+    const location = document.getElementById('contestLocation').value.trim();
+    const fileInput = document.getElementById('contestPhoto');
+    const file = fileInput.files[0];
+
+    if (!fishName || !location) {
+        alert('Please enter fish name and location!');
+        return;
+    }
+
+    const entry = {
+        id: Date.now(),
+        user: 'Fisherman',
+        fish: fishName,
+        location: location,
+        votes: 0,
+        comments: 0,
+        imageData: file ? '📸' : null,
+        timestamp: new Date().toISOString()
+    };
+
+    contestEntries.push(entry);
+    localStorage.setItem('contestEntries', JSON.stringify(contestEntries));
+
+    // Clear inputs
+    document.getElementById('contestFishName').value = '';
+    document.getElementById('contestLocation').value = '';
+    fileInput.value = '';
+
+    loadContestEntries();
+    alert('✅ Your entry has been submitted for the contest! 🏆');
+}
+
+// Vote function
+function voteContest(index) {
+    contestEntries[index].votes = (contestEntries[index].votes || 0) + 1;
+    localStorage.setItem('contestEntries', JSON.stringify(contestEntries));
+    loadContestEntries();
+}
+
+// Share function
+function shareContest(index) {
+    const entry = contestEntries[index];
+    if (navigator.share) {
+        navigator.share({
+            title: '🏆 Daily Catch Contest',
+            text: `${entry.user} caught ${entry.fish} at ${entry.location}! Vote now! ❤️`,
+            url: 'https://fishermen-ai.vercel.app'
+        });
+    } else {
+        alert(`📸 ${entry.user} caught ${entry.fish} at ${entry.location}! 🐟`);
+    }
+}
+
+// Load contest when page is shown
+document.querySelector('[data-page="page-contest"]').addEventListener('click', function() {
+    setTimeout(loadContestEntries, 100);
+});
 // ============================================
 // LOAD MARKET
 // ============================================
