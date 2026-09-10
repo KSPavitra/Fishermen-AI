@@ -307,7 +307,13 @@
             flex-direction: column;
             align-items: center;
             gap: 2px;
+            
         }
+        .tab-btn {
+    min-height: 50px;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
         .tab-btn .tab-icon { font-size: 22px; }
         .tab-btn:hover { color: rgba(255,255,255,0.7); }
         .tab-btn.active {
@@ -1120,16 +1126,16 @@ const translations = {
     'konkani': { title: 'ತುಜೊ ಕಡಲ್ ಸಹಾಯಕ', micText: 'ದಬಾವನ್ ಉಲೆ', status: 'Ready' },
     'en': { title: 'Your Marine Co-Pilot', micText: 'Hold to Speak', status: 'Ready' }
 };
-document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        currentLang = this.dataset.lang;
-        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        document.querySelector('.subtitle').textContent = translations[currentLang].title;
-        document.getElementById('micText').textContent = translations[currentLang].micText;
-        document.getElementById('micText2').textContent = translations[currentLang].micText;
-        if (recognition) recognition.lang = currentLang === 'en' ? 'en-US' : 'kn-IN';
-    });
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+    const handler = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const pageId = this.dataset.page;
+        if (!pageId) return;
+        showPage(pageId);
+    };
+    btn.addEventListener('click', handler);
+    btn.addEventListener('touchstart', handler, {passive: false});
 });
 
 // ============================================
