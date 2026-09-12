@@ -5,27 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>🐟 Fishermen-AI</title>
     <style>
-        /* ===== RESET & BASE ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --primary: #0066cc;
-            --primary-light: #4da6ff;
-            --secondary: #0a2a4a;
             --success: #22c55e;
             --warning: #f59e0b;
             --danger: #ef4444;
             --glass-bg: rgba(255, 255, 255, 0.06);
             --glass-border: rgba(255, 255, 255, 0.08);
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             --radius: 20px;
-            --tab-height: 65px;
         }
-
         body {
             font-family: -apple-system, 'Segoe UI', 'Noto Sans Kannada', sans-serif;
             background: linear-gradient(145deg, #0a1628 0%, #1a3a5c 40%, #0d2847 100%);
@@ -36,31 +25,26 @@
             align-items: center;
             padding: 12px;
         }
-
         #app {
             max-width: 480px;
             width: 100%;
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
             border-radius: var(--radius);
             padding: 20px;
-            box-shadow: var(--shadow);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
             min-height: 92vh;
             display: flex;
             flex-direction: column;
             position: relative;
         }
-
-        /* ===== HEADER ===== */
         header {
             text-align: center;
             padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
             flex-shrink: 0;
         }
-
         header h1 {
             font-size: 24px;
             font-weight: 800;
@@ -69,13 +53,7 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
-        .subtitle {
-            font-size: 12px;
-            opacity: 0.6;
-            margin-top: 2px;
-        }
-
+        .subtitle { font-size: 12px; opacity: 0.6; margin-top: 2px; }
         .connection-status {
             display: inline-flex;
             align-items: center;
@@ -84,31 +62,16 @@
             margin-top: 4px;
             padding: 3px 12px;
             border-radius: 20px;
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255,255,255,0.04);
         }
-
-        .status-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            display: inline-block;
-        }
+        .status-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
         .status-dot.online { background: var(--success); animation: pulse-dot 2s infinite; }
         .status-dot.offline { background: var(--danger); }
-
         @keyframes pulse-dot {
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.5; transform: scale(0.8); }
         }
-
-        /* ===== LANGUAGE SELECTOR ===== */
-        .lang-selector {
-            display: flex;
-            gap: 4px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 6px 0 4px;
-        }
+        .lang-selector { display: flex; gap: 4px; justify-content: center; flex-wrap: wrap; margin: 6px 0 4px; }
         .lang-btn {
             padding: 3px 12px;
             border: 1px solid rgba(255,255,255,0.1);
@@ -118,17 +81,12 @@
             cursor: pointer;
             font-size: 10px;
             font-weight: 500;
-            transition: all 0.3s ease;
         }
-        .lang-btn:hover { background: rgba(255,255,255,0.05); color: white; }
         .lang-btn.active {
             background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             border-color: #3b82f6;
             color: white;
-            box-shadow: 0 4px 15px rgba(59,130,246,0.3);
         }
-
-        /* ===== CONTENT AREA ===== */
         .content-area {
             flex: 1;
             overflow-y: auto;
@@ -136,29 +94,16 @@
             margin-bottom: 8px;
         }
         .content-area::-webkit-scrollbar { width: 3px; }
-        .content-area::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); border-radius: 10px; }
         .content-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 10px; }
-
-        /* ===== PAGES ===== */
-        .page {
-            display: none;
-            animation: fadeUp 0.3s ease;
-        }
+        .page { display: none; animation: fadeUp 0.3s ease; }
         .page.active { display: block; }
-
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        /* ===== VOICE SECTION ===== */
-        .voice-section {
-            text-align: center;
-            padding: 12px 0;
-        }
+        .voice-section { text-align: center; padding: 12px 0; }
         .mic-btn {
-            width: 130px;
-            height: 130px;
+            width: 130px; height: 130px;
             border-radius: 50%;
             border: none;
             background: linear-gradient(135deg, #3b82f6, #8b5cf6);
@@ -174,7 +119,6 @@
             margin: 0 auto;
             touch-action: none;
         }
-        .mic-btn:hover { transform: scale(1.05); }
         .mic-btn:active { transform: scale(0.92); }
         .mic-btn.recording {
             background: linear-gradient(135deg, #ef4444, #dc2626);
@@ -198,8 +142,6 @@
             min-height: 36px;
             border: 1px dashed rgba(255,255,255,0.06);
         }
-
-        /* ===== DECISION CARD ===== */
         .result-container { margin-top: 12px; display: none; }
         .result-container.visible { display: block; }
         .decision-card {
@@ -224,8 +166,6 @@
             grid-template-columns: 1fr 1fr;
             gap: 4px 10px;
         }
-
-        /* ===== QUICK ACTIONS (Home Page) ===== */
         .quick-actions {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -242,22 +182,12 @@
             background: rgba(255,255,255,0.04);
             color: rgba(255,255,255,0.8);
             border: 1px solid rgba(255,255,255,0.04);
-            transition: all 0.3s ease;
         }
-        .quick-actions button:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
         .quick-actions button .icon { font-size: 20px; display: block; margin-bottom: 2px; }
         #sosBtn { background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.15); }
         #marketBtn { background: rgba(245,158,11,0.12); border-color: rgba(245,158,11,0.12); }
         #tideBtn { background: rgba(6,182,212,0.12); border-color: rgba(6,182,212,0.12); }
-
-        /* ===== PAGE HEADERS ===== */
-        .page-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        /* ===== CONTAINERS ===== */
+        .page-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
         .container-box {
             margin-top: 10px;
             padding: 12px;
@@ -279,9 +209,6 @@
             font-size: 13px;
         }
         .item-row .price { font-weight: 700; color: #fbbf24; }
-        .item-row .profit { color: var(--success); }
-
-        /* ===== BOTTOM TAB BAR ===== */
         .tab-bar {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -302,94 +229,30 @@
             cursor: pointer;
             padding: 6px 4px;
             border-radius: 12px;
-            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 2px;
-            
+            min-height: 50px;
         }
-        .tab-btn {
-      min-height: 50px;
-     -webkit-tap-highlight-color: transparent;
-      user-select: none;
-}
         .tab-btn .tab-icon { font-size: 22px; }
-        .tab-btn:hover { color: rgba(255,255,255,0.7); }
-        .tab-btn.active {
-            color: white;
-            background: rgba(59,130,246,0.15);
-        }
-        .tab-btn.active .tab-icon { transform: scale(1.05); }
-
-        /* ===== FISH UPLOAD ===== */
-        .fish-upload-area {
-            margin-top: 12px;
-            padding: 12px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 14px;
-            border: 1px solid rgba(255,255,255,0.04);
-        }
-        .fish-upload-area h4 { font-size: 14px; margin-bottom: 4px; }
-        .upload-btn {
-            padding: 8px 20px;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            border: none;
-            border-radius: 10px;
-            color: white;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .upload-btn:hover { opacity: 0.9; transform: scale(1.02); }
-        .fish-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4px;
-            margin-top: 6px;
-        }
-        .fish-grid span {
-            padding: 4px 8px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 6px;
-            font-size: 11px;
-            color: rgba(255,255,255,0.6);
-        }
-
-        /* ===== FOOTER ===== */
+        .tab-btn.active { color: white; background: rgba(59,130,246,0.15); }
         footer { text-align: center; font-size: 10px; opacity: 0.3; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.04); }
         .tagline { font-style: italic; }
-
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 420px) {
             #app { padding: 14px; }
             .mic-btn { width: 110px; height: 110px; }
             #micIcon { font-size: 36px; }
             .tab-btn .tab-icon { font-size: 18px; }
             .tab-btn { font-size: 9px; }
-            .quick-actions { grid-template-columns: repeat(3, 1fr); }
             header h1 { font-size: 20px; }
         }
-
-        /* ===== CONTEST PAGE ===== */
-#contestList {
-    max-height: 500px;
-    overflow-y: auto;
-}
-#contestList::-webkit-scrollbar { width: 3px; }
-#contestList::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); border-radius: 10px; }
-#contestList::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 10px; }
-
-        /* Scrollbar hide */
-        .content-area::-webkit-scrollbar { width: 2px; }
     </style>
 </head>
 <body>
 
 <div id="app">
 
-    <!-- ===== HEADER ===== -->
     <header>
         <h1>🐟 Fishermen-AI</h1>
         <p class="subtitle">Your Marine Co-Pilot</p>
@@ -405,10 +268,9 @@
         </div>
     </header>
 
-    <!-- ===== CONTENT AREA ===== -->
     <div class="content-area" id="contentArea">
 
-        <!-- ================== PAGE 1: HOME ================== -->
+        <!-- HOME -->
         <div class="page active" id="page-home">
             <div class="voice-section">
                 <button class="mic-btn" id="micBtn">
@@ -418,7 +280,6 @@
                 <div class="status-text" id="statusText">Ready</div>
                 <div class="transcript" id="transcriptText"></div>
             </div>
-
             <div class="result-container" id="resultContainer">
                 <div class="decision-card" id="decisionCard">
                     <h2 id="decisionStatus">🟢 GO</h2>
@@ -426,7 +287,6 @@
                     <div id="decisionDetails"></div>
                 </div>
             </div>
-
             <div class="quick-actions">
                 <button id="sosBtn"><span class="icon">🆘</span>SOS</button>
                 <button id="marketBtn"><span class="icon">📊</span>Market</button>
@@ -434,7 +294,7 @@
             </div>
         </div>
 
-        <!-- ================== PAGE 2: VOICE ================== -->
+        <!-- VOICE -->
         <div class="page" id="page-voice">
             <h2 class="page-title">🎤 Voice Assistant</h2>
             <p style="font-size:13px;opacity:0.6;margin-bottom:10px;">Ask anything about fishing, weather, or safety</p>
@@ -446,19 +306,16 @@
                 <div class="status-text" id="statusText2">Ready</div>
                 <div class="transcript" id="transcriptText2"></div>
             </div>
-            <div id="voiceHistory" style="margin-top:10px;max-height:200px;overflow-y:auto;">
-                <p style="font-size:12px;opacity:0.4;text-align:center;">Your voice history will appear here</p>
-            </div>
         </div>
 
-        <!-- ================== PAGE 3: MARKET ================== -->
+        <!-- MARKET -->
         <div class="page" id="page-market">
             <h2 class="page-title">📊 Market Prices</h2>
-            <div id="marketList"></div>
+            <div id="marketList"><p style="opacity:0.6;">Loading...</p></div>
             <p style="font-size:11px;opacity:0.4;margin-top:8px;">Prices updated daily</p>
         </div>
 
-        <!-- ================== PAGE 4: SAFETY ================== -->
+        <!-- SAFETY -->
         <div class="page" id="page-safety">
             <h2 class="page-title">🆘 Safety</h2>
             <button id="sosBtn2" style="width:100%;padding:14px;background:#ef4444;border:none;border-radius:12px;color:white;font-size:18px;font-weight:700;cursor:pointer;margin-bottom:12px;">🆘 SOS</button>
@@ -466,82 +323,42 @@
             <div id="calendarList"></div>
         </div>
 
-        <!-- ================== PAGE: REELS ================== -->
-<div class="page" id="page-reels">
-    <h2 class="page-title">🎥 Fish Reels</h2>
-    <p style="font-size:12px;opacity:0.6;margin-bottom:10px;">Watch amazing fishing moments! 🐟</p>
-    <div id="reelsContainer">
-        <!-- Reels will load here -->
-    </div>
-</div>
-
-<!-- ================== PAGE: CONTEST ================== -->
-<div class="page" id="page-contest">
-    <h2 class="page-title">📸 Daily Catch Contest</h2>
-    <p style="font-size:12px;opacity:0.6;margin-bottom:10px;">Upload your catch and win! 🏆</p>
-    
-    <!-- Upload Section -->
-    <div style="background:rgba(255,255,255,0.04);border-radius:14px;padding:14px;margin-bottom:12px;border:1px dashed rgba(255,255,255,0.1);">
-        <input type="file" id="contestPhoto" accept="image/*" style="display:none;">
-        <button onclick="document.getElementById('contestPhoto').click()" style="width:100%;padding:14px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);border:none;border-radius:12px;color:white;font-weight:700;font-size:16px;cursor:pointer;">
-            📸 Upload Your Catch
-        </button>
-        <div style="margin-top:8px;display:flex;gap:10px;flex-wrap:wrap;">
-            <input type="text" id="contestFishName" placeholder="Fish name (e.g., Mackerel)" style="flex:1;padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.04);color:white;font-size:13px;">
-            <input type="text" id="contestLocation" placeholder="Location (e.g., Malpe)" style="flex:1;padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.04);color:white;font-size:13px;">
-        </div>
-        <button onclick="submitContestPhoto()" style="margin-top:8px;padding:10px;background:#22c55e;border:none;border-radius:10px;color:white;font-weight:600;cursor:pointer;width:100%;">✅ Submit for Contest</button>
-    </div>
-
-    <!-- Contest Entries -->
-    <div id="contestEntries" style="margin-top:10px;">
-        <h3 style="font-size:15px;margin-bottom:8px;">🏆 Today's Entries</h3>
-        <div id="contestList"></div>
-    </div>
-</div>
-
-        <!-- ================== PAGE 5: MORE ================== -->
+        <!-- MORE -->
         <div class="page" id="page-more">
             <h2 class="page-title">⚙️ More</h2>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-                <button onclick="showPage('page-home')" style="padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">🏠 Home</button>
-                <button onclick="showPage('page-voice')" style="padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">🎤 Voice</button>
-                <button onclick="showPage('page-market')" style="padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">📊 Market</button>
-                <button onclick="showPage('page-contest')" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">📸 Contest</button>
-                <button onclick="showPage('page-safety')" style="padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">🆘 Safety</button>
-                <button id="historyBtn" style="padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">📋 History</button>
-                <button id="dashboardBtn" style="padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">📈 Dashboard</button>
-                <button id="fuelBtn" style="padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">⛽ Fuel</button>
-                <button id="schemeBtn" style="padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">🏛️ Schemes</button>
-                <button id="exportBtn" style="padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">📄 Export</button>
-                <button id="predictionBtn" style="padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">🐟 Predict</button>
+                <button onclick="showPage('page-home')" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">🏠 Home</button>
+                <button onclick="showPage('page-voice')" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">🎤 Voice</button>
+                <button onclick="showPage('page-market')" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">📊 Market</button>
+                <button onclick="showPage('page-safety')" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">🆘 Safety</button>
+                <button id="historyBtn" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">📋 History</button>
+                <button id="dashboardBtn" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">📈 Dashboard</button>
+                <button id="fuelBtn" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">⛽ Fuel</button>
+                <button id="schemeBtn" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">🏛️ Schemes</button>
+                <button id="exportBtn" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">📄 Export</button>
+                <button id="predictionBtn" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">🐟 Predict</button>
             </div>
             <div id="moreContainer" style="margin-top:12px;"></div>
         </div>
 
     </div>
 
-    <!-- ===== BOTTOM TAB BAR ===== -->
     <div class="tab-bar">
         <button class="tab-btn active" data-page="page-home"><span class="tab-icon">🏠</span>Home</button>
         <button class="tab-btn" data-page="page-voice"><span class="tab-icon">🎤</span>Voice</button>
         <button class="tab-btn" data-page="page-market"><span class="tab-icon">📊</span>Market</button>
-        <button class="tab-btn" data page="page-reels"><span class="tab-icon">🎥</span>Reels</button>
-        <button class="tab-btn" data page="page-contest"><span class="tab-icon">📸</span>Contest</button>
         <button class="tab-btn" data-page="page-safety"><span class="tab-icon">🆘</span>Safety</button>
         <button class="tab-btn" data-page="page-more"><span class="tab-icon">⚙️</span>More</button>
     </div>
 
-    <!-- ===== FOOTER ===== -->
     <footer>
         <p class="tagline">"Asking is easier than typing"</p>
     </footer>
 
 </div>
 
-<!-- ===== SOS MODAL ===== -->
-<div class="modal" id="sosModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(10px);z-index:1000;justify-content:center;align-items:center;">
-    <div style="background:linear-gradient(145deg,#0a1628,#1a3a5c);padding:30px;border-radius:24px;max-width:380px;width:90%;text-align:center;border:1px solid rgba(239,68,68,0.3);">
+<div id="sosModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(10px);z-index:1000;justify-content:center;align-items:center;">
+    <div style="background:linear-gradient(145deg,#0a1628,#1a3a5c);padding:30px;border-radius:24px;max-width:380px;width:90%;text-align:center;border:1px solid rgba(239,68,68,0.3);position:relative;">
         <button onclick="document.getElementById('sosModal').style.display='none'" style="position:absolute;top:12px;right:16px;background:none;border:none;color:rgba(255,255,255,0.5);font-size:24px;cursor:pointer;">✕</button>
         <h3 style="color:#ef4444;font-size:24px;">🆘 SOS EMERGENCY</h3>
         <p id="sosLocation" style="margin:12px 0;">Getting your location...</p>
@@ -549,11 +366,7 @@
     </div>
 </div>
 
-<!-- ===== JAVASCRIPT ===== -->
 <script>
-// ============================================
-// CONFIG
-// ============================================
 const BACKEND_URL = 'https://fishermen-ai-backend.onrender.com';
 
 // ============================================
@@ -561,9 +374,11 @@ const BACKEND_URL = 'https://fishermen-ai-backend.onrender.com';
 // ============================================
 function showPage(pageId) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(pageId).classList.add('active');
+    const page = document.getElementById(pageId);
+    if (page) page.classList.add('active');
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelector(`.tab-btn[data-page="${pageId}"]`)?.classList.add('active');
+    const btn = document.querySelector(`.tab-btn[data-page="${pageId}"]`);
+    if (btn) btn.classList.add('active');
 }
 
 document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -598,11 +413,10 @@ function initSpeech() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
         statusText.textContent = '❌ Voice not supported';
-        micBtn.disabled = true;
-        micBtn2.disabled = true;
+        if (micBtn) micBtn.disabled = true;
+        if (micBtn2) micBtn2.disabled = true;
         return;
     }
-
     recognition = new SpeechRecognition();
     recognition.lang = 'kn-IN';
     recognition.continuous = false;
@@ -610,18 +424,15 @@ function initSpeech() {
 
     recognition.onstart = function() {
         isRecording = true;
-        micBtn.classList.add('recording');
-        micBtn2.classList.add('recording');
-        micIcon.textContent = '🔴';
-        document.getElementById('micIcon2').textContent = '🔴';
-        micText.textContent = 'Listening...';
-        document.getElementById('micText2').textContent = 'Listening...';
+        if (micBtn) micBtn.classList.add('recording');
+        if (micBtn2) micBtn2.classList.add('recording');
+        if (micIcon) micIcon.textContent = '🔴';
+        if (document.getElementById('micIcon2')) document.getElementById('micIcon2').textContent = '🔴';
+        if (micText) micText.textContent = 'Listening...';
+        if (document.getElementById('micText2')) document.getElementById('micText2').textContent = 'Listening...';
         statusText.textContent = '🎙️ Speak now...';
-        document.getElementById('statusText2').textContent = '🎙️ Speak now...';
-        transcriptText.textContent = '';
-        document.getElementById('transcriptText2').textContent = '';
+        if (document.getElementById('statusText2')) document.getElementById('statusText2').textContent = '🎙️ Speak now...';
     };
-
     recognition.onresult = function(event) {
         let final = '';
         for (let i = event.resultIndex; i < event.results.length; i++) {
@@ -629,16 +440,14 @@ function initSpeech() {
         }
         if (final) {
             transcriptText.textContent = '📝 "' + final + '"';
-            document.getElementById('transcriptText2').textContent = '📝 "' + final + '"';
+            if (document.getElementById('transcriptText2')) document.getElementById('transcriptText2').textContent = '📝 "' + final + '"';
             statusText.textContent = '⏳ Processing...';
-            document.getElementById('statusText2').textContent = '⏳ Processing...';
             sendToBackend(final);
         }
     };
 
     recognition.onerror = function() {
         statusText.textContent = '❌ Try again';
-        document.getElementById('statusText2').textContent = '❌ Try again';
         stopRecording();
     };
 
@@ -647,116 +456,24 @@ function initSpeech() {
 
 function stopRecording() {
     isRecording = false;
-    micBtn.classList.remove('recording');
-    micBtn2.classList.remove('recording');
-    micIcon.textContent = '🎤';
-    document.getElementById('micIcon2').textContent = '🎤';
-    micText.textContent = 'Hold to Speak';
-    document.getElementById('micText2').textContent = 'Hold to Speak';
-    if (statusText.textContent.includes('Listening')) {
-        statusText.textContent = 'Ready';
-        document.getElementById('statusText2').textContent = 'Ready';
-    }
+    if (micBtn) micBtn.classList.remove('recording');
+    if (micBtn2) micBtn2.classList.remove('recording');
+    if (micIcon) micIcon.textContent = '🎤';
+    if (document.getElementById('micIcon2')) document.getElementById('micIcon2').textContent = '🎤';
+    if (micText) micText.textContent = 'Hold to Speak';
+    if (document.getElementById('micText2')) document.getElementById('micText2').textContent = 'Hold to Speak';
+    if (statusText.textContent.includes('Listening')) statusText.textContent = 'Ready';
 }
 
-// Mic events for both buttons
-function setupMic(btn, iconId, textId, statusId, transcriptId) {
-    btn.addEventListener('mousedown', function(e) {
-        e.preventDefault();
-        if (recognition && !isRecording) recognition.start();
-    });
-    btn.addEventListener('mouseup', function(e) {
-        e.preventDefault();
-        if (recognition && isRecording) recognition.stop();
-    });
-    btn.addEventListener('touchstart', function(e) {
-        e.preventDefault();
-        if (recognition && !isRecording) recognition.start();
-    });
-    btn.addEventListener('touchend', function(e) {
-        e.preventDefault();
-        if (recognition && isRecording) recognition.stop();
-    });
+function setupMic(btn) {
+    if (!btn) return;
+    btn.addEventListener('mousedown', e => { e.preventDefault(); if (recognition && !isRecording) recognition.start(); });
+    btn.addEventListener('mouseup', e => { e.preventDefault(); if (recognition && isRecording) recognition.stop(); });
+    btn.addEventListener('touchstart', e => { e.preventDefault(); if (recognition && !isRecording) recognition.start(); });
+    btn.addEventListener('touchend', e => { e.preventDefault(); if (recognition && isRecording) recognition.stop(); });
 }
-
-setupMic(micBtn, 'micIcon', 'micText', 'statusText', 'transcriptText');
-setupMic(micBtn2, 'micIcon2', 'micText2', 'statusText2', 'transcriptText2');
-
-
-// ============================================
-// FISH REELS
-// ============================================
-const reelData = [
-    {
-        id: 1,
-        video: '🎥',
-        title: '🐟 Big Mackerel Catch!',
-        location: 'Malpe Beach',
-        likes: 234,
-        comments: 45,
-        user: 'Fisherman Raju'
-    },
-    {
-        id: 2,
-        video: '🎥',
-        title: '🚤 Early Morning Fishing',
-        location: 'Gangolli',
-        likes: 189,
-        comments: 32,
-        user: 'Boat Owner Kumar'
-    },
-    {
-        id: 3,
-        video: '🎥',
-        title: '🐠 Fresh Catch of the Day!',
-        location: 'Karwar',
-        likes: 312,
-        comments: 67,
-        user: 'Fisherman Shetty'
-    },
-    {
-        id: 4,
-        video: '🎥',
-        title: '🌅 Sunset Fishing Vibes',
-        location: 'Udupi',
-        likes: 156,
-        comments: 28,
-        user: 'Fishing Lover'
-    }
-];
-
-function loadReels() {
-    const container = document.getElementById('reelsContainer');
-    let html = '';
-    reelData.forEach(reel => {
-        html += `
-            <div style="background:rgba(255,255,255,0.04);border-radius:14px;padding:14px;margin-bottom:12px;border:1px solid rgba(255,255,255,0.04);">
-                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-                    <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:20px;">🐟</div>
-                    <div>
-                        <div style="font-weight:600;font-size:14px;">${reel.user}</div>
-                        <div style="font-size:11px;opacity:0.5;">📍 ${reel.location}</div>
-                    </div>
-                </div>
-                <div style="background:rgba(255,255,255,0.03);border-radius:10px;padding:20px;text-align:center;font-size:48px;min-height:120px;display:flex;align-items:center;justify-content:center;flex-direction:column;border:1px dashed rgba(255,255,255,0.06);">
-                    ${reel.video}
-                    <div style="font-size:16px;font-weight:600;margin-top:6px;">${reel.title}</div>
-                </div>
-                <div style="display:flex;gap:20px;margin-top:10px;font-size:13px;">
-                    <span>❤️ ${reel.likes}</span>
-                    <span>💬 ${reel.comments}</span>
-                    <span style="cursor:pointer;">📤 Share</span>
-                </div>
-            </div>
-        `;
-    });
-    container.innerHTML = html;
-}
-
-// Load reels when page is shown
-document.querySelector('[data-page="page-reels"]').addEventListener('click', function() {
-    setTimeout(loadReels, 100);
-});
+setupMic(micBtn);
+setupMic(micBtn2);
 
 // ============================================
 // SEND TO BACKEND
@@ -769,27 +486,20 @@ async function sendToBackend(text) {
             body: JSON.stringify({ text: text })
         });
         const data = await response.json();
-
         if (data.success) {
             showResult(data.decision);
             speakResponse(data.decision.voice_text || 'Decision ready');
             statusText.textContent = '✅ Done!';
-            document.getElementById('statusText2').textContent = '✅ Done!';
             saveToHistory(data.decision);
         } else {
-            statusText.textContent = '❌ Error: ' + (data.error || 'Unknown');
-            document.getElementById('statusText2').textContent = '❌ Error';
+            statusText.textContent = '❌ Error';
         }
     } catch {
         statusText.textContent = '❌ Backend not reachable';
-        document.getElementById('statusText2').textContent = '❌ Backend not reachable';
         checkBackend();
     }
 }
 
-// ============================================
-// SHOW RESULT
-// ============================================
 function showResult(decision) {
     resultContainer.classList.add('visible');
     const status = decision.status || 'UNKNOWN';
@@ -800,11 +510,8 @@ function showResult(decision) {
     if (status === 'GO') card.classList.add('go');
     else if (status === 'CAUTION') card.classList.add('caution');
     else if (status === "DON'T GO") card.classList.add('dontgo');
-
     if (decision.reasons && decision.reasons.length) {
         decisionReasons.innerHTML = '<ul>' + decision.reasons.map(r => '<li>' + r + '</li>').join('') + '</ul>';
-    } else {
-        decisionReasons.innerHTML = '';
     }
     if (decision.details) {
         let html = '';
@@ -830,16 +537,13 @@ function saveToHistory(decision) {
     localStorage.setItem('trips', JSON.stringify(trips));
 }
 
-// ============================================
-// CHECK BACKEND
-// ============================================
 async function checkBackend() {
     try {
         const response = await fetch(BACKEND_URL + '/health');
         if (response.ok) {
             connectionDot.className = 'status-dot online';
             connectionText.textContent = 'Connected';
-        } else throw new Error('Not OK');
+        } else throw new Error();
     } catch {
         connectionDot.className = 'status-dot offline';
         connectionText.textContent = 'Offline';
@@ -847,118 +551,7 @@ async function checkBackend() {
 }
 
 // ============================================
-// DAILY CATCH PHOTO CONTEST
-// ============================================
-
-// Contest data (stored in localStorage)
-let contestEntries = JSON.parse(localStorage.getItem('contestEntries') || '[]');
-
-function loadContestEntries() {
-    const container = document.getElementById('contestList');
-    if (contestEntries.length === 0) {
-        container.innerHTML = '<p style="opacity:0.5;text-align:center;padding:20px;">No entries yet. Be the first to upload! 📸</p>';
-        return;
-    }
-
-    // Sort by votes (highest first)
-    const sorted = [...contestEntries].sort((a, b) => (b.votes || 0) - (a.votes || 0));
-    
-    let html = '';
-    sorted.forEach((entry, index) => {
-        const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '';
-        html += `
-            <div style="background:rgba(255,255,255,0.04);border-radius:14px;padding:14px;margin-bottom:10px;border:1px solid rgba(255,255,255,0.06);">
-                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-                    <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:20px;">${medal || '🐟'}</div>
-                    <div>
-                        <div style="font-weight:600;font-size:14px;">${entry.user || 'Fisherman'}</div>
-                        <div style="font-size:11px;opacity:0.5;">📍 ${entry.location || 'Karavali'} | 🐟 ${entry.fish || 'Unknown'}</div>
-                    </div>
-                    <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
-                        <span style="font-size:18px;">❤️</span>
-                        <span style="font-weight:700;font-size:16px;">${entry.votes || 0}</span>
-                    </div>
-                </div>
-                <div style="background:rgba(255,255,255,0.03);border-radius:10px;padding:20px;text-align:center;min-height:80px;display:flex;align-items:center;justify-content:center;border:1px dashed rgba(255,255,255,0.06);">
-                    <div>
-                        <span style="font-size:48px;">📸</span>
-                        <div style="font-size:14px;opacity:0.6;margin-top:4px;">${entry.imageData ? 'Photo uploaded' : 'No image'}</div>
-                    </div>
-                </div>
-                <div style="display:flex;gap:16px;margin-top:10px;font-size:13px;">
-                    <button onclick="voteContest(${index})" style="background:none;border:none;color:white;cursor:pointer;">❤️ Vote</button>
-                    <span>💬 ${entry.comments || 0}</span>
-                    <span onclick="shareContest(${index})" style="cursor:pointer;">📤 Share</span>
-                </div>
-                ${index === 0 && contestEntries.length > 0 ? '<div style="margin-top:6px;background:rgba(34,197,94,0.15);padding:6px;border-radius:8px;text-align:center;font-size:12px;color:#22c55e;">🏆 CURRENT LEADER</div>' : ''}
-            </div>
-        `;
-    });
-    container.innerHTML = html;
-}
-
-// Submit contest photo
-function submitContestPhoto() {
-    const fishName = document.getElementById('contestFishName').value.trim();
-    const location = document.getElementById('contestLocation').value.trim();
-    const fileInput = document.getElementById('contestPhoto');
-    const file = fileInput.files[0];
-
-    if (!fishName || !location) {
-        alert('Please enter fish name and location!');
-        return;
-    }
-
-    const entry = {
-        id: Date.now(),
-        user: 'Fisherman',
-        fish: fishName,
-        location: location,
-        votes: 0,
-        comments: 0,
-        imageData: file ? '📸' : null,
-        timestamp: new Date().toISOString()
-    };
-
-    contestEntries.push(entry);
-    localStorage.setItem('contestEntries', JSON.stringify(contestEntries));
-
-    // Clear inputs
-    document.getElementById('contestFishName').value = '';
-    document.getElementById('contestLocation').value = '';
-    fileInput.value = '';
-
-    loadContestEntries();
-    alert('✅ Your entry has been submitted for the contest! 🏆');
-}
-
-// Vote function
-function voteContest(index) {
-    contestEntries[index].votes = (contestEntries[index].votes || 0) + 1;
-    localStorage.setItem('contestEntries', JSON.stringify(contestEntries));
-    loadContestEntries();
-}
-
-// Share function
-function shareContest(index) {
-    const entry = contestEntries[index];
-    if (navigator.share) {
-        navigator.share({
-            title: '🏆 Daily Catch Contest',
-            text: `${entry.user} caught ${entry.fish} at ${entry.location}! Vote now! ❤️`,
-            url: 'https://fishermen-ai.vercel.app'
-        });
-    } else {
-        alert(`📸 ${entry.user} caught ${entry.fish} at ${entry.location}! 🐟`);
-    }
-}
-
-// Load contest when page is shown
-document.querySelector('[data-page="page-contest"]').addEventListener('click', function() {
-    setTimeout(loadContestEntries, 100);
-});
-// ============================================
-// LOAD MARKET
+// LOADERS
 // ============================================
 async function loadMarket() {
     try {
@@ -974,9 +567,6 @@ async function loadMarket() {
     }
 }
 
-// ============================================
-// LOAD TIDE
-// ============================================
 async function loadTide() {
     try {
         const response = await fetch(BACKEND_URL + '/tide');
@@ -985,14 +575,9 @@ async function loadTide() {
             document.getElementById('tideList').innerHTML = `<h3 style="font-size:15px;margin:8px 0;">🌊 Tide Info</h3>` +
                 data.tides.map(t => `<div class="item-row"><span>${t.type} Tide</span><span>${t.time} (${t.height}m)</span></div>`).join('');
         }
-    } catch {
-        document.getElementById('tideList').innerHTML = '<p style="opacity:0.6;">Could not load tide</p>';
-    }
+    } catch {}
 }
 
-// ============================================
-// LOAD CALENDAR
-// ============================================
 async function loadCalendar() {
     try {
         const response = await fetch(BACKEND_URL + '/calendar');
@@ -1001,15 +586,16 @@ async function loadCalendar() {
             document.getElementById('calendarList').innerHTML = `<h3 style="font-size:15px;margin:8px 0;">🗓️ 7-Day Forecast</h3>` +
                 data.days.map(d => `<div class="item-row"><span>${d.date}</span><span>${d.rating}</span></div>`).join('');
         }
-    } catch {
-        document.getElementById('calendarList').innerHTML = '<p style="opacity:0.6;">Could not load calendar</p>';
-    }
+    } catch {}
 }
 
 // ============================================
 // QUICK ACTIONS
 // ============================================
-document.getElementById('sosBtn').addEventListener('click', function() {
+document.getElementById('sosBtn').addEventListener('click', openSOS);
+document.getElementById('sosBtn2').addEventListener('click', openSOS);
+
+function openSOS() {
     document.getElementById('sosModal').style.display = 'flex';
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -1017,26 +603,25 @@ document.getElementById('sosBtn').addEventListener('click', function() {
             () => document.getElementById('sosLocation').textContent = '❌ Location unavailable'
         );
     }
-});
-document.getElementById('sosBtn2').addEventListener('click', function() {
-    document.getElementById('sosModal').style.display = 'flex';
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            pos => document.getElementById('sosLocation').innerHTML = `📍 ${pos.coords.latitude}, ${pos.coords.longitude}`,
-            () => document.getElementById('sosLocation').textContent = '❌ Location unavailable'
-        );
-    }
+}
+
+document.getElementById('marketBtn').addEventListener('click', function() {
+    showPage('page-market');
+    loadMarket();
 });
 
-document.getElementById('marketBtn').addEventListener('click', function() { showPage('page-market'); loadMarket(); });
-document.getElementById('tideBtn').addEventListener('click', function() { showPage('page-safety'); loadTide(); loadCalendar(); });
+document.getElementById('tideBtn').addEventListener('click', function() {
+    showPage('page-safety');
+    loadTide();
+    loadCalendar();
+});
 
 // ============================================
 // MORE BUTTONS
 // ============================================
 document.getElementById('historyBtn').addEventListener('click', function() {
     const trips = JSON.parse(localStorage.getItem('trips') || '[]');
-    document.getElementById('moreContainer').innerHTML = `<h3>📋 History</h3>` +
+    document.getElementById('moreContainer').innerHTML = '<h3>📋 History</h3>' +
         (trips.length === 0 ? '<p style="opacity:0.6;">No trips yet</p>' :
         trips.slice(-5).reverse().map(t => `<div class="item-row"><span>${t.status}</span><span>${t.date}</span></div>`).join(''));
 });
@@ -1053,40 +638,37 @@ document.getElementById('dashboardBtn').addEventListener('click', function() {
             <div style="background:rgba(245,158,11,0.1);padding:12px;border-radius:10px;text-align:center;"><div style="font-size:24px;font-weight:700;">${caution}</div><div style="font-size:11px;opacity:0.6;">CAUTION</div></div>
             <div style="background:rgba(239,68,68,0.1);padding:12px;border-radius:10px;text-align:center;"><div style="font-size:24px;font-weight:700;">${dontgo}</div><div style="font-size:11px;opacity:0.6;">DON'T GO</div></div>
         </div>
-        <p style="font-size:12px;opacity:0.4;margin-top:8px;">${trips.length} total trips</p>
     `;
 });
 
 document.getElementById('fuelBtn').addEventListener('click', function() {
     document.getElementById('moreContainer').innerHTML = `
         <h3>⛽ Fuel Calculator</h3>
-        <div class="fuel-inputs" style="display:flex;gap:8px;flex-wrap:wrap;">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
             <input type="number" id="fuelDistance" placeholder="Distance (km)" value="10" style="flex:1;padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.04);color:white;">
             <input type="number" id="fuelPrice" placeholder="Fuel Price (₹/L)" value="90" style="flex:1;padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.04);color:white;">
         </div>
         <button onclick="calculateFuel()" style="margin-top:8px;padding:10px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);border:none;border-radius:10px;color:white;cursor:pointer;width:100%;font-weight:600;">Calculate</button>
         <div id="fuelResult" style="margin-top:8px;"></div>
     `;
-    window.calculateFuel = function() {
-        const d = parseFloat(document.getElementById('fuelDistance').value) || 10;
-        const p = parseFloat(document.getElementById('fuelPrice').value) || 90;
-        const cost = d * 5 * p;
-        document.getElementById('fuelResult').innerHTML = `<div class="item-row"><span>⛽ Total Cost</span><span class="price">₹${cost.toFixed(2)}</span></div>`;
-    };
-    setTimeout(window.calculateFuel, 100);
 });
+
+window.calculateFuel = function() {
+    const d = parseFloat(document.getElementById('fuelDistance').value) || 10;
+    const p = parseFloat(document.getElementById('fuelPrice').value) || 90;
+    const cost = d * 5 * p;
+    document.getElementById('fuelResult').innerHTML = `<div class="item-row"><span>⛽ Total Cost</span><span class="price">₹${cost.toFixed(2)}</span></div>`;
+};
 
 document.getElementById('schemeBtn').addEventListener('click', async function() {
     try {
         const response = await fetch(BACKEND_URL + '/schemes');
         const data = await response.json();
         if (data.success) {
-            document.getElementById('moreContainer').innerHTML = `<h3>🏛️ Government Schemes</h3>` +
+            document.getElementById('moreContainer').innerHTML = '<h3>🏛️ Government Schemes</h3>' +
                 data.schemes.map(s => `<div style="padding:10px;background:rgba(255,255,255,0.04);border-radius:10px;margin:4px 0;"><div style="font-weight:600;font-size:14px;">${s.name}</div><div style="font-size:12px;opacity:0.7;">${s.description}</div><div style="font-size:11px;color:#fbbf24;">✅ ${s.eligibility}</div></div>`).join('');
         }
-    } catch {
-        document.getElementById('moreContainer').innerHTML = '<p style="opacity:0.6;">Could not load schemes</p>';
-    }
+    } catch {}
 });
 
 document.getElementById('exportBtn').addEventListener('click', function() {
@@ -1108,12 +690,10 @@ document.getElementById('predictionBtn').addEventListener('click', async functio
         const response = await fetch(BACKEND_URL + '/fish-prediction');
         const data = await response.json();
         if (data.success) {
-            document.getElementById('moreContainer').innerHTML = `<h3>🐟 Fish Predictions</h3>` +
+            document.getElementById('moreContainer').innerHTML = '<h3>🐟 Fish Predictions</h3>' +
                 data.predictions.map(p => `<div class="item-row"><span>🐟 ${p.fish} (${p.kannada})<br><span style="font-size:11px;opacity:0.6;">📍 ${p.location} 📅 ${p.date}</span></span><span style="color:${p.probability > 80 ? '#22c55e' : '#f59e0b'};">${p.probability}%</span></div>`).join('');
         }
-    } catch {
-        document.getElementById('moreContainer').innerHTML = '<p style="opacity:0.6;">Could not load predictions</p>';
-    }
+    } catch {}
 });
 
 // ============================================
@@ -1121,21 +701,21 @@ document.getElementById('predictionBtn').addEventListener('click', async functio
 // ============================================
 let currentLang = 'kn';
 const translations = {
-    'kn': { title: 'ನಿಮ್ಮ ಕಡಲ ಸಹಾಯಕ', micText: 'ಒತ್ತಿ ಮಾತನಾಡಿ', status: 'Ready' },
-    'tulu': { title: 'ಇರ್ದ್ ಕಡಲ್ ಸಹಾಯಕ', micText: 'ಒತ್ತಿ ಪಾತೆರ್', status: 'Ready' },
-    'konkani': { title: 'ತುಜೊ ಕಡಲ್ ಸಹಾಯಕ', micText: 'ದಬಾವನ್ ಉಲೆ', status: 'Ready' },
-    'en': { title: 'Your Marine Co-Pilot', micText: 'Hold to Speak', status: 'Ready' }
+    'kn': { title: 'ನಿಮ್ಮ ಕಡಲ ಸಹಾಯಕ', micText: 'ಒತ್ತಿ ಮಾತನಾಡಿ' },
+    'tulu': { title: 'ಇರ್ದ್ ಕಡಲ್ ಸಹಾಯಕ', micText: 'ಒತ್ತಿ ಪಾತೆರ್' },
+    'konkani': { title: 'ತುಜೊ ಕಡಲ್ ಸಹಾಯಕ', micText: 'ದಬಾವನ್ ಉಲೆ' },
+    'en': { title: 'Your Marine Co-Pilot', micText: 'Hold to Speak' }
 };
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-    const handler = function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        const pageId = this.dataset.page;
-        if (!pageId) return;
-        showPage(pageId);
-    };
-    btn.addEventListener('click', handler);
-    btn.addEventListener('touchstart', handler, {passive: false});
+document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        currentLang = this.dataset.lang;
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        document.querySelector('.subtitle').textContent = translations[currentLang].title;
+        document.getElementById('micText').textContent = translations[currentLang].micText;
+        if (document.getElementById('micText2')) document.getElementById('micText2').textContent = translations[currentLang].micText;
+        if (recognition) recognition.lang = currentLang === 'en' ? 'en-US' : 'kn-IN';
+    });
 });
 
 // ============================================
