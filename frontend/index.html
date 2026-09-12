@@ -235,6 +235,12 @@
             gap: 2px;
             min-height: 50px;
         }
+        .mic-btn {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
         .tab-btn .tab-icon { font-size: 22px; }
         .tab-btn.active { color: white; background: rgba(59,130,246,0.15); }
         footer { text-align: center; font-size: 10px; opacity: 0.3; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.04); }
@@ -275,7 +281,7 @@
             <div class="voice-section">
                 <button class="mic-btn" id="micBtn">
                     <span id="micIcon">🎤</span>
-                    <span id="micText">Hold to Speak</span>
+                    <span id="micText">Tap to Speak</span>
                 </button>
                 <div class="status-text" id="statusText">Ready</div>
                 <div class="transcript" id="transcriptText"></div>
@@ -301,7 +307,7 @@
             <div class="voice-section" style="padding:8px 0;">
                 <button class="mic-btn" id="micBtn2" style="width:100px;height:100px;">
                     <span id="micIcon2">🎤</span>
-                    <span id="micText2" style="font-size:11px;">Hold to Speak</span>
+                    <span id="micText2" style="font-size:11px;">Tap to Speak</span>
                 </button>
                 <div class="status-text" id="statusText2">Ready</div>
                 <div class="transcript" id="transcriptText2"></div>
@@ -460,17 +466,30 @@ function stopRecording() {
     if (micBtn2) micBtn2.classList.remove('recording');
     if (micIcon) micIcon.textContent = '🎤';
     if (document.getElementById('micIcon2')) document.getElementById('micIcon2').textContent = '🎤';
-    if (micText) micText.textContent = 'Hold to Speak';
-    if (document.getElementById('micText2')) document.getElementById('micText2').textContent = 'Hold to Speak';
+    if (micText) micText.textContent = 'Tap to Speak';
+    if (document.getElementById('micText2')) document.getElementById('micText2').textContent = 'Tap to Speak';
     if (statusText.textContent.includes('Listening')) statusText.textContent = 'Ready';
 }
 
 function setupMic(btn) {
     if (!btn) return;
-    btn.addEventListener('mousedown', e => { e.preventDefault(); if (recognition && !isRecording) recognition.start(); });
-    btn.addEventListener('mouseup', e => { e.preventDefault(); if (recognition && isRecording) recognition.stop(); });
-    btn.addEventListener('touchstart', e => { e.preventDefault(); if (recognition && !isRecording) recognition.start(); });
-    btn.addEventListener('touchend', e => { e.preventDefault(); if (recognition && isRecording) recognition.stop(); });
+    
+    // Works on mobile + desktop — TAP to start, TAP again to stop
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!recognition) return;
+        
+        if (isRecording) {
+            recognition.stop();
+        } else {
+            try {
+                recognition.start();
+            } catch (err) {
+                console.log('Mic error:', err);
+            }
+        }
+    });
 }
 setupMic(micBtn);
 setupMic(micBtn2);
