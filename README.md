@@ -2,36 +2,12 @@
 
 ## AI Co-Pilot for Coastal Fishermen
 
-Built for the fishing community of Karavali (Coastal Karnataka).
+![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python)
+![Flask](https://img.shields.io/badge/Flask-2.x-black?logo=flask)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow?logo=javascript)
+![Deployed](https://img.shields.io/badge/Deployed-Vercel+-green?logo=vercel)
 
----
-
-## 🌟 Features (20+ Total)
-
-| # | Feature | Status |
-|---|---------|--------|
-| 1 | 🎤 Voice Recognition (Kannada/English/Tulu/Konkani) | ✅ |
-| 2 | 🌤️ Real-time Weather | ✅ |
-| 3 | 🐟 AI Fish Photo Identification | ✅ |
-| 4 | 📊 Fish Market Prices | ✅ |
-| 5 | 📋 Trip History | ✅ |
-| 6 | 🆘 SOS Emergency + Location | ✅ |
-| 7 | 🎣 Voice Catch Logging | ✅ |
-| 8 | 🌊 Tide Information | ✅ |
-| 9 | 📈 Profit Dashboard | ✅ |
-| 10 | ⛽ Fuel Calculator | ✅ |
-| 11 | 🏛️ Government Schemes | ✅ |
-| 12 | 🗓️ Fishing Calendar | ✅ |
-| 13 | 📄 Export Reports | ✅ |
-| 14 | 🔔 Weather Alerts | ✅ |
-| 15 | 🐟 Fish Migration Prediction | ✅ |
-| 16 | 🌍 Multi-Language Support | ✅ |
-| 17 | 🎥 Fish Reels | ✅ |
-| 18 | 📸 Daily Catch Contest | 🔜 |
-| 19 | 🏆 Leaderboard | 🔜 |
-| 20 | 🎣 Fishing Tips | 🔜 |
-| 21 | 🎮 Fish Quiz | 🔜 |
-More Features Coming Son !!
+**🌐 [Live Demo](https://fishermen-ai.vercel.app)** | **🔧 [Backend API](https://fishermen-ai-backend.onrender.com)**ZZ
 
 ---
 
