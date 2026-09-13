@@ -57,3 +57,11 @@ python app.py
 # Frontend
 # Open frontend/index.html in browser
 # Or use Live Server
+
+---
+
+## 🔗 Connect
+
+- 🌐 **Live App:** https://fishermen-ai.vercel.app
+- 🔧 **Backend API:** https://fishermen-ai-backend.onrender.com
+- 📧 **Developer:** KSPavitra
