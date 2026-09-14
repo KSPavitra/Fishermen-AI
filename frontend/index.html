@@ -253,6 +253,108 @@
             .tab-btn { font-size: 9px; }
             header h1 { font-size: 20px; }
         }
+        /* ===== VOICE STATES ===== */
+.voice-state {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+.voice-state.active {
+    display: flex;
+    animation: fadeUp 0.3s ease;
+}
+
+.voice-state.listening {
+    background: rgba(239,68,68,0.12);
+    border: 1px solid rgba(239,68,68,0.3);
+    color: #fca5a5;
+}
+
+.voice-state.processing {
+    background: rgba(245,158,11,0.12);
+    border: 1px solid rgba(245,158,11,0.3);
+    color: #fbbf24;
+}
+
+.voice-state.responding {
+    background: rgba(34,197,94,0.12);
+    border: 1px solid rgba(34,197,94,0.3);
+    color: #86efac;
+}
+
+.voice-state.error {
+    background: rgba(239,68,68,0.12);
+    border: 1px solid rgba(239,68,68,0.3);
+    color: #fca5a5;
+}
+
+/* Pulse dot animation */
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: pulse-dot 1.2s ease-in-out infinite;
+}
+
+.pulse-dot:nth-child(2) { animation-delay: 0.2s; }
+.pulse-dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* Text fallback input */
+.text-fallback {
+    display: none;
+    margin-top: 12px;
+    padding: 12px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+}
+
+.text-fallback.active {
+    display: block;
+}
+
+.text-fallback input {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.04);
+    color: white;
+    font-size: 14px;
+    outline: none;
+    width: 100%;
+}
+
+.text-fallback input:focus {
+    border-color: rgba(59,130,246,0.4);
+}
+
+.text-fallback button {
+    margin-top: 8px;
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.text-fallback button:active {
+    transform: scale(0.98);
+}
+
     </style>
 </head>
 <body>
@@ -289,15 +391,33 @@
         </p>
     </div>
 
-    <!-- Primary CTA: Voice -->
-    <div class="voice-section" style="padding:8px 0 12px;">
-        <button class="mic-btn" id="micBtn" style="width:140px;height:140px;">
-            <span id="micIcon">🎤</span>
-            <span id="micText">Tap to Speak</span>
-        </button>
-        <div class="status-text" id="statusText">Ready</div>
-        <div class="transcript" id="transcriptText"></div>
+<!-- Primary CTA: Voice -->
+<div class="voice-section" style="padding:8px 0 12px;">
+    <button class="mic-btn" id="micBtn" style="width:140px;height:140px;">
+        <span id="micIcon">🎤</span>
+        <span id="micText">Tap to Speak</span>
+    </button>
+
+    <!-- Voice State Indicator -->
+    <div class="voice-state" id="voiceState">
+        <span class="pulse-dot"></span>
+        <span class="pulse-dot"></span>
+        <span class="pulse-dot"></span>
+        <span id="voiceStateText">Listening...</span>
     </div>
+
+    <div class="transcript" id="transcriptText"></div>
+
+    <!-- Text Input Fallback -->
+    <div class="text-fallback" id="textFallback">
+        <input type="text" id="textInput" placeholder="Type your question..." />
+        <button onclick="submitTextInput()">Ask Question</button>
+    </div>
+
+    <button onclick="toggleTextFallback()" style="margin-top:10px;background:none;border:none;color:rgba(255,255,255,0.5);font-size:12px;cursor:pointer;text-decoration:underline;">
+        ⌨️ Type instead of speaking
+    </button>
+</div>
 
     <!-- Primary Actions: SOS + Market -->
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
@@ -463,6 +583,20 @@ function initSpeech() {
     recognition.continuous = false;
     recognition.interimResults = true;
 
+    function initSpeech() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+        statusText.textContent = '❌ Voice not supported on this browser';
+        showVoiceState('error', '❌ Voice not supported. Try typing instead.');
+        if (micBtn) micBtn.disabled = true;
+        if (micBtn2) micBtn2.disabled = true;
+        return;
+    }
+    recognition = new SpeechRecognition();
+    recognition.lang = 'kn-IN';
+    recognition.continuous = false;
+    recognition.interimResults = true;
+
     recognition.onstart = function() {
         isRecording = true;
         if (micBtn) micBtn.classList.add('recording');
@@ -471,9 +605,60 @@ function initSpeech() {
         if (document.getElementById('micIcon2')) document.getElementById('micIcon2').textContent = '🔴';
         if (micText) micText.textContent = 'Listening...';
         if (document.getElementById('micText2')) document.getElementById('micText2').textContent = 'Listening...';
-        statusText.textContent = '🎙️ Speak now...';
-        if (document.getElementById('statusText2')) document.getElementById('statusText2').textContent = '🎙️ Speak now...';
+        showVoiceState('listening', '🎙️ Listening... Please speak now');
+        statusText.textContent = '';
     };
+
+    recognition.onresult = function(event) {
+        let final = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+            if (event.results[i].isFinal) final += event.results[i][0].transcript;
+        }
+        if (final) {
+            transcriptText.textContent = '📝 "' + final + '"';
+            if (document.getElementById('transcriptText2')) document.getElementById('transcriptText2').textContent = '📝 "' + final + '"';
+            showVoiceState('processing', '⏳ Processing your question...');
+            sendToBackend(final);
+        }
+    };
+
+    recognition.onerror = function(event) {
+        let msg = '❌ Something went wrong. Try again.';
+        if (event.error === 'not-allowed') {
+            msg = '🎤 Please allow microphone access and try again.';
+        } else if (event.error === 'no-speech') {
+            msg = '🔇 No speech detected. Try again or type instead.';
+        } else if (event.error === 'network') {
+            msg = '📶 Network error. Check your internet.';
+        }
+        showVoiceState('error', msg);
+        stopRecording();
+    };
+
+    recognition.onend = function() { stopRecording(); };
+}
+
+// Show/hide voice state indicator
+function showVoiceState(state, message) {
+    const el = document.getElementById('voiceState');
+    const txt = document.getElementById('voiceStateText');
+    if (!el) return;
+    el.className = 'voice-state active ' + state;
+    if (txt) txt.textContent = message;
+
+    // Auto-hide after delay for non-active states
+    if (state === 'responding') {
+        setTimeout(() => {
+            el.classList.remove('active');
+        }, 3000);
+    }
+}
+
+// Hide voice state when recording stops
+function hideVoiceState() {
+    const el = document.getElementById('voiceState');
+    if (el) el.classList.remove('active');
+}
     recognition.onresult = function(event) {
         let final = '';
         for (let i = event.resultIndex; i < event.results.length; i++) {
@@ -503,7 +688,7 @@ function stopRecording() {
     if (document.getElementById('micIcon2')) document.getElementById('micIcon2').textContent = '🎤';
     if (micText) micText.textContent = 'Tap to Speak';
     if (document.getElementById('micText2')) document.getElementById('micText2').textContent = 'Tap to Speak';
-    if (statusText.textContent.includes('Listening')) statusText.textContent = 'Ready';
+    statusText.textContent = 'Ready';
 }
 
 function setupMic(btn) {
@@ -578,10 +763,16 @@ function showResult(decision) {
 
 function speakResponse(text) {
     if ('speechSynthesis' in window) {
+        showVoiceState('responding', '🔊 Speaking answer...');
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'kn-IN';
         utterance.rate = 0.9;
+        utterance.onend = function() {
+            hideVoiceState();
+        };
         speechSynthesis.speak(utterance);
+    } else {
+        hideVoiceState();
     }
 }
 
@@ -799,6 +990,37 @@ async function loadHomeWeather() {
 
 // Load weather on startup
 loadHomeWeather();
+// ============================================
+// TEXT INPUT FALLBACK
+// ============================================
+function toggleTextFallback() {
+    const el = document.getElementById('textFallback');
+    if (el) el.classList.toggle('active');
+}
+
+function submitTextInput() {
+    const input = document.getElementById('textInput');
+    if (!input) return;
+    const text = input.value.trim();
+    if (!text) return;
+    
+    transcriptText.textContent = '📝 "' + text + '"';
+    showVoiceState('processing', '⏳ Processing your question...');
+    sendToBackend(text);
+    input.value = '';
+    toggleTextFallback();
+}
+
+// Enter key submits
+document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('textInput');
+    if (input) {
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') submitTextInput();
+        });
+    }
+});
+
 console.log('🐟 Fishermen-AI loaded!');
 </script>
 </body>
