@@ -277,28 +277,63 @@
     <div class="content-area" id="contentArea">
 
         <!-- HOME -->
-        <div class="page active" id="page-home">
-            <div class="voice-section">
-                <button class="mic-btn" id="micBtn">
-                    <span id="micIcon">🎤</span>
-                    <span id="micText">Tap to Speak</span>
-                </button>
-                <div class="status-text" id="statusText">Ready</div>
-                <div class="transcript" id="transcriptText"></div>
-            </div>
-            <div class="result-container" id="resultContainer">
-                <div class="decision-card" id="decisionCard">
-                    <h2 id="decisionStatus">🟢 GO</h2>
-                    <div id="decisionReasons"></div>
-                    <div id="decisionDetails"></div>
-                </div>
-            </div>
-            <div class="quick-actions">
-                <button id="sosBtn"><span class="icon">🆘</span>SOS</button>
-                <button id="marketBtn"><span class="icon">📊</span>Market</button>
-                <button id="tideBtn"><span class="icon">🌊</span>Tide</button>
+<div class="page active" id="page-home">
+
+    <!-- The Problem Statement -->
+    <div style="text-align:center;margin-bottom:14px;">
+        <h2 style="font-size:22px;font-weight:800;line-height:1.3;background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+            Should I go fishing tomorrow?
+        </h2>
+        <p style="font-size:13px;opacity:0.7;margin-top:4px;">
+            Ask in your language. Get a clear answer. 🐟
+        </p>
+    </div>
+
+    <!-- Primary CTA: Voice -->
+    <div class="voice-section" style="padding:8px 0 12px;">
+        <button class="mic-btn" id="micBtn" style="width:140px;height:140px;">
+            <span id="micIcon">🎤</span>
+            <span id="micText">Tap to Speak</span>
+        </button>
+        <div class="status-text" id="statusText">Ready</div>
+        <div class="transcript" id="transcriptText"></div>
+    </div>
+
+    <!-- Primary Actions: SOS + Market -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
+        <button id="sosBtn" style="padding:16px;background:linear-gradient(135deg,#ef4444,#dc2626);border:none;border-radius:14px;color:white;font-weight:700;font-size:14px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:0 6px 20px rgba(239,68,68,0.25);">
+            <span style="font-size:24px;">🆘</span>
+            <span>SOS</span>
+            <span style="font-size:10px;opacity:0.9;font-weight:400;">Emergency</span>
+        </button>
+        <button id="marketBtn" style="padding:16px;background:linear-gradient(135deg,#f59e0b,#d97706);border:none;border-radius:14px;color:white;font-weight:700;font-size:14px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:0 6px 20px rgba(245,158,11,0.25);">
+            <span style="font-size:24px;">📊</span>
+            <span>Market</span>
+            <span style="font-size:10px;opacity:0.9;font-weight:400;">Today's prices</span>
+        </button>
+    </div>
+
+    <!-- Today's Weather (Trust Indicator) -->
+    <div id="homeWeather" style="margin-top:12px;padding:14px;background:rgba(255,255,255,0.04);border-radius:14px;border:1px solid rgba(255,255,255,0.06);">
+        <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:28px;">🌤️</span>
+            <div style="flex:1;">
+                <div style="font-size:13px;font-weight:600;" id="homeWeatherMain">Loading weather...</div>
+                <div style="font-size:11px;opacity:0.6;margin-top:2px;" id="homeWeatherMeta">Karavali Coast</div>
             </div>
         </div>
+    </div>
+
+    <!-- Decision Result -->
+    <div class="result-container" id="resultContainer">
+        <div class="decision-card" id="decisionCard">
+            <h2 id="decisionStatus">🟢 GO</h2>
+            <div id="decisionReasons"></div>
+            <div id="decisionDetails"></div>
+        </div>
+    </div>
+
+</div>
 
         <!-- VOICE -->
         <div class="page" id="page-voice">
@@ -740,9 +775,30 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
 // ============================================
 // INIT
 // ============================================
-initSpeech();
-checkBackend();
-setInterval(checkBackend, 30000);
+// ============================================
+// HOME WEATHER PREVIEW
+// ============================================
+async function loadHomeWeather() {
+    try {
+        const response = await fetch(BACKEND_URL + '/weather');
+        const data = await response.json();
+        const main = document.getElementById('homeWeatherMain');
+        const meta = document.getElementById('homeWeatherMeta');
+        
+        if (main && meta && data.weather) {
+            main.textContent = `${data.weather} · ${data.temp}°C · Wind ${data.wind} km/h`;
+            meta.textContent = `📍 ${data.city || 'Karavali'} · Updated just now · Source: OpenWeather`;
+        }
+    } catch (e) {
+        const main = document.getElementById('homeWeatherMain');
+        const meta = document.getElementById('homeWeatherMeta');
+        if (main) main.textContent = 'Weather data unavailable';
+        if (meta) meta.textContent = 'Check internet connection';
+    }
+}
+
+// Load weather on startup
+loadHomeWeather();
 console.log('🐟 Fishermen-AI loaded!');
 </script>
 </body>
