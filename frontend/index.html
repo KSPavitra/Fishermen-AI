@@ -728,30 +728,41 @@ async function sendToBackend(text) {
         if (data.success) {
             showResult(data.decision);
             speakResponse(data.decision.voice_text || 'Decision ready');
-            statusText.textContent = '✅ Done!';
             saveToHistory(data.decision);
         } else {
-            statusText.textContent = '❌ Error';
+            showVoiceState('error', '❌ ' + (data.error || 'Could not process'));
         }
-    } catch {
-        statusText.textContent = '❌ Backend not reachable';
+    } catch (err) {
+        showVoiceState('error', '❌ Backend not reachable');
         checkBackend();
     }
 }
 
 function showResult(decision) {
+    const resultContainer = document.getElementById('resultContainer');
+    const decisionStatus = document.getElementById('decisionStatus');
+    const decisionReasons = document.getElementById('decisionReasons');
+    const decisionDetails = document.getElementById('decisionDetails');
+    const card = document.getElementById('decisionCard');
+
+    if (!resultContainer) return;
+
     resultContainer.classList.add('visible');
     const status = decision.status || 'UNKNOWN';
     const emoji = status === 'GO' ? '🟢' : status === 'CAUTION' ? '🟡' : '🔴';
     decisionStatus.textContent = emoji + ' ' + status;
-    const card = document.getElementById('decisionCard');
+
     card.className = 'decision-card';
     if (status === 'GO') card.classList.add('go');
     else if (status === 'CAUTION') card.classList.add('caution');
     else if (status === "DON'T GO") card.classList.add('dontgo');
+
     if (decision.reasons && decision.reasons.length) {
         decisionReasons.innerHTML = '<ul>' + decision.reasons.map(r => '<li>' + r + '</li>').join('') + '</ul>';
+    } else {
+        decisionReasons.innerHTML = '';
     }
+
     if (decision.details) {
         let html = '';
         if (decision.details.temp) html += '🌡️ ' + decision.details.temp + '°C<br>';
@@ -759,7 +770,17 @@ function showResult(decision) {
         if (decision.details.profit) html += '💰 ₹' + decision.details.profit;
         decisionDetails.innerHTML = html;
     }
+
+    // Hide voice state
+    hideVoiceState();
+
+    // Scroll to result
+    setTimeout(() => {
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
 }
+
+
 
 function speakResponse(text) {
     if ('speechSynthesis' in window) {
@@ -770,28 +791,7 @@ function speakResponse(text) {
         utterance.onend = function() {
             hideVoiceState();
         };
-        speechSynthesis.speak(utterance);
-    } else {
-        hideVoiceState();
-    }
-}
-
-function saveToHistory(decision) {
-    const trips = JSON.parse(localStorage.getItem('trips') || '[]');
-    trips.push({ status: decision.status, date: new Date().toLocaleString() });
-    localStorage.setItem('trips', JSON.stringify(trips));
-}
-
-async function checkBackend() {
-    try {
-        const response = await fetch(BACKEND_URL + '/health');
-        if (response.ok) {
-            connectionDot.className = 'status-dot online';
-            connectionText.textContent = 'Connected';
-        } else throw new Error();
-    } catch {
-        connectionDot.className = 'status-dot offline';
-        connectionText.textContent = 'Offline';
+        speechSynthesis.sp
     }
 }
 
@@ -1012,7 +1012,7 @@ function submitTextInput() {
 }
 
 // Enter key submits
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function(){
     const input = document.getElementById('textInput');
     if (input) {
         input.addEventListener('keypress', function(e) {
