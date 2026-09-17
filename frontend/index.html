@@ -679,7 +679,27 @@ function hideVoiceState() {
 
     recognition.onend = function() { stopRecording(); };
 }
+// ============================================
+// VOICE STATE INDICATORS
+// ============================================
+function showVoiceState(state, message) {
+    const el = document.getElementById('voiceState');
+    const txt = document.getElementById('voiceStateText');
+    if (!el) return;
+    el.className = 'voice-state active ' + state;
+    if (txt) txt.textContent = message;
 
+    if (state === 'responding') {
+        setTimeout(() => {
+            el.classList.remove('active');
+        }, 3000);
+    }
+}
+
+function hideVoiceState() {
+    const el = document.getElementById('voiceState');
+    if (el) el.classList.remove('active');
+}
 function stopRecording() {
     isRecording = false;
     if (micBtn) micBtn.classList.remove('recording');
@@ -838,7 +858,7 @@ async function loadCalendar() {
 // QUICK ACTIONS
 // ============================================
 document.getElementById('sosBtn').addEventListener('click', openSOS);
-document.getElementById('sosBtn2').addEventListener('click', openSOS);
+
 
 function openSOS() {
     document.getElementById('sosModal').style.display = 'flex';
