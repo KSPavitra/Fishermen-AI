@@ -87,25 +87,6 @@ Fishermen-AI is a **voice-first AI assistant** that:
 
 ---
 
-## 🚀 Quick Start
-
-### Backend
-
-```bash
-cd backend
-pip install -r requirements.txt
-python app.py
-
-Backend runs on http://127.0.0.1:5000
-
-Frontend
-
-```bash
-# Open frontend/index.html in a browser
-# Or use Live Server in VS Code
-```
-
----
 
 🌐 Live Demo
 
@@ -116,23 +97,6 @@ Try saying: "Naale kadlige hogbahuda?" (Should I go fishing tomorrow?)
 
 ---
 
-📅 Development Timeline
-
-Day Focus Status
-Day 1 Flask backend + decision engine ✅
-Day 2 Fish ID + Market + SOS ✅
-Day 3 Tide + Dashboard + Fuel ✅
-Day 4 Schemes + Calendar + Export ✅
-Day 5 Multi-language support ✅
-Day 6 Deployment (Vercel + Render) ✅
-Day 7 Fish migration predictions ✅
-Day 8 Bottom tab navigation ✅
-Day 9 Mobile fixes + tap-to-speak ✅
-Day 10 Homepage redesign ✅
-Day 11 Voice UX + text fallback ✅
-Day 12 Emergency Contacts page ✅
-
----
 
 🎯 Impact
 
