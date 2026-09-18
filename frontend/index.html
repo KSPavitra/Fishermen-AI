@@ -476,13 +476,66 @@
             <p style="font-size:11px;opacity:0.4;margin-top:8px;">Prices updated daily</p>
         </div>
 
-        <!-- SAFETY -->
-        <div class="page" id="page-safety">
-            <h2 class="page-title">🆘 Safety</h2>
-            <button id="sosBtn2" style="width:100%;padding:14px;background:#ef4444;border:none;border-radius:12px;color:white;font-size:18px;font-weight:700;cursor:pointer;margin-bottom:12px;">🆘 SOS</button>
-            <div id="tideList"></div>
-            <div id="calendarList"></div>
-        </div>
+    <!-- SAFETY -->
+<div class="page" id="page-safety">
+    <h2 class="page-title">🆘 Emergency & Safety</h2>
+
+    <!-- Emergency SOS Big Button -->
+    <button onclick="openSOS()" style="width:100%;padding:20px;background:linear-gradient(135deg,#ef4444,#dc2626);border:none;border-radius:16px;color:white;font-size:18px;font-weight:800;cursor:pointer;margin-bottom:16px;box-shadow:0 8px 30px rgba(239,68,68,0.3);">
+        🆘 SOS — CALL FOR HELP
+    </button>
+
+    <!-- Emergency Contacts -->
+    <div style="background:rgba(255,255,255,0.04);border-radius:16px;padding:14px;border:1px solid rgba(255,255,255,0.06);margin-bottom:14px;">
+        <h3 style="font-size:15px;margin-bottom:10px;">📞 Emergency Contacts</h3>
+        
+        <a href="tel:1554" style="text-decoration:none;color:white;display:block;">
+            <div class="item-row" style="border-left:4px solid #ef4444;">
+                <span>🚨 Coast Guard</span>
+                <span style="color:#fca5a5;font-weight:700;">Call 1554</span>
+            </div>
+        </a>
+        
+        <a href="tel:1073" style="text-decoration:none;color:white;display:block;">
+            <div class="item-row" style="border-left:4px solid #f59e0b;">
+                <span>🛟 Rescue Team</span>
+                <span style="color:#fbbf24;font-weight:700;">Call 1073</span>
+            </div>
+        </a>
+        
+        <a href="tel:108" style="text-decoration:none;color:white;display:block;">
+            <div class="item-row" style="border-left:4px solid #22c55e;">
+                <span>🚑 Ambulance</span>
+                <span style="color:#86efac;font-weight:700;">Call 108</span>
+            </div>
+        </a>
+        
+        <a href="tel:100" style="text-decoration:none;color:white;display:block;">
+            <div class="item-row" style="border-left:4px solid #3b82f6;">
+                <span>🚔 Police</span>
+                <span style="color:#93c5fd;font-weight:700;">Call 100</span>
+            </div>
+        </a>
+        
+        <a href="tel:1093" style="text-decoration:none;color:white;display:block;">
+            <div class="item-row" style="border-left:4px solid #06b6d4;">
+                <span>🌊 Marine Police</span>
+                <span style="color:#67e8f9;font-weight:700;">Call 1093</span>
+            </div>
+        </a>
+    </div>
+
+    <!-- Share Location with Family -->
+    <button onclick="shareLocationWithFamily()" style="width:100%;padding:14px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);border:none;border-radius:14px;color:white;font-weight:700;font-size:15px;cursor:pointer;margin-bottom:14px;">
+        📍 Share My Location with Family
+    </button>
+
+    <!-- Tide Info -->
+    <div id="tideList"></div>
+
+    <!-- Calendar -->
+    <div id="calendarList"></div>
+</div>
 
         <!-- MORE -->
         <div class="page" id="page-more">
@@ -859,6 +912,55 @@ async function loadCalendar() {
 // ============================================
 document.getElementById('sosBtn').addEventListener('click', openSOS);
 
+// ============================================
+// SHARE LOCATION WITH FAMILY
+// ============================================
+function shareLocationWithFamily() {
+    if (!navigator.geolocation) {
+        alert('❌ Location not supported on this device');
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+        async function(position) {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            const mapLink = `https://maps.google.com/?q=${lat},${lng}`;
+            
+            const message = `🆘 Fishermen-AI — Safe Location Share\n\n📍 My current location:\n${lat}, ${lng}\n\n🗺️ Map: ${mapLink}\n\n⏰ Time: ${new Date().toLocaleString()}\n\nSent via Fishermen-AI app`;
+
+            // Try native share first (best on mobile)
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: '📍 My Location',
+                        text: message
+                    });
+                    return;
+                } catch (e) {
+                    // User cancelled or share failed, fall through to copy
+                }
+            }
+
+            // Fallback: copy to clipboard
+            try {
+                await navigator.clipboard.writeText(message);
+                alert('✅ Location copied! Paste it in WhatsApp to send to family.');
+            } catch (e) {
+                // Final fallback: show in prompt
+                prompt('Copy this message to send to family:', message);
+            }
+        },
+        function(error) {
+            if (error.code === 1) {
+                alert('❌ Please allow location access in your browser settings');
+            } else {
+                alert('❌ Could not get location. Make sure GPS is on.');
+            }
+        },
+        { enableHighAccuracy: true, timeout: 10000 }
+    );
+}
 
 function openSOS() {
     document.getElementById('sosModal').style.display = 'flex';
