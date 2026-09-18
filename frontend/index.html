@@ -1034,6 +1034,10 @@ document.addEventListener('DOMContentLoaded', function(){
         });
     }
 });
+initSpeech();
+checkBackend();
+setInterval(checkBackend, 30000);
+loadHomeWeather();
 
 console.log('🐟 Fishermen-AI loaded!');
 </script>
