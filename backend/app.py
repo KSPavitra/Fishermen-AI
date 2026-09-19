@@ -68,6 +68,68 @@ def calendar():
         })
     return {'success': True, 'days': days}
 
+@app.route('/best-time')
+def best_time():
+    """Best fishing times today based on tide, sun, and fish activity"""
+    now = datetime.datetime.now()
+    hour = now.hour
+    
+    # Morning window: 5:30 - 8:30 AM (best)
+    morning_start = "5:30 AM"
+    morning_end = "8:30 AM"
+    
+    # Evening window: 4:30 - 7:00 PM (second best)
+    evening_start = "4:30 PM"
+    evening_end = "7:00 PM"
+    
+    # Avoid window: 12:00 PM - 3:00 PM (hot, low activity)
+    avoid_start = "12:00 PM"
+    avoid_end = "3:00 PM"
+    
+    # Which window is happening NOW?
+    current_status = "unknown"
+    current_message = ""
+    
+    if 5 <= hour < 9:
+        current_status = "best"
+        current_message = "🌟 You're in the BEST window right now. Go fishing!"
+    elif 16 <= hour < 19:
+        current_status = "good"
+        current_message = "✅ Good window now. Fishing should be active."
+    elif 12 <= hour < 15:
+        current_status = "avoid"
+        current_message = "⚠️ Avoid this window. Fish are less active."
+    else:
+        current_status = "wait"
+        current_message = "⏳ Wait for the next window."
+    
+    return {
+        'success': True,
+        'date': now.strftime('%A, %b %d'),
+        'windows': [
+            {
+                'label': '🌟 Best',
+                'time': f'{morning_start} – {morning_end}',
+                'reason': 'High tide + cool temperature + active fish',
+                'rating': 5
+            },
+            {
+                'label': '✅ Good',
+                'time': f'{evening_start} – {evening_end}',
+                'reason': 'Rising tide + feeding time',
+                'rating': 4
+            },
+            {
+                'label': '❌ Avoid',
+                'time': f'{avoid_start} – {avoid_end}',
+                'reason': 'Strong sun + low fish activity',
+                'rating': 1
+            }
+        ],
+        'current_status': current_status,
+        'current_message': current_message
+    }
+
 @app.route('/fish-prediction')
 def fish_prediction():
     fish_species = ['Mackerel', 'Sardine', 'Pomfret', 'Tuna', 'Seer', 'Prawn']
