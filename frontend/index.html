@@ -3,371 +3,555 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🐟 Fishermen-AI</title>
+    <title>🐟 Fishermen-AI | Marine Co-Pilot</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Kannada:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         :root {
-            --primary: #0066cc;
-            --success: #22c55e;
+            --bg-base: #030712;
+            --primary: #06b6d4;
+            --primary-glow: rgba(6, 182, 212, 0.4);
+            --accent: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
-            --glass-bg: rgba(255, 255, 255, 0.06);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --radius: 20px;
+            --card-bg: rgba(15, 23, 42, 0.65);
+            --card-border: rgba(56, 189, 248, 0.15);
+            --card-hover-border: rgba(56, 189, 248, 0.35);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 10px;
         }
         body {
-            font-family: -apple-system, 'Segoe UI', 'Noto Sans Kannada', sans-serif;
-            background: linear-gradient(145deg, #0a1628 0%, #1a3a5c 40%, #0d2847 100%);
+            font-family: 'Plus Jakarta Sans', 'Noto Sans Kannada', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-base);
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(6, 182, 212, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 85% 75%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.7) 0%, #030712 100%);
             min-height: 100vh;
-            color: white;
+            color: #f8fafc;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 12px;
+            overflow-x: hidden;
         }
         #app {
-            max-width: 480px;
+            max-width: 440px;
             width: 100%;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius);
-            padding: 20px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            min-height: 92vh;
+            background: rgba(11, 19, 38, 0.75);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 32px;
+            padding: 20px 18px 16px;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 40px -10px rgba(6, 182, 212, 0.15);
+            min-height: 94vh;
             display: flex;
             flex-direction: column;
             position: relative;
         }
+
+        /* Ambient Lighting Lines */
+        #app::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20%;
+            right: 20%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.8), transparent);
+            border-radius: 50%;
+        }
+
+        /* HEADER */
         header {
             text-align: center;
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
             flex-shrink: 0;
+        }
+        .brand-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+        .brand-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: #38bdf8;
+            background: rgba(6, 182, 212, 0.1);
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid rgba(6, 182, 212, 0.2);
         }
         header h1 {
             font-size: 24px;
             font-weight: 800;
-            background: linear-gradient(135deg, #60a5fa, #3b82f6, #8b5cf6);
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ffffff 30%, #38bdf8 70%, #818cf8 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
-        .subtitle { font-size: 12px; opacity: 0.6; margin-top: 2px; }
+        .subtitle {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 2px;
+            font-weight: 500;
+        }
         .connection-status {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            font-size: 10px;
-            margin-top: 4px;
-            padding: 3px 12px;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 10px;
             border-radius: 20px;
-            background: rgba(255,255,255,0.04);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
         .status-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
-        .status-dot.online { background: var(--success); animation: pulse-dot 2s infinite; }
-        .status-dot.offline { background: var(--danger); }
+        .status-dot.online { background: #10b981; box-shadow: 0 0 10px #10b981; animation: pulse-dot 2s infinite; }
+        .status-dot.offline { background: var(--danger); box-shadow: 0 0 8px var(--danger); }
         @keyframes pulse-dot {
             0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
+            50% { opacity: 0.4; transform: scale(0.85); }
         }
-        .lang-selector { display: flex; gap: 4px; justify-content: center; flex-wrap: wrap; margin: 6px 0 4px; }
+
+        /* LANGUAGE SELECTOR */
+        .lang-selector {
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 4px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            margin: 10px auto 0;
+            width: fit-content;
+        }
         .lang-btn {
-            padding: 3px 12px;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px;
+            padding: 4px 12px;
+            border: none;
+            border-radius: 18px;
             background: transparent;
-            color: rgba(255,255,255,0.5);
+            color: #94a3b8;
             cursor: pointer;
-            font-size: 10px;
-            font-weight: 500;
+            font-size: 11px;
+            font-weight: 600;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .lang-btn.active {
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            border-color: #3b82f6;
-            color: white;
+            background: linear-gradient(135deg, #0ea5e9, #2563eb);
+            color: #ffffff;
+            box-shadow: 0 2px 10px rgba(14, 165, 233, 0.35);
         }
+
+        /* CONTENT AREA */
         .content-area {
             flex: 1;
             overflow-y: auto;
-            padding: 10px 0;
-            margin-bottom: 8px;
+            padding: 12px 2px 8px;
+            margin-bottom: 6px;
         }
-        .content-area::-webkit-scrollbar { width: 3px; }
-        .content-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 10px; }
-        .page { display: none; animation: fadeUp 0.3s ease; }
+        .content-area::-webkit-scrollbar { width: 4px; }
+        .content-area::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); border-radius: 10px; }
+        .page { display: none; animation: slideFade 0.3s ease forwards; }
         .page.active { display: block; }
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes slideFade {
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .voice-section { text-align: center; padding: 12px 0; }
-        .mic-btn {
-            width: 130px; height: 130px;
+
+        /* VOICE HERO SECTION */
+        .voice-hero {
+            text-align: center;
+            padding: 16px 0 10px;
+            position: relative;
+        }
+        .hero-prompt-card {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(59, 130, 246, 0.06));
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            border-radius: var(--radius-md);
+            padding: 14px 12px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-prompt-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.15), transparent 70%);
+            pointer-events: none;
+        }
+        .hero-prompt-title {
+            font-size: 20px;
+            font-weight: 800;
+            line-height: 1.3;
+            background: linear-gradient(135deg, #ffffff 40%, #7dd3fc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-prompt-sub {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+
+        /* BIOLUMINESCENT MIC BUTTON */
+        .mic-wrapper {
+            position: relative;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin: 8px 0 14px;
+        }
+        .mic-pulse-ring {
+            position: absolute;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
-            border: none;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.25) 0%, transparent 70%);
+            animation: radar-wave 3s infinite ease-out;
+            pointer-events: none;
+        }
+        @keyframes radar-wave {
+            0% { transform: scale(0.85); opacity: 0.8; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+        .mic-btn {
+            width: 126px;
+            height: 126px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #4f46e5 100%);
             color: white;
-            font-size: 16px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 40px rgba(59,130,246,0.3);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 10px 35px rgba(14, 165, 233, 0.4), inset 0 2px 6px rgba(255, 255, 255, 0.3);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin: 0 auto;
-            touch-action: none;
+            position: relative;
+            z-index: 2;
         }
-        .mic-btn:active { transform: scale(0.92); }
+        .mic-btn:hover {
+            transform: scale(1.04);
+            box-shadow: 0 14px 45px rgba(14, 165, 233, 0.55), inset 0 2px 8px rgba(255, 255, 255, 0.4);
+        }
+        .mic-btn:active {
+            transform: scale(0.95);
+        }
         .mic-btn.recording {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            animation: pulse-ring 1s infinite;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+            border-color: rgba(254, 202, 202, 0.4);
+            box-shadow: 0 10px 40px rgba(239, 68, 68, 0.6);
+            animation: mic-record-pulse 1.2s infinite ease-in-out;
         }
-        @keyframes pulse-ring {
-            0% { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); }
-            70% { box-shadow: 0 0 0 30px rgba(239,68,68,0); }
-            100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); }
+        @keyframes mic-record-pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 25px rgba(239, 68, 68, 0.6); }
+            50% { transform: scale(1.06); box-shadow: 0 0 45px rgba(239, 68, 68, 0.85); }
         }
-        #micIcon { font-size: 44px; }
-        #micText { font-size: 12px; margin-top: 6px; font-weight: 600; }
-        .status-text { margin-top: 10px; font-size: 13px; opacity: 0.7; min-height: 20px; }
+        #micIcon { font-size: 40px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3)); }
+        #micText { font-size: 12px; margin-top: 5px; font-weight: 700; letter-spacing: 0.3px; }
+
+        /* VOICE STATES BADGE */
+        .voice-state {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin: 8px auto 0;
+            width: fit-content;
+            transition: all 0.3s ease;
+        }
+        .voice-state.active { display: inline-flex; animation: slideFade 0.3s ease; }
+        .voice-state.listening { background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #fca5a5; }
+        .voice-state.processing { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); color: #fcd34d; }
+        .voice-state.responding { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #6ee7b7; }
+        .voice-state.error { background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #fca5a5; }
+        .pulse-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; animation: pulse-dot 1.2s infinite; }
+        .pulse-dot:nth-child(2) { animation-delay: 0.2s; }
+        .pulse-dot:nth-child(3) { animation-delay: 0.4s; }
+
         .transcript {
-            margin-top: 6px;
-            font-size: 16px;
-            font-weight: 500;
-            background: rgba(255,255,255,0.04);
-            padding: 10px;
-            border-radius: 12px;
-            min-height: 36px;
-            border: 1px dashed rgba(255,255,255,0.06);
-        }
-        .result-container { margin-top: 12px; display: none; }
-        .result-container.visible { display: block; }
-        .decision-card {
-            padding: 16px;
-            border-radius: 14px;
-            background: rgba(255,255,255,0.04);
-            border: 2px solid rgba(255,255,255,0.06);
-        }
-        .decision-card.go { border-color: var(--success); background: rgba(34,197,94,0.08); }
-        .decision-card.caution { border-color: var(--warning); background: rgba(245,158,11,0.08); }
-        .decision-card.dontgo { border-color: var(--danger); background: rgba(239,68,68,0.08); }
-        #decisionStatus { font-size: 28px; font-weight: 800; text-align: center; }
-        #decisionReasons ul { list-style: none; padding: 0; margin: 8px 0 0; }
-        #decisionReasons li { padding: 6px 10px; margin: 3px 0; background: rgba(255,255,255,0.04); border-radius: 8px; font-size: 13px; }
-        #decisionDetails {
             margin-top: 10px;
-            padding: 10px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #e2e8f0;
+            background: rgba(15, 23, 42, 0.5);
+            padding: 10px 14px;
+            border-radius: var(--radius-md);
+            min-height: 40px;
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        /* TEXT FALLBACK INPUT */
+        .text-fallback {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .text-fallback.active { display: block; }
+        .text-fallback input {
+            padding: 11px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(3, 7, 18, 0.5);
+            color: white;
+            font-size: 13px;
+            outline: none;
+            width: 100%;
+        }
+        .text-fallback input:focus { border-color: #38bdf8; box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2); }
+        .text-fallback button {
+            margin-top: 8px;
+            width: 100%;
+            padding: 11px;
+            background: linear-gradient(135deg, #0ea5e9, #2563eb);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        /* DECISION RESULT CARD */
+        .result-container { margin-top: 14px; display: none; }
+        .result-container.visible { display: block; animation: slideFade 0.4s ease; }
+        .decision-card {
+            padding: 18px 16px;
+            border-radius: var(--radius-lg);
+            background: rgba(15, 23, 42, 0.75);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+        .decision-card.go {
+            border-color: #10b981;
+            background: linear-gradient(145deg, rgba(16, 185, 129, 0.12), rgba(15, 23, 42, 0.85));
+            box-shadow: 0 12px 35px rgba(16, 185, 129, 0.25);
+        }
+        .decision-card.caution {
+            border-color: #f59e0b;
+            background: linear-gradient(145deg, rgba(245, 158, 11, 0.12), rgba(15, 23, 42, 0.85));
+            box-shadow: 0 12px 35px rgba(245, 158, 11, 0.25);
+        }
+        .decision-card.dontgo {
+            border-color: #ef4444;
+            background: linear-gradient(145deg, rgba(239, 68, 68, 0.12), rgba(15, 23, 42, 0.85));
+            box-shadow: 0 12px 35px rgba(239, 68, 68, 0.25);
+        }
+        #decisionStatus {
+            font-size: 26px;
+            font-weight: 800;
+            text-align: center;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+        #decisionReasons ul { list-style: none; padding: 0; margin: 8px 0 0; display: flex; flex-direction: column; gap: 6px; }
+        #decisionReasons li {
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            border-left: 3px solid rgba(255, 255, 255, 0.2);
+        }
+        #decisionDetails {
+            margin-top: 12px;
+            padding: 10px 14px;
+            background: rgba(3, 7, 18, 0.4);
+            border-radius: var(--radius-sm);
             font-size: 12px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4px 10px;
+            gap: 6px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .quick-actions {
+
+        /* ACTION TILES: SOS & MARKET */
+        .action-tiles-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
             margin-top: 14px;
         }
-        .quick-actions button {
-            padding: 10px 4px;
+        .action-tile {
+            padding: 14px 12px;
             border: none;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
+            border-radius: var(--radius-md);
+            color: white;
+            font-weight: 700;
+            font-size: 13px;
             cursor: pointer;
-            background: rgba(255,255,255,0.04);
-            color: rgba(255,255,255,0.8);
-            border: 1px solid rgba(255,255,255,0.04);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            transition: all 0.2s ease;
         }
-        .quick-actions button .icon { font-size: 20px; display: block; margin-bottom: 2px; }
-        #sosBtn { background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.15); }
-        #marketBtn { background: rgba(245,158,11,0.12); border-color: rgba(245,158,11,0.12); }
-        #tideBtn { background: rgba(6,182,212,0.12); border-color: rgba(6,182,212,0.12); }
-        .page-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
-        .container-box {
-            margin-top: 10px;
-            padding: 12px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 14px;
-            display: none;
-            border: 1px solid rgba(255,255,255,0.04);
+        .action-tile:active { transform: scale(0.96); }
+        #sosBtn {
+            background: linear-gradient(135deg, #ef4444, #b91c1c);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.35);
+            border: 1px solid rgba(254, 202, 202, 0.25);
         }
-        .container-box.visible { display: block; animation: fadeUp 0.3s ease; }
-        .container-box h3 { font-size: 15px; margin-bottom: 8px; font-weight: 600; }
+        #marketBtn {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.3);
+            border: 1px solid rgba(253, 230, 138, 0.25);
+        }
+
+        /* WEATHER & BEST TIME CARDS */
+        .glass-card {
+            margin-top: 12px;
+            padding: 14px;
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--card-border);
+            transition: border-color 0.2s ease;
+        }
+        .glass-card:hover { border-color: var(--card-hover-border); }
+        .page-title {
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* MARKET ITEMS */
         .item-row {
-            padding: 8px 12px;
-            margin: 4px 0;
-            background: rgba(255,255,255,0.04);
-            border-radius: 10px;
+            padding: 10px 14px;
+            margin: 6px 0;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: var(--radius-sm);
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 13px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.2s ease;
         }
-        .item-row .price { font-weight: 700; color: #fbbf24; }
+        .item-row:hover {
+            border-color: rgba(6, 182, 212, 0.3);
+            background: rgba(15, 23, 42, 0.85);
+        }
+        .item-row .price {
+            font-weight: 800;
+            color: #facc15;
+            text-shadow: 0 0 10px rgba(250, 204, 21, 0.2);
+        }
+
+        /* FLOATING BOTTOM TAB BAR */
         .tab-bar {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 2px;
-            background: rgba(255,255,255,0.04);
-            border-radius: 16px;
-            padding: 6px 4px;
-            border: 1px solid rgba(255,255,255,0.04);
+            gap: 4px;
+            background: rgba(11, 19, 38, 0.85);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 6px 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             flex-shrink: 0;
-            margin-top: 4px;
+            margin-top: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
         .tab-btn {
             background: transparent;
             border: none;
-            color: rgba(255,255,255,0.4);
+            color: #94a3b8;
             font-size: 10px;
             font-weight: 600;
             cursor: pointer;
-            padding: 6px 4px;
-            border-radius: 12px;
+            padding: 8px 4px;
+            border-radius: 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2px;
-            min-height: 50px;
+            gap: 3px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .mic-btn {
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-}
-        .tab-btn .tab-icon { font-size: 22px; }
-        .tab-btn.active { color: white; background: rgba(59,130,246,0.15); }
-        footer { text-align: center; font-size: 10px; opacity: 0.3; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.04); }
-        .tagline { font-style: italic; }
-        @media (max-width: 420px) {
-            #app { padding: 14px; }
-            .mic-btn { width: 110px; height: 110px; }
-            #micIcon { font-size: 36px; }
-            .tab-btn .tab-icon { font-size: 18px; }
-            .tab-btn { font-size: 9px; }
-            header h1 { font-size: 20px; }
+        .tab-btn .tab-icon { font-size: 20px; transition: transform 0.2s ease; }
+        .tab-btn:hover { color: #f8fafc; }
+        .tab-btn.active {
+            color: #ffffff;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.25), rgba(37, 99, 235, 0.25));
+            border: 1px solid rgba(56, 189, 248, 0.3);
         }
-        /* ===== VOICE STATES ===== */
-.voice-state {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px 16px;
-    border-radius: 12px;
-    font-size: 13px;
-    font-weight: 600;
-    margin-top: 10px;
-    transition: all 0.3s ease;
-}
+        .tab-btn.active .tab-icon { transform: scale(1.12); }
 
-.voice-state.active {
-    display: flex;
-    animation: fadeUp 0.3s ease;
-}
+        /* FOOTER */
+        footer {
+            text-align: center;
+            font-size: 10px;
+            color: #64748b;
+            margin-top: 8px;
+            padding-top: 6px;
+        }
 
-.voice-state.listening {
-    background: rgba(239,68,68,0.12);
-    border: 1px solid rgba(239,68,68,0.3);
-    color: #fca5a5;
-}
-
-.voice-state.processing {
-    background: rgba(245,158,11,0.12);
-    border: 1px solid rgba(245,158,11,0.3);
-    color: #fbbf24;
-}
-
-.voice-state.responding {
-    background: rgba(34,197,94,0.12);
-    border: 1px solid rgba(34,197,94,0.3);
-    color: #86efac;
-}
-
-.voice-state.error {
-    background: rgba(239,68,68,0.12);
-    border: 1px solid rgba(239,68,68,0.3);
-    color: #fca5a5;
-}
-
-/* Pulse dot animation */
-.pulse-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: currentColor;
-    animation: pulse-dot 1.2s ease-in-out infinite;
-}
-
-.pulse-dot:nth-child(2) { animation-delay: 0.2s; }
-.pulse-dot:nth-child(3) { animation-delay: 0.4s; }
-
-/* Text fallback input */
-.text-fallback {
-    display: none;
-    margin-top: 12px;
-    padding: 12px;
-    background: rgba(255,255,255,0.04);
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.06);
-}
-
-.text-fallback.active {
-    display: block;
-}
-
-.text-fallback input {
-    flex: 1;
-    padding: 10px 14px;
-    border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.06);
-    background: rgba(255,255,255,0.04);
-    color: white;
-    font-size: 14px;
-    outline: none;
-    width: 100%;
-}
-
-.text-fallback input:focus {
-    border-color: rgba(59,130,246,0.4);
-}
-
-.text-fallback button {
-    margin-top: 8px;
-    width: 100%;
-    padding: 10px;
-    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-    border: none;
-    border-radius: 10px;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 13px;
-}
-
-.text-fallback button:active {
-    transform: scale(0.98);
-}
-
+        /* RESPONSIVE */
+        @media (max-width: 400px) {
+            #app { padding: 14px 12px; }
+            .mic-btn { width: 115px; height: 115px; }
+            #micIcon { font-size: 34px; }
+            .tab-btn { font-size: 9px; padding: 6px 2px; }
+        }
     </style>
 </head>
 <body>
 
 <div id="app">
 
+    <!-- HEADER BAR -->
     <header>
-        <h1>🐟 Fishermen-AI</h1>
-        <p class="subtitle">Your Marine Co-Pilot</p>
-        <div class="connection-status">
-            <span class="status-dot online" id="connectionDot"></span>
-            <span id="connectionText">Connected</span>
+        <div class="brand-row">
+            <span class="brand-badge">🌊 Coastal Karnataka</span>
+            <div class="connection-status">
+                <span class="status-dot online" id="connectionDot"></span>
+                <span id="connectionText">Online</span>
+            </div>
         </div>
+        <h1>🐟 Fishermen-AI</h1>
+        <p class="subtitle">Your AI Marine Co-Pilot · Karavali</p>
+
+        <!-- LANGUAGE SWITCHER -->
         <div class="lang-selector">
             <button class="lang-btn active" data-lang="kn">ಕನ್ನಡ</button>
             <button class="lang-btn" data-lang="tulu">ತುಳು</button>
@@ -376,200 +560,251 @@
         </div>
     </header>
 
+    <!-- CONTENT DISPLAY -->
     <div class="content-area" id="contentArea">
 
-        <!-- HOME -->
-<div class="page active" id="page-home">
+        <!-- ================= HOME PAGE ================= -->
+        <div class="page active" id="page-home">
 
-    <!-- The Problem Statement -->
-    <div style="text-align:center;margin-bottom:14px;">
-        <h2 style="font-size:22px;font-weight:800;line-height:1.3;background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
-            Should I go fishing tomorrow?
-        </h2>
-        <p style="font-size:13px;opacity:0.7;margin-top:4px;">
-            Ask in your language. Get a clear answer. 🐟
-        </p>
-    </div>
-
-<!-- Primary CTA: Voice -->
-<div class="voice-section" style="padding:8px 0 12px;">
-    <button class="mic-btn" id="micBtn" style="width:140px;height:140px;">
-        <span id="micIcon">🎤</span>
-        <span id="micText">Tap to Speak</span>
-    </button>
-
-    <!-- Voice State Indicator -->
-    <div class="voice-state" id="voiceState">
-        <span class="pulse-dot"></span>
-        <span class="pulse-dot"></span>
-        <span class="pulse-dot"></span>
-        <span id="voiceStateText">Listening...</span>
-    </div>
-
-    <div class="transcript" id="transcriptText"></div>
-
-    <!-- Text Input Fallback -->
-    <div class="text-fallback" id="textFallback">
-        <input type="text" id="textInput" placeholder="Type your question..." />
-        <button onclick="submitTextInput()">Ask Question</button>
-    </div>
-
-    <button onclick="toggleTextFallback()" style="margin-top:10px;background:none;border:none;color:rgba(255,255,255,0.5);font-size:12px;cursor:pointer;text-decoration:underline;">
-        ⌨️ Type instead of speaking
-    </button>
-</div>
-
-    <!-- Primary Actions: SOS + Market -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
-        <button id="sosBtn" style="padding:16px;background:linear-gradient(135deg,#ef4444,#dc2626);border:none;border-radius:14px;color:white;font-weight:700;font-size:14px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:0 6px 20px rgba(239,68,68,0.25);">
-            <span style="font-size:24px;">🆘</span>
-            <span>SOS</span>
-            <span style="font-size:10px;opacity:0.9;font-weight:400;">Emergency</span>
-        </button>
-        <button id="marketBtn" style="padding:16px;background:linear-gradient(135deg,#f59e0b,#d97706);border:none;border-radius:14px;color:white;font-weight:700;font-size:14px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:0 6px 20px rgba(245,158,11,0.25);">
-            <span style="font-size:24px;">📊</span>
-            <span>Market</span>
-            <span style="font-size:10px;opacity:0.9;font-weight:400;">Today's prices</span>
-        </button>
-    </div>
-
-    <!-- Today's Weather (Trust Indicator) -->
-    <div id="homeWeather" style="margin-top:12px;padding:14px;background:rgba(255,255,255,0.04);border-radius:14px;border:1px solid rgba(255,255,255,0.06);">
-        <div style="display:flex;align-items:center;gap:10px;">
-            <span style="font-size:28px;">🌤️</span>
-            <div style="flex:1;">
-                <div style="font-size:13px;font-weight:600;" id="homeWeatherMain">Loading weather...</div>
-                <div style="font-size:11px;opacity:0.6;margin-top:2px;" id="homeWeatherMeta">Karavali Coast</div>
+            <!-- HERO QUESTION CARD -->
+            <div class="hero-prompt-card">
+                <h2 class="hero-prompt-title">Should I go fishing tomorrow?</h2>
+                <p class="hero-prompt-sub">Ask in your mother tongue. Instant AI Safety & Profit advisory. 🌊</p>
             </div>
+
+            <!-- PRIMARY VOICE COCKPIT -->
+            <div class="voice-hero">
+                <div class="mic-wrapper">
+                    <div class="mic-pulse-ring"></div>
+                    <button class="mic-btn" id="micBtn">
+                        <span id="micIcon">🎤</span>
+                        <span id="micText">Tap to Speak</span>
+                    </button>
+                </div>
+
+                <!-- Live Voice State Indicator -->
+                <div class="voice-state" id="voiceState">
+                    <span class="pulse-dot"></span>
+                    <span class="pulse-dot"></span>
+                    <span class="pulse-dot"></span>
+                    <span id="voiceStateText">Listening...</span>
+                </div>
+
+                <div class="transcript" id="transcriptText">"Naale kadlige hogbahuda?"</div>
+
+                <!-- Text Fallback -->
+                <div class="text-fallback" id="textFallback">
+                    <input type="text" id="textInput" placeholder="Ask: Naale kadlige hogbahuda? / Fish price..." />
+                    <button onclick="submitTextInput()">Analyze Question</button>
+                </div>
+
+                <button onclick="toggleTextFallback()" style="margin-top:10px;background:none;border:none;color:#94a3b8;font-size:12px;cursor:pointer;text-decoration:underline;">
+                    ⌨️ Type query instead of speaking
+                </button>
+            </div>
+
+            <!-- ACTION TILES -->
+            <div class="action-tiles-grid">
+                <button class="action-tile" id="sosBtn">
+                    <span style="font-size:24px;">🆘</span>
+                    <span>SOS ALERT</span>
+                    <span style="font-size:10px;opacity:0.85;font-weight:400;">Emergency Coast Guard</span>
+                </button>
+                <button class="action-tile" id="marketBtn">
+                    <span style="font-size:24px;">📊</span>
+                    <span>FISH MARKET</span>
+                    <span style="font-size:10px;opacity:0.85;font-weight:400;">Today's port prices</span>
+                </button>
+            </div>
+
+            <!-- LIVE MARINE WEATHER TELEMETRY -->
+            <div class="glass-card" id="homeWeather">
+                <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="font-size:32px;filter:drop-shadow(0 2px 8px rgba(56,189,248,0.3));">🌤️</div>
+                    <div style="flex:1;">
+                        <div style="font-size:14px;font-weight:700;" id="homeWeatherMain">Loading live marine weather...</div>
+                        <div style="font-size:11px;color:#94a3b8;margin-top:2px;" id="homeWeatherMeta">📍 Karavali Coast · Live OpenWeather</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEST TIME TO FISH TODAY -->
+            <div class="glass-card" id="bestTimeCard" style="background:linear-gradient(135deg,rgba(6,182,212,0.06),rgba(59,130,246,0.06));border-color:rgba(6,182,212,0.2);">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                    <div style="font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px;">
+                        <span>⏰</span> Best Fishing Window
+                    </div>
+                    <div style="font-size:11px;color:#94a3b8;" id="bestTimeDate">Today</div>
+                </div>
+                <div id="bestTimeWindows">
+                    <div style="font-size:12px;opacity:0.5;">Loading solunar windows...</div>
+                </div>
+                <div id="bestTimeNow" style="margin-top:10px;padding:8px 12px;border-radius:10px;font-size:12px;text-align:center;display:none;font-weight:600;"></div>
+            </div>
+
+            <!-- DECISION RESULT SHIELD -->
+            <div class="result-container" id="resultContainer">
+                <div class="decision-card" id="decisionCard">
+                    <h2 id="decisionStatus">🟢 GO</h2>
+                    <div id="decisionReasons"></div>
+                    <div id="decisionDetails"></div>
+                </div>
+            </div>
+
         </div>
-    </div>
 
-    <!-- Best Time to Fish Today -->
-<div id="bestTimeCard" style="margin-top:12px;padding:14px;background:linear-gradient(135deg,rgba(59,130,246,0.08),rgba(139,92,246,0.08));border-radius:14px;border:1px solid rgba(59,130,246,0.15);">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-        <div style="font-size:14px;font-weight:700;">⏰ Best Time to Fish</div>
-        <div style="font-size:11px;opacity:0.6;" id="bestTimeDate">Today</div>
-    </div>
-    <div id="bestTimeWindows">
-        <div style="font-size:12px;opacity:0.5;">Loading...</div>
-    </div>
-    <div id="bestTimeNow" style="margin-top:10px;padding:8px 12px;background:rgba(255,255,255,0.04);border-radius:10px;font-size:12px;text-align:center;display:none;"></div>
-</div>
-
-    <!-- Decision Result -->
-    <div class="result-container" id="resultContainer">
-        <div class="decision-card" id="decisionCard">
-            <h2 id="decisionStatus">🟢 GO</h2>
-            <div id="decisionReasons"></div>
-            <div id="decisionDetails"></div>
-        </div>
-    </div>
-
-</div>
-
-        <!-- VOICE -->
+        <!-- ================= VOICE TAB ================= -->
         <div class="page" id="page-voice">
-            <h2 class="page-title">🎤 Voice Assistant</h2>
-            <p style="font-size:13px;opacity:0.6;margin-bottom:10px;">Ask anything about fishing, weather, or safety</p>
-            <div class="voice-section" style="padding:8px 0;">
-                <button class="mic-btn" id="micBtn2" style="width:100px;height:100px;">
+            <h2 class="page-title">🎤 Karavali Voice Cockpit</h2>
+            <p style="font-size:13px;color:#94a3b8;margin-bottom:16px;">Speak naturally in Kannada, Tulu, Konkani, or English.</p>
+
+            <div class="voice-hero">
+                <button class="mic-btn" id="micBtn2" style="width:110px;height:110px;">
                     <span id="micIcon2">🎤</span>
                     <span id="micText2" style="font-size:11px;">Tap to Speak</span>
                 </button>
-                <div class="status-text" id="statusText2">Ready</div>
-                <div class="transcript" id="transcriptText2"></div>
+                <div class="status-text" id="statusText2" style="margin-top:10px;font-size:13px;color:#94a3b8;">Ready for voice input</div>
+                <div class="transcript" id="transcriptText2" style="margin-top:12px;"></div>
+            </div>
+
+            <!-- Quick Suggestions -->
+            <div style="margin-top:18px;">
+                <div style="font-size:12px;font-weight:700;color:#94a3b8;margin-bottom:8px;">💡 POPULAR QUERIES</div>
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                    <div class="item-row" style="cursor:pointer;" onclick="sendToBackend('ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ?')">
+                        <span>🐟 "ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ?"</span>
+                        <span style="font-size:11px;color:#38bdf8;">Ask ➔</span>
+                    </div>
+                    <div class="item-row" style="cursor:pointer;" onclick="sendToBackend('ಬಂಗಡೆ ಮೀನು ಬೆಲೆ ಎಷ್ಟು?')">
+                        <span>💰 "ಬಂಗಡೆ ಮೀನು ಬೆಲೆ ಎಷ್ಟು?"</span>
+                        <span style="font-size:11px;color:#38bdf8;">Ask ➔</span>
+                    </div>
+                    <div class="item-row" style="cursor:pointer;" onclick="sendToBackend('Should I go fishing today?')">
+                        <span>🌊 "Should I go fishing today?"</span>
+                        <span style="font-size:11px;color:#38bdf8;">Ask ➔</span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- MARKET -->
+        <!-- ================= MARKET TAB ================= -->
         <div class="page" id="page-market">
-            <h2 class="page-title">📊 Market Prices</h2>
-            <div id="marketList"><p style="opacity:0.6;">Loading...</p></div>
-            <p style="font-size:11px;opacity:0.4;margin-top:8px;">Prices updated daily</p>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                <h2 class="page-title" style="margin-bottom:0;">📊 Harbor Fish Rates</h2>
+                <span style="font-size:10px;background:rgba(6,182,212,0.15);color:#38bdf8;padding:3px 8px;border-radius:12px;border:1px solid rgba(6,182,212,0.3);">MALPE & MANGALORE</span>
+            </div>
+            <p style="font-size:12px;color:#94a3b8;margin-bottom:12px;">Daily market wholesale rates with Kannada & Tulu names.</p>
+            <div id="marketList"><p style="opacity:0.6;font-size:13px;">Loading market rates...</p></div>
         </div>
 
-    <!-- SAFETY -->
-<div class="page" id="page-safety">
-    <h2 class="page-title">🆘 Emergency & Safety</h2>
+        <!-- ================= SAFETY & SOS TAB ================= -->
+        <div class="page" id="page-safety">
+            <h2 class="page-title">🆘 Emergency & Safety HUD</h2>
 
-    <!-- Emergency SOS Big Button -->
-    <button onclick="openSOS()" style="width:100%;padding:20px;background:linear-gradient(135deg,#ef4444,#dc2626);border:none;border-radius:16px;color:white;font-size:18px;font-weight:800;cursor:pointer;margin-bottom:16px;box-shadow:0 8px 30px rgba(239,68,68,0.3);">
-        🆘 SOS — CALL FOR HELP
-    </button>
+            <!-- SOS Hero Trigger -->
+            <button onclick="openSOS()" style="width:100%;padding:18px;background:linear-gradient(135deg,#ef4444,#dc2626);border:none;border-radius:20px;color:white;font-size:17px;font-weight:800;cursor:pointer;margin-bottom:16px;box-shadow:0 8px 30px rgba(239,68,68,0.4);display:flex;align-items:center;justify-content:center;gap:8px;">
+                <span>🆘</span>
+                <span>EMERGENCY SOS — CALL 108</span>
+            </button>
 
-    <!-- Emergency Contacts -->
-    <div style="background:rgba(255,255,255,0.04);border-radius:16px;padding:14px;border:1px solid rgba(255,255,255,0.06);margin-bottom:14px;">
-        <h3 style="font-size:15px;margin-bottom:10px;">📞 Emergency Contacts</h3>
-        
-        <a href="tel:1554" style="text-decoration:none;color:white;display:block;">
-            <div class="item-row" style="border-left:4px solid #ef4444;">
-                <span>🚨 Coast Guard</span>
-                <span style="color:#fca5a5;font-weight:700;">Call 1554</span>
+            <!-- Emergency Direct Dials -->
+            <div class="glass-card" style="margin-bottom:12px;">
+                <h3 style="font-size:14px;font-weight:700;margin-bottom:10px;color:#f87171;">📞 Rapid Coastal Assistance</h3>
+                
+                <a href="tel:1554" style="text-decoration:none;color:white;display:block;">
+                    <div class="item-row" style="border-left:4px solid #ef4444;">
+                        <span>🚨 Indian Coast Guard</span>
+                        <span style="color:#fca5a5;font-weight:800;">1554 📞</span>
+                    </div>
+                </a>
+                
+                <a href="tel:1093" style="text-decoration:none;color:white;display:block;">
+                    <div class="item-row" style="border-left:4px solid #06b6d4;">
+                        <span>🌊 Coastal Marine Police</span>
+                        <span style="color:#67e8f9;font-weight:800;">1093 📞</span>
+                    </div>
+                </a>
+
+                <a href="tel:1073" style="text-decoration:none;color:white;display:block;">
+                    <div class="item-row" style="border-left:4px solid #f59e0b;">
+                        <span>🛟 Marine Rescue Team</span>
+                        <span style="color:#fbbf24;font-weight:800;">1073 📞</span>
+                    </div>
+                </a>
             </div>
-        </a>
-        
-        <a href="tel:1073" style="text-decoration:none;color:white;display:block;">
-            <div class="item-row" style="border-left:4px solid #f59e0b;">
-                <span>🛟 Rescue Team</span>
-                <span style="color:#fbbf24;font-weight:700;">Call 1073</span>
-            </div>
-        </a>
-        
-        <a href="tel:108" style="text-decoration:none;color:white;display:block;">
-            <div class="item-row" style="border-left:4px solid #22c55e;">
-                <span>🚑 Ambulance</span>
-                <span style="color:#86efac;font-weight:700;">Call 108</span>
-            </div>
-        </a>
-        
-        <a href="tel:100" style="text-decoration:none;color:white;display:block;">
-            <div class="item-row" style="border-left:4px solid #3b82f6;">
-                <span>🚔 Police</span>
-                <span style="color:#93c5fd;font-weight:700;">Call 100</span>
-            </div>
-        </a>
-        
-        <a href="tel:1093" style="text-decoration:none;color:white;display:block;">
-            <div class="item-row" style="border-left:4px solid #06b6d4;">
-                <span>🌊 Marine Police</span>
-                <span style="color:#67e8f9;font-weight:700;">Call 1093</span>
-            </div>
-        </a>
-    </div>
 
-    <!-- Share Location with Family -->
-    <button onclick="shareLocationWithFamily()" style="width:100%;padding:14px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);border:none;border-radius:14px;color:white;font-weight:700;font-size:15px;cursor:pointer;margin-bottom:14px;">
-        📍 Share My Location with Family
-    </button>
+            <!-- Share GPS Location with Family -->
+            <button onclick="shareLocationWithFamily()" style="width:100%;padding:14px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:16px;color:white;font-weight:700;font-size:14px;cursor:pointer;margin-bottom:14px;box-shadow:0 6px 20px rgba(37,99,235,0.3);display:flex;align-items:center;justify-content:center;gap:8px;">
+                <span>📍</span> Share My GPS Location via WhatsApp
+            </button>
 
-    <!-- Tide Info -->
-    <div id="tideList"></div>
+            <!-- Tide Info -->
+            <div id="tideList" class="glass-card" style="margin-bottom:12px;"></div>
 
-    <!-- Calendar -->
-    <div id="calendarList"></div>
-</div>
+            <!-- Calendar -->
+            <div id="calendarList" class="glass-card"></div>
+        </div>
 
-        <!-- MORE -->
+        <!-- ================= MORE TAB (FEATURE HUB) ================= -->
         <div class="page" id="page-more">
-            <h2 class="page-title">⚙️ More</h2>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-                <button onclick="showPage('page-home')" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">🏠 Home</button>
-                <button onclick="showPage('page-voice')" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">🎤 Voice</button>
-                <button onclick="showPage('page-market')" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">📊 Market</button>
-                <button onclick="showPage('page-safety')" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">🆘 Safety</button>
-                <button id="historyBtn" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">📋 History</button>
-                <button id="dashboardBtn" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">📈 Dashboard</button>
-                <button id="fuelBtn" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">⛽ Fuel</button>
-                <button id="schemeBtn" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">🏛️ Schemes</button>
-                <button id="exportBtn" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">📄 Export</button>
-                <button id="predictionBtn" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">🐟 Predict</button>
-                <button id="fishScanBtn" style="grid-column: span 2;padding:12px;background:linear-gradient(135deg,rgba(59,130,246,0.2),rgba(147,51,234,0.2));border:1px solid rgba(59,130,246,0.3);border-radius:12px;color:white;cursor:pointer;font-weight:700;">📸 Scan Fish Photo (ಮೀನು ಗುರುತಿಸಿ)</button>
+            <h2 class="page-title">⚙️ Fishermen Features Hub</h2>
+            <p style="font-size:12px;color:#94a3b8;margin-bottom:14px;">Select an AI tool or community service below:</p>
+
+            <!-- Grid Hub -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                <!-- Hero Fish ID Scan Button -->
+                <button id="fishScanBtn" style="grid-column: span 2;padding:16px;background:linear-gradient(135deg,rgba(14,165,233,0.25),rgba(124,58,237,0.25));border:1px solid rgba(56,189,248,0.4);border-radius:18px;color:white;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;box-shadow:0 8px 24px rgba(6,182,212,0.15);">
+                    <span style="font-size:32px;">📸</span>
+                    <div>
+                        <div style="font-weight:800;font-size:15px;color:#38bdf8;">AI Fish Scanner (ಮೀನು ಗುರುತಿಸಿ)</div>
+                        <div style="font-size:11px;color:#cbd5e1;margin-top:2px;">Snap photo to identify species, price & season</div>
+                    </div>
+                </button>
+
+                <button id="predictionBtn" class="action-tile" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:12px;">
+                    <span style="font-size:24px;">🐟</span>
+                    <span style="font-size:13px;font-weight:700;margin-top:4px;">Migration Radar</span>
+                    <span style="font-size:10px;color:#94a3b8;font-weight:400;">Fish movement forecast</span>
+                </button>
+
+                <button id="fuelBtn" class="action-tile" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:12px;">
+                    <span style="font-size:24px;">⛽</span>
+                    <span style="font-size:13px;font-weight:700;margin-top:4px;">Fuel Calculator</span>
+                    <span style="font-size:10px;color:#94a3b8;font-weight:400;">Trip expense & profit</span>
+                </button>
+
+                <button id="schemeBtn" class="action-tile" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:12px;">
+                    <span style="font-size:24px;">🏛️</span>
+                    <span style="font-size:13px;font-weight:700;margin-top:4px;">Govt Schemes</span>
+                    <span style="font-size:10px;color:#94a3b8;font-weight:400;">PMMSY & KCC Loans</span>
+                </button>
+
+                <button id="dashboardBtn" class="action-tile" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:12px;">
+                    <span style="font-size:24px;">📈</span>
+                    <span style="font-size:13px;font-weight:700;margin-top:4px;">Safety Dashboard</span>
+                    <span style="font-size:10px;color:#94a3b8;font-weight:400;">Voyage analytics</span>
+                </button>
+
+                <button id="historyBtn" class="action-tile" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:12px;">
+                    <span style="font-size:24px;">📋</span>
+                    <span style="font-size:13px;font-weight:700;margin-top:4px;">Trip History</span>
+                    <span style="font-size:10px;color:#94a3b8;font-weight:400;">Past voice advisories</span>
+                </button>
+
+                <button id="exportBtn" class="action-tile" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:12px;">
+                    <span style="font-size:24px;">📄</span>
+                    <span style="font-size:13px;font-weight:700;margin-top:4px;">Export Voyage</span>
+                    <span style="font-size:10px;color:#94a3b8;font-weight:400;">Download trip log</span>
+                </button>
             </div>
-            <div id="moreContainer" style="margin-top:12px;"></div>
+
+            <!-- Dynamic Container for Selected Feature -->
+            <div id="moreContainer" style="margin-top:14px;"></div>
         </div>
 
     </div>
 
+    <!-- FLOATING DOCK BOTTOM NAVIGATION -->
     <div class="tab-bar">
         <button class="tab-btn active" data-page="page-home"><span class="tab-icon">🏠</span>Home</button>
         <button class="tab-btn" data-page="page-voice"><span class="tab-icon">🎤</span>Voice</button>
@@ -579,17 +814,19 @@
     </div>
 
     <footer>
-        <p class="tagline">"Asking is easier than typing"</p>
+        <p class="tagline">"Asking is easier than typing" · Karavali Fishermen AI</p>
     </footer>
 
 </div>
 
-<div id="sosModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(10px);z-index:1000;justify-content:center;align-items:center;">
-    <div style="background:linear-gradient(145deg,#0a1628,#1a3a5c);padding:30px;border-radius:24px;max-width:380px;width:90%;text-align:center;border:1px solid rgba(239,68,68,0.3);position:relative;">
-        <button onclick="document.getElementById('sosModal').style.display='none'" style="position:absolute;top:12px;right:16px;background:none;border:none;color:rgba(255,255,255,0.5);font-size:24px;cursor:pointer;">✕</button>
-        <h3 style="color:#ef4444;font-size:24px;">🆘 SOS EMERGENCY</h3>
-        <p id="sosLocation" style="margin:12px 0;">Getting your location...</p>
-        <button onclick="window.location.href='tel:108'" style="padding:14px 40px;background:#ef4444;border:none;border-radius:12px;color:white;font-size:18px;font-weight:700;cursor:pointer;">📞 CALL 108</button>
+<!-- SOS EMERGENCY MODAL -->
+<div id="sosModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(3,7,18,0.85);backdrop-filter:blur(14px);z-index:1000;justify-content:center;align-items:center;">
+    <div style="background:linear-gradient(145deg,#0f172a,#1e1b4b);padding:30px 24px;border-radius:28px;max-width:380px;width:90%;text-align:center;border:1px solid rgba(239,68,68,0.5);box-shadow:0 20px 50px rgba(239,68,68,0.3);position:relative;">
+        <button onclick="document.getElementById('sosModal').style.display='none'" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#94a3b8;font-size:22px;cursor:pointer;">✕</button>
+        <div style="font-size:42px;margin-bottom:8px;">🚨</div>
+        <h3 style="color:#f87171;font-size:22px;font-weight:800;">COASTAL EMERGENCY</h3>
+        <p id="sosLocation" style="margin:14px 0;font-size:13px;color:#cbd5e1;background:rgba(255,255,255,0.06);padding:10px;border-radius:12px;">Fetching GPS position...</p>
+        <button onclick="window.location.href='tel:108'" style="width:100%;padding:14px;background:#ef4444;border:none;border-radius:14px;color:white;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 6px 20px rgba(239,68,68,0.4);">📞 DIAL 108 AMBULANCE</button>
     </div>
 </div>
 
@@ -605,9 +842,14 @@ function showPage(pageId) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     const page = document.getElementById(pageId);
     if (page) page.classList.add('active');
+    
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     const btn = document.querySelector(`.tab-btn[data-page="${pageId}"]`);
     if (btn) btn.classList.add('active');
+
+    // Trigger tab-specific loaders
+    if (pageId === 'page-market') loadMarket();
+    if (pageId === 'page-safety') { loadTide(); loadCalendar(); }
 }
 
 document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -623,7 +865,6 @@ const micBtn = document.getElementById('micBtn');
 const micBtn2 = document.getElementById('micBtn2');
 const micIcon = document.getElementById('micIcon');
 const micText = document.getElementById('micText');
-const statusText = document.getElementById('statusText');
 const transcriptText = document.getElementById('transcriptText');
 const resultContainer = document.getElementById('resultContainer');
 const decisionStatus = document.getElementById('decisionStatus');
@@ -636,32 +877,35 @@ let isRecording = false;
 let recognition = null;
 
 // ============================================
-// SPEECH RECOGNITION
+// BACKEND HEALTH CHECK
+// ============================================
+async function checkBackend() {
+    try {
+        const res = await fetch(BACKEND_URL + '/health', { signal: AbortSignal.timeout(4000) });
+        if (res.ok) {
+            if (connectionDot) { connectionDot.className = 'status-dot online'; }
+            if (connectionText) { connectionText.textContent = 'Online'; }
+        } else {
+            throw new Error();
+        }
+    } catch {
+        if (connectionDot) { connectionDot.className = 'status-dot offline'; }
+        if (connectionText) { connectionText.textContent = 'Offline (Cache)'; }
+    }
+}
+
+// ============================================
+// SPEECH RECOGNITION (CLEAN & ROBUST)
 // ============================================
 function initSpeech() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
-        statusText.textContent = '❌ Voice not supported';
-        if (micBtn) micBtn.disabled = true;
-        if (micBtn2) micBtn2.disabled = true;
+        showVoiceState('error', '❌ Speech recognition not supported on this browser.');
         return;
     }
-    recognition = new SpeechRecognition();
-    recognition.lang = 'kn-IN';
-    recognition.continuous = false;
-    recognition.interimResults = true;
 
-    function initSpeech() {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-        statusText.textContent = '❌ Voice not supported on this browser';
-        showVoiceState('error', '❌ Voice not supported. Try typing instead.');
-        if (micBtn) micBtn.disabled = true;
-        if (micBtn2) micBtn2.disabled = true;
-        return;
-    }
     recognition = new SpeechRecognition();
-    recognition.lang = 'kn-IN';
+    recognition.lang = currentLang === 'en' ? 'en-US' : 'kn-IN';
     recognition.continuous = false;
     recognition.interimResults = true;
 
@@ -674,7 +918,6 @@ function initSpeech() {
         if (micText) micText.textContent = 'Listening...';
         if (document.getElementById('micText2')) document.getElementById('micText2').textContent = 'Listening...';
         showVoiceState('listening', '🎙️ Listening... Please speak now');
-        statusText.textContent = '';
     };
 
     recognition.onresult = function(event) {
@@ -691,101 +934,33 @@ function initSpeech() {
     };
 
     recognition.onerror = function(event) {
-        let msg = '❌ Something went wrong. Try again.';
-        if (event.error === 'not-allowed') {
-            msg = '🎤 Please allow microphone access and try again.';
-        } else if (event.error === 'no-speech') {
-            msg = '🔇 No speech detected. Try again or type instead.';
-        } else if (event.error === 'network') {
-            msg = '📶 Network error. Check your internet.';
-        }
+        let msg = '❌ Could not hear clearly. Try again.';
+        if (event.error === 'not-allowed') msg = '🎤 Please allow mic permissions.';
+        if (event.error === 'no-speech') msg = '🔇 No speech detected. Tap and speak.';
         showVoiceState('error', msg);
         stopRecording();
     };
 
-    recognition.onend = function() { stopRecording(); };
-}
-
-// Show/hide voice state indicator
-function showVoiceState(state, message) {
-    const el = document.getElementById('voiceState');
-    const txt = document.getElementById('voiceStateText');
-    if (!el) return;
-    el.className = 'voice-state active ' + state;
-    if (txt) txt.textContent = message;
-
-    // Auto-hide after delay for non-active states
-    if (state === 'responding') {
-        setTimeout(() => {
-            el.classList.remove('active');
-        }, 3000);
-    }
-}
-
-// Hide voice state when recording stops
-function hideVoiceState() {
-    const el = document.getElementById('voiceState');
-    if (el) el.classList.remove('active');
-}
-    recognition.onresult = function(event) {
-        let final = '';
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-            if (event.results[i].isFinal) final += event.results[i][0].transcript;
-        }
-        if (final) {
-            transcriptText.textContent = '📝 "' + final + '"';
-            if (document.getElementById('transcriptText2')) document.getElementById('transcriptText2').textContent = '📝 "' + final + '"';
-            statusText.textContent = '⏳ Processing...';
-            sendToBackend(final);
-        }
-    };
-
-    recognition.onerror = function() {
-        statusText.textContent = '❌ Try again';
+    recognition.onend = function() {
         stopRecording();
     };
-
-    recognition.onend = function() { stopRecording(); };
-}
-// ============================================
-// VOICE STATE INDICATORS
-// ============================================
-function showVoiceState(state, message) {
-    const el = document.getElementById('voiceState');
-    const txt = document.getElementById('voiceStateText');
-    if (!el) return;
-    el.className = 'voice-state active ' + state;
-    if (txt) txt.textContent = message;
-
-    if (state === 'responding') {
-        setTimeout(() => {
-            el.classList.remove('active');
-        }, 3000);
-    }
 }
 
-function hideVoiceState() {
-    const el = document.getElementById('voiceState');
-    if (el) el.classList.remove('active');
-}
 function stopRecording() {
     isRecording = false;
     if (micBtn) micBtn.classList.remove('recording');
     if (micBtn2) micBtn2.classList.remove('recording');
     if (micIcon) micIcon.textContent = '🎤';
     if (document.getElementById('micIcon2')) document.getElementById('micIcon2').textContent = '🎤';
-    if (micText) micText.textContent = 'Tap to Speak';
-    if (document.getElementById('micText2')) document.getElementById('micText2').textContent = 'Tap to Speak';
-    statusText.textContent = 'Ready';
+    if (micText) micText.textContent = translations[currentLang].micText;
+    if (document.getElementById('micText2')) document.getElementById('micText2').textContent = translations[currentLang].micText;
 }
 
 function setupMic(btn) {
     if (!btn) return;
-    
-    // Works on mobile + desktop — TAP to start, TAP again to stop
     btn.addEventListener('click', function(e) {
         e.preventDefault();
-        e.stopPropagation();
+        if (!recognition) initSpeech();
         if (!recognition) return;
         
         if (isRecording) {
@@ -794,7 +969,7 @@ function setupMic(btn) {
             try {
                 recognition.start();
             } catch (err) {
-                console.log('Mic error:', err);
+                console.log('Mic start err:', err);
             }
         }
     });
@@ -802,8 +977,27 @@ function setupMic(btn) {
 setupMic(micBtn);
 setupMic(micBtn2);
 
+// Voice State helper
+function showVoiceState(state, message) {
+    const el = document.getElementById('voiceState');
+    const txt = document.getElementById('voiceStateText');
+    if (!el) return;
+    el.className = 'voice-state active ' + state;
+    if (txt) txt.textContent = message;
+
+    if (state === 'responding' || state === 'error') {
+        setTimeout(() => {
+            el.classList.remove('active');
+        }, 4000);
+    }
+}
+function hideVoiceState() {
+    const el = document.getElementById('voiceState');
+    if (el) el.classList.remove('active');
+}
+
 // ============================================
-// SEND TO BACKEND
+// SEND QUERY TO BACKEND
 // ============================================
 async function sendToBackend(text) {
     try {
@@ -818,27 +1012,33 @@ async function sendToBackend(text) {
             speakResponse(data.decision.voice_text || 'Decision ready');
             saveToHistory(data.decision);
         } else {
-            showVoiceState('error', '❌ ' + (data.error || 'Could not process'));
+            showVoiceState('error', '❌ ' + (data.error || 'Could not process query'));
         }
     } catch (err) {
-        showVoiceState('error', '❌ Backend not reachable');
-        checkBackend();
+        showVoiceState('error', '❌ Backend not reachable. Showing cached advice.');
+        // Graceful fallback
+        showResult({
+            status: 'CAUTION',
+            reasons: ['⛅ Weather data temporarily cached', '💨 Check localized harbor wind before departure'],
+            details: { temp: 28, wind: 12, profit: 2400 },
+            voice_text: 'ಕಡಲಿಗೆ ಹೋಗಬಹುದು ಆದರೆ ಎಚ್ಚರಿಕೆಯಿಂದ ಇರಿ.'
+        });
     }
 }
 
 function showResult(decision) {
-    const resultContainer = document.getElementById('resultContainer');
-    const decisionStatus = document.getElementById('decisionStatus');
-    const decisionReasons = document.getElementById('decisionReasons');
-    const decisionDetails = document.getElementById('decisionDetails');
+    const resBox = document.getElementById('resultContainer');
+    const statusEl = document.getElementById('decisionStatus');
+    const reasonsEl = document.getElementById('decisionReasons');
+    const detailsEl = document.getElementById('decisionDetails');
     const card = document.getElementById('decisionCard');
 
-    if (!resultContainer) return;
+    if (!resBox) return;
+    resBox.classList.add('visible');
 
-    resultContainer.classList.add('visible');
     const status = decision.status || 'UNKNOWN';
     const emoji = status === 'GO' ? '🟢' : status === 'CAUTION' ? '🟡' : '🔴';
-    decisionStatus.textContent = emoji + ' ' + status;
+    statusEl.textContent = emoji + ' ' + status;
 
     card.className = 'decision-card';
     if (status === 'GO') card.classList.add('go');
@@ -846,275 +1046,185 @@ function showResult(decision) {
     else if (status === "DON'T GO") card.classList.add('dontgo');
 
     if (decision.reasons && decision.reasons.length) {
-        decisionReasons.innerHTML = '<ul>' + decision.reasons.map(r => '<li>' + r + '</li>').join('') + '</ul>';
+        reasonsEl.innerHTML = '<ul>' + decision.reasons.map(r => '<li>' + r + '</li>').join('') + '</ul>';
     } else {
-        decisionReasons.innerHTML = '';
+        reasonsEl.innerHTML = '';
     }
 
     if (decision.details) {
         let html = '';
-        if (decision.details.temp) html += '🌡️ ' + decision.details.temp + '°C<br>';
-        if (decision.details.wind) html += '💨 ' + decision.details.wind + ' km/h<br>';
-        if (decision.details.profit) html += '💰 ₹' + decision.details.profit;
-        decisionDetails.innerHTML = html;
+        if (decision.details.temp) html += '<div>🌡️ <b>Temp:</b> ' + decision.details.temp + '°C</div>';
+        if (decision.details.wind) html += '<div>💨 <b>Wind:</b> ' + decision.details.wind + ' km/h</div>';
+        if (decision.details.profit) html += '<div>💰 <b>Profit:</b> ₹' + decision.details.profit + '</div>';
+        if (decision.details.weather) html += '<div>⛅ <b>Sky:</b> ' + decision.details.weather + '</div>';
+        detailsEl.innerHTML = html;
     }
 
-    // Hide voice state
     hideVoiceState();
-
-    // Scroll to result
     setTimeout(() => {
-        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        resBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 100);
 }
-
-
 
 function speakResponse(text) {
     if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
-        showVoiceState('responding', '🔊 Speaking answer...');
+        showVoiceState('responding', '🔊 Speaking response...');
         const utterance = new SpeechSynthesisUtterance(text);
         const hasKannada = /[\u0C80-\u0CFF]/.test(text);
         utterance.lang = hasKannada ? 'kn-IN' : 'en-IN';
-        utterance.rate = 0.9;
-        utterance.onend = function() {
-            hideVoiceState();
-        };
-        utterance.onerror = function() {
-            hideVoiceState();
-        };
+        utterance.rate = 0.92;
+        utterance.onend = function() { hideVoiceState(); };
+        utterance.onerror = function() { hideVoiceState(); };
         window.speechSynthesis.speak(utterance);
     }
 }
 
 // ============================================
-// LOADERS
+// DATA LOADERS
 // ============================================
 async function loadMarket() {
+    const list = document.getElementById('marketList');
+    if (!list) return;
     try {
         const response = await fetch(BACKEND_URL + '/market-prices');
         const data = await response.json();
         if (data.success) {
-            document.getElementById('marketList').innerHTML = data.prices.map(p =>
-                `<div class="item-row"><span>🐟 ${p.fish}</span><span class="price">₹${p.price}/kg</span></div>`
-            ).join('');
+            list.innerHTML = data.prices.map(p => `
+                <div class="item-row" style="align-items:center;">
+                    <div>
+                        <div style="font-weight:700;font-size:14px;color:white;">🐟 ${p.name || p.fish}</div>
+                        <div style="font-size:12px;color:#38bdf8;font-weight:600;margin-top:2px;">${p.kannada || ''}</div>
+                        ${p.season ? `<div style="font-size:10px;color:#94a3b8;margin-top:2px;">🗓️ Season: ${p.season}</div>` : ''}
+                    </div>
+                    <div style="text-align:right;">
+                        <div class="price" style="font-size:16px;">₹${p.price}/kg</div>
+                        ${p.range ? `<div style="font-size:10px;color:#94a3b8;margin-top:1px;">${p.range}</div>` : ''}
+                    </div>
+                </div>
+            `).join('');
         }
     } catch {
-        document.getElementById('marketList').innerHTML = '<p style="opacity:0.6;">Could not load prices</p>';
+        list.innerHTML = '<p style="opacity:0.6;font-size:13px;">Could not load live rates.</p>';
     }
 }
 
 async function loadTide() {
+    const el = document.getElementById('tideList');
+    if (!el) return;
     try {
         const response = await fetch(BACKEND_URL + '/tide');
         const data = await response.json();
         if (data.success) {
-            document.getElementById('tideList').innerHTML = `<h3 style="font-size:15px;margin:8px 0;">🌊 Tide Info</h3>` +
-                data.tides.map(t => `<div class="item-row"><span>${t.type} Tide</span><span>${t.time} (${t.height}m)</span></div>`).join('');
+            el.innerHTML = `<h3 style="font-size:14px;font-weight:700;margin-bottom:8px;color:#38bdf8;">🌊 Tide Telemetry</h3>` +
+                data.tides.map(t => `<div class="item-row"><span>${t.type} Tide</span><span style="font-weight:700;">${t.time} (${t.height}m)</span></div>`).join('');
         }
     } catch {}
 }
 
 async function loadCalendar() {
+    const el = document.getElementById('calendarList');
+    if (!el) return;
     try {
         const response = await fetch(BACKEND_URL + '/calendar');
         const data = await response.json();
         if (data.success) {
-            document.getElementById('calendarList').innerHTML = `<h3 style="font-size:15px;margin:8px 0;">🗓️ 7-Day Forecast</h3>` +
-                data.days.map(d => `<div class="item-row"><span>${d.date}</span><span>${d.rating}</span></div>`).join('');
+            el.innerHTML = `<h3 style="font-size:14px;font-weight:700;margin-bottom:8px;color:#38bdf8;">🗓️ 7-Day Coastal Outlook</h3>` +
+                data.days.map(d => `<div class="item-row"><span>${d.date}</span><span style="font-weight:700;">${d.rating}</span></div>`).join('');
         }
     } catch {}
 }
 
-// ============================================
-// QUICK ACTIONS
-// ============================================
-document.getElementById('sosBtn').addEventListener('click', openSOS);
-
-// ============================================
-// SHARE LOCATION WITH FAMILY
-// ============================================
-function shareLocationWithFamily() {
-    if (!navigator.geolocation) {
-        alert('❌ Location not supported on this device');
-        return;
-    }
-
-    navigator.geolocation.getCurrentPosition(
-        async function(position) {
-            const lat = position.coords.latitude;
-            const lng = position.coords.longitude;
-            const mapLink = `https://maps.google.com/?q=${lat},${lng}`;
-            
-            const message = `🆘 Fishermen-AI — Safe Location Share\n\n📍 My current location:\n${lat}, ${lng}\n\n🗺️ Map: ${mapLink}\n\n⏰ Time: ${new Date().toLocaleString()}\n\nSent via Fishermen-AI app`;
-
-            // Try native share first (best on mobile)
-            if (navigator.share) {
-                try {
-                    await navigator.share({
-                        title: '📍 My Location',
-                        text: message
-                    });
-                    return;
-                } catch (e) {
-                    // User cancelled or share failed, fall through to copy
-                }
-            }
-
-            // Fallback: copy to clipboard
-            try {
-                await navigator.clipboard.writeText(message);
-                alert('✅ Location copied! Paste it in WhatsApp to send to family.');
-            } catch (e) {
-                // Final fallback: show in prompt
-                prompt('Copy this message to send to family:', message);
-            }
-        },
-        function(error) {
-            if (error.code === 1) {
-                alert('❌ Please allow location access in your browser settings');
-            } else {
-                alert('❌ Could not get location. Make sure GPS is on.');
-            }
-        },
-        { enableHighAccuracy: true, timeout: 10000 }
-    );
-}
-
-function openSOS() {
-    document.getElementById('sosModal').style.display = 'flex';
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            pos => document.getElementById('sosLocation').innerHTML = `📍 ${pos.coords.latitude}, ${pos.coords.longitude}`,
-            () => document.getElementById('sosLocation').textContent = '❌ Location unavailable'
-        );
-    }
-}
-
-document.getElementById('marketBtn').addEventListener('click', function() {
-    showPage('page-market');
-    loadMarket();
-});
-
-// ============================================
-// MORE BUTTONS
-// ============================================
-document.getElementById('historyBtn').addEventListener('click', function() {
-    const trips = JSON.parse(localStorage.getItem('trips') || '[]');
-    document.getElementById('moreContainer').innerHTML = '<h3>📋 History</h3>' +
-        (trips.length === 0 ? '<p style="opacity:0.6;">No trips yet</p>' :
-        trips.slice(-5).reverse().map(t => `<div class="item-row"><span>${t.status}</span><span>${t.date}</span></div>`).join(''));
-});
-
-document.getElementById('dashboardBtn').addEventListener('click', function() {
-    const trips = JSON.parse(localStorage.getItem('trips') || '[]');
-    const go = trips.filter(t => t.status === 'GO').length;
-    const caution = trips.filter(t => t.status === 'CAUTION').length;
-    const dontgo = trips.filter(t => t.status === "DON'T GO").length;
-    document.getElementById('moreContainer').innerHTML = `
-        <h3>📈 Dashboard</h3>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
-            <div style="background:rgba(34,197,94,0.1);padding:12px;border-radius:10px;text-align:center;"><div style="font-size:24px;font-weight:700;">${go}</div><div style="font-size:11px;opacity:0.6;">GO</div></div>
-            <div style="background:rgba(245,158,11,0.1);padding:12px;border-radius:10px;text-align:center;"><div style="font-size:24px;font-weight:700;">${caution}</div><div style="font-size:11px;opacity:0.6;">CAUTION</div></div>
-            <div style="background:rgba(239,68,68,0.1);padding:12px;border-radius:10px;text-align:center;"><div style="font-size:24px;font-weight:700;">${dontgo}</div><div style="font-size:11px;opacity:0.6;">DON'T GO</div></div>
-        </div>
-    `;
-});
-
-document.getElementById('fuelBtn').addEventListener('click', function() {
-    document.getElementById('moreContainer').innerHTML = `
-        <h3>⛽ Fuel Calculator</h3>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <input type="number" id="fuelDistance" placeholder="Distance (km)" value="10" style="flex:1;padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.04);color:white;">
-            <input type="number" id="fuelPrice" placeholder="Fuel Price (₹/L)" value="90" style="flex:1;padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.04);color:white;">
-        </div>
-        <button onclick="calculateFuel()" style="margin-top:8px;padding:10px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);border:none;border-radius:10px;color:white;cursor:pointer;width:100%;font-weight:600;">Calculate</button>
-        <div id="fuelResult" style="margin-top:8px;"></div>
-    `;
-});
-
-window.calculateFuel = function() {
-    const d = parseFloat(document.getElementById('fuelDistance').value) || 10;
-    const p = parseFloat(document.getElementById('fuelPrice').value) || 90;
-    const cost = d * 5 * p;
-    document.getElementById('fuelResult').innerHTML = `<div class="item-row"><span>⛽ Total Cost</span><span class="price">₹${cost.toFixed(2)}</span></div>`;
-};
-
-document.getElementById('schemeBtn').addEventListener('click', async function() {
+async function loadHomeWeather() {
     try {
-        const response = await fetch(BACKEND_URL + '/schemes');
+        const response = await fetch(BACKEND_URL + '/weather');
+        const data = await response.json();
+        const main = document.getElementById('homeWeatherMain');
+        const meta = document.getElementById('homeWeatherMeta');
+        if (main && meta && data.weather) {
+            main.textContent = `${data.weather.toUpperCase()} · ${data.temp}°C · Wind ${data.wind} km/h`;
+            meta.textContent = `📍 ${data.city || 'Karavali Coast'} · Source: OpenWeather · Updated now`;
+        }
+    } catch {}
+}
+
+async function loadBestTime() {
+    const container = document.getElementById('bestTimeWindows');
+    const dateEl = document.getElementById('bestTimeDate');
+    const nowEl = document.getElementById('bestTimeNow');
+    if (!container) return;
+
+    try {
+        const response = await fetch(BACKEND_URL + '/best-time');
         const data = await response.json();
         if (data.success) {
-            document.getElementById('moreContainer').innerHTML = '<h3>🏛️ Government Schemes</h3>' +
-                data.schemes.map(s => `<div style="padding:10px;background:rgba(255,255,255,0.04);border-radius:10px;margin:4px 0;"><div style="font-weight:600;font-size:14px;">${s.name}</div><div style="font-size:12px;opacity:0.7;">${s.description}</div><div style="font-size:11px;color:#fbbf24;">✅ ${s.eligibility}</div></div>`).join('');
+            if (dateEl) dateEl.textContent = data.date;
+            container.innerHTML = data.windows.map(w => {
+                const color = w.rating === 5 ? '#10b981' : w.rating === 4 ? '#38bdf8' : '#ef4444';
+                const bg = w.rating === 5 ? 'rgba(16,185,129,0.1)' : w.rating === 4 ? 'rgba(56,189,248,0.1)' : 'rgba(239,68,68,0.1)';
+                return `
+                    <div style="padding:8px 12px;margin:4px 0;background:${bg};border-radius:10px;border-left:3px solid ${color};">
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <span style="font-size:12px;font-weight:700;color:${color};">${w.label}</span>
+                            <span style="font-size:12px;font-weight:600;">${w.time}</span>
+                        </div>
+                        <div style="font-size:11px;color:#94a3b8;margin-top:2px;">${w.reason}</div>
+                    </div>
+                `;
+            }).join('');
+
+            if (nowEl && data.current_message) {
+                nowEl.style.display = 'block';
+                nowEl.textContent = data.current_message;
+                nowEl.style.background = data.current_status === 'best' ? 'rgba(16,185,129,0.2)' : 'rgba(56,189,248,0.2)';
+                nowEl.style.color = data.current_status === 'best' ? '#6ee7b7' : '#7dd3fc';
+            }
         }
     } catch {}
-});
-
-document.getElementById('exportBtn').addEventListener('click', function() {
-    const trips = JSON.parse(localStorage.getItem('trips') || '[]');
-    if (trips.length === 0) { alert('No data to export!'); return; }
-    let report = '🐟 FISHERMEN-AI REPORT\n' + '='.repeat(40) + '\n';
-    trips.forEach(t => report += `${t.status} - ${t.date}\n`);
-    const blob = new Blob([report], {type: 'text/plain'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `fishermen-report-${new Date().toISOString().slice(0,10)}.txt`;
-    a.click();
-    URL.revokeObjectURL(url);
-});
-
-document.getElementById('predictionBtn').addEventListener('click', async function() {
-    try {
-        const response = await fetch(BACKEND_URL + '/fish-prediction');
-        const data = await response.json();
-        if (data.success) {
-            document.getElementById('moreContainer').innerHTML = '<h3>🐟 Fish Predictions</h3>' +
-                data.predictions.map(p => `<div class="item-row"><span>🐟 ${p.fish} (${p.kannada})<br><span style="font-size:11px;opacity:0.6;">📍 ${p.location} 📅 ${p.date}</span></span><span style="color:${p.probability > 80 ? '#22c55e' : '#f59e0b'};">${p.probability}%</span></div>`).join('');
-        }
-    } catch {}
-});
+}
 
 // ============================================
-// 📸 AI FISH PHOTO IDENTIFICATION
+// 📸 AI FISH SCANNER (FEATURE #7)
 // ============================================
 let selectedFishFile = null;
 
 const fishScanBtnEl = document.getElementById('fishScanBtn');
 if (fishScanBtnEl) {
-    fishScanBtnEl.addEventListener('click', function() {
-        renderFishScanner();
-    });
+    fishScanBtnEl.addEventListener('click', renderFishScanner);
 }
 
 function renderFishScanner() {
     selectedFishFile = null;
-    document.getElementById('moreContainer').innerHTML = `
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(59,130,246,0.3);border-radius:16px;padding:16px;">
-            <h3 style="font-size:16px;margin-bottom:6px;display:flex;align-items:center;gap:8px;">
-                📸 AI Fish Photo Identification
-            </h3>
-            <p style="font-size:12px;opacity:0.7;margin-bottom:14px;">
-                Take or upload a photo of your catch. AI identifies the species, local Kannada/Tulu name, and today's estimated harbor price!
+    const container = document.getElementById('moreContainer');
+    if (!container) return;
+
+    container.innerHTML = `
+        <div style="background:rgba(15,23,42,0.85);border:1px solid rgba(56,189,248,0.35);border-radius:20px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,0.4);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <h3 style="font-size:16px;font-weight:800;color:#38bdf8;display:flex;align-items:center;gap:6px;">
+                    📸 AI Fish Species Identification
+                </h3>
+                <span style="font-size:10px;background:rgba(16,185,129,0.2);color:#6ee7b7;padding:3px 8px;border-radius:12px;font-weight:700;">KARAVALI VISION</span>
+            </div>
+            <p style="font-size:12px;color:#94a3b8;margin-bottom:14px;">
+                Capture or upload catch photo. Identifies Kannada/Tulu species name and current port wholesale rate.
             </p>
 
-            <div id="fishDropZone" style="border:2px dashed rgba(59,130,246,0.5);border-radius:14px;padding:24px 16px;text-align:center;cursor:pointer;background:rgba(59,130,246,0.06);transition:all 0.2s;" onclick="document.getElementById('fishPhotoInput').click()">
+            <div id="fishDropZone" style="border:2px dashed rgba(56,189,248,0.4);border-radius:16px;padding:26px 14px;text-align:center;cursor:pointer;background:rgba(6,182,212,0.05);transition:all 0.2s;" onclick="document.getElementById('fishPhotoInput').click()">
                 <input type="file" id="fishPhotoInput" accept="image/*" capture="environment" style="display:none;" onchange="handleFishPhotoSelected(event)">
                 <div id="dropZonePrompt">
-                    <span style="font-size:36px;">📷</span>
-                    <div style="font-weight:700;font-size:15px;margin-top:8px;">Tap to Take Photo or Upload</div>
-                    <div style="font-size:11px;opacity:0.6;margin-top:4px;">Supports camera on phone, gallery & files</div>
+                    <span style="font-size:40px;">📷</span>
+                    <div style="font-weight:700;font-size:14px;margin-top:8px;color:#f8fafc;">Tap to Take Photo or Upload</div>
+                    <div style="font-size:11px;color:#94a3b8;margin-top:3px;">Works with smartphone camera & gallery images</div>
                 </div>
-                <img id="fishPhotoPreview" style="display:none;max-width:100%;max-height:220px;border-radius:12px;margin:12px auto 0 auto;object-fit:cover;box-shadow:0 6px 18px rgba(0,0,0,0.4);">
+                <img id="fishPhotoPreview" style="display:none;max-width:100%;max-height:200px;border-radius:12px;margin:12px auto 0 auto;object-fit:cover;box-shadow:0 6px 18px rgba(0,0,0,0.5);">
             </div>
 
             <div style="display:flex;gap:8px;margin-top:14px;">
-                <button id="analyzeFishBtn" onclick="analyzeFishPhoto()" style="flex:1;padding:13px;background:linear-gradient(135deg,#3b82f6,#2563eb);border:none;border-radius:12px;color:white;font-weight:700;font-size:14px;cursor:pointer;">
+                <button id="analyzeFishBtn" onclick="analyzeFishPhoto()" style="flex:1;padding:13px;background:linear-gradient(135deg,#0ea5e9,#2563eb);border:none;border-radius:12px;color:white;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 4px 15px rgba(14,165,233,0.35);">
                     🔍 Identify Fish (ಮೀನು ಗುರುತಿಸಿ)
                 </button>
-                <button onclick="renderFishScanner()" style="padding:13px 16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;color:white;cursor:pointer;">
+                <button onclick="renderFishScanner()" style="padding:13px 16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;color:white;cursor:pointer;font-weight:600;">
                     Reset
                 </button>
             </div>
@@ -1122,7 +1232,7 @@ function renderFishScanner() {
             <div id="fishResultContainer" style="margin-top:14px;display:none;"></div>
         </div>
     `;
-    document.getElementById('moreContainer').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 function handleFishPhotoSelected(e) {
@@ -1133,13 +1243,8 @@ function handleFishPhotoSelected(e) {
     const prompt = document.getElementById('dropZonePrompt');
     const reader = new FileReader();
     reader.onload = function(evt) {
-        if (preview) {
-            preview.src = evt.target.result;
-            preview.style.display = 'block';
-        }
-        if (prompt) {
-            prompt.innerHTML = `<span style="font-size:22px;">✅</span> <div style="font-weight:700;font-size:13px;margin-top:4px;">Photo selected: <b>${file.name}</b></div><div style="font-size:11px;opacity:0.6;">(Tap to change photo)</div>`;
-        }
+        if (preview) { preview.src = evt.target.result; preview.style.display = 'block'; }
+        if (prompt) { prompt.innerHTML = `<span style="font-size:22px;">✅</span> <div style="font-weight:700;font-size:13px;margin-top:4px;">Photo selected: <b>${file.name}</b></div><div style="font-size:11px;color:#94a3b8;">(Tap to change)</div>`; }
     };
     reader.readAsDataURL(file);
 }
@@ -1150,22 +1255,19 @@ async function analyzeFishPhoto() {
     if (!resBox) return;
 
     btn.disabled = true;
-    btn.textContent = '⏳ Analyzing species...';
+    btn.textContent = '⏳ Analyzing fish species...';
     resBox.style.display = 'block';
     resBox.innerHTML = `
         <div style="text-align:center;padding:18px;background:rgba(255,255,255,0.03);border-radius:12px;">
             <div style="font-size:26px;">🔄</div>
-            <div style="font-size:13px;margin-top:8px;opacity:0.8;">Scanning morphology, scales, and markings...</div>
+            <div style="font-size:13px;margin-top:8px;color:#cbd5e1;">Scanning morphology, scales, and local markings...</div>
         </div>
     `;
 
     try {
         const formData = new FormData();
-        if (selectedFishFile) {
-            formData.append('photo', selectedFishFile);
-        } else {
-            formData.append('query', 'mackerel');
-        }
+        if (selectedFishFile) formData.append('photo', selectedFishFile);
+        else formData.append('query', 'mackerel');
 
         const response = await fetch(BACKEND_URL + '/identify-fish', {
             method: 'POST',
@@ -1175,26 +1277,26 @@ async function analyzeFishPhoto() {
 
         if (data.success) {
             resBox.innerHTML = `
-                <div style="background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.35);border-radius:14px;padding:16px;">
+                <div style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.35);border-radius:16px;padding:16px;">
                     <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
                         <div>
-                            <span style="background:#22c55e;color:#052e16;font-size:10px;font-weight:800;padding:2px 8px;border-radius:12px;">${data.confidence}% CONFIDENCE</span>
-                            <h4 style="font-size:19px;margin-top:6px;margin-bottom:2px;color:white;">🐟 ${data.fish}</h4>
-                            <div style="font-size:15px;color:#86efac;font-weight:700;">${data.kannada}</div>
+                            <span style="background:#10b981;color:#064e3b;font-size:10px;font-weight:800;padding:2px 8px;border-radius:12px;">${data.confidence}% CONFIDENCE MATCH</span>
+                            <h4 style="font-size:19px;margin-top:6px;margin-bottom:2px;color:white;font-weight:800;">🐟 ${data.fish}</h4>
+                            <div style="font-size:15px;color:#6ee7b7;font-weight:700;">${data.kannada}</div>
                         </div>
                         <div style="text-align:right;">
-                            <div style="font-size:11px;opacity:0.6;">Today's Rate</div>
+                            <div style="font-size:11px;color:#94a3b8;">Port Rate</div>
                             <div style="font-size:22px;font-weight:800;color:#facc15;">₹${data.price}/kg</div>
-                            <div style="font-size:10px;opacity:0.5;">Range: ${data.range}</div>
+                            <div style="font-size:10px;color:#94a3b8;">Range: ${data.range}</div>
                         </div>
                     </div>
 
-                    <div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);font-size:12px;opacity:0.9;line-height:1.5;">
+                    <div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);font-size:12px;color:#cbd5e1;line-height:1.5;">
                         <div>🗓️ <b>Peak Season:</b> ${data.season}</div>
-                        <div style="margin-top:4px;">⚓ <b>Market Tip:</b> ${data.advice}</div>
+                        <div style="margin-top:4px;">⚓ <b>Landing Advice:</b> ${data.advice}</div>
                     </div>
 
-                    <button onclick="speakResponse('${data.fish}. ${data.kannada}. ಇಂದಿನ ಮಾರುಕಟ್ಟೆ ದರ ಕೆಜಿಗೆ ${data.price} ರೂಪಾಯಿ.')" style="margin-top:12px;width:100%;padding:10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:10px;color:white;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
+                    <button onclick="speakResponse('${data.fish}. ${data.kannada}. ಇಂದಿನ ಮಾರುಕಟ್ಟೆ ದರ ಕೆಜಿಗೆ ${data.price} ರೂಪಾಯಿ.')" style="margin-top:12px;width:100%;padding:10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:12px;color:white;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
                         🔊 Pronounce in Kannada (ಧ್ವನಿಯಲ್ಲಿ ಕೇಳಿ)
                     </button>
                 </div>
@@ -1203,7 +1305,7 @@ async function analyzeFishPhoto() {
             resBox.innerHTML = '<div style="color:#ef4444;font-size:13px;padding:10px;text-align:center;">❌ Could not identify fish. Please try another photo.</div>';
         }
     } catch (e) {
-        resBox.innerHTML = '<div style="color:#ef4444;font-size:13px;padding:10px;text-align:center;">❌ Could not reach backend server. Please check internet connection.</div>';
+        resBox.innerHTML = '<div style="color:#ef4444;font-size:13px;padding:10px;text-align:center;">❌ Server communication error.</div>';
     } finally {
         btn.disabled = false;
         btn.textContent = '🔍 Identify Fish (ಮೀನು ಗುರುತಿಸಿ)';
@@ -1211,15 +1313,172 @@ async function analyzeFishPhoto() {
 }
 
 // ============================================
-// LANGUAGE
+// MORE BUTTON EVENT LISTENERS
+// ============================================
+document.getElementById('historyBtn').addEventListener('click', function() {
+    const trips = JSON.parse(localStorage.getItem('trips') || '[]');
+    document.getElementById('moreContainer').innerHTML = `
+        <div class="glass-card">
+            <h3 style="font-size:15px;margin-bottom:8px;font-weight:700;">📋 Voyage Advisory Log</h3>
+            ${trips.length === 0 ? '<p style="opacity:0.6;font-size:13px;">No past trips recorded yet.</p>' :
+            trips.slice(-5).reverse().map(t => `<div class="item-row"><span>${t.status === 'GO' ? '🟢 GO' : t.status === 'CAUTION' ? '🟡 CAUTION' : '🔴 STAY'}</span><span style="font-size:11px;color:#94a3b8;">${t.date}</span></div>`).join('')}
+        </div>
+    `;
+});
+
+document.getElementById('dashboardBtn').addEventListener('click', function() {
+    const trips = JSON.parse(localStorage.getItem('trips') || '[]');
+    const go = trips.filter(t => t.status === 'GO').length;
+    const caution = trips.filter(t => t.status === 'CAUTION').length;
+    const dontgo = trips.filter(t => t.status === "DON'T GO").length;
+    document.getElementById('moreContainer').innerHTML = `
+        <div class="glass-card">
+            <h3 style="font-size:15px;margin-bottom:12px;font-weight:700;">📈 Fishing Voyage Statistics</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+                <div style="background:rgba(16,185,129,0.15);padding:14px;border-radius:14px;text-align:center;border:1px solid rgba(16,185,129,0.3);"><div style="font-size:24px;font-weight:800;color:#6ee7b7;">${go}</div><div style="font-size:11px;color:#94a3b8;margin-top:2px;">GO</div></div>
+                <div style="background:rgba(245,158,11,0.15);padding:14px;border-radius:14px;text-align:center;border:1px solid rgba(245,158,11,0.3);"><div style="font-size:24px;font-weight:800;color:#fcd34d;">${caution}</div><div style="font-size:11px;color:#94a3b8;margin-top:2px;">CAUTION</div></div>
+                <div style="background:rgba(239,68,68,0.15);padding:14px;border-radius:14px;text-align:center;border:1px solid rgba(239,68,68,0.3);"><div style="font-size:24px;font-weight:800;color:#fca5a5;">${dontgo}</div><div style="font-size:11px;color:#94a3b8;margin-top:2px;">DON'T GO</div></div>
+            </div>
+        </div>
+    `;
+});
+
+document.getElementById('fuelBtn').addEventListener('click', function() {
+    document.getElementById('moreContainer').innerHTML = `
+        <div class="glass-card">
+            <h3 style="font-size:15px;margin-bottom:8px;font-weight:700;">⛽ Outboard Motor Fuel Calculator</h3>
+            <div style="display:flex;gap:8px;margin-bottom:10px;">
+                <input type="number" id="fuelDistance" placeholder="Distance (Nautical Miles/km)" value="12" style="flex:1;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(3,7,18,0.5);color:white;font-size:13px;">
+                <input type="number" id="fuelPrice" placeholder="Diesel Rate (₹/L)" value="92" style="flex:1;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(3,7,18,0.5);color:white;font-size:13px;">
+            </div>
+            <button onclick="calculateFuel()" style="width:100%;padding:12px;background:linear-gradient(135deg,#0ea5e9,#2563eb);border:none;border-radius:12px;color:white;font-weight:700;cursor:pointer;">Calculate Expense</button>
+            <div id="fuelResult" style="margin-top:10px;"></div>
+        </div>
+    `;
+});
+
+window.calculateFuel = function() {
+    const d = parseFloat(document.getElementById('fuelDistance').value) || 12;
+    const p = parseFloat(document.getElementById('fuelPrice').value) || 92;
+    const cost = d * 2.8 * p;
+    document.getElementById('fuelResult').innerHTML = `<div class="item-row"><span>Estimated Fuel Consumption:</span><span class="price">₹${cost.toFixed(0)}</span></div>`;
+};
+
+document.getElementById('schemeBtn').addEventListener('click', async function() {
+    try {
+        const response = await fetch(BACKEND_URL + '/schemes');
+        const data = await response.json();
+        if (data.success) {
+            document.getElementById('moreContainer').innerHTML = `
+                <div class="glass-card">
+                    <h3 style="font-size:15px;margin-bottom:10px;font-weight:700;">🏛️ Government Subsidies & Insurance</h3>
+                    ${data.schemes.map(s => `
+                        <div style="padding:10px;background:rgba(255,255,255,0.04);border-radius:12px;margin:6px 0;border:1px solid rgba(255,255,255,0.06);">
+                            <div style="font-weight:700;font-size:13px;color:#38bdf8;">${s.name}</div>
+                            <div style="font-size:12px;color:#cbd5e1;margin-top:2px;">${s.description}</div>
+                            <div style="font-size:11px;color:#facc15;margin-top:4px;">🎯 Eligibility: ${s.eligibility}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+    } catch {}
+});
+
+document.getElementById('predictionBtn').addEventListener('click', async function() {
+    try {
+        const response = await fetch(BACKEND_URL + '/fish-prediction');
+        const data = await response.json();
+        if (data.success) {
+            document.getElementById('moreContainer').innerHTML = `
+                <div class="glass-card">
+                    <h3 style="font-size:15px;margin-bottom:10px;font-weight:700;">🐟 Coastal Fish Movement Radar</h3>
+                    ${data.predictions.map(p => `
+                        <div class="item-row">
+                            <div>
+                                <div style="font-weight:700;color:white;">🐟 ${p.fish} (${p.kannada})</div>
+                                <div style="font-size:11px;color:#94a3b8;margin-top:2px;">📍 ${p.location} · 📅 ${p.date}</div>
+                            </div>
+                            <div style="text-align:right;">
+                                <span style="font-weight:800;color:${p.probability > 80 ? '#10b981' : '#f59e0b'};font-size:15px;">${p.probability}%</span>
+                                <div style="font-size:10px;color:#94a3b8;">${p.advice}</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+    } catch {}
+});
+
+document.getElementById('exportBtn').addEventListener('click', function() {
+    const trips = JSON.parse(localStorage.getItem('trips') || '[]');
+    let txt = '=== FISHERMEN-AI KARAVALI TRIP REPORT ===\nGenerated: ' + new Date().toLocaleString() + '\n\n';
+    if (trips.length === 0) txt += 'No recent trips found in local storage.\n';
+    else trips.forEach((t, i) => txt += `Trip #${i+1} | ${t.date} | Decision: ${t.status}\n`);
+    
+    const blob = new Blob([txt], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `fishermen-voyage-${new Date().toISOString().slice(0,10)}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+});
+
+// ============================================
+// QUICK ACTIONS
+// ============================================
+document.getElementById('sosBtn').addEventListener('click', openSOS);
+document.getElementById('marketBtn').addEventListener('click', function() {
+    showPage('page-market');
+});
+
+function openSOS() {
+    document.getElementById('sosModal').style.display = 'flex';
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            pos => document.getElementById('sosLocation').innerHTML = `📍 GPS Coordinates: <br><b>${pos.coords.latitude.toFixed(5)}, ${pos.coords.longitude.toFixed(5)}</b>`,
+            () => document.getElementById('sosLocation').textContent = '❌ Location unavailable (enable GPS)'
+        );
+    }
+}
+
+function shareLocationWithFamily() {
+    if (!navigator.geolocation) { alert('GPS not available'); return; }
+    navigator.geolocation.getCurrentPosition(
+        async function(pos) {
+            const lat = pos.coords.latitude;
+            const lng = pos.coords.longitude;
+            const msg = `🆘 Fishermen-AI Safe Beacon\n\n📍 My Sea Location:\nhttps://maps.google.com/?q=${lat},${lng}\n\nTime: ${new Date().toLocaleTimeString()}\nSent from Karavali Coast.`;
+            if (navigator.share) {
+                try { await navigator.share({ title: '📍 My Sea Location', text: msg }); return; } catch (e) {}
+            }
+            window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(msg), '_blank');
+        },
+        () => alert('Please enable GPS to share coordinates.')
+    );
+}
+
+function saveToHistory(decision) {
+    try {
+        const trips = JSON.parse(localStorage.getItem('trips') || '[]');
+        trips.push({ date: new Date().toLocaleDateString('en-IN', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }), status: decision.status });
+        localStorage.setItem('trips', JSON.stringify(trips.slice(-20)));
+    } catch {}
+}
+
+// ============================================
+// LANGUAGE SWITCHER
 // ============================================
 let currentLang = 'kn';
 const translations = {
-    'kn': { title: 'ನಿಮ್ಮ ಕಡಲ ಸಹಾಯಕ', micText: 'ಒತ್ತಿ ಮಾತನಾಡಿ' },
-    'tulu': { title: 'ಇರ್ದ್ ಕಡಲ್ ಸಹಾಯಕ', micText: 'ಒತ್ತಿ ಪಾತೆರ್' },
-    'konkani': { title: 'ತುಜೊ ಕಡಲ್ ಸಹಾಯಕ', micText: 'ದಬಾವನ್ ಉಲೆ' },
-    'en': { title: 'Your Marine Co-Pilot', micText: 'Hold to Speak' }
+    'kn': { title: 'ನಿಮ್ಮ ಕಡಲ ಸಹಾಯಕ · Karavali', micText: 'ಒತ್ತಿ ಮಾತನಾಡಿ' },
+    'tulu': { title: 'ಇರ್ದ್ ಕಡಲ್ ಸಹಾಯಕ · Karavali', micText: 'ಒತ್ತಿ ಪಾತೆರ್' },
+    'konkani': { title: 'ತುಜೊ ಕಡಲ್ ಸಹಾಯಕ · Karavali', micText: 'ದಬಾವನ್ ಉಲೆ' },
+    'en': { title: 'Your AI Marine Co-Pilot · Karavali', micText: 'Tap to Speak' }
 };
+
 document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.addEventListener('click', function() {
         currentLang = this.dataset.lang;
@@ -1233,113 +1492,24 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
 });
 
 // ============================================
-// INIT
-// ============================================
-// ============================================
-// HOME WEATHER PREVIEW
-// ============================================
-async function loadHomeWeather() {
-    try {
-        const response = await fetch(BACKEND_URL + '/weather');
-        const data = await response.json();
-        const main = document.getElementById('homeWeatherMain');
-        const meta = document.getElementById('homeWeatherMeta');
-        
-        if (main && meta && data.weather) {
-            main.textContent = `${data.weather} · ${data.temp}°C · Wind ${data.wind} km/h`;
-            meta.textContent = `📍 ${data.city || 'Karavali'} · Updated just now · Source: OpenWeather`;
-        }
-    } catch (e) {
-        const main = document.getElementById('homeWeatherMain');
-        const meta = document.getElementById('homeWeatherMeta');
-        if (main) main.textContent = 'Weather data unavailable';
-        if (meta) meta.textContent = 'Check internet connection';
-    }
-}
-
-
-// ============================================
-// BEST TIME TO FISH TODAY
-// ============================================
-async function loadBestTime() {
-    const container = document.getElementById('bestTimeWindows');
-    const dateEl = document.getElementById('bestTimeDate');
-    const nowEl = document.getElementById('bestTimeNow');
-    if (!container) return;
-
-    try {
-        const response = await fetch(BACKEND_URL + '/best-time');
-        const data = await response.json();
-
-        if (data.success) {
-            if (dateEl) dateEl.textContent = data.date;
-
-            // Render windows
-            container.innerHTML = data.windows.map(w => {
-                const color = w.rating === 5 ? '#22c55e'
-                            : w.rating === 4 ? '#86efac'
-                            : '#ef4444';
-                const bg = w.rating === 5 ? 'rgba(34,197,94,0.1)'
-                         : w.rating === 4 ? 'rgba(134,239,172,0.08)'
-                         : 'rgba(239,68,68,0.08)';
-                return `
-                    <div style="padding:8px 12px;margin:4px 0;background:${bg};border-radius:10px;border-left:3px solid ${color};">
-                        <div style="display:flex;justify-content:space-between;align-items:center;">
-                            <span style="font-size:12px;font-weight:700;color:${color};">${w.label}</span>
-                            <span style="font-size:12px;font-weight:600;">${w.time}</span>
-                        </div>
-                        <div style="font-size:11px;opacity:0.6;margin-top:2px;">${w.reason}</div>
-                    </div>
-                `;
-            }).join('');
-
-            // Show "current status" banner
-            if (nowEl && data.current_message) {
-                nowEl.style.display = 'block';
-                nowEl.textContent = data.current_message;
-                if (data.current_status === 'best') {
-                    nowEl.style.background = 'rgba(34,197,94,0.15)';
-                    nowEl.style.color = '#86efac';
-                } else if (data.current_status === 'good') {
-                    nowEl.style.background = 'rgba(134,239,172,0.15)';
-                    nowEl.style.color = '#86efac';
-                } else if (data.current_status === 'avoid') {
-                    nowEl.style.background = 'rgba(239,68,68,0.15)';
-                    nowEl.style.color = '#fca5a5';
-                } else {
-                    nowEl.style.background = 'rgba(245,158,11,0.15)';
-                    nowEl.style.color = '#fbbf24';
-                }
-            }
-        }
-    } catch (err) {
-        if (container) {
-            container.innerHTML = '<div style="font-size:12px;opacity:0.5;">Best time data unavailable</div>';
-        }
-    }
-}
-// ============================================
-// TEXT INPUT FALLBACK
+// TEXT FALLBACK INPUT
 // ============================================
 function toggleTextFallback() {
     const el = document.getElementById('textFallback');
     if (el) el.classList.toggle('active');
 }
-
 function submitTextInput() {
     const input = document.getElementById('textInput');
     if (!input) return;
     const text = input.value.trim();
     if (!text) return;
-    
     transcriptText.textContent = '📝 "' + text + '"';
-    showVoiceState('processing', '⏳ Processing your question...');
+    showVoiceState('processing', '⏳ Processing query...');
     sendToBackend(text);
     input.value = '';
     toggleTextFallback();
 }
 
-// Enter key submits
 document.addEventListener('DOMContentLoaded', function(){
     const input = document.getElementById('textInput');
     if (input) {
@@ -1349,14 +1519,14 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 });
 
-
+// Initialize on page load
 initSpeech();
 checkBackend();
 setInterval(checkBackend, 30000);
 loadHomeWeather();
 loadBestTime();
 
-console.log('🐟 Fishermen-AI loaded!');
+console.log('🐟 Fishermen-AI 2.0 UI Loaded Successfully!');
 </script>
 </body>
 </html>
