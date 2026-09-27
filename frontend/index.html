@@ -563,6 +563,7 @@
                 <button id="schemeBtn" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">🏛️ Schemes</button>
                 <button id="exportBtn" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">📄 Export</button>
                 <button id="predictionBtn" style="padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;color:white;cursor:pointer;">🐟 Predict</button>
+                <button id="fishScanBtn" style="grid-column: span 2;padding:12px;background:linear-gradient(135deg,rgba(59,130,246,0.2),rgba(147,51,234,0.2));border:1px solid rgba(59,130,246,0.3);border-radius:12px;color:white;cursor:pointer;font-weight:700;">📸 Scan Fish Photo (ಮೀನು ಗುರುತಿಸಿ)</button>
             </div>
             <div id="moreContainer" style="margin-top:12px;"></div>
         </div>
@@ -593,7 +594,9 @@
 </div>
 
 <script>
-const BACKEND_URL = 'https://fishermen-ai-backend.onrender.com';
+const BACKEND_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:')
+    ? 'http://127.0.0.1:5000'
+    : 'https://fishermen-ai-backend.onrender.com';
 
 // ============================================
 // PAGE NAVIGATION
@@ -869,14 +872,19 @@ function showResult(decision) {
 
 function speakResponse(text) {
     if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
         showVoiceState('responding', '🔊 Speaking answer...');
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'kn-IN';
+        const hasKannada = /[\u0C80-\u0CFF]/.test(text);
+        utterance.lang = hasKannada ? 'kn-IN' : 'en-IN';
         utterance.rate = 0.9;
         utterance.onend = function() {
             hideVoiceState();
         };
-        speechSynthesis.sp
+        utterance.onerror = function() {
+            hideVoiceState();
+        };
+        window.speechSynthesis.speak(utterance);
     }
 }
 
@@ -1068,6 +1076,139 @@ document.getElementById('predictionBtn').addEventListener('click', async functio
         }
     } catch {}
 });
+
+// ============================================
+// 📸 AI FISH PHOTO IDENTIFICATION
+// ============================================
+let selectedFishFile = null;
+
+const fishScanBtnEl = document.getElementById('fishScanBtn');
+if (fishScanBtnEl) {
+    fishScanBtnEl.addEventListener('click', function() {
+        renderFishScanner();
+    });
+}
+
+function renderFishScanner() {
+    selectedFishFile = null;
+    document.getElementById('moreContainer').innerHTML = `
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(59,130,246,0.3);border-radius:16px;padding:16px;">
+            <h3 style="font-size:16px;margin-bottom:6px;display:flex;align-items:center;gap:8px;">
+                📸 AI Fish Photo Identification
+            </h3>
+            <p style="font-size:12px;opacity:0.7;margin-bottom:14px;">
+                Take or upload a photo of your catch. AI identifies the species, local Kannada/Tulu name, and today's estimated harbor price!
+            </p>
+
+            <div id="fishDropZone" style="border:2px dashed rgba(59,130,246,0.5);border-radius:14px;padding:24px 16px;text-align:center;cursor:pointer;background:rgba(59,130,246,0.06);transition:all 0.2s;" onclick="document.getElementById('fishPhotoInput').click()">
+                <input type="file" id="fishPhotoInput" accept="image/*" capture="environment" style="display:none;" onchange="handleFishPhotoSelected(event)">
+                <div id="dropZonePrompt">
+                    <span style="font-size:36px;">📷</span>
+                    <div style="font-weight:700;font-size:15px;margin-top:8px;">Tap to Take Photo or Upload</div>
+                    <div style="font-size:11px;opacity:0.6;margin-top:4px;">Supports camera on phone, gallery & files</div>
+                </div>
+                <img id="fishPhotoPreview" style="display:none;max-width:100%;max-height:220px;border-radius:12px;margin:12px auto 0 auto;object-fit:cover;box-shadow:0 6px 18px rgba(0,0,0,0.4);">
+            </div>
+
+            <div style="display:flex;gap:8px;margin-top:14px;">
+                <button id="analyzeFishBtn" onclick="analyzeFishPhoto()" style="flex:1;padding:13px;background:linear-gradient(135deg,#3b82f6,#2563eb);border:none;border-radius:12px;color:white;font-weight:700;font-size:14px;cursor:pointer;">
+                    🔍 Identify Fish (ಮೀನು ಗುರುತಿಸಿ)
+                </button>
+                <button onclick="renderFishScanner()" style="padding:13px 16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;color:white;cursor:pointer;">
+                    Reset
+                </button>
+            </div>
+
+            <div id="fishResultContainer" style="margin-top:14px;display:none;"></div>
+        </div>
+    `;
+    document.getElementById('moreContainer').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function handleFishPhotoSelected(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    selectedFishFile = file;
+    const preview = document.getElementById('fishPhotoPreview');
+    const prompt = document.getElementById('dropZonePrompt');
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+        if (preview) {
+            preview.src = evt.target.result;
+            preview.style.display = 'block';
+        }
+        if (prompt) {
+            prompt.innerHTML = `<span style="font-size:22px;">✅</span> <div style="font-weight:700;font-size:13px;margin-top:4px;">Photo selected: <b>${file.name}</b></div><div style="font-size:11px;opacity:0.6;">(Tap to change photo)</div>`;
+        }
+    };
+    reader.readAsDataURL(file);
+}
+
+async function analyzeFishPhoto() {
+    const resBox = document.getElementById('fishResultContainer');
+    const btn = document.getElementById('analyzeFishBtn');
+    if (!resBox) return;
+
+    btn.disabled = true;
+    btn.textContent = '⏳ Analyzing species...';
+    resBox.style.display = 'block';
+    resBox.innerHTML = `
+        <div style="text-align:center;padding:18px;background:rgba(255,255,255,0.03);border-radius:12px;">
+            <div style="font-size:26px;">🔄</div>
+            <div style="font-size:13px;margin-top:8px;opacity:0.8;">Scanning morphology, scales, and markings...</div>
+        </div>
+    `;
+
+    try {
+        const formData = new FormData();
+        if (selectedFishFile) {
+            formData.append('photo', selectedFishFile);
+        } else {
+            formData.append('query', 'mackerel');
+        }
+
+        const response = await fetch(BACKEND_URL + '/identify-fish', {
+            method: 'POST',
+            body: formData
+        });
+        const data = await response.json();
+
+        if (data.success) {
+            resBox.innerHTML = `
+                <div style="background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.35);border-radius:14px;padding:16px;">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
+                        <div>
+                            <span style="background:#22c55e;color:#052e16;font-size:10px;font-weight:800;padding:2px 8px;border-radius:12px;">${data.confidence}% CONFIDENCE</span>
+                            <h4 style="font-size:19px;margin-top:6px;margin-bottom:2px;color:white;">🐟 ${data.fish}</h4>
+                            <div style="font-size:15px;color:#86efac;font-weight:700;">${data.kannada}</div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div style="font-size:11px;opacity:0.6;">Today's Rate</div>
+                            <div style="font-size:22px;font-weight:800;color:#facc15;">₹${data.price}/kg</div>
+                            <div style="font-size:10px;opacity:0.5;">Range: ${data.range}</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);font-size:12px;opacity:0.9;line-height:1.5;">
+                        <div>🗓️ <b>Peak Season:</b> ${data.season}</div>
+                        <div style="margin-top:4px;">⚓ <b>Market Tip:</b> ${data.advice}</div>
+                    </div>
+
+                    <button onclick="speakResponse('${data.fish}. ${data.kannada}. ಇಂದಿನ ಮಾರುಕಟ್ಟೆ ದರ ಕೆಜಿಗೆ ${data.price} ರೂಪಾಯಿ.')" style="margin-top:12px;width:100%;padding:10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:10px;color:white;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
+                        🔊 Pronounce in Kannada (ಧ್ವನಿಯಲ್ಲಿ ಕೇಳಿ)
+                    </button>
+                </div>
+            `;
+        } else {
+            resBox.innerHTML = '<div style="color:#ef4444;font-size:13px;padding:10px;text-align:center;">❌ Could not identify fish. Please try another photo.</div>';
+        }
+    } catch (e) {
+        resBox.innerHTML = '<div style="color:#ef4444;font-size:13px;padding:10px;text-align:center;">❌ Could not reach backend server. Please check internet connection.</div>';
+    } finally {
+        btn.disabled = false;
+        btn.textContent = '🔍 Identify Fish (ಮೀನು ಗುರುತಿಸಿ)';
+    }
+}
 
 // ============================================
 // LANGUAGE

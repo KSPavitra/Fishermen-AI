@@ -40,7 +40,7 @@ class WeatherService:
                     'temp': data['main']['temp'],
                     'feels_like': data['main']['feels_like'],
                     'humidity': data['main']['humidity'],
-                    'wind': data['wind']['speed'],
+                    'wind': round(data['wind']['speed'] * 3.6, 1),
                     'pressure': data['main']['pressure'],
                     'visibility': data.get('visibility', 10000),
                     'sunrise': data['sys']['sunrise'],
@@ -80,7 +80,7 @@ class WeatherService:
                         'time': item['dt_txt'],
                         'temp': item['main']['temp'],
                         'weather': item['weather'][0]['description'],
-                        'wind': item['wind']['speed']
+                        'wind': round(item['wind']['speed'] * 3.6, 1)
                     })
                 
                 return forecasts
