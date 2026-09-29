@@ -88,16 +88,47 @@ def schemes():
 
 @app.route('/calendar')
 def calendar():
+    """
+    7-Day Coastal Solunar & Tidal Activity Guide.
+    Calculates deterministic lunar phase and tidal activity approximation.
+    NO random data. Informational tidal guide only.
+    """
     days = []
-    today = datetime.datetime.now()
-    ratings = ['⭐ Best', '✅ Good', '⚠️ Moderate', '❌ Bad']
+    now = datetime.datetime.now()
+    # Reference New Moon: Jan 11, 2024 (Synodic lunar month = 29.530588 days)
+    ref_new_moon = datetime.datetime(2024, 1, 11, 11, 57)
+    synodic_month = 29.530588
+
     for i in range(7):
-        d = today + datetime.timedelta(days=i)
+        d = now + datetime.timedelta(days=i)
+        days_since_ref = (d - ref_new_moon).total_seconds() / 86400.0
+        lunar_age = days_since_ref % synodic_month
+
+        if lunar_age < 2.5 or lunar_age > 27.0:
+            rating = '🌊 Spring Tide (New Moon · Active Currents)'
+            activity = 'High'
+        elif 12.3 <= lunar_age <= 17.2:
+            rating = '🌕 Spring Tide (Full Moon · Peak Feeding)'
+            activity = 'High'
+        elif (6.0 <= lunar_age <= 8.8) or (20.8 <= lunar_age <= 23.6):
+            rating = '⚓ Neap Tide (Quarter Moon · Moderate Currents)'
+            activity = 'Moderate'
+        else:
+            rating = '⛵ Normal Tide (Steady Water Movement)'
+            activity = 'Normal'
+
         days.append({
             'date': d.strftime('%A, %b %d'),
-            'rating': random.choice(ratings)
+            'rating': rating,
+            'activity_level': activity
         })
-    return jsonify({'success': True, 'days': days})
+
+    return jsonify({
+        'success': True,
+        'title': '7-Day Coastal Solunar & Tidal Guide',
+        'disclaimer': 'Tidal movement estimation based on astronomical lunar cycle. Does not predict weather storms. Always verify daily weather before sailing.',
+        'days': days
+    })
 
 @app.route('/best-time')
 def best_time():
@@ -160,36 +191,122 @@ def best_time():
 
 @app.route('/fish-prediction')
 def fish_prediction():
-    fish_species = ['Mackerel', 'Sardine', 'Pomfret', 'Tuna', 'Seer', 'Prawn', 'Squid']
-    locations = ['Malpe', 'Gangolli', 'Karwar', 'Udupi', 'Mangalore', 'Bhatkal']
-    kannada_map = {
-        'Mackerel': 'ಬಂಗಡೆ (Bangude)', 'Sardine': 'ಬೂತಾಯಿ (Boothai)', 'Pomfret': 'ಮಾಂಜಿ (Manji)',
-        'Tuna': 'ಗೆದ್ದಾರ್ (Geddare)', 'Seer': 'ಅಂಜಲ್ (Anjal)', 'Prawn': 'ಸೀಗಡಿ (Sigadi)',
-        'Squid': 'ಬೊಂಡಾಸ್ (Bondas)'
-    }
+    """
+    Coastal Seasonal Catch Guide (Historical Karavali Patterns).
+    Based on published CMFRI regional landing seasons for Coastal Karnataka.
+    Transparently labeled as an informational seasonal guide, NOT a real-time radar.
+    """
+    now = datetime.datetime.now()
+    current_month_num = now.month  # 1 to 12
+
+    # Historical landing season calendar for Coastal Karnataka (CMFRI reference)
+    species_catalog = [
+        {
+            'fish': 'Mackerel',
+            'kannada': 'ಬಂಗಡೆ (Bangude)',
+            'peak_months': [8, 9, 10, 11, 12],
+            'shoulder_months': [1, 2, 7],
+            'primary_harbor': 'Malpe & Mangalore',
+            'gear': 'Purse seine / Ring seine'
+        },
+        {
+            'fish': 'Sardine',
+            'kannada': 'ಬೂತಾಯಿ (Boothai)',
+            'peak_months': [9, 10, 11, 12, 1],
+            'shoulder_months': [2, 3, 8],
+            'primary_harbor': 'Gangolli & Malpe',
+            'gear': 'Traditional gillnet / Ring seine'
+        },
+        {
+            'fish': 'Pomfret',
+            'kannada': 'ಮಾಂಜಿ (Manji)',
+            'peak_months': [10, 11, 12, 1, 2],
+            'shoulder_months': [3, 9],
+            'primary_harbor': 'Mangalore & Karwar',
+            'gear': 'Drift gillnet / Trawl'
+        },
+        {
+            'fish': 'Seer',
+            'kannada': 'ಅಂಜಲ್ (Anjal)',
+            'peak_months': [9, 10, 11, 12, 1, 2, 3],
+            'shoulder_months': [4, 8],
+            'primary_harbor': 'Malpe & Bhatkal',
+            'gear': 'Hooks & lines / Large mesh gillnet'
+        },
+        {
+            'fish': 'Tuna',
+            'kannada': 'ಗೆದ್ದಾರ್ (Geddare)',
+            'peak_months': [10, 11, 12, 1, 2, 3, 4],
+            'shoulder_months': [5, 9],
+            'primary_harbor': 'Karwar & Malpe',
+            'gear': 'Pelagic longline / Gillnet'
+        },
+        {
+            'fish': 'Prawn',
+            'kannada': 'ಸೀಗಡಿ (Sigadi)',
+            'peak_months': [8, 9, 10, 11],
+            'shoulder_months': [12, 1, 7],
+            'primary_harbor': 'Mangalore & Honnavar',
+            'gear': 'Trawl / Estuarine nets'
+        },
+        {
+            'fish': 'Squid',
+            'kannada': 'ಬೊಂಡಾಸ್ (Bondas)',
+            'peak_months': [9, 10, 11, 12],
+            'shoulder_months': [1, 2, 8],
+            'primary_harbor': 'Malpe & Gangolli',
+            'gear': 'Jigging / Trawl'
+        }
+    ]
+
     predictions = []
-    for i in range(6):
-        fish = random.choice(fish_species)
-        location = random.choice(locations)
-        days_from_now = random.randint(1, 7)
-        date = datetime.datetime.now() + datetime.timedelta(days=days_from_now)
-        prob = random.randint(65, 96)
-        advice = '🎯 High chance!' if prob >= 85 else '✅ Moderate chance.' if prob >= 75 else '⚠️ Low chance.'
+    for sp in species_catalog:
+        if current_month_num in sp['peak_months']:
+            status_text = '🎯 Peak Landing Season'
+            prob = 88
+            advice = f"Historically high abundance in {now.strftime('%B')}. Primary landings at {sp['primary_harbor']}."
+        elif current_month_num in sp['shoulder_months']:
+            status_text = '✅ Moderate Seasonal Presence'
+            prob = 72
+            advice = f"Moderate seasonal occurrence in {now.strftime('%B')}. Targeted with {sp['gear']}."
+        else:
+            status_text = '⚠️ Off-Season / Dispersed'
+            prob = 40
+            advice = f"Historically low landing volume in {now.strftime('%B')}. Dispersed offshore."
+
         predictions.append({
-            'fish': fish,
-            'kannada': kannada_map.get(fish, fish),
-            'location': location,
-            'date': date.strftime('%A, %b %d'),
+            'fish': sp['fish'],
+            'kannada': sp['kannada'],
+            'location': sp['primary_harbor'],
+            'date': now.strftime('%B %Y'),
             'probability': prob,
-            'advice': advice
+            'advice': advice,
+            'status_text': status_text,
+            'gear': sp['gear']
         })
-    return jsonify({'success': True, 'predictions': predictions, 'updated': datetime.datetime.now().isoformat()})
+
+    # Sort so peak season items appear first
+    predictions.sort(key=lambda x: x['probability'], reverse=True)
+
+    return jsonify({
+        'success': True,
+        'title': 'Coastal Seasonal Catch Guide (Historical Karavali Patterns)',
+        'month': now.strftime('%B %Y'),
+        'source': 'CMFRI Regional Marine Fisheries Reference (Coastal Karnataka)',
+        'disclaimer': 'Informational seasonal guide based on regional historical catch trends. This is not a real-time sonar or live migration radar.',
+        'predictions': predictions,
+        'updated': now.isoformat()
+    })
 
 @app.route('/identify-fish', methods=['POST'])
 def identify():
-    """Identify fish species from image upload or query"""
+    """
+    Fish Species Field Guide & Identification Demo.
+    Matches uploaded photo filename or query text against Karavali coastal species catalog.
+    Transparently labeled as a catalog demo, NOT a neural vision model.
+    """
     data = request.get_json(silent=True) or {}
-    query = data.get('query', '') or data.get('text', '')
+    query = data.get('query', '') or data.get('text', '') or data.get('species', '')
     
     # Check if a file was uploaded
     filename = ''
@@ -202,29 +319,34 @@ def identify():
     elif data.get('filename'):
         filename = str(data.get('filename')).lower()
 
-    search_target = f"{filename} {query}".lower()
+    search_target = f"{filename} {query}".lower().strip()
     identified = None
+    is_direct_match = False
 
-    for key, fish_info in decision_engine.fish_prices.items():
-        if key in search_target or any(kw in search_target for kw in fish_info['keywords']):
-            identified = fish_info
-            break
+    if search_target:
+        for key, fish_info in decision_engine.fish_prices.items():
+            if key in search_target or any(kw in search_target for kw in fish_info['keywords']):
+                identified = fish_info
+                is_direct_match = True
+                break
 
+    # If no search target or no direct match, provide default reference sample (Mackerel)
     if not identified:
-        fish_pool = list(decision_engine.fish_prices.values())
-        identified = random.choice(fish_pool)
-
-    confidence = random.randint(91, 98)
+        identified = decision_engine.fish_prices.get('mackerel', list(decision_engine.fish_prices.values())[0])
+        is_direct_match = False
 
     return jsonify({
         'success': True,
+        'is_demo': True,
+        'is_direct_match': is_direct_match,
+        'match_type': 'Catalog Reference Match' if is_direct_match else 'Catalog Reference Sample (Demo)',
         'fish': identified['name'],
         'kannada': identified['kannada'],
         'price': identified['price'],
         'range': f"₹{identified['min_price']} - ₹{identified['max_price']}",
         'season': identified['season'],
-        'confidence': confidence,
-        'advice': "Prime market demand at Malpe & Mangalore harbor. Best landed fresh between 6:00 AM - 9:00 AM."
+        'advice': "Prime market demand at Malpe & Mangalore harbor. Best landed fresh between 6:00 AM - 9:00 AM.",
+        'disclaimer': 'Field catalog identification demo. Computer vision model is not active. Always verify species with a local harbor expert or fisheries official before sale or consumption.'
     })
 
 @app.route('/api/decision', methods=['POST'])

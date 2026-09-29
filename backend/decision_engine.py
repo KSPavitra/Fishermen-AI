@@ -92,7 +92,12 @@ class DecisionEngine:
         return None
 
     def get_decision(self, weather, text=''):
-        """Enhanced marine decision engine with real weather and economics"""
+        """
+        Marine advisory decision engine.
+        CRITICAL SAFETY RULE: Navigational safety is strictly governed by
+        marine meteorology (wind, squall/storm keywords, temperature).
+        Economic profit is informational only and NEVER increases the safety score.
+        """
         score = 50  # Baseline neutral score
         reasons = []
         details = {}
@@ -105,126 +110,123 @@ class DecisionEngine:
         # Check for specific fish mentioned in user query
         mentioned_fish = self.detect_fish_in_text(text)
 
-        # === 1. SEVERE WEATHER OVERRIDE (Safety First) ===
+        # === 1. SEVERE WEATHER & WIND OVERRIDE (Safety First) ===
         danger_keywords = ['thunderstorm', 'squall', 'gale', 'storm', 'heavy rain', 'cyclone', 'tornado']
-        is_severe = any(d in weather_desc for d in danger_keywords) or wind_speed >= 38
+        is_severe = any(d in weather_desc for d in danger_keywords) or wind_speed >= 35
 
-        # === 2. WEATHER SCORING ===
+        # === 2. WEATHER / SKY SCORING ===
         good_weather = ['clear sky', 'few clouds', 'scattered clouds', 'sunny']
         moderate_weather = ['partly cloudy', 'broken clouds', 'overcast clouds', 'light rain', 'mist', 'haze']
         bad_weather = ['moderate rain', 'heavy intensity rain', 'shower rain', 'rain']
 
         if any(w in weather_desc for w in good_weather):
             score += 25
-            reasons.append(f'☀️ Good weather: {weather_desc.title()}')
+            reasons.append(f'☀️ Good visibility: {weather_desc.title()}')
         elif any(w in weather_desc for w in moderate_weather):
             score += 10
             reasons.append(f'⛅ Moderate sky: {weather_desc.title()}')
         elif any(w in weather_desc for w in bad_weather):
-            score -= 20
+            score -= 25
             reasons.append(f'🌧️ Rainy conditions: {weather_desc.title()}')
 
-        # === 3. WIND SCORING (Crucial for Marine Safety) ===
+        # === 3. WIND SCORING (Crucial for Small Craft Safety) ===
         if wind_speed < 15:
             score += 25
-            reasons.append(f'💨 Calm breeze ({wind_speed} km/h) — Safe for small boats')
-        elif wind_speed < 28:
+            reasons.append(f'💨 Calm breeze ({wind_speed} km/h) — Favorable for small craft')
+        elif wind_speed < 26:
             score += 5
-            reasons.append(f'💨 Moderate wind ({wind_speed} km/h) — Caution for dinghies')
-        elif wind_speed < 38:
-            score -= 25
-            reasons.append(f'💨 High wind ({wind_speed} km/h) — Rough waves expected')
+            reasons.append(f'💨 Moderate breeze ({wind_speed} km/h) — Caution advised for dinghies')
+        elif wind_speed < 35:
+            score -= 30
+            reasons.append(f'💨 Strong breeze ({wind_speed} km/h) — Choppy waves, high caution')
         else:
-            score -= 40
-            reasons.append(f'💨 Gale force wind ({wind_speed} km/h) — DANGEROUS SEA')
+            score -= 50
+            reasons.append(f'💨 Gale/Squall force wind ({wind_speed} km/h) — Dangerous sea state')
 
         # === 4. TEMPERATURE SCORING ===
         if 24 <= temp <= 32:
             score += 10
-            reasons.append(f'🌡️ Comfortable temperature ({temp}°C)')
+            reasons.append(f'🌡️ Normal temperature ({temp}°C)')
         elif 20 <= temp < 24 or 32 < temp <= 35:
             score += 5
             reasons.append(f'🌡️ Acceptable temperature ({temp}°C)')
         else:
             reasons.append(f'🌡️ Extreme temperature ({temp}°C)')
 
-        # === 5. ECONOMIC SCORING ===
+        # === 5. ECONOMIC ESTIMATE (INFORMATIONAL ONLY - DOES NOT ALTER SAFETY SCORE) ===
         fuel_cost = 2500  # Average round trip fuel for outboard motor (OBM)
         estimated_catch = 20  # kg
 
         if mentioned_fish:
             target_price = mentioned_fish['price']
-            reasons.append(f"🐟 Target: {mentioned_fish['kannada']} (~₹{target_price}/kg)")
+            reasons.append(f"🐟 Target market rate: {mentioned_fish['kannada']} (~₹{target_price}/kg)")
         else:
-            # Average coastal market price
             target_price = sum(p['price'] for p in self.fish_prices.values()) / len(self.fish_prices)
 
         revenue = estimated_catch * target_price
         profit = int(revenue - fuel_cost)
 
-        if profit > 3000:
-            score += 15
-            reasons.append(f'💰 Excellent estimated profit (₹{profit})')
-        elif profit > 1000:
-            score += 10
-            reasons.append(f'💰 Good estimated profit (₹{profit})')
-        elif profit > 0:
-            score += 5
-            reasons.append(f'💰 Moderate estimated profit (₹{profit})')
-        else:
-            score -= 10
-            reasons.append(f'💰 Low or negative profit margin (₹{profit})')
-
         details = {
             'fuel_cost': fuel_cost,
-            'profit': profit,
+            'estimated_profit': profit,
             'temp': temp,
             'wind': wind_speed,
             'weather': weather_desc,
             'humidity': humidity
         }
 
-        # === 6. FINAL DECISION ===
-        if is_severe:
-            status = "DON'T GO"
+        # === 6. RESPONSIBLE ADVISORY CLASSIFICATION ===
+        # Note: Avoid absolute "SAFE" or "GO" claims.
+        # Informational decision support only.
+        if is_severe or score < 45:
+            status = 'ROUGH'
+            title = 'Advisory: Rough Conditions Detected'
+            advisory_text = 'Based on available weather data: Unfavorable or rough sea conditions detected. Small craft advised to stay in port.'
             emoji = '🔴'
-            score = min(score, 30)
-            if not any('DANGER' in r or 'Bad' in r or 'Rain' in r for r in reasons):
-                reasons.insert(0, '⚠️ Dangerous sea conditions — stay in port')
+            score = min(score, 35)
+            if not any('Dangerous' in r or 'Squall' in r or 'Rain' in r for r in reasons):
+                reasons.insert(0, '⚠️ Unfavorable marine conditions — stay ashore')
         elif score >= 70:
-            status = 'GO'
+            status = 'FAVORABLE'
+            title = 'Advisory: Conditions Generally Favorable'
+            advisory_text = 'Based on available weather and marine data: Conditions appear generally favorable for small craft.'
             emoji = '🟢'
-        elif score >= 45:
-            status = 'CAUTION'
-            emoji = '🟡'
         else:
-            status = "DON'T GO"
-            emoji = '🔴'
+            status = 'CAUTION'
+            title = 'Advisory: Caution Advised'
+            advisory_text = 'Based on available weather and marine data: Moderate conditions detected. Exercise caution and check local port signals.'
+            emoji = '🟡'
 
-        # Natural voice response in Kannada
+        # Natural, responsible voice response in Kannada
         voice_text = self._generate_voice_response(status, weather_desc, profit, mentioned_fish, wind_speed)
+
+        disclaimer = "Informational advisory only based on available weather data. Does not replace official marine/weather warnings from Indian Coast Guard, IMD, or INCOIS. Always check official port signals before setting out."
 
         return {
             'status': status,
+            'title': title,
+            'advisory_text': advisory_text,
             'emoji': emoji,
             'score': max(0, min(100, score)),
             'reasons': reasons[:4],
             'details': details,
-            'voice_text': voice_text
+            'voice_text': voice_text,
+            'disclaimer': disclaimer
         }
 
     def _generate_voice_response(self, status, weather, profit, mentioned_fish=None, wind_speed=0):
-        """Generate natural, clear Kannada voice response"""
-        if status == 'GO':
-            voice = 'ಇವತ್ತು ಕಡಲಿಗೆ ಹೋಗುವುದು ಒಳ್ಳೆಯದು. ಹವಾಮಾನ ಮತ್ತು ಕಡಲು ಶಾಂತವಾಗಿದೆ.'
+        """
+        Generate responsible Kannada voice response.
+        Explicitly mentions 'based on available weather data' and reminds user to check official warnings.
+        """
+        if status == 'FAVORABLE':
+            voice = 'ಲಭ್ಯವಿರುವ ಹವಾಮಾನ ಮಾಹಿತಿಯ ಪ್ರಕಾರ ಇವತ್ತು ಕಡಲು ಸಾಮಾನ್ಯವಾಗಿ ಶಾಂತವಾಗಿದೆ. ಇದು ಮಾಹಿತಿ ಸಲಹೆಯಾಗಿದ್ದು, ಅಧಿಕೃತ ಮುನ್ನೆಚ್ಚರಿಕೆಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.'
             if mentioned_fish:
-                voice += f" {mentioned_fish['kannada']} ಬೆಲೆ ಉತ್ತಮವಾಗಿದೆ."
-            elif profit > 1000:
-                voice += f' ಸುಮಾರು ₹{profit} ಲಾಭ ನಿರೀಕ್ಷಿಸಬಹುದು.'
+                voice += f" {mentioned_fish['kannada']} ಮಾರುಕಟ್ಟೆ ಬೆಲೆ ಉತ್ತಮವಾಗಿದೆ."
         elif status == 'CAUTION':
-            voice = f'ಕಡಲಿಗೆ ಹೋಗಬಹುದು ಆದರೆ ಎಚ್ಚರಿಕೆಯಿಂದ ಇರಿ. ಗಾಳಿಯ ವೇಗ {wind_speed} ಕಿಲೋಮೀಟರ್ ಇದೆ.'
+            voice = f'ಹವಾಮಾನ ಮಾಹಿತಿಯ ಪ್ರಕಾರ ಕಡಲಿನಲ್ಲಿ ಮಧ್ಯಮ ಗಾಳಿ ಇದೆ (ಗಂಟೆಗೆ {int(wind_speed)} ಕಿಲೋಮೀಟರ್). ಸಣ್ಣ ದೋಣಿಗಳು ಎಚ್ಚರಿಕೆಯಿಂದ ಇರಿ. ಅಧಿಕೃತ ಸಲಹೆಗಳನ್ನು ಗಮನಿಸಿ.'
         else:
-            voice = 'ಇವತ್ತು ಕಡಲಿಗೆ ಹೋಗುವುದು ಸುರಕ್ಷಿತವಲ್ಲ. ಕಡಲು ಪ್ರಕ್ಷುಬ್ಧವಾಗಿದೆ, ದಯವಿಟ್ಟು ದಡದಲ್ಲೇ ಇರಿ.'
+            voice = 'ಹವಾಮಾನ ಮಾಹಿತಿಯ ಪ್ರಕಾರ ಕಡಲು ಪ್ರಕ್ಷುಬ್ಧವಾಗಿರುವ ಸಾಧ್ಯತೆ ಇದೆ. ಸಣ್ಣ ದೋಣಿಗಳು ದಡದಲ್ಲೇ ಇರುವುದು ಸೂಕ್ತ. ಅಧಿಕೃತ ಮುನ್ನೆಚ್ಚರಿಕೆಗಳನ್ನು ಪಾಲಿಸಿ.'
 
         return voice
 
