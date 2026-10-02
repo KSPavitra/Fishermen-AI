@@ -93,9 +93,10 @@
             -webkit-backdrop-filter: blur(32px);
             border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: var(--radius-xl);
-            padding: 22px 18px 16px;
+            padding: 20px 16px 0;
             box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.8), 0 0 50px -10px rgba(6, 182, 212, 0.2);
-            min-height: 94vh;
+            height: 94vh;
+            max-height: 900px;
             display: flex;
             flex-direction: column;
             position: relative;
@@ -223,25 +224,39 @@
 
         /* HERO CARD (QUESTION HOOK) */
         .hero-prompt-card {
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.14), rgba(59, 130, 246, 0.08));
-            border: 1px solid rgba(6, 182, 212, 0.25);
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.16), rgba(59, 130, 246, 0.1));
+            border: 1px solid rgba(6, 182, 212, 0.3);
             border-radius: var(--radius-lg);
             padding: 16px 14px;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
+            text-align: center;
             position: relative;
             overflow: hidden;
             box-shadow: 0 8px 25px -5px rgba(6, 182, 212, 0.15);
         }
         .hero-prompt-title {
-            font-size: 21px;
-            font-weight: 800;
+            font-size: 23px;
+            font-weight: 900;
             line-height: 1.25;
-            background: linear-gradient(135deg, #ffffff 40%, #7dd3fc 100%);
+            background: linear-gradient(135deg, #ffffff 30%, #7dd3fc 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .hero-prompt-sub { font-size: 12px; color: #cbd5e1; margin-top: 4px; }
+        .hero-prompt-sub { font-size: 13px; color: #cbd5e1; margin-top: 4px; font-weight: 500; }
+        .hero-prompt-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 8px;
+            background: rgba(6, 182, 212, 0.15);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #38bdf8;
+        }
 
         /* LIVE MARINE COCKPIT TELEMETRY BAR */
         .marine-telemetry-hud {
@@ -285,15 +300,15 @@
             transition: all 0.3s ease;
         }
         .sonar-ring-1 {
-            width: 156px;
-            height: 156px;
+            width: 168px;
+            height: 168px;
             border: 1px dashed rgba(6, 182, 212, 0.35);
             animation: sonarSpin 20s linear infinite;
         }
         .sonar-ring-2 {
-            width: 180px;
-            height: 180px;
-            border: 1px solid rgba(59, 130, 246, 0.15);
+            width: 198px;
+            height: 198px;
+            border: 1px solid rgba(59, 130, 246, 0.18);
             animation: sonarPulse 3s infinite ease-out;
         }
         @keyframes sonarSpin {
@@ -306,15 +321,15 @@
         }
 
         .mic-btn {
-            width: 126px;
-            height: 126px;
+            width: 136px;
+            height: 136px;
             border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.25);
+            border: 2px solid rgba(255, 255, 255, 0.3);
             background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #4f46e5 100%);
             color: white;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 12px 40px rgba(14, 165, 233, 0.5), inset 0 2px 8px rgba(255, 255, 255, 0.4);
+            box-shadow: 0 14px 45px rgba(14, 165, 233, 0.5), inset 0 2px 10px rgba(255, 255, 255, 0.4);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -323,22 +338,23 @@
             z-index: 2;
         }
         .mic-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 16px 50px rgba(14, 165, 233, 0.7), inset 0 3px 10px rgba(255, 255, 255, 0.5);
+            transform: scale(1.04);
+            box-shadow: 0 18px 55px rgba(14, 165, 233, 0.7), inset 0 3px 12px rgba(255, 255, 255, 0.5);
         }
-        .mic-btn:active { transform: scale(0.94); }
+        .mic-btn:active { transform: scale(0.95); }
         .mic-btn.recording {
             background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #991b1b 100%);
-            border-color: rgba(254, 202, 202, 0.6);
-            box-shadow: 0 12px 50px rgba(239, 68, 68, 0.7);
+            border-color: rgba(254, 202, 202, 0.7);
+            box-shadow: 0 14px 50px rgba(239, 68, 68, 0.75);
             animation: recordHeartbeat 1s infinite alternate;
         }
         @keyframes recordHeartbeat {
             0% { transform: scale(1); box-shadow: 0 0 25px rgba(239, 68, 68, 0.6); }
             100% { transform: scale(1.08); box-shadow: 0 0 50px rgba(239, 68, 68, 0.95); }
         }
-        #micIcon { font-size: 42px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4)); }
-        #micText { font-size: 12px; margin-top: 4px; font-weight: 800; letter-spacing: 0.4px; }
+        #micIcon { font-size: 44px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4)); line-height: 1; }
+        #micText { font-size: 14px; margin-top: 5px; font-weight: 800; letter-spacing: 0.2px; }
+        .mic-sub { font-size: 10px; color: rgba(255, 255, 255, 0.75); font-weight: 600; margin-top: 1px; }
 
         /* LIVE AUDIO EQUALIZER BARS */
         .equalizer-wave {
@@ -497,6 +513,87 @@
             border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
+        /* VOICE REPLAY PILL (AUDIO FOR ILLITERATE USERS) */
+        .voice-replay-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 10px 0 12px;
+            padding: 11px 18px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.22), rgba(99, 102, 241, 0.25));
+            border: 1px solid rgba(56, 189, 248, 0.45);
+            border-radius: 24px;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 16px rgba(6, 182, 212, 0.2);
+        }
+        .voice-replay-pill:hover {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(99, 102, 241, 0.4));
+            transform: translateY(-1px);
+        }
+        .voice-replay-pill:active { transform: scale(0.98); }
+
+        /* RAPID EMERGENCY LIFELINE (SOS) BANNER */
+        .home-sos-btn {
+            width: 100%;
+            margin-top: 14px;
+            padding: 14px 16px;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #991b1b 100%);
+            border: 1px solid rgba(254, 202, 202, 0.35);
+            border-radius: var(--radius-lg);
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+            display: flex;
+            align-items: center;
+            transition: all 0.25s ease;
+        }
+        .home-sos-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 30px rgba(239, 68, 68, 0.55);
+        }
+        .home-sos-btn:active { transform: scale(0.98); }
+
+        /* QUICK TELEMETRY SHORTCUT BANNER */
+        .weather-link-banner {
+            width: 100%;
+            margin-top: 10px;
+            padding: 12px 16px;
+            background: rgba(15, 23, 42, 0.65);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            border-radius: var(--radius-lg);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+        }
+        .weather-link-banner:hover {
+            background: rgba(15, 23, 42, 0.85);
+            border-color: rgba(56, 189, 248, 0.5);
+            transform: translateY(-1px);
+        }
+        .weather-link-banner:active { transform: scale(0.98); }
+
+        .type-toggle-btn {
+            margin-top: 10px;
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 11px;
+            cursor: pointer;
+            text-decoration: underline;
+            padding: 4px;
+            transition: color 0.2s;
+        }
+        .type-toggle-btn:hover { color: #e2e8f0; }
+
         /* ACTION TILES: SOS & MARKET */
         .action-tiles-grid {
             display: grid;
@@ -624,49 +721,127 @@
 
         /* FLOATING DOCK BOTTOM NAVIGATION */
         .tab-bar {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 4px;
-            background: rgba(11, 19, 38, 0.88);
-            backdrop-filter: blur(24px);
-            border-radius: 26px;
-            padding: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: rgba(10, 18, 36, 0.95);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.65);
             flex-shrink: 0;
-            margin-top: 10px;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
+            z-index: 100;
         }
         .tab-btn {
+            flex: 1;
             background: transparent;
-            border: none;
+            border: 1px solid transparent;
             color: #94a3b8;
-            font-size: 10px;
-            font-weight: 700;
             cursor: pointer;
-            padding: 8px 4px;
-            border-radius: 18px;
+            padding: 8px 2px 7px;
+            min-height: 52px;
+            border-radius: 14px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 3px;
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            justify-content: center;
+            gap: 2px;
+            transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
-        .tab-btn .tab-icon { font-size: 21px; transition: transform 0.2s ease; }
-        .tab-btn:hover { color: #f8fafc; }
+        .tab-btn .tab-icon {
+            font-size: 20px;
+            line-height: 1;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .tab-btn .tab-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            white-space: nowrap;
+        }
+        .tab-btn:hover {
+            color: #f1f5f9;
+        }
         .tab-btn.active {
-            color: #ffffff;
-            background: linear-gradient(135deg, rgba(14, 165, 233, 0.3), rgba(37, 99, 235, 0.3));
-            border: 1px solid rgba(56, 189, 248, 0.35);
+            color: #38bdf8;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(59, 130, 246, 0.15));
+            border-color: rgba(56, 189, 248, 0.35);
+            box-shadow: 0 4px 14px rgba(14, 165, 233, 0.25);
         }
-        .tab-btn.active .tab-icon { transform: scale(1.15); }
+        .tab-btn.active .tab-icon {
+            transform: scale(1.18) translateY(-1px);
+        }
 
         footer { text-align: center; font-size: 10px; color: #64748b; margin-top: 8px; padding-top: 6px; }
 
-        @media (max-width: 400px) {
-            #app { padding: 14px 12px; }
-            .mic-btn { width: 114px; height: 114px; }
-            #micIcon { font-size: 36px; }
-            .tab-btn { font-size: 9px; padding: 6px 2px; }
+        /* Mobile vs Desktop Viewport Architecture */
+        @media (max-width: 480px) {
+            body {
+                padding: 0;
+                margin: 0;
+                height: 100dvh;
+                min-height: 100dvh;
+                overflow: hidden;
+            }
+            #app {
+                width: 100%;
+                height: 100dvh;
+                min-height: 100dvh;
+                max-width: 100%;
+                border-radius: 0;
+                border: none;
+                padding: 12px 14px 0;
+                box-shadow: none;
+            }
+            .content-area {
+                padding-bottom: 24px;
+                -webkit-overflow-scrolling: touch;
+            }
+            .tab-bar {
+                position: sticky;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: calc(100% + 28px);
+                margin: 0 -14px;
+                border-radius: 20px 20px 0 0;
+                padding: 6px 4px calc(8px + env(safe-area-inset-bottom, 0px));
+                border-left: none;
+                border-right: none;
+                border-bottom: none;
+            }
+            .tab-btn {
+                min-height: 50px;
+                padding: 6px 1px 5px;
+            }
+            .tab-btn .tab-icon { font-size: 19px; }
+            .tab-btn .tab-label { font-size: 10.5px; }
+            footer { display: none; }
+        }
+
+        @media (min-width: 481px) {
+            body {
+                padding: 16px;
+            }
+            #app {
+                height: 92vh;
+                max-height: 890px;
+                border-radius: 36px;
+                padding: 20px 18px 0;
+            }
+            .content-area {
+                padding-bottom: 14px;
+            }
+            .tab-bar {
+                position: sticky;
+                bottom: 12px;
+                border-radius: 22px;
+                padding: 7px 6px;
+                margin: 6px 0 12px;
+                border: 1px solid rgba(255, 255, 255, 0.14);
+            }
         }
     </style>
 </head>
@@ -707,32 +882,11 @@
 
             <!-- HERO QUESTION BANNER -->
             <div class="hero-prompt-card">
-                <h2 class="hero-prompt-title">Should I go fishing tomorrow?</h2>
-                <p class="hero-prompt-sub">Ask in Kannada, Tulu or English. Marine weather advisory & harbor market outlook.</p>
-            </div>
-
-            <!-- LIVE TELEMETRY HUD -->
-            <div class="marine-telemetry-hud">
-                <div class="hud-tile">
-                    <span class="hud-icon">💨</span>
-                    <div>
-                        <div class="hud-val" id="hudWind">5.6 km/h</div>
-                        <div class="hud-lbl">Wind Speed</div>
-                    </div>
-                </div>
-                <div class="hud-tile">
-                    <span class="hud-icon">🌡️</span>
-                    <div>
-                        <div class="hud-val" id="hudTemp">27.0°C</div>
-                        <div class="hud-lbl">Sea Temp</div>
-                    </div>
-                </div>
-                <div class="hud-tile">
-                    <span class="hud-icon">🌊</span>
-                    <div>
-                        <div class="hud-val" id="hudWave">Calm (0.7m)</div>
-                        <div class="hud-lbl">Wave Swell</div>
-                    </div>
+                <h2 class="hero-prompt-title" id="heroPromptTitle">ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ?</h2>
+                <p class="hero-prompt-sub" id="heroPromptSub">Should I go fishing tomorrow?</p>
+                <div class="hero-prompt-badge">
+                    <span>🎙️</span>
+                    <span id="heroPromptBadge">ಮೈಕ್ ಒತ್ತಿ ನಿಮ್ಮ ಮಾತಲ್ಲೇ ಕೇಳಿ</span>
                 </div>
             </div>
 
@@ -743,7 +897,8 @@
                     <div class="sonar-ring-2"></div>
                     <button class="mic-btn" id="micBtn">
                         <span id="micIcon">🎤</span>
-                        <span id="micText">Tap to Speak</span>
+                        <span id="micText">ಒತ್ತಿ ಮಾತನಾಡಿ</span>
+                        <span class="mic-sub" id="micSub">ಕನ್ನಡ / ತುಳು / Eng</span>
                     </button>
                 </div>
 
@@ -764,66 +919,59 @@
                     <span id="voiceStateText">Listening...</span>
                 </div>
 
+                <!-- Live Voice Transcript -->
                 <div class="transcript" id="transcriptText">"ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ? / Should I go fishing?"</div>
 
-                <!-- Keyboard Fallback -->
+                <!-- Keyboard Fallback (Subtle & clean) -->
                 <div class="text-fallback" id="textFallback">
                     <input type="text" id="textInput" placeholder="Type: Naale kadlige hogbahuda? / Fish rate..." />
                     <button onclick="submitTextInput()">Analyze Question</button>
                 </div>
 
-                <button onclick="toggleTextFallback()" style="margin-top:10px;background:none;border:none;color:#94a3b8;font-size:12px;cursor:pointer;text-decoration:underline;">
-                    ⌨️ Type query instead of speaking
+                <button onclick="toggleTextFallback()" class="type-toggle-btn">
+                    ⌨️ ಬರೆಯಲು ಇಲ್ಲಿ ಒತ್ತಿ (Type text instead)
                 </button>
-            </div>
-
-            <!-- QUICK ACTIONS: SOS & MARKET -->
-            <div class="action-tiles-grid">
-                <button class="action-tile" id="sosBtn">
-                    <span style="font-size:26px;">🆘</span>
-                    <span>COAST GUARD SOS</span>
-                    <span style="font-size:10px;opacity:0.85;font-weight:400;">Maritime Distress (1554)</span>
-                </button>
-                <button class="action-tile" id="marketBtn">
-                    <span style="font-size:26px;">📊</span>
-                    <span>PORT WHOLESALE</span>
-                    <span style="font-size:10px;opacity:0.85;font-weight:400;">Today's Catch Rates</span>
-                </button>
-            </div>
-
-            <!-- LIVE MARINE WEATHER TELEMETRY CARD -->
-            <div class="glass-card" id="homeWeather">
-                <div style="display:flex;align-items:center;gap:12px;">
-                    <div style="font-size:32px;filter:drop-shadow(0 2px 10px rgba(56,189,248,0.4));">🌤️</div>
-                    <div style="flex:1;">
-                        <div style="font-size:14px;font-weight:800;" id="homeWeatherMain">Loading live marine weather...</div>
-                        <div style="font-size:11px;color:#94a3b8;margin-top:2px;" id="homeWeatherMeta">📍 Karavali Coast · Live OpenWeather · Gangolli / Malpe</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- BEST TIME TO FISH TODAY (SOLUNAR WINDOW) -->
-            <div class="glass-card" id="bestTimeCard" style="background:linear-gradient(135deg,rgba(6,182,212,0.08),rgba(59,130,246,0.08));border-color:rgba(6,182,212,0.25);">
-                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                    <div style="font-size:13px;font-weight:800;display:flex;align-items:center;gap:6px;color:#38bdf8;">
-                        <span>⏰</span> Best Fishing Window
-                    </div>
-                    <div style="font-size:11px;color:#94a3b8;font-weight:600;" id="bestTimeDate">Today</div>
-                </div>
-                <div id="bestTimeWindows">
-                    <div style="font-size:12px;opacity:0.5;">Loading solunar windows...</div>
-                </div>
-                <div id="bestTimeNow" style="margin-top:10px;padding:8px 12px;border-radius:10px;font-size:12px;text-align:center;display:none;font-weight:700;"></div>
             </div>
 
             <!-- DECISION RESULT CARD -->
             <div class="result-container" id="resultContainer">
                 <div class="decision-card" id="decisionCard">
-                    <h2 id="decisionStatus">🟢 GO</h2>
+                    <h2 id="decisionStatus">🟢 ಹೋಗಿ (GO)</h2>
+
+                    <!-- Audio Replay Button for Illiterate Fishermen -->
+                    <button id="replayVoiceBtn" onclick="replayCurrentDecisionVoice()" class="voice-replay-pill">
+                        <span style="font-size:18px;">🔊</span>
+                        <span id="replayBtnText">ಧ್ವನಿಯಲ್ಲಿ ಮತ್ತೆ ಕೇಳಿ (Listen Again)</span>
+                    </button>
+
                     <div id="decisionReasons"></div>
                     <div id="decisionDetails"></div>
                 </div>
             </div>
+
+            <!-- RAPID EMERGENCY LIFELINE (SOS) -->
+            <button class="home-sos-btn" id="sosBtn">
+                <div style="display:flex;align-items:center;gap:12px;width:100%;">
+                    <span style="font-size:32px;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.4));">🆘</span>
+                    <div style="flex:1;text-align:left;">
+                        <div style="font-size:15px;font-weight:900;letter-spacing:0.3px;" id="sosHomeTitle">ತುರ್ತು ಸಹಾಯ · SOS (1554)</div>
+                        <div style="font-size:11px;opacity:0.9;margin-top:2px;">ಭಾರತೀಯ ಕರಾವಳಿ ಕಾವಲು ಪಡೆ (Coast Guard)</div>
+                    </div>
+                    <span style="font-size:20px;opacity:0.8;">📞</span>
+                </div>
+            </button>
+
+            <!-- QUICK LINK TO DETAILED MARINE WEATHER -->
+            <button class="weather-link-banner" onclick="showPage('page-safety')">
+                <div style="display:flex;align-items:center;gap:12px;">
+                    <span style="font-size:26px;">🌊</span>
+                    <div style="text-align:left;">
+                        <div style="font-size:13px;font-weight:800;color:#38bdf8;" id="weatherLinkTitle">ಗಾಳಿ & ಅಲೆಗಳ ವಿವರ ನೋಡಿ</div>
+                        <div style="font-size:11px;color:#94a3b8;">Wind speed, wave height, tides & solunar times ➔</div>
+                    </div>
+                </div>
+                <span style="font-size:16px;color:#38bdf8;font-weight:800;">➔</span>
+            </button>
 
         </div>
 
@@ -915,6 +1063,63 @@
                 <span>📍</span> Share My GPS Location via WhatsApp
             </button>
 
+            <!-- LIVE MARINE TELEMETRY & WEATHER HUD -->
+            <div style="margin:16px 0 6px;">
+                <h3 style="font-size:14px;font-weight:800;margin-bottom:10px;color:#38bdf8;display:flex;align-items:center;gap:6px;">
+                    <span>🌊</span> Live Marine Telemetry & Swell
+                </h3>
+
+                <!-- LIVE TELEMETRY HUD TILES -->
+                <div class="marine-telemetry-hud" style="margin-bottom:12px;">
+                    <div class="hud-tile">
+                        <span class="hud-icon">💨</span>
+                        <div>
+                            <div class="hud-val" id="hudWind">5.6 km/h</div>
+                            <div class="hud-lbl">Wind Speed</div>
+                        </div>
+                    </div>
+                    <div class="hud-tile">
+                        <span class="hud-icon">🌡️</span>
+                        <div>
+                            <div class="hud-val" id="hudTemp">27.0°C</div>
+                            <div class="hud-lbl">Sea Temp</div>
+                        </div>
+                    </div>
+                    <div class="hud-tile">
+                        <span class="hud-icon">🌊</span>
+                        <div>
+                            <div class="hud-val" id="hudWave">Calm (0.7m)</div>
+                            <div class="hud-lbl">Wave Swell</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LIVE MARINE WEATHER TELEMETRY CARD -->
+                <div class="glass-card" id="homeWeather" style="margin-top:0;margin-bottom:12px;">
+                    <div style="display:flex;align-items:center;gap:12px;">
+                        <div style="font-size:32px;filter:drop-shadow(0 2px 10px rgba(56,189,248,0.4));">🌤️</div>
+                        <div style="flex:1;">
+                            <div style="font-size:14px;font-weight:800;" id="homeWeatherMain">Loading live marine weather...</div>
+                            <div style="font-size:11px;color:#94a3b8;margin-top:2px;" id="homeWeatherMeta">📍 Karavali Coast · Live OpenWeather · Gangolli / Malpe</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BEST TIME TO FISH TODAY (SOLUNAR WINDOW) -->
+                <div class="glass-card" id="bestTimeCard" style="background:linear-gradient(135deg,rgba(6,182,212,0.08),rgba(59,130,246,0.08));border-color:rgba(6,182,212,0.25);margin-top:0;margin-bottom:12px;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                        <div style="font-size:13px;font-weight:800;display:flex;align-items:center;gap:6px;color:#38bdf8;">
+                            <span>⏰</span> Best Fishing Window
+                        </div>
+                        <div style="font-size:11px;color:#94a3b8;font-weight:600;" id="bestTimeDate">Today</div>
+                    </div>
+                    <div id="bestTimeWindows">
+                        <div style="font-size:12px;opacity:0.5;">Loading solunar windows...</div>
+                    </div>
+                    <div id="bestTimeNow" style="margin-top:10px;padding:8px 12px;border-radius:10px;font-size:12px;text-align:center;display:none;font-weight:700;"></div>
+                </div>
+            </div>
+
             <!-- Tide Info -->
             <div id="tideList" class="glass-card" style="margin-bottom:12px;"></div>
 
@@ -988,13 +1193,28 @@
     </div>
 
     <!-- FLOATING DOCK BOTTOM NAVIGATION -->
-    <div class="tab-bar">
-        <button class="tab-btn active" data-page="page-home"><span class="tab-icon">🏠</span>Home</button>
-        <button class="tab-btn" data-page="page-voice"><span class="tab-icon">🎤</span>Voice</button>
-        <button class="tab-btn" data-page="page-market"><span class="tab-icon">📊</span>Market</button>
-        <button class="tab-btn" data-page="page-safety"><span class="tab-icon">🆘</span>Safety</button>
-        <button class="tab-btn" data-page="page-more"><span class="tab-icon">⚙️</span>More</button>
-    </div>
+    <nav class="tab-bar" aria-label="Bottom Navigation">
+        <button class="tab-btn active" data-page="page-home" aria-label="Home">
+            <span class="tab-icon">🏠</span>
+            <span class="tab-label">Home</span>
+        </button>
+        <button class="tab-btn" data-page="page-voice" aria-label="Voice">
+            <span class="tab-icon">🎤</span>
+            <span class="tab-label">Voice</span>
+        </button>
+        <button class="tab-btn" data-page="page-market" aria-label="Market">
+            <span class="tab-icon">📊</span>
+            <span class="tab-label">Market</span>
+        </button>
+        <button class="tab-btn" data-page="page-safety" aria-label="Safety">
+            <span class="tab-icon">🆘</span>
+            <span class="tab-label">Safety</span>
+        </button>
+        <button class="tab-btn" data-page="page-more" aria-label="More">
+            <span class="tab-icon">⚙️</span>
+            <span class="tab-label">More</span>
+        </button>
+    </nav>
 
     <footer>
         <p class="tagline">"Asking is easier than typing" · Karavali Fishermen AI 2.0</p>
@@ -1140,8 +1360,16 @@ function showPage(pageId) {
     const btn = document.querySelector(`.tab-btn[data-page="${pageId}"]`);
     if (btn) btn.classList.add('active');
 
+    const contentArea = document.getElementById('contentArea');
+    if (contentArea) contentArea.scrollTop = 0;
+
     if (pageId === 'page-market') loadMarket();
-    if (pageId === 'page-safety') { loadTide(); loadCalendar(); }
+    if (pageId === 'page-safety') {
+        loadHomeWeather();
+        loadBestTime();
+        loadTide();
+        loadCalendar();
+    }
 }
 
 document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -1291,6 +1519,19 @@ function hideVoiceState() {
     if (el) el.classList.remove('active');
 }
 
+let lastDecisionVoiceText = '';
+
+function replayCurrentDecisionVoice() {
+    playTapSound();
+    if (lastDecisionVoiceText) {
+        speakResponse(lastDecisionVoiceText);
+    } else {
+        const statusEl = document.getElementById('decisionStatus');
+        const text = statusEl ? statusEl.textContent : 'ಹವಾಮಾನ ಮುನ್ನೆಚ್ಚರಿಕೆ';
+        speakResponse(text);
+    }
+}
+
 // ============================================
 // SEND QUERY TO BACKEND
 // ============================================
@@ -1304,21 +1545,23 @@ async function sendToBackend(text) {
         const data = await response.json();
         if (data.success) {
             playSuccessChime();
+            lastDecisionVoiceText = data.decision.voice_text || (data.decision.status === 'FAVORABLE' || data.decision.status === 'GO' ? 'ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಲು ಅನುಕೂಲಕರವಾಗಿದೆ.' : 'ಕಡಲು ಪ್ರಕ್ಷುಬ್ಧವಾಗಿದೆ, ಜಾಗರೂಕರಾಗಿರಿ.');
             showResult(data.decision);
-            speakResponse(data.decision.voice_text || 'Decision ready');
+            speakResponse(lastDecisionVoiceText);
             saveToHistory(data.decision);
         } else {
             showVoiceState('error', '❌ ' + (data.error || 'Could not process query'));
         }
     } catch (err) {
         showVoiceState('error', '❌ Weather service connection issue.');
+        lastDecisionVoiceText = 'ಹವಾಮಾನ ಸಂಪರ್ಕ ಲಭ್ಯವಿಲ್ಲ. ಕಡಲಿಗೆ ಹೋಗುವ ಮುನ್ನ ಬಂದರಿನ ಅಧಿಕೃತ ಮುನ್ನೆಚ್ಚರಿಕೆಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.';
         showResult({
             status: 'CAUTION',
             title: 'Advisory Unavailable (Offline)',
             advisory_text: 'Live weather service unreachable. Cannot compute real-time marine advisory.',
             reasons: ['⚠️ Weather connection offline or server starting up', '🚨 Do not sail without checking local harbor flags and official warnings'],
             details: null,
-            voice_text: 'ಹವಾಮಾನ ಸಂಪರ್ಕ ಲಭ್ಯವಿಲ್ಲ. ಕಡಲಿಗೆ ಹೋಗುವ ಮುನ್ನ ಬಂದರಿನ ಅಧಿಕೃತ ಮುನ್ನೆಚ್ಚರಿಕೆಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.'
+            voice_text: lastDecisionVoiceText
         });
     }
 }
@@ -1339,8 +1582,12 @@ function showResult(decision) {
     const isRough = (status === 'ROUGH' || status === "DON'T GO");
 
     const emoji = isFavorable ? '🟢' : isCaution ? '🟡' : '🔴';
-    const displayTitle = decision.title || (isFavorable ? 'Advisory: Conditions Favorable' : isCaution ? 'Advisory: Caution Advised' : 'Advisory: Rough Conditions');
-    statusEl.textContent = emoji + ' ' + displayTitle;
+    const statusLabel = isFavorable ? 'ಹೋಗಿ (GO - SAFE)' : isCaution ? 'ಎಚ್ಚರಿಕೆ (CAUTION)' : 'ಹೋಗಬೇಡಿ (DON\'T GO)';
+    statusEl.innerHTML = `<span style="font-size:32px;display:inline-block;vertical-align:middle;margin-right:8px;">${emoji}</span>${statusLabel}`;
+
+    if (decision.voice_text) {
+        lastDecisionVoiceText = decision.voice_text;
+    }
 
     card.className = 'decision-card';
     if (isFavorable) card.classList.add('go');
@@ -1959,8 +2206,10 @@ window.clearCatchLogs = function() {
 // ============================================
 // QUICK ACTIONS
 // ============================================
-document.getElementById('sosBtn').addEventListener('click', openSOS);
-document.getElementById('marketBtn').addEventListener('click', function() {
+const sosBtnEl = document.getElementById('sosBtn');
+if (sosBtnEl) sosBtnEl.addEventListener('click', openSOS);
+const marketBtnEl = document.getElementById('marketBtn');
+if (marketBtnEl) marketBtnEl.addEventListener('click', function() {
     showPage('page-market');
 });
 
@@ -2109,10 +2358,50 @@ function saveToHistory(decision) {
 // ============================================
 let currentLang = 'kn';
 const translations = {
-    'kn': { title: 'ನಿಮ್ಮ ಕಡಲ ಸಹಾಯಕ · Karavali', micText: 'ಒತ್ತಿ ಮಾತನಾಡಿ' },
-    'tulu': { title: 'ಇರ್ದ್ ಕಡಲ್ ಸಹಾಯಕ · Karavali', micText: 'ಒತ್ತಿ ಪಾತೆರ್' },
-    'konkani': { title: 'ತುಜೊ ಕಡಲ್ ಸಹಾಯಕ · Karavali', micText: 'ದಬಾವನ್ ಉಲೆ' },
-    'en': { title: 'Your AI Marine Co-Pilot · Karavali', micText: 'Tap to Speak' }
+    'kn': {
+        title: 'ಕರಾವಳಿ ಮೀನುಗಾರರ ಧ್ವನಿ ಸಹಾಯಕ · Karavali Coast',
+        heroTitle: 'ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ?',
+        heroSub: 'Should I go fishing tomorrow?',
+        heroBadge: 'ಮೈಕ್ ಒತ್ತಿ ನಿಮ್ಮ ಮಾತಲ್ಲೇ ಕೇಳಿ',
+        micText: 'ಒತ್ತಿ ಮಾತನಾಡಿ',
+        micSub: 'ಕನ್ನಡ / ತುಳು / Eng',
+        sosText: 'ತುರ್ತು ಸಹಾಯ · SOS (1554)',
+        weatherLink: 'ಗಾಳಿ & ಅಲೆಗಳ ವಿವರ ನೋಡಿ',
+        replayText: 'ಧ್ವನಿಯಲ್ಲಿ ಮತ್ತೆ ಕೇಳಿ (Listen Again)'
+    },
+    'tulu': {
+        title: 'ಕರಾವಳಿ ಕಡಲ್ ಸಹಾಯಕ · Karavali Coast',
+        heroTitle: 'ಎಲ್ಲೆ ಕಡಲ್ಗ್ ಪೋವೋಲಿಯೇ?',
+        heroSub: 'Should I go fishing tomorrow?',
+        heroBadge: 'ಮೈಕ್ ಒತ್ತಿ ಪಾತೆರ್ಲೆ',
+        micText: 'ಒತ್ತಿ ಪಾತೆರ್ಲೆ',
+        micSub: 'ತುಳು / ಕನ್ನಡ / Eng',
+        sosText: 'ತುರ್ತು ಸಹಾಯ · SOS (1554)',
+        weatherLink: 'ಗಾಳಿ & ತೆರೆ ವಿವರ ತೂಲೆ',
+        replayText: 'ಪಾತೆರೊಡು ಕೇನ್ಲೆ (Listen Again)'
+    },
+    'konkani': {
+        title: 'ದರ್ಯಾಚೊ ಸಾಂಗಾತಿ · Karavali Coast',
+        heroTitle: 'ಫಾಲ್ಯಾಂ ದರ್ಯಾರ್ ವಚ್ಯೆತ್ ವೇ?',
+        heroSub: 'Should I go fishing tomorrow?',
+        heroBadge: 'ಮೈಕ್ ಒತ್ತುನ್ ಉಲಯಾ',
+        micText: 'ದಬಾವನ್ ಉಲಯಾ',
+        micSub: 'ಕೊಂಕಣಿ / ಕನ್ನಡ / Eng',
+        sosText: 'ಆಪತ್ಕಾಲೀನ್ ಸಹಾಯ್ · SOS (1554)',
+        weatherLink: 'ವಾರೊ ಆನಿ ಲಾರಾಂಚಿ ಮಾಹಿತಿ',
+        replayText: 'ಆವಾಜಾಂತ್ ಆಯ್ಕಾ (Listen Again)'
+    },
+    'en': {
+        title: 'Marine Weather & Safety Co-Pilot · Karavali Coast',
+        heroTitle: 'Should I go fishing tomorrow?',
+        heroSub: 'Marine weather advisory & harbor market outlook',
+        heroBadge: 'Tap mic and ask in your language',
+        micText: 'Tap to Speak',
+        micSub: 'Kannada / Tulu / Eng',
+        sosText: 'Coast Guard Distress SOS (1554)',
+        weatherLink: 'View Live Marine Telemetry',
+        replayText: 'Listen Again in Audio'
+    }
 };
 
 document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -2121,9 +2410,32 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
         currentLang = this.dataset.lang;
         document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
         this.classList.add('active');
-        document.querySelector('.subtitle').textContent = translations[currentLang].title;
-        document.getElementById('micText').textContent = translations[currentLang].micText;
-        if (document.getElementById('micText2')) document.getElementById('micText2').textContent = translations[currentLang].micText;
+
+        const t = translations[currentLang] || translations.kn;
+        const sub = document.querySelector('.subtitle');
+        if (sub) sub.textContent = t.title;
+
+        const hTitle = document.getElementById('heroPromptTitle');
+        if (hTitle) hTitle.textContent = t.heroTitle;
+        const hSub = document.getElementById('heroPromptSub');
+        if (hSub) hSub.textContent = t.heroSub;
+        const hBadge = document.getElementById('heroPromptBadge');
+        if (hBadge) hBadge.textContent = t.heroBadge;
+
+        const mText = document.getElementById('micText');
+        if (mText) mText.textContent = t.micText;
+        const mSub = document.getElementById('micSub');
+        if (mSub) mSub.textContent = t.micSub;
+        const mText2 = document.getElementById('micText2');
+        if (mText2) mText2.textContent = t.micText;
+
+        const sTitle = document.getElementById('sosHomeTitle');
+        if (sTitle) sTitle.textContent = t.sosText;
+        const wTitle = document.getElementById('weatherLinkTitle');
+        if (wTitle) wTitle.textContent = t.weatherLink;
+        const rText = document.getElementById('replayBtnText');
+        if (rText) rText.textContent = t.replayText;
+
         if (recognition) recognition.lang = currentLang === 'en' ? 'en-US' : 'kn-IN';
     });
 });
