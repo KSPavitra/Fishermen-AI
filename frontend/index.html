@@ -581,18 +581,61 @@
         }
         .weather-link-banner:active { transform: scale(0.98); }
 
+        /* TYPE QUERY BUBBLE BUTTON */
         .type-toggle-btn {
-            margin-top: 10px;
-            background: none;
-            border: none;
-            color: #94a3b8;
-            font-size: 11px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 12px auto 4px;
+            padding: 8px 18px;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(56, 189, 248, 0.32);
+            border-radius: 9999px;
+            color: #f1f5f9;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
             cursor: pointer;
-            text-decoration: underline;
-            padding: 4px;
-            transition: color 0.2s;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
+            text-decoration: none;
+            font-family: inherit;
         }
-        .type-toggle-btn:hover { color: #e2e8f0; }
+        .type-toggle-btn .type-btn-icon {
+            font-size: 14px;
+            line-height: 1;
+            filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.4));
+        }
+        .type-toggle-btn .type-btn-text {
+            color: #f1f5f9;
+            font-weight: 600;
+        }
+        .type-toggle-btn .type-btn-arrow {
+            font-size: 13px;
+            font-weight: 700;
+            color: #38bdf8;
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            line-height: 1;
+        }
+        .type-toggle-btn:hover {
+            color: #ffffff;
+            background: rgba(30, 41, 59, 0.8);
+            border-color: rgba(56, 189, 248, 0.65);
+            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.25), 0 0 14px rgba(56, 189, 248, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px) scale(1.02);
+        }
+        .type-toggle-btn:hover .type-btn-arrow {
+            transform: translateX(3px);
+            color: #7dd3fc;
+        }
+        .type-toggle-btn:active {
+            transform: translateY(0) scale(0.98);
+            box-shadow: 0 2px 8px rgba(6, 182, 212, 0.2);
+        }
 
         /* ACTION TILES: SOS & MARKET */
         .action-tiles-grid {
@@ -928,8 +971,10 @@
                     <button onclick="submitTextInput()">Analyze Question</button>
                 </div>
 
-                <button onclick="toggleTextFallback()" class="type-toggle-btn">
-                    ⌨️ ಬರೆಯಲು ಇಲ್ಲಿ ಒತ್ತಿ (Type text instead)
+                <button type="button" onclick="toggleTextFallback()" class="type-toggle-btn" aria-label="Type your query">
+                    <span class="type-btn-icon">⌨️</span>
+                    <span class="type-btn-text">Type your query</span>
+                    <span class="type-btn-arrow">→</span>
                 </button>
             </div>
 
