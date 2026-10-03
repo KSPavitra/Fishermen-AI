@@ -670,6 +670,94 @@
             border: 1px solid rgba(253, 230, 138, 0.3);
         }
 
+        /* MORE SECTION HUB & FULL-CARD INTERACTION */
+        .more-card {
+            position: relative;
+            width: 100%;
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+        }
+        .more-card * {
+            pointer-events: none; /* Entire card surface clickable; child elements cannot intercept tap */
+        }
+        .more-card:hover {
+            border-color: rgba(56, 189, 248, 0.45) !important;
+            box-shadow: 0 8px 20px rgba(6, 182, 212, 0.15);
+        }
+        .more-card:active {
+            transform: scale(0.96);
+        }
+
+        .more-nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .more-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(30, 41, 59, 0.85);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            color: #f1f5f9;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 8px 14px;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+            -webkit-tap-highlight-color: transparent;
+        }
+        .more-back-btn:hover {
+            background: rgba(56, 189, 248, 0.2);
+            border-color: #38bdf8;
+            color: #38bdf8;
+            transform: translateX(-2px);
+        }
+        .more-back-btn:active {
+            transform: scale(0.96);
+        }
+        .more-back-btn .back-arrow {
+            font-size: 15px;
+            line-height: 1;
+            color: #38bdf8;
+        }
+        .more-feature-badge {
+            font-size: 11px;
+            font-weight: 800;
+            color: #38bdf8;
+            background: rgba(6, 182, 212, 0.15);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            padding: 5px 12px;
+            border-radius: 9999px;
+            letter-spacing: 0.3px;
+            max-width: 55%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @keyframes moreFeatureFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .feature-fade-in {
+            animation: moreFeatureFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
         /* GLASS CARDS */
         .glass-card {
             margin-top: 14px;
@@ -1174,65 +1262,78 @@
 
         <!-- ================= MORE TAB (FEATURE HUB) ================= -->
         <div class="page" id="page-more">
-            <h2 class="page-title">⚙️ Fishermen Feature Hub</h2>
-            <p style="font-size:12px;color:#94a3b8;margin-bottom:14px;">Select an advisory tool or community marine service:</p>
+            <!-- MORE MENU HUB (8-FEATURE GRID) -->
+            <div id="moreMenuHub">
+                <h2 class="page-title">⚙️ Fishermen Feature Hub</h2>
+                <p style="font-size:12px;color:#94a3b8;margin-bottom:14px;">Select an advisory tool or community marine service:</p>
 
-            <!-- Feature Bento Grid -->
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-                <!-- Hero Fish Guide Button -->
-                <button id="fishScanBtn" style="grid-column: span 2;padding:16px;background:linear-gradient(135deg,rgba(14,165,233,0.25),rgba(124,58,237,0.25));border:1px solid rgba(56,189,248,0.4);border-radius:20px;color:white;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;box-shadow:0 8px 24px rgba(6,182,212,0.18);">
-                    <span style="font-size:34px;">🐟</span>
-                    <div>
-                        <div style="font-weight:900;font-size:15px;color:#38bdf8;">Fish Species Guide (ಮೀನು ಪರಿಚಯ)</div>
-                        <div style="font-size:11px;color:#cbd5e1;margin-top:2px;">Photo & catalog reference: species, port rates & season</div>
-                    </div>
-                </button>
+                <!-- Feature Bento Grid -->
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                    <!-- Hero Fish Guide Button -->
+                    <button id="fishScanBtn" class="more-card" style="grid-column: span 2;padding:16px;background:linear-gradient(135deg,rgba(14,165,233,0.25),rgba(124,58,237,0.25));border:1px solid rgba(56,189,248,0.4);border-radius:20px;color:white;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;box-shadow:0 8px 24px rgba(6,182,212,0.18);">
+                        <span style="font-size:34px;">🐟</span>
+                        <div>
+                            <div style="font-weight:900;font-size:15px;color:#38bdf8;">Fish Species Guide (ಮೀನು ಪರಿಚಯ)</div>
+                            <div style="font-size:11px;color:#cbd5e1;margin-top:2px;">Photo & catalog reference: species, port rates & season</div>
+                        </div>
+                    </button>
 
-                <button id="predictionBtn" class="action-tile" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
-                    <span style="font-size:24px;">🐟</span>
-                    <span style="font-size:13px;font-weight:800;margin-top:4px;">Seasonal Guide</span>
-                    <span style="font-size:10px;color:#94a3b8;font-weight:400;">Karavali landing trends</span>
-                </button>
+                    <button id="predictionBtn" class="action-tile more-card" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
+                        <span style="font-size:24px;">🐟</span>
+                        <span style="font-size:13px;font-weight:800;margin-top:4px;">Seasonal Guide</span>
+                        <span style="font-size:10px;color:#94a3b8;font-weight:400;">Karavali landing trends</span>
+                    </button>
 
-                <button id="fuelBtn" class="action-tile" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
-                    <span style="font-size:24px;">⛽</span>
-                    <span style="font-size:13px;font-weight:800;margin-top:4px;">Fuel Calculator</span>
-                    <span style="font-size:10px;color:#94a3b8;font-weight:400;">Voyage cost & net profit</span>
-                </button>
+                    <button id="fuelBtn" class="action-tile more-card" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
+                        <span style="font-size:24px;">⛽</span>
+                        <span style="font-size:13px;font-weight:800;margin-top:4px;">Fuel Calculator</span>
+                        <span style="font-size:10px;color:#94a3b8;font-weight:400;">Voyage cost & net profit</span>
+                    </button>
 
-                <button id="schemeBtn" class="action-tile" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
-                    <span style="font-size:24px;">🏛️</span>
-                    <span style="font-size:13px;font-weight:800;margin-top:4px;">Govt Schemes</span>
-                    <span style="font-size:10px;color:#94a3b8;font-weight:400;">PMMSY Subsidies & Loans</span>
-                </button>
+                    <button id="schemeBtn" class="action-tile more-card" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
+                        <span style="font-size:24px;">🏛️</span>
+                        <span style="font-size:13px;font-weight:800;margin-top:4px;">Govt Schemes</span>
+                        <span style="font-size:10px;color:#94a3b8;font-weight:400;">PMMSY Subsidies & Loans</span>
+                    </button>
 
-                <button id="dashboardBtn" class="action-tile" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
-                    <span style="font-size:24px;">📈</span>
-                    <span style="font-size:13px;font-weight:800;margin-top:4px;">Voyage Stats</span>
-                    <span style="font-size:10px;color:#94a3b8;font-weight:400;">Safety decision log</span>
-                </button>
+                    <button id="dashboardBtn" class="action-tile more-card" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
+                        <span style="font-size:24px;">📈</span>
+                        <span style="font-size:13px;font-weight:800;margin-top:4px;">Voyage Stats</span>
+                        <span style="font-size:10px;color:#94a3b8;font-weight:400;">Safety decision log</span>
+                    </button>
 
-                <button id="historyBtn" class="action-tile" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
-                    <span style="font-size:24px;">📋</span>
-                    <span style="font-size:13px;font-weight:800;margin-top:4px;">Advisory History</span>
-                    <span style="font-size:10px;color:#94a3b8;font-weight:400;">Past trips logged</span>
-                </button>
+                    <button id="historyBtn" class="action-tile more-card" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
+                        <span style="font-size:24px;">📋</span>
+                        <span style="font-size:13px;font-weight:800;margin-top:4px;">Advisory History</span>
+                        <span style="font-size:10px;color:#94a3b8;font-weight:400;">Past trips logged</span>
+                    </button>
 
-                <button id="exportBtn" class="action-tile" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
-                    <span style="font-size:24px;">📄</span>
-                    <span style="font-size:13px;font-weight:800;margin-top:4px;">Export Voyage</span>
-                    <span style="font-size:10px;color:#94a3b8;font-weight:400;">Download trip report</span>
-                </button>
+                    <button id="exportBtn" class="action-tile more-card" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
+                        <span style="font-size:24px;">📄</span>
+                        <span style="font-size:13px;font-weight:800;margin-top:4px;">Export Voyage</span>
+                        <span style="font-size:10px;color:#94a3b8;font-weight:400;">Download trip report</span>
+                    </button>
 
-                <button id="catchLogBtn" class="action-tile" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
-                    <span style="font-size:24px;">🎣</span>
-                    <span style="font-size:13px;font-weight:800;margin-top:4px;">Catch Logger</span>
-                    <span style="font-size:10px;color:#94a3b8;font-weight:400;">Log kg & earnings</span>
-                </button>
+                    <button id="catchLogBtn" class="action-tile more-card" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
+                        <span style="font-size:24px;">🎣</span>
+                        <span style="font-size:13px;font-weight:800;margin-top:4px;">Catch Logger</span>
+                        <span style="font-size:10px;color:#94a3b8;font-weight:400;">Log kg & earnings</span>
+                    </button>
+                </div>
             </div>
 
-            <!-- Dynamic Container for Selected Feature -->
-            <div id="moreContainer" style="margin-top:14px;"></div>
+            <!-- DEDICATED FULL FEATURE VIEW (OPENS AT TOP) -->
+            <div id="moreFeatureView" style="display:none;">
+                <div class="more-nav-bar">
+                    <button id="moreBackBtn" class="more-back-btn" onclick="closeMoreFeature()" aria-label="Back to Tools Menu">
+                        <span class="back-arrow">←</span>
+                        <span>Back to Tools (ಮೆನು)</span>
+                    </button>
+                    <span id="moreFeatureBadge" class="more-feature-badge">Feature</span>
+                </div>
+                <!-- Dynamic Container for Selected Feature -->
+                <div id="moreContainer"></div>
+            </div>
         </div>
 
     </div>
@@ -1408,6 +1509,9 @@ function showPage(pageId) {
     const contentArea = document.getElementById('contentArea');
     if (contentArea) contentArea.scrollTop = 0;
 
+    if (pageId === 'page-more') {
+        closeMoreFeature(false); // Reset to show all 8 tools when user taps More tab
+    }
     if (pageId === 'page-market') loadMarket();
     if (pageId === 'page-safety') {
         loadHomeWeather();
@@ -1422,6 +1526,45 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
         showPage(this.dataset.page);
     });
 });
+
+// ============================================
+// MORE SECTION NAVIGATION CONTROLLER
+// ============================================
+function openMoreFeature(badgeText) {
+    const hub = document.getElementById('moreMenuHub');
+    const view = document.getElementById('moreFeatureView');
+    const badge = document.getElementById('moreFeatureBadge');
+    
+    if (badge && badgeText) badge.textContent = badgeText;
+    if (hub) hub.style.display = 'none';
+    if (view) {
+        view.style.display = 'block';
+        view.classList.remove('feature-fade-in');
+        void view.offsetWidth; // Trigger reflow for smooth animation
+        view.classList.add('feature-fade-in');
+    }
+    
+    const contentArea = document.getElementById('contentArea');
+    if (contentArea) contentArea.scrollTop = 0;
+    window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+function closeMoreFeature(playSound = true) {
+    if (playSound) playTapSound();
+    const hub = document.getElementById('moreMenuHub');
+    const view = document.getElementById('moreFeatureView');
+    if (view) view.style.display = 'none';
+    if (hub) {
+        hub.style.display = 'block';
+        hub.classList.remove('feature-fade-in');
+        void hub.offsetWidth;
+        hub.classList.add('feature-fade-in');
+    }
+    
+    const contentArea = document.getElementById('contentArea');
+    if (contentArea) contentArea.scrollTop = 0;
+    window.scrollTo({ top: 0, behavior: 'instant' });
+}
 
 // ============================================
 // DOM REFS
@@ -1822,6 +1965,7 @@ if (fishScanBtnEl) {
 
 function renderFishScanner() {
     playTapSound();
+    openMoreFeature('🐟 Fish Guide (ಮೀನು ಪರಿಚಯ)');
     selectedFishFile = null;
     const container = document.getElementById('moreContainer');
     if (!container) return;
@@ -1881,7 +2025,8 @@ function renderFishScanner() {
             <div id="fishResultContainer" style="margin-top:14px;display:none;"></div>
         </div>
     `;
-    container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    const ca = document.getElementById('contentArea');
+    if (ca) ca.scrollTop = 0;
 }
 
 function quickLookupSpecies(speciesKey) {
@@ -1994,29 +2139,36 @@ async function analyzeFishPhoto(customQuery) {
 // ============================================
 document.getElementById('historyBtn').addEventListener('click', function() {
     playTapSound();
+    openMoreFeature('📋 Advisory History (ಇತಿಹಾಸ)');
     const trips = JSON.parse(localStorage.getItem('trips') || '[]');
     document.getElementById('moreContainer').innerHTML = `
-        <div class="glass-card">
-            <h3 style="font-size:15px;margin-bottom:8px;font-weight:800;">📋 Voyage Advisory Log</h3>
-            ${trips.length === 0 ? '<p style="opacity:0.6;font-size:13px;">No past trips recorded yet.</p>' :
-            trips.slice(-5).reverse().map(t => `<div class="item-row"><span>${t.status === 'GO' ? '🟢 GO' : t.status === 'CAUTION' ? '🟡 CAUTION' : '🔴 STAY'}</span><span style="font-size:11px;color:#94a3b8;font-weight:600;">${t.date}</span></div>`).join('')}
+        <div class="glass-card" style="margin-top:0;">
+            <h3 style="font-size:15px;margin-bottom:8px;font-weight:800;color:#38bdf8;">📋 Voyage Advisory Log</h3>
+            <p style="font-size:12px;color:#94a3b8;margin-bottom:12px;">Past safety decisions logged during your fishing trips:</p>
+            ${trips.length === 0 ? '<p style="opacity:0.6;font-size:13px;padding:12px 0;">No past trips recorded yet. Ask a safety question on the Home tab to log trips.</p>' :
+            trips.slice(-10).reverse().map(t => `<div class="item-row"><span>${t.status === 'GO' ? '🟢 GO (ಹೋಗಿ)' : t.status === 'CAUTION' ? '🟡 CAUTION (ಎಚ್ಚರಿಕೆ)' : '🔴 STAY (ಹೋಗಬೇಡಿ)'}</span><span style="font-size:11px;color:#94a3b8;font-weight:600;">${t.date}</span></div>`).join('')}
         </div>
     `;
 });
 
 document.getElementById('dashboardBtn').addEventListener('click', function() {
     playTapSound();
+    openMoreFeature('📈 Voyage Stats (ಅಂಕಿಅಂಶ)');
     const trips = JSON.parse(localStorage.getItem('trips') || '[]');
     const go = trips.filter(t => t.status === 'GO').length;
     const caution = trips.filter(t => t.status === 'CAUTION').length;
     const dontgo = trips.filter(t => t.status === "DON'T GO").length;
     document.getElementById('moreContainer').innerHTML = `
-        <div class="glass-card">
-            <h3 style="font-size:15px;margin-bottom:12px;font-weight:800;">📈 Fishing Voyage Statistics</h3>
+        <div class="glass-card" style="margin-top:0;">
+            <h3 style="font-size:15px;margin-bottom:6px;font-weight:800;color:#38bdf8;">📈 Fishing Voyage Statistics</h3>
+            <p style="font-size:12px;color:#94a3b8;margin-bottom:14px;">Historical summary of all logged maritime safety advisory queries:</p>
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
                 <div style="background:rgba(16,185,129,0.15);padding:14px;border-radius:14px;text-align:center;border:1px solid rgba(16,185,129,0.3);"><div style="font-size:24px;font-weight:900;color:#6ee7b7;">${go}</div><div style="font-size:11px;color:#94a3b8;margin-top:2px;font-weight:700;">GO</div></div>
                 <div style="background:rgba(245,158,11,0.15);padding:14px;border-radius:14px;text-align:center;border:1px solid rgba(245,158,11,0.3);"><div style="font-size:24px;font-weight:900;color:#fcd34d;">${caution}</div><div style="font-size:11px;color:#94a3b8;margin-top:2px;font-weight:700;">CAUTION</div></div>
                 <div style="background:rgba(239,68,68,0.15);padding:14px;border-radius:14px;text-align:center;border:1px solid rgba(239,68,68,0.3);"><div style="font-size:24px;font-weight:900;color:#fca5a5;">${dontgo}</div><div style="font-size:11px;color:#94a3b8;margin-top:2px;font-weight:700;">DON'T GO</div></div>
+            </div>
+            <div style="margin-top:14px;padding:10px 12px;background:rgba(255,255,255,0.03);border-radius:12px;font-size:11px;color:#94a3b8;line-height:1.5;">
+                Total Logged Trips: <b style="color:white;">${trips.length}</b> · Safe GO Rate: <b style="color:#6ee7b7;">${trips.length ? Math.round((go / trips.length) * 100) : 0}%</b>
             </div>
         </div>
     `;
@@ -2024,15 +2176,23 @@ document.getElementById('dashboardBtn').addEventListener('click', function() {
 
 document.getElementById('fuelBtn').addEventListener('click', function() {
     playTapSound();
+    openMoreFeature('⛽ Fuel Calculator (ಇಂಧನ)');
     document.getElementById('moreContainer').innerHTML = `
-        <div class="glass-card">
-            <h3 style="font-size:15px;margin-bottom:8px;font-weight:800;">⛽ Outboard Motor Fuel Calculator</h3>
+        <div class="glass-card" style="margin-top:0;">
+            <h3 style="font-size:15px;margin-bottom:8px;font-weight:800;color:#38bdf8;">⛽ Outboard Motor Fuel Calculator</h3>
+            <p style="font-size:12px;color:#94a3b8;margin-bottom:12px;">Estimate voyage diesel consumption and total trip fuel expenditure:</p>
             <div style="display:flex;gap:8px;margin-bottom:10px;">
-                <input type="number" id="fuelDistance" placeholder="Distance (km / NM)" value="12" style="flex:1;padding:11px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:rgba(3,7,18,0.6);color:white;font-size:13px;">
-                <input type="number" id="fuelPrice" placeholder="Diesel Rate (₹/L)" value="92" style="flex:1;padding:11px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:rgba(3,7,18,0.6);color:white;font-size:13px;">
+                <div style="flex:1;">
+                    <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px;">Distance (km/NM):</label>
+                    <input type="number" id="fuelDistance" placeholder="Distance (km / NM)" value="12" style="width:100%;padding:11px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:rgba(3,7,18,0.6);color:white;font-size:13px;box-sizing:border-box;">
+                </div>
+                <div style="flex:1;">
+                    <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px;">Diesel Rate (₹/L):</label>
+                    <input type="number" id="fuelPrice" placeholder="Diesel Rate (₹/L)" value="92" style="width:100%;padding:11px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:rgba(3,7,18,0.6);color:white;font-size:13px;box-sizing:border-box;">
+                </div>
             </div>
-            <button onclick="calculateFuel()" style="width:100%;padding:12px;background:linear-gradient(135deg,#0ea5e9,#2563eb);border:none;border-radius:12px;color:white;font-weight:800;cursor:pointer;">Calculate Expense</button>
-            <div id="fuelResult" style="margin-top:10px;"></div>
+            <button onclick="calculateFuel()" style="width:100%;padding:13px;background:linear-gradient(135deg,#0ea5e9,#2563eb);border:none;border-radius:12px;color:white;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 4px 14px rgba(14,165,233,0.3);">Calculate Expense</button>
+            <div id="fuelResult" style="margin-top:12px;"></div>
         </div>
     `;
 });
@@ -2041,42 +2201,58 @@ window.calculateFuel = function() {
     playTapSound();
     const d = parseFloat(document.getElementById('fuelDistance').value) || 12;
     const p = parseFloat(document.getElementById('fuelPrice').value) || 92;
+    const liters = (d * 2.8).toFixed(1);
     const cost = d * 2.8 * p;
-    document.getElementById('fuelResult').innerHTML = `<div class="item-row"><span>Estimated Fuel Consumption:</span><span class="price">₹${cost.toFixed(0)}</span></div>`;
+    document.getElementById('fuelResult').innerHTML = `
+        <div style="background:rgba(3,7,18,0.7);padding:12px;border-radius:12px;border:1px solid rgba(56,189,248,0.25);">
+            <div class="item-row" style="padding:4px 0;"><span>Estimated Diesel Needed:</span><span style="font-weight:800;color:#38bdf8;">~${liters} L</span></div>
+            <div class="item-row" style="padding:4px 0;"><span>Estimated Fuel Cost:</span><span class="price">₹${cost.toFixed(0)}</span></div>
+        </div>
+    `;
 };
 
 document.getElementById('schemeBtn').addEventListener('click', async function() {
     playTapSound();
+    openMoreFeature('🏛️ Govt Schemes (ಯೋಜನೆಗಳು)');
+    const moreContainer = document.getElementById('moreContainer');
+    moreContainer.innerHTML = '<div class="glass-card" style="margin-top:0;"><p style="opacity:0.6;font-size:13px;">⏳ Loading PMMSY government schemes...</p></div>';
     try {
         const response = await fetch(BACKEND_URL + '/schemes');
         const data = await response.json();
         if (data.success) {
-            document.getElementById('moreContainer').innerHTML = `
-                <div class="glass-card">
-                    <h3 style="font-size:15px;margin-bottom:10px;font-weight:800;">🏛️ Government Subsidies & Insurance</h3>
+            moreContainer.innerHTML = `
+                <div class="glass-card" style="margin-top:0;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                        <h3 style="font-size:15px;margin-bottom:0;font-weight:800;color:#38bdf8;">🏛️ Government Subsidies & Insurance</h3>
+                        <span style="font-size:10px;background:rgba(6,182,212,0.15);color:#38bdf8;padding:2px 8px;border-radius:10px;font-weight:700;">PMMSY / NFDB</span>
+                    </div>
+                    <p style="font-size:12px;color:#94a3b8;margin-bottom:12px;">Pradhan Mantri Matsya Sampada Yojana and state marine schemes for Karnataka fishermen:</p>
                     ${data.schemes.map(s => `
-                        <div style="padding:12px;background:rgba(255,255,255,0.04);border-radius:14px;margin:6px 0;border:1px solid rgba(255,255,255,0.06);">
+                        <div style="padding:12px;background:rgba(255,255,255,0.04);border-radius:14px;margin:8px 0;border:1px solid rgba(255,255,255,0.06);">
                             <div style="font-weight:800;font-size:13px;color:#38bdf8;">${s.name}</div>
-                            <div style="font-size:12px;color:#cbd5e1;margin-top:3px;">${s.description}</div>
-                            <div style="font-size:11px;color:#facc15;margin-top:5px;font-weight:700;">🎯 Eligibility: ${s.eligibility}</div>
+                            <div style="font-size:12px;color:#cbd5e1;margin-top:3px;line-height:1.4;">${s.description}</div>
+                            <div style="font-size:11px;color:#facc15;margin-top:6px;font-weight:700;">🎯 Eligibility: ${s.eligibility}</div>
                         </div>
                     `).join('')}
                 </div>
             `;
         }
-    } catch {}
+    } catch {
+        moreContainer.innerHTML = '<div class="glass-card" style="margin-top:0;"><p style="color:#ef4444;font-size:13px;">❌ Could not load schemes. Please check your internet connection.</p></div>';
+    }
 });
 
 document.getElementById('predictionBtn').addEventListener('click', async function() {
     playTapSound();
+    openMoreFeature('🐟 Seasonal Guide (ಋತುಮಾನ)');
     const moreContainer = document.getElementById('moreContainer');
-    moreContainer.innerHTML = '<div class="glass-card"><p style="opacity:0.6;font-size:13px;">Loading Karavali seasonal catch guide...</p></div>';
+    moreContainer.innerHTML = '<div class="glass-card" style="margin-top:0;"><p style="opacity:0.6;font-size:13px;">⏳ Loading Karavali seasonal catch guide...</p></div>';
     try {
         const response = await fetch(BACKEND_URL + '/fish-prediction');
         const data = await response.json();
         if (data.success) {
             moreContainer.innerHTML = `
-                <div class="glass-card">
+                <div class="glass-card" style="margin-top:0;">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
                         <h3 style="font-size:15px;margin-bottom:0;font-weight:800;color:#38bdf8;">🐟 Seasonal Catch Guide</h3>
                         <span style="font-size:10px;background:rgba(6,182,212,0.15);color:#38bdf8;padding:2px 8px;border-radius:10px;font-weight:700;">${data.month || 'Karavali Coast'}</span>
@@ -2103,20 +2279,23 @@ document.getElementById('predictionBtn').addEventListener('click', async functio
                     </div>
                 </div>
             `;
-            moreContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            const ca = document.getElementById('contentArea');
+            if (ca) ca.scrollTop = 0;
         }
     } catch {
-        moreContainer.innerHTML = '<div class="glass-card"><p style="color:#ef4444;font-size:13px;">❌ Could not load seasonal guide. Please check connection.</p></div>';
+        moreContainer.innerHTML = '<div class="glass-card" style="margin-top:0;"><p style="color:#ef4444;font-size:13px;">❌ Could not load seasonal guide. Please check connection.</p></div>';
     }
 });
 
 document.getElementById('exportBtn').addEventListener('click', function() {
     playTapSound();
+    openMoreFeature('📄 Export Voyage (ವರದಿ)');
     const trips = JSON.parse(localStorage.getItem('trips') || '[]');
     let txt = '=== FISHERMEN-AI KARAVALI TRIP REPORT ===\nGenerated: ' + new Date().toLocaleString() + '\n\n';
     if (trips.length === 0) txt += 'No recent trips found in local storage.\n';
     else trips.forEach((t, i) => txt += `Trip #${i+1} | ${t.date} | Decision: ${t.status}\n`);
     
+    // Automatically trigger report text file download
     const blob = new Blob([txt], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -2124,6 +2303,19 @@ document.getElementById('exportBtn').addEventListener('click', function() {
     a.download = `fishermen-voyage-${new Date().toISOString().slice(0,10)}.txt`;
     a.click();
     URL.revokeObjectURL(url);
+
+    // Display formatted voyage export summary at top
+    document.getElementById('moreContainer').innerHTML = `
+        <div class="glass-card" style="margin-top:0;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <h3 style="font-size:15px;margin-bottom:0;font-weight:800;color:#38bdf8;">📄 Voyage Report Exported</h3>
+                <span style="font-size:10px;background:rgba(16,185,129,0.2);color:#6ee7b7;padding:3px 8px;border-radius:12px;font-weight:700;">DOWNLOADED</span>
+            </div>
+            <p style="font-size:12px;color:#cbd5e1;margin-bottom:12px;">Your trip advisory log file has been generated and saved to your device downloads folder.</p>
+            <div style="background:rgba(3,7,18,0.7);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);font-family:monospace;font-size:11px;color:#94a3b8;white-space:pre-wrap;max-height:180px;overflow-y:auto;margin-bottom:14px;">${txt}</div>
+            <button onclick="document.getElementById('exportBtn').click()" style="width:100%;padding:12px;background:linear-gradient(135deg,#0ea5e9,#2563eb);border:none;border-radius:12px;color:white;font-weight:800;font-size:13px;cursor:pointer;box-shadow:0 4px 14px rgba(14,165,233,0.3);">📥 Download Report File Again</button>
+        </div>
+    `;
 });
 
 // ============================================
@@ -2138,6 +2330,7 @@ if (catchLogBtnEl) {
 }
 
 function renderCatchLogger() {
+    openMoreFeature('🎣 Catch Logger (ಹಿಡಿದ ಮೀನು)');
     const catches = JSON.parse(localStorage.getItem('catches') || '[]');
     const totalKg = catches.reduce((acc, c) => acc + (parseFloat(c.kg) || 0), 0);
     const totalRev = catches.reduce((acc, c) => acc + (parseFloat(c.revenue) || 0), 0);
@@ -2146,7 +2339,7 @@ function renderCatchLogger() {
     if (!container) return;
 
     container.innerHTML = `
-        <div class="glass-card">
+        <div class="glass-card" style="margin-top:0;">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
                 <h3 style="font-size:15px;margin-bottom:0;font-weight:800;color:#38bdf8;">🎣 Daily Catch & Revenue Logger</h3>
                 <span style="font-size:10px;background:rgba(16,185,129,0.2);color:#6ee7b7;padding:3px 8px;border-radius:12px;font-weight:700;">LIVE LOG</span>
@@ -2205,7 +2398,8 @@ function renderCatchLogger() {
             </div>
         </div>
     `;
-    container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    const ca = document.getElementById('contentArea');
+    if (ca) ca.scrollTop = 0;
 }
 
 window.updateCatchEstimate = function() {
@@ -2526,8 +2720,11 @@ loadBestTime();
 // Register Service Worker for PWA & Deep-Sea Offline Support
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-            .then(reg => console.log('🐟 [PWA] Service Worker registered:', reg.scope))
+        navigator.serviceWorker.register('./sw.js?v=2')
+            .then(reg => {
+                console.log('🐟 [PWA] Service Worker v2 registered:', reg.scope);
+                reg.update();
+            })
             .catch(err => console.log('🐟 [PWA] SW registration failed:', err));
     });
 }
