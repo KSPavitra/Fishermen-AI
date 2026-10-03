@@ -180,30 +180,42 @@
         /* LANGUAGE SELECTOR PILL */
         .lang-selector {
             display: flex;
-            gap: 4px;
+            gap: 6px;
             justify-content: center;
-            background: rgba(15, 23, 42, 0.7);
+            background: rgba(15, 23, 42, 0.75);
             padding: 4px;
             border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             margin: 10px auto 0;
             width: fit-content;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
         }
         .lang-btn {
-            padding: 5px 13px;
-            border: none;
-            border-radius: 18px;
+            padding: 6px 16px;
+            border: 1px solid transparent;
+            border-radius: 20px;
             background: transparent;
             color: #94a3b8;
             cursor: pointer;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 700;
             transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .lang-btn:hover:not(.active) {
+            color: #f1f5f9;
+            background: rgba(255, 255, 255, 0.05);
         }
         .lang-btn.active {
             background: linear-gradient(135deg, #0ea5e9, #2563eb);
             color: #ffffff;
             box-shadow: 0 4px 15px rgba(14, 165, 233, 0.45);
+            border-color: rgba(56, 189, 248, 0.5);
+            font-weight: 800;
         }
 
         /* CONTENT DISPLAY */
@@ -998,10 +1010,8 @@
 
         <!-- REGIONAL LANGUAGE TOGGLE -->
         <div class="lang-selector">
-            <button class="lang-btn active" data-lang="kn">ಕನ್ನಡ</button>
-            <button class="lang-btn" data-lang="tulu">ತುಳು</button>
-            <button class="lang-btn" data-lang="konkani">ಕೊಂಕಣಿ</button>
-            <button class="lang-btn" data-lang="en">English</button>
+            <button class="lang-btn active" data-lang="kn">🇮🇳 ಕನ್ನಡ (Kannada)</button>
+            <button class="lang-btn" data-lang="en">🇬🇧 English</button>
         </div>
     </header>
 
@@ -1029,7 +1039,7 @@
                     <button class="mic-btn" id="micBtn">
                         <span id="micIcon">🎤</span>
                         <span id="micText">ಒತ್ತಿ ಮಾತನಾಡಿ</span>
-                        <span class="mic-sub" id="micSub">ಕನ್ನಡ / ತುಳು / Eng</span>
+                        <span class="mic-sub" id="micSub">ಕನ್ನಡ / English</span>
                     </button>
                 </div>
 
@@ -1111,7 +1121,7 @@
         <!-- ================= VOICE COCKPIT TAB ================= -->
         <div class="page" id="page-voice">
             <h2 class="page-title">🎤 Karavali Voice Cockpit</h2>
-            <p style="font-size:13px;color:#94a3b8;margin-bottom:16px;">Speak directly in Kannada, Tulu, Konkani, or English.</p>
+            <p style="font-size:13px;color:#94a3b8;margin-bottom:16px;">Speak directly in Kannada or English.</p>
 
             <div class="voice-cockpit">
                 <div class="mic-stage">
@@ -2603,32 +2613,10 @@ const translations = {
         heroSub: 'Should I go fishing tomorrow?',
         heroBadge: 'ಮೈಕ್ ಒತ್ತಿ ನಿಮ್ಮ ಮಾತಲ್ಲೇ ಕೇಳಿ',
         micText: 'ಒತ್ತಿ ಮಾತನಾಡಿ',
-        micSub: 'ಕನ್ನಡ / ತುಳು / Eng',
+        micSub: 'ಕನ್ನಡ / English',
         sosText: 'ತುರ್ತು ಸಹಾಯ · SOS (1554)',
         weatherLink: 'ಗಾಳಿ & ಅಲೆಗಳ ವಿವರ ನೋಡಿ',
         replayText: 'ಧ್ವನಿಯಲ್ಲಿ ಮತ್ತೆ ಕೇಳಿ (Listen Again)'
-    },
-    'tulu': {
-        title: 'ಕರಾವಳಿ ಕಡಲ್ ಸಹಾಯಕ · Karavali Coast',
-        heroTitle: 'ಎಲ್ಲೆ ಕಡಲ್ಗ್ ಪೋವೋಲಿಯೇ?',
-        heroSub: 'Should I go fishing tomorrow?',
-        heroBadge: 'ಮೈಕ್ ಒತ್ತಿ ಪಾತೆರ್ಲೆ',
-        micText: 'ಒತ್ತಿ ಪಾತೆರ್ಲೆ',
-        micSub: 'ತುಳು / ಕನ್ನಡ / Eng',
-        sosText: 'ತುರ್ತು ಸಹಾಯ · SOS (1554)',
-        weatherLink: 'ಗಾಳಿ & ತೆರೆ ವಿವರ ತೂಲೆ',
-        replayText: 'ಪಾತೆರೊಡು ಕೇನ್ಲೆ (Listen Again)'
-    },
-    'konkani': {
-        title: 'ದರ್ಯಾಚೊ ಸಾಂಗಾತಿ · Karavali Coast',
-        heroTitle: 'ಫಾಲ್ಯಾಂ ದರ್ಯಾರ್ ವಚ್ಯೆತ್ ವೇ?',
-        heroSub: 'Should I go fishing tomorrow?',
-        heroBadge: 'ಮೈಕ್ ಒತ್ತುನ್ ಉಲಯಾ',
-        micText: 'ದಬಾವನ್ ಉಲಯಾ',
-        micSub: 'ಕೊಂಕಣಿ / ಕನ್ನಡ / Eng',
-        sosText: 'ಆಪತ್ಕಾಲೀನ್ ಸಹಾಯ್ · SOS (1554)',
-        weatherLink: 'ವಾರೊ ಆನಿ ಲಾರಾಂಚಿ ಮಾಹಿತಿ',
-        replayText: 'ಆವಾಜಾಂತ್ ಆಯ್ಕಾ (Listen Again)'
     },
     'en': {
         title: 'Marine Weather & Safety Co-Pilot · Karavali Coast',
@@ -2636,7 +2624,7 @@ const translations = {
         heroSub: 'Marine weather advisory & harbor market outlook',
         heroBadge: 'Tap mic and ask in your language',
         micText: 'Tap to Speak',
-        micSub: 'Kannada / Tulu / Eng',
+        micSub: 'Kannada / English',
         sosText: 'Coast Guard Distress SOS (1554)',
         weatherLink: 'View Live Marine Telemetry',
         replayText: 'Listen Again in Audio'
@@ -2720,9 +2708,9 @@ loadBestTime();
 // Register Service Worker for PWA & Deep-Sea Offline Support
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=2')
+        navigator.serviceWorker.register('./sw.js?v=3')
             .then(reg => {
-                console.log('🐟 [PWA] Service Worker v2 registered:', reg.scope);
+                console.log('🐟 [PWA] Service Worker v3 registered:', reg.scope);
                 reg.update();
             })
             .catch(err => console.log('🐟 [PWA] SW registration failed:', err));
