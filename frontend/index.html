@@ -999,14 +999,14 @@
     <!-- HEADER HUD -->
     <header>
         <div class="brand-bar">
-            <span class="marine-tag">🌊 MARINE WEATHER ADVISORY</span>
+            <span class="marine-tag" id="marineTag">🌊 MARINE WEATHER ADVISORY</span>
             <div class="connection-status">
                 <span class="status-dot online" id="connectionDot"></span>
                 <span id="connectionText">Online</span>
             </div>
         </div>
         <h1>🐟 Fishermen-AI</h1>
-        <p class="subtitle">Marine Weather & Safety Co-Pilot · Karavali Coast</p>
+        <p class="subtitle" id="appSubtitle">Marine Weather & Safety Co-Pilot · Karavali Coast</p>
 
         <!-- REGIONAL LANGUAGE TOGGLE -->
         <div class="lang-selector">
@@ -1066,12 +1066,12 @@
                 <!-- Keyboard Fallback (Subtle & clean) -->
                 <div class="text-fallback" id="textFallback">
                     <input type="text" id="textInput" placeholder="Type: Naale kadlige hogbahuda? / Fish rate..." />
-                    <button onclick="submitTextInput()">Analyze Question</button>
+                    <button id="textSubmitBtn" onclick="submitTextInput()">Analyze Question</button>
                 </div>
 
                 <button type="button" onclick="toggleTextFallback()" class="type-toggle-btn" aria-label="Type your query">
                     <span class="type-btn-icon">⌨️</span>
-                    <span class="type-btn-text">Type your query</span>
+                    <span class="type-btn-text" id="typeBtnText">Type your query</span>
                     <span class="type-btn-arrow">→</span>
                 </button>
             </div>
@@ -1098,7 +1098,7 @@
                     <span style="font-size:32px;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.4));">🆘</span>
                     <div style="flex:1;text-align:left;">
                         <div style="font-size:15px;font-weight:900;letter-spacing:0.3px;" id="sosHomeTitle">ತುರ್ತು ಸಹಾಯ · SOS (1554)</div>
-                        <div style="font-size:11px;opacity:0.9;margin-top:2px;">ಭಾರತೀಯ ಕರಾವಳಿ ಕಾವಲು ಪಡೆ (Coast Guard)</div>
+                        <div style="font-size:11px;opacity:0.9;margin-top:2px;" id="sosHomeSub">ಭಾರತೀಯ ಕರಾವಳಿ ಕಾವಲು ಪಡೆ (Coast Guard)</div>
                     </div>
                     <span style="font-size:20px;opacity:0.8;">📞</span>
                 </div>
@@ -1110,7 +1110,7 @@
                     <span style="font-size:26px;">🌊</span>
                     <div style="text-align:left;">
                         <div style="font-size:13px;font-weight:800;color:#38bdf8;" id="weatherLinkTitle">ಗಾಳಿ & ಅಲೆಗಳ ವಿವರ ನೋಡಿ</div>
-                        <div style="font-size:11px;color:#94a3b8;">Wind speed, wave height, tides & solunar times ➔</div>
+                        <div style="font-size:11px;color:#94a3b8;" id="weatherLinkSub">Wind speed, wave height, tides & solunar times ➔</div>
                     </div>
                 </div>
                 <span style="font-size:16px;color:#38bdf8;font-weight:800;">➔</span>
@@ -1120,8 +1120,8 @@
 
         <!-- ================= VOICE COCKPIT TAB ================= -->
         <div class="page" id="page-voice">
-            <h2 class="page-title">🎤 Karavali Voice Cockpit</h2>
-            <p style="font-size:13px;color:#94a3b8;margin-bottom:16px;">Speak directly in Kannada or English.</p>
+            <h2 class="page-title" id="voicePageTitle">🎤 Karavali Voice Cockpit</h2>
+            <p id="voicePageSub" style="font-size:13px;color:#94a3b8;margin-bottom:16px;">Speak directly in Kannada or English.</p>
 
             <div class="voice-cockpit">
                 <div class="mic-stage">
@@ -1137,19 +1137,19 @@
 
             <!-- Quick Suggestions -->
             <div style="margin-top:18px;">
-                <div style="font-size:11px;font-weight:800;color:#94a3b8;letter-spacing:0.5px;margin-bottom:8px;">💡 POPULAR ADVISORY PROMPTS</div>
+                <div id="voicePromptsTitle" style="font-size:11px;font-weight:800;color:#94a3b8;letter-spacing:0.5px;margin-bottom:8px;">💡 POPULAR ADVISORY PROMPTS</div>
                 <div style="display:flex;flex-direction:column;gap:6px;">
-                    <div class="item-row" style="cursor:pointer;" onclick="sendToBackend('ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ?')">
-                        <span>🐟 "ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ?"</span>
-                        <span style="font-size:11px;color:#38bdf8;font-weight:700;">Ask ➔</span>
+                    <div class="item-row" style="cursor:pointer;" onclick="runVoicePrompt(1)">
+                        <span id="promptItem1">🐟 "ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ?"</span>
+                        <span class="prompt-ask-label" style="font-size:11px;color:#38bdf8;font-weight:700;">Ask ➔</span>
                     </div>
-                    <div class="item-row" style="cursor:pointer;" onclick="sendToBackend('ಬಂಗಡೆ ಮೀನು ಬೆಲೆ ಎಷ್ಟು?')">
-                        <span>💰 "ಬಂಗಡೆ ಮೀನು ಬೆಲೆ ಎಷ್ಟು?"</span>
-                        <span style="font-size:11px;color:#38bdf8;font-weight:700;">Ask ➔</span>
+                    <div class="item-row" style="cursor:pointer;" onclick="runVoicePrompt(2)">
+                        <span id="promptItem2">💰 "ಬಂಗಡೆ ಮೀನು ಬೆಲೆ ಎಷ್ಟು?"</span>
+                        <span class="prompt-ask-label" style="font-size:11px;color:#38bdf8;font-weight:700;">Ask ➔</span>
                     </div>
-                    <div class="item-row" style="cursor:pointer;" onclick="sendToBackend('Should I go fishing today?')">
-                        <span>🌊 "Should I go fishing today?"</span>
-                        <span style="font-size:11px;color:#38bdf8;font-weight:700;">Ask ➔</span>
+                    <div class="item-row" style="cursor:pointer;" onclick="runVoicePrompt(3)">
+                        <span id="promptItem3">🌊 "ಈಗ ಗಾಳಿ ಮತ್ತು ಅಲೆಗಳ ಸ್ಥಿತಿ ಹೇಗಿದೆ?"</span>
+                        <span class="prompt-ask-label" style="font-size:11px;color:#38bdf8;font-weight:700;">Ask ➔</span>
                     </div>
                 </div>
             </div>
@@ -1158,44 +1158,44 @@
         <!-- ================= MARKET TAB ================= -->
         <div class="page" id="page-market">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-                <h2 class="page-title" style="margin-bottom:0;">📊 Harbor Catch Rates</h2>
-                <span style="font-size:10px;background:rgba(6,182,212,0.15);color:#38bdf8;padding:3px 8px;border-radius:12px;border:1px solid rgba(6,182,212,0.3);font-weight:800;">MALPE & MANGALORE</span>
+                <h2 class="page-title" id="marketPageTitle" style="margin-bottom:0;">📊 Harbor Catch Rates</h2>
+                <span id="marketPageBadge" style="font-size:10px;background:rgba(6,182,212,0.15);color:#38bdf8;padding:3px 8px;border-radius:12px;border:1px solid rgba(6,182,212,0.3);font-weight:800;">MALPE & MANGALORE</span>
             </div>
-            <p style="font-size:12px;color:#94a3b8;margin-bottom:12px;">Daily wholesale rate index with Kannada & Tulu names.</p>
+            <p id="marketPageSub" style="font-size:12px;color:#94a3b8;margin-bottom:12px;">Daily wholesale rate index with Kannada & Tulu names.</p>
             <div id="marketList"><p style="opacity:0.6;font-size:13px;">Loading market rates...</p></div>
         </div>
 
         <!-- ================= SAFETY & SOS TAB ================= -->
         <div class="page" id="page-safety">
-            <h2 class="page-title">🆘 Emergency & Safety HUD</h2>
+            <h2 class="page-title" id="safetyPageTitle">🆘 Emergency & Safety HUD</h2>
 
             <!-- SOS Hero Trigger -->
             <button onclick="openSOS()" style="width:100%;padding:18px;background:linear-gradient(135deg,#ef4444,#dc2626);border:none;border-radius:20px;color:white;font-size:17px;font-weight:900;cursor:pointer;margin-bottom:16px;box-shadow:0 8px 30px rgba(239,68,68,0.45);display:flex;align-items:center;justify-content:center;gap:8px;">
                 <span>🆘</span>
-                <span>MARITIME DISTRESS & SOS (1554)</span>
+                <span id="safetySosText">MARITIME DISTRESS & SOS (1554)</span>
             </button>
 
             <!-- Direct Coastal Emergency Contacts -->
             <div class="glass-card" style="margin-bottom:12px;">
-                <h3 style="font-size:14px;font-weight:800;margin-bottom:10px;color:#f87171;">📞 Rapid Coastal Assistance</h3>
+                <h3 id="safetyAssistTitle" style="font-size:14px;font-weight:800;margin-bottom:10px;color:#f87171;">📞 Rapid Coastal Assistance</h3>
                 
                 <a href="tel:1554" style="text-decoration:none;color:white;display:block;">
                     <div class="item-row" style="border-left:4px solid #ef4444;">
-                        <span>🚨 Indian Coast Guard (SAR)</span>
+                        <span id="contactGuardText">🚨 Indian Coast Guard (SAR)</span>
                         <span style="color:#fca5a5;font-weight:800;">1554 📞</span>
                     </div>
                 </a>
                 
                 <a href="tel:1093" style="text-decoration:none;color:white;display:block;">
                     <div class="item-row" style="border-left:4px solid #06b6d4;">
-                        <span>🌊 Coastal Marine Police</span>
+                        <span id="contactPoliceText">🌊 Coastal Marine Police</span>
                         <span style="color:#67e8f9;font-weight:800;">1093 📞</span>
                     </div>
                 </a>
 
                 <a href="tel:1073" style="text-decoration:none;color:white;display:block;">
                     <div class="item-row" style="border-left:4px solid #f59e0b;">
-                        <span>🛟 Marine Rescue Coordination</span>
+                        <span id="contactRescueText">🛟 Marine Rescue Coordination</span>
                         <span style="color:#fbbf24;font-weight:800;">1073 📞</span>
                     </div>
                 </a>
@@ -1203,12 +1203,12 @@
 
             <!-- WhatsApp GPS Share -->
             <button onclick="shareLocationWithFamily()" style="width:100%;padding:14px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:16px;color:white;font-weight:800;font-size:14px;cursor:pointer;margin-bottom:14px;box-shadow:0 6px 20px rgba(37,99,235,0.3);display:flex;align-items:center;justify-content:center;gap:8px;">
-                <span>📍</span> Share My GPS Location via WhatsApp
+                <span>📍</span> <span id="shareLocationBtnText">Share My GPS Location via WhatsApp</span>
             </button>
 
             <!-- LIVE MARINE TELEMETRY & WEATHER HUD -->
             <div style="margin:16px 0 6px;">
-                <h3 style="font-size:14px;font-weight:800;margin-bottom:10px;color:#38bdf8;display:flex;align-items:center;gap:6px;">
+                <h3 id="telemetrySectionTitle" style="font-size:14px;font-weight:800;margin-bottom:10px;color:#38bdf8;display:flex;align-items:center;gap:6px;">
                     <span>🌊</span> Live Marine Telemetry & Swell
                 </h3>
 
@@ -1218,21 +1218,21 @@
                         <span class="hud-icon">💨</span>
                         <div>
                             <div class="hud-val" id="hudWind">5.6 km/h</div>
-                            <div class="hud-lbl">Wind Speed</div>
+                            <div class="hud-lbl" id="hudWindLabel">Wind Speed</div>
                         </div>
                     </div>
                     <div class="hud-tile">
                         <span class="hud-icon">🌡️</span>
                         <div>
                             <div class="hud-val" id="hudTemp">27.0°C</div>
-                            <div class="hud-lbl">Sea Temp</div>
+                            <div class="hud-lbl" id="hudTempLabel">Sea Temp</div>
                         </div>
                     </div>
                     <div class="hud-tile">
                         <span class="hud-icon">🌊</span>
                         <div>
                             <div class="hud-val" id="hudWave">Calm (0.7m)</div>
-                            <div class="hud-lbl">Wave Swell</div>
+                            <div class="hud-lbl" id="hudWaveLabel">Wave Swell</div>
                         </div>
                     </div>
                 </div>
@@ -1251,7 +1251,7 @@
                 <!-- BEST TIME TO FISH TODAY (SOLUNAR WINDOW) -->
                 <div class="glass-card" id="bestTimeCard" style="background:linear-gradient(135deg,rgba(6,182,212,0.08),rgba(59,130,246,0.08));border-color:rgba(6,182,212,0.25);margin-top:0;margin-bottom:12px;">
                     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                        <div style="font-size:13px;font-weight:800;display:flex;align-items:center;gap:6px;color:#38bdf8;">
+                        <div style="font-size:13px;font-weight:800;display:flex;align-items:center;gap:6px;color:#38bdf8;" id="bestTimeTitle">
                             <span>⏰</span> Best Fishing Window
                         </div>
                         <div style="font-size:11px;color:#94a3b8;font-weight:600;" id="bestTimeDate">Today</div>
@@ -1274,8 +1274,8 @@
         <div class="page" id="page-more">
             <!-- MORE MENU HUB (8-FEATURE GRID) -->
             <div id="moreMenuHub">
-                <h2 class="page-title">⚙️ Fishermen Feature Hub</h2>
-                <p style="font-size:12px;color:#94a3b8;margin-bottom:14px;">Select an advisory tool or community marine service:</p>
+                <h2 class="page-title" id="morePageTitle">⚙️ Fishermen Feature Hub</h2>
+                <p id="morePageSub" style="font-size:12px;color:#94a3b8;margin-bottom:14px;">Select an advisory tool or community marine service:</p>
 
                 <!-- Feature Bento Grid -->
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
@@ -1283,51 +1283,51 @@
                     <button id="fishScanBtn" class="more-card" style="grid-column: span 2;padding:16px;background:linear-gradient(135deg,rgba(14,165,233,0.25),rgba(124,58,237,0.25));border:1px solid rgba(56,189,248,0.4);border-radius:20px;color:white;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;box-shadow:0 8px 24px rgba(6,182,212,0.18);">
                         <span style="font-size:34px;">🐟</span>
                         <div>
-                            <div style="font-weight:900;font-size:15px;color:#38bdf8;">Fish Species Guide (ಮೀನು ಪರಿಚಯ)</div>
-                            <div style="font-size:11px;color:#cbd5e1;margin-top:2px;">Photo & catalog reference: species, port rates & season</div>
+                            <div id="fishScanCardTitle" style="font-weight:900;font-size:15px;color:#38bdf8;">Fish Species Guide (ಮೀನು ಪರಿಚಯ)</div>
+                            <div id="fishScanCardSub" style="font-size:11px;color:#cbd5e1;margin-top:2px;">Photo & catalog reference: species, port rates & season</div>
                         </div>
                     </button>
 
                     <button id="predictionBtn" class="action-tile more-card" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
                         <span style="font-size:24px;">🐟</span>
-                        <span style="font-size:13px;font-weight:800;margin-top:4px;">Seasonal Guide</span>
-                        <span style="font-size:10px;color:#94a3b8;font-weight:400;">Karavali landing trends</span>
+                        <span id="predictionCardTitle" style="font-size:13px;font-weight:800;margin-top:4px;">Seasonal Guide</span>
+                        <span id="predictionCardSub" style="font-size:10px;color:#94a3b8;font-weight:400;">Karavali landing trends</span>
                     </button>
 
                     <button id="fuelBtn" class="action-tile more-card" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
                         <span style="font-size:24px;">⛽</span>
-                        <span style="font-size:13px;font-weight:800;margin-top:4px;">Fuel Calculator</span>
-                        <span style="font-size:10px;color:#94a3b8;font-weight:400;">Voyage cost & net profit</span>
+                        <span id="fuelCardTitle" style="font-size:13px;font-weight:800;margin-top:4px;">Fuel Calculator</span>
+                        <span id="fuelCardSub" style="font-size:10px;color:#94a3b8;font-weight:400;">Voyage cost & net profit</span>
                     </button>
 
                     <button id="schemeBtn" class="action-tile more-card" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
                         <span style="font-size:24px;">🏛️</span>
-                        <span style="font-size:13px;font-weight:800;margin-top:4px;">Govt Schemes</span>
-                        <span style="font-size:10px;color:#94a3b8;font-weight:400;">PMMSY Subsidies & Loans</span>
+                        <span id="schemeCardTitle" style="font-size:13px;font-weight:800;margin-top:4px;">Govt Schemes</span>
+                        <span id="schemeCardSub" style="font-size:10px;color:#94a3b8;font-weight:400;">PMMSY Subsidies & Loans</span>
                     </button>
 
                     <button id="dashboardBtn" class="action-tile more-card" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
                         <span style="font-size:24px;">📈</span>
-                        <span style="font-size:13px;font-weight:800;margin-top:4px;">Voyage Stats</span>
-                        <span style="font-size:10px;color:#94a3b8;font-weight:400;">Safety decision log</span>
+                        <span id="dashboardCardTitle" style="font-size:13px;font-weight:800;margin-top:4px;">Voyage Stats</span>
+                        <span id="dashboardCardSub" style="font-size:10px;color:#94a3b8;font-weight:400;">Safety decision log</span>
                     </button>
 
                     <button id="historyBtn" class="action-tile more-card" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
                         <span style="font-size:24px;">📋</span>
-                        <span style="font-size:13px;font-weight:800;margin-top:4px;">Advisory History</span>
-                        <span style="font-size:10px;color:#94a3b8;font-weight:400;">Past trips logged</span>
+                        <span id="historyCardTitle" style="font-size:13px;font-weight:800;margin-top:4px;">Advisory History</span>
+                        <span id="historyCardSub" style="font-size:10px;color:#94a3b8;font-weight:400;">Past trips logged</span>
                     </button>
 
                     <button id="exportBtn" class="action-tile more-card" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
                         <span style="font-size:24px;">📄</span>
-                        <span style="font-size:13px;font-weight:800;margin-top:4px;">Export Voyage</span>
-                        <span style="font-size:10px;color:#94a3b8;font-weight:400;">Download trip report</span>
+                        <span id="exportCardTitle" style="font-size:13px;font-weight:800;margin-top:4px;">Export Voyage</span>
+                        <span id="exportCardSub" style="font-size:10px;color:#94a3b8;font-weight:400;">Download trip report</span>
                     </button>
 
                     <button id="catchLogBtn" class="action-tile more-card" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
                         <span style="font-size:24px;">🎣</span>
-                        <span style="font-size:13px;font-weight:800;margin-top:4px;">Catch Logger</span>
-                        <span style="font-size:10px;color:#94a3b8;font-weight:400;">Log kg & earnings</span>
+                        <span id="catchLogCardTitle" style="font-size:13px;font-weight:800;margin-top:4px;">Catch Logger</span>
+                        <span id="catchLogCardSub" style="font-size:10px;color:#94a3b8;font-weight:400;">Log kg & earnings</span>
                     </button>
                 </div>
             </div>
@@ -1337,7 +1337,7 @@
                 <div class="more-nav-bar">
                     <button id="moreBackBtn" class="more-back-btn" onclick="closeMoreFeature()" aria-label="Back to Tools Menu">
                         <span class="back-arrow">←</span>
-                        <span>Back to Tools (ಮೆನು)</span>
+                        <span id="moreBackBtnText">Back to Tools (ಮೆನು)</span>
                     </button>
                     <span id="moreFeatureBadge" class="more-feature-badge">Feature</span>
                 </div>
@@ -1352,28 +1352,28 @@
     <nav class="tab-bar" aria-label="Bottom Navigation">
         <button class="tab-btn active" data-page="page-home" aria-label="Home">
             <span class="tab-icon">🏠</span>
-            <span class="tab-label">Home</span>
+            <span class="tab-label" id="tabHomeLabel">Home</span>
         </button>
         <button class="tab-btn" data-page="page-voice" aria-label="Voice">
             <span class="tab-icon">🎤</span>
-            <span class="tab-label">Voice</span>
+            <span class="tab-label" id="tabVoiceLabel">Voice</span>
         </button>
         <button class="tab-btn" data-page="page-market" aria-label="Market">
             <span class="tab-icon">📊</span>
-            <span class="tab-label">Market</span>
+            <span class="tab-label" id="tabMarketLabel">Market</span>
         </button>
         <button class="tab-btn" data-page="page-safety" aria-label="Safety">
             <span class="tab-icon">🆘</span>
-            <span class="tab-label">Safety</span>
+            <span class="tab-label" id="tabSafetyLabel">Safety</span>
         </button>
         <button class="tab-btn" data-page="page-more" aria-label="More">
             <span class="tab-icon">⚙️</span>
-            <span class="tab-label">More</span>
+            <span class="tab-label" id="tabMoreLabel">More</span>
         </button>
     </nav>
 
     <footer>
-        <p class="tagline">"Asking is easier than typing" · Karavali Fishermen AI 2.0</p>
+        <p class="tagline" id="footerTagline">"Asking is easier than typing" · Karavali Fishermen AI 2.0</p>
     </footer>
 
 </div>
@@ -1384,13 +1384,13 @@
         <button onclick="closeSOS()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#94a3b8;font-size:24px;cursor:pointer;padding:4px 8px;">✕</button>
         
         <div style="font-size:38px;margin-bottom:4px;">🚨</div>
-        <h3 style="color:#f87171;font-size:20px;font-weight:900;letter-spacing:-0.3px;">COASTAL DISTRESS & RESCUE</h3>
-        <p style="font-size:11px;color:#94a3b8;margin-top:2px;">Read coordinates out loud to maritime rescue operator</p>
+        <h3 style="color:#f87171;font-size:20px;font-weight:900;letter-spacing:-0.3px;" id="sosModalTitle">COASTAL DISTRESS & RESCUE</h3>
+        <p style="font-size:11px;color:#94a3b8;margin-top:2px;" id="sosModalSub">Read coordinates out loud to maritime rescue operator</p>
 
         <!-- LIVE GPS TELEMETRY BOX -->
         <div id="sosGpsBox" style="margin:14px 0 10px;background:rgba(3,7,18,0.7);padding:12px 14px;border-radius:14px;border:1px solid rgba(56,189,248,0.25);text-align:left;">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
-                <span style="font-size:10px;font-weight:800;color:#38bdf8;text-transform:uppercase;letter-spacing:0.5px;">📍 Live Sea Coordinates</span>
+                <span id="sosGpsHeader" style="font-size:10px;font-weight:800;color:#38bdf8;text-transform:uppercase;letter-spacing:0.5px;">📍 Live Sea Coordinates</span>
                 <span id="sosGpsStatus" style="font-size:10px;color:#facc15;font-weight:700;">Acquiring GPS...</span>
             </div>
             <div id="sosCoordinates" style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:800;color:#ffffff;line-height:1.4;">
@@ -1408,26 +1408,26 @@
         <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px;">
             <button onclick="confirmEmergencyCall('1554', 'Indian Coast Guard Search & Rescue')" style="width:100%;padding:13px;background:linear-gradient(135deg,#ef4444,#dc2626);border:none;border-radius:14px;color:white;font-size:14px;font-weight:900;cursor:pointer;box-shadow:0 6px 18px rgba(239,68,68,0.4);display:flex;align-items:center;justify-content:center;gap:8px;">
                 <span>🚨</span>
-                <span>COAST GUARD RESCUE (1554)</span>
+                <span id="sosCallGuardBtnText">COAST GUARD RESCUE (1554)</span>
             </button>
 
             <button onclick="confirmEmergencyCall('1093', 'Coastal Marine Police')" style="width:100%;padding:12px;background:linear-gradient(135deg,#0284c7,#0369a1);border:none;border-radius:14px;color:white;font-size:13px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
                 <span>🌊</span>
-                <span>Coastal Marine Police (1093)</span>
+                <span id="sosCallPoliceBtnText">Coastal Marine Police (1093)</span>
             </button>
 
             <button onclick="confirmEmergencyCall('108', 'Medical Ambulance Service')" style="width:100%;padding:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:12px;color:#cbd5e1;font-size:12px;font-weight:700;cursor:pointer;">
-                🚑 Medical Ambulance (108)
+                <span id="sosCallAmbulanceBtnText">🚑 Medical Ambulance (108)</span>
             </button>
         </div>
 
         <!-- EMERGENCY LOCATION BEACON (WHATSAPP / SMS) -->
         <button onclick="sendEmergencyBeacon()" style="margin-top:10px;width:100%;padding:11px;background:linear-gradient(135deg,#10b981,#059669);border:none;border-radius:12px;color:white;font-weight:800;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
             <span>📍</span>
-            <span>Send GPS Distress Beacon (WhatsApp / SMS)</span>
+            <span id="sosBeaconBtnText">Send GPS Distress Beacon (WhatsApp / SMS)</span>
         </button>
 
-        <p style="margin-top:10px;font-size:10px;color:#94a3b8;line-height:1.4;">
+        <p style="margin-top:10px;font-size:10px;color:#94a3b8;line-height:1.4;" id="sosModalDisclaimer">
             Advisory tool: Direct dial link. Does not replace marine VHF Channel 16 or EPIRB beacons.
         </p>
     </div>
@@ -1440,7 +1440,7 @@
         <h4 style="color:#ffffff;font-size:17px;font-weight:900;" id="confirmCallTitle">Confirm Emergency Call</h4>
         <p style="font-size:13px;color:#cbd5e1;margin:10px 0 16px;" id="confirmCallMsg">You are about to dial emergency assistance.</p>
         <div style="display:flex;gap:10px;">
-            <button onclick="document.getElementById('callConfirmModal').style.display='none'" style="flex:1;padding:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);border-radius:12px;color:white;font-weight:700;font-size:13px;cursor:pointer;">Cancel</button>
+            <button id="confirmCallCancelBtn" onclick="document.getElementById('callConfirmModal').style.display='none'" style="flex:1;padding:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);border-radius:12px;color:white;font-weight:700;font-size:13px;cursor:pointer;">Cancel</button>
             <a id="confirmCallLink" href="tel:1554" style="flex:1;padding:12px;background:#ef4444;border:none;border-radius:12px;color:white;font-weight:900;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;">Yes, Call Now</a>
         </div>
     </div>
@@ -1561,6 +1561,7 @@ function openMoreFeature(badgeText) {
 
 function closeMoreFeature(playSound = true) {
     if (playSound) playTapSound();
+    currentMoreFeature = null;
     const hub = document.getElementById('moreMenuHub');
     const view = document.getElementById('moreFeatureView');
     if (view) view.style.display = 'none';
@@ -1635,10 +1636,11 @@ function initSpeech() {
         if (micBtn2) micBtn2.classList.add('recording');
         if (micIcon) micIcon.textContent = '🔴';
         if (document.getElementById('micIcon2')) document.getElementById('micIcon2').textContent = '🔴';
-        if (micText) micText.textContent = 'Listening...';
-        if (document.getElementById('micText2')) document.getElementById('micText2').textContent = 'Listening...';
+        const listenText = currentLang === 'kn' ? 'ಕೇಳಿಸಿಕೊಳ್ಳುತ್ತಿದ್ದೇವೆ...' : 'Listening...';
+        if (micText) micText.textContent = listenText;
+        if (document.getElementById('micText2')) document.getElementById('micText2').textContent = listenText;
         if (equalizerWave) equalizerWave.classList.add('active');
-        showVoiceState('listening', '🎙️ Listening... Please speak now');
+        showVoiceState('listening', currentLang === 'kn' ? '🎙️ ಕೇಳಿಸಿಕೊಳ್ಳುತ್ತಿದ್ದೇವೆ... ಮಾತನಾಡಿ' : '🎙️ Listening... Please speak now');
     };
 
     recognition.onresult = function(event) {
@@ -1649,15 +1651,15 @@ function initSpeech() {
         if (final) {
             transcriptText.textContent = '📝 "' + final + '"';
             if (document.getElementById('transcriptText2')) document.getElementById('transcriptText2').textContent = '📝 "' + final + '"';
-            showVoiceState('processing', '⏳ Processing your question...');
+            showVoiceState('processing', currentLang === 'kn' ? '⏳ ಪ್ರಶ್ನೆ ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ...' : '⏳ Processing your question...');
             sendToBackend(final);
         }
     };
 
     recognition.onerror = function(event) {
-        let msg = '❌ Could not hear clearly. Try again.';
-        if (event.error === 'not-allowed') msg = '🎤 Please allow mic permissions.';
-        if (event.error === 'no-speech') msg = '🔇 No speech detected. Tap and speak.';
+        let msg = currentLang === 'kn' ? '❌ ಸ್ಪಷ್ಟವಾಗಿ ಕೇಳಿಸಲಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.' : '❌ Could not hear clearly. Try again.';
+        if (event.error === 'not-allowed') msg = currentLang === 'kn' ? '🎤 ದಯವಿಟ್ಟು ಮೈಕ್ರೊಫೋನ್ ಅನುಮತಿ ನೀಡಿ.' : '🎤 Please allow mic permissions.';
+        if (event.error === 'no-speech') msg = currentLang === 'kn' ? '🔇 ಧ್ವನಿ ಕೇಳಿಸಲಿಲ್ಲ. ಬಟನ್ ಒತ್ತಿ ಮಾತನಾಡಿ.' : '🔇 No speech detected. Tap and speak.';
         showVoiceState('error', msg);
         stopRecording();
     };
@@ -1673,8 +1675,8 @@ function stopRecording() {
     if (micBtn2) micBtn2.classList.remove('recording');
     if (micIcon) micIcon.textContent = '🎤';
     if (document.getElementById('micIcon2')) document.getElementById('micIcon2').textContent = '🎤';
-    if (micText) micText.textContent = translations[currentLang].micText;
-    if (document.getElementById('micText2')) document.getElementById('micText2').textContent = translations[currentLang].micText;
+    if (micText && translations[currentLang]) micText.textContent = translations[currentLang].micText;
+    if (document.getElementById('micText2') && translations[currentLang]) document.getElementById('micText2').textContent = translations[currentLang].micText;
     if (equalizerWave) equalizerWave.classList.remove('active');
 }
 
@@ -1718,6 +1720,7 @@ function hideVoiceState() {
 }
 
 let lastDecisionVoiceText = '';
+let currentDecision = null;
 
 function replayCurrentDecisionVoice() {
     playTapSound();
@@ -1725,7 +1728,7 @@ function replayCurrentDecisionVoice() {
         speakResponse(lastDecisionVoiceText);
     } else {
         const statusEl = document.getElementById('decisionStatus');
-        const text = statusEl ? statusEl.textContent : 'ಹವಾಮಾನ ಮುನ್ನೆಚ್ಚರಿಕೆ';
+        const text = statusEl ? statusEl.textContent : (currentLang === 'kn' ? 'ಹವಾಮಾನ ಮುನ್ನೆಚ್ಚರಿಕೆ' : 'Marine Weather Advisory');
         speakResponse(text);
     }
 }
@@ -1748,16 +1751,18 @@ async function sendToBackend(text) {
             speakResponse(lastDecisionVoiceText);
             saveToHistory(data.decision);
         } else {
-            showVoiceState('error', '❌ ' + (data.error || 'Could not process query'));
+            showVoiceState('error', '❌ ' + (data.error || (currentLang === 'kn' ? 'ಪ್ರಶ್ನೆ ಪ್ರಕ್ರಿಯೆಗೊಳಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ' : 'Could not process query')));
         }
     } catch (err) {
-        showVoiceState('error', '❌ Weather service connection issue.');
-        lastDecisionVoiceText = 'ಹವಾಮಾನ ಸಂಪರ್ಕ ಲಭ್ಯವಿಲ್ಲ. ಕಡಲಿಗೆ ಹೋಗುವ ಮುನ್ನ ಬಂದರಿನ ಅಧಿಕೃತ ಮುನ್ನೆಚ್ಚರಿಕೆಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.';
+        showVoiceState('error', currentLang === 'kn' ? '❌ ಹವಾಮಾನ ಸಂಪರ್ಕ ಸಮಸ್ಯೆ.' : '❌ Weather service connection issue.');
+        lastDecisionVoiceText = currentLang === 'kn'
+            ? 'ಹವಾಮಾನ ಸಂಪರ್ಕ ಲಭ್ಯವಿಲ್ಲ. ಕಡಲಿಗೆ ಹೋಗುವ ಮುನ್ನ ಬಂದರಿನ ಅಧಿಕೃತ ಮುನ್ನೆಚ್ಚರಿಕೆಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.'
+            : 'Live weather service unreachable. Check official harbor advisories before setting out.';
         showResult({
             status: 'CAUTION',
-            title: 'Advisory Unavailable (Offline)',
-            advisory_text: 'Live weather service unreachable. Cannot compute real-time marine advisory.',
-            reasons: ['⚠️ Weather connection offline or server starting up', '🚨 Do not sail without checking local harbor flags and official warnings'],
+            title: currentLang === 'kn' ? 'ಸಲಹೆ ಲಭ್ಯವಿಲ್ಲ (ಆಫ್‌ಲೈನ್)' : 'Advisory Unavailable (Offline)',
+            advisory_text: currentLang === 'kn' ? 'ಲೈವ್ ಹವಾಮಾನ ಸರ್ವರ್ ಸಂಪರ್ಕ ಲಭ್ಯವಿಲ್ಲ. ಅಧಿಕೃತ ಮುನ್ಸೂಚನೆ ಪರಿಶೀಲಿಸಿ.' : 'Live weather service unreachable. Cannot compute real-time marine advisory.',
+            reasons: currentLang === 'kn' ? ['⚠️ ಹವಾಮಾನ ಸಂಪರ್ಕ ಆಫ್‌ಲೈನ್ ಅಥವಾ ಸರ್ವರ್ ಆರಂಭಗೊಳ್ಳುತ್ತಿದೆ', '🚨 ಬಂದರಿನ ಅಧಿಕೃತ ಸಿಗ್ನಲ್ ಪರಿಶೀಲಿಸದೆ ಕಡಲಿಗೆ ಹೋಗಬೇಡಿ'] : ['⚠️ Weather connection offline or server starting up', '🚨 Do not sail without checking local harbor flags and official warnings'],
             details: null,
             voice_text: lastDecisionVoiceText
         });
@@ -1765,11 +1770,14 @@ async function sendToBackend(text) {
 }
 
 function showResult(decision) {
+    currentDecision = decision;
     const resBox = document.getElementById('resultContainer');
     const statusEl = document.getElementById('decisionStatus');
     const reasonsEl = document.getElementById('decisionReasons');
     const detailsEl = document.getElementById('decisionDetails');
     const card = document.getElementById('decisionCard');
+    const replayTextEl = document.getElementById('replayBtnText');
+    const isKn = (currentLang === 'kn');
 
     if (!resBox) return;
     resBox.classList.add('visible');
@@ -1780,8 +1788,14 @@ function showResult(decision) {
     const isRough = (status === 'ROUGH' || status === "DON'T GO");
 
     const emoji = isFavorable ? '🟢' : isCaution ? '🟡' : '🔴';
-    const statusLabel = isFavorable ? 'ಹೋಗಿ (GO - SAFE)' : isCaution ? 'ಎಚ್ಚರಿಕೆ (CAUTION)' : 'ಹೋಗಬೇಡಿ (DON\'T GO)';
+    const statusLabel = isKn
+        ? (isFavorable ? 'ಹೋಗಿ (GO - ಸುರಕ್ಷಿತ)' : isCaution ? 'ಎಚ್ಚರಿಕೆ (CAUTION)' : 'ಹೋಗಬೇಡಿ (DON\'T GO)')
+        : (isFavorable ? 'GO (SAFE TO SAIL)' : isCaution ? 'CAUTION (MONITOR CONDITIONS)' : 'DON\'T GO (HAZARDOUS SEA)');
     statusEl.innerHTML = `<span style="font-size:32px;display:inline-block;vertical-align:middle;margin-right:8px;">${emoji}</span>${statusLabel}`;
+
+    if (replayTextEl) {
+        replayTextEl.textContent = isKn ? 'ಧ್ವನಿಯಲ್ಲಿ ಮತ್ತೆ ಕೇಳಿ' : 'Listen Again in Audio';
+    }
 
     if (decision.voice_text) {
         lastDecisionVoiceText = decision.voice_text;
@@ -1804,11 +1818,16 @@ function showResult(decision) {
 
     if (decision.details) {
         let html = '';
-        if (decision.details.temp) html += '<div>🌡️ <b>Sea/Air Temp:</b> ' + decision.details.temp + '°C</div>';
-        if (decision.details.wind) html += '<div>💨 <b>Wind Speed:</b> ' + decision.details.wind + ' km/h</div>';
+        const tempLbl = isKn ? 'ಸಮುದ್ರ/ಗಾಳಿ ತಾಪಮಾನ:' : 'Sea/Air Temp:';
+        const windLbl = isKn ? 'ಗಾಳಿಯ ವೇಗ:' : 'Wind Speed:';
+        const profitLbl = isKn ? 'ಅಂದಾಜು ಲಾಭ:' : 'Estimated Profit:';
+        const skyLbl = isKn ? 'ಆಕಾಶ:' : 'Sky:';
+
+        if (decision.details.temp) html += '<div>🌡️ <b>' + tempLbl + '</b> ' + decision.details.temp + '°C</div>';
+        if (decision.details.wind) html += '<div>💨 <b>' + windLbl + '</b> ' + decision.details.wind + ' km/h</div>';
         const profit = decision.details.estimated_profit || decision.details.profit;
-        if (profit) html += '<div>💰 <b>Estimated Profit:</b> ₹' + profit + '</div>';
-        if (decision.details.weather) html += '<div>⛅ <b>Sky:</b> ' + decision.details.weather + '</div>';
+        if (profit) html += '<div>💰 <b>' + profitLbl + '</b> ₹' + profit + '</div>';
+        if (decision.details.weather) html += '<div>⛅ <b>' + skyLbl + '</b> ' + decision.details.weather + '</div>';
         detailsEl.innerHTML = html;
         detailsEl.style.display = 'grid';
     } else {
@@ -1823,7 +1842,9 @@ function showResult(decision) {
         disclaimerEl.style.cssText = 'margin-top:12px;font-size:11px;color:#94a3b8;line-height:1.5;background:rgba(3,7,18,0.7);padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);text-align:center;';
         card.parentNode.appendChild(disclaimerEl);
     }
-    disclaimerEl.innerHTML = `⚠️ <b>Advisory Only:</b> Based on available weather and marine telemetry. Does not replace official marine/weather warnings from the Indian Coast Guard, IMD, or INCOIS. Always check official port signals before setting out.`;
+    disclaimerEl.innerHTML = isKn
+        ? `⚠️ <b>ಕೇವಲ ಸಲಹಾ ಮಾಹಿತಿ:</b> ಲಭ್ಯವಿರುವ ಹವಾಮಾನ ಮತ್ತು ಕಡಲ ಟೆಲಿಮೆಟ್ರಿ ಆಧಾರಿತ. ಇದು ಭಾರತೀಯ ಕರಾವಳಿ ಕಾವಲು ಪಡೆ (Coast Guard), IMD ಅಥವಾ INCOIS ನ ಅಧಿಕೃತ ಎಚ್ಚರಿಕೆಗೆ ಬದಲಿಯಾಗಿಲ್ಲ. ಕಡಲಿಗೆ ಇಳಿಯುವ ಮುನ್ನ ಯಾವಾಗಲೂ ಬಂದರಿನ ಅಧಿಕೃತ ಸಿಗ್ನಲ್ ಪರಿಶೀಲಿಸಿ.`
+        : `⚠️ <b>Advisory Only:</b> Based on available weather and marine telemetry. Does not replace official marine/weather warnings from the Indian Coast Guard, IMD, or INCOIS. Always check official port signals before setting out.`;
 
     hideVoiceState();
     setTimeout(() => {
@@ -1851,6 +1872,7 @@ function speakResponse(text) {
 async function loadMarket() {
     const list = document.getElementById('marketList');
     if (!list) return;
+    const isKn = (currentLang === 'kn');
     try {
         const response = await fetch(BACKEND_URL + '/market-prices');
         const data = await response.json();
@@ -1860,7 +1882,7 @@ async function loadMarket() {
                     <div>
                         <div style="font-weight:800;font-size:14px;color:white;">🐟 ${p.name || p.fish}</div>
                         <div style="font-size:12px;color:#38bdf8;font-weight:700;margin-top:2px;">${p.kannada || ''}</div>
-                        ${p.season ? `<div style="font-size:10px;color:#94a3b8;margin-top:2px;">🗓️ Peak: ${p.season}</div>` : ''}
+                        ${p.season ? `<div style="font-size:10px;color:#94a3b8;margin-top:2px;">🗓️ ${isKn ? 'ಉತ್ತಮ ಕಾಲ:' : 'Peak:'} ${p.season}</div>` : ''}
                     </div>
                     <div style="text-align:right;">
                         <div class="price" style="font-size:16px;">₹${p.price}/kg</div>
@@ -1870,19 +1892,23 @@ async function loadMarket() {
             `).join('');
         }
     } catch {
-        list.innerHTML = '<p style="opacity:0.6;font-size:13px;">Could not load live rates.</p>';
+        list.innerHTML = `<p style="opacity:0.6;font-size:13px;">${isKn ? 'ದರಗಳನ್ನು ಪಡೆಯಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ.' : 'Could not load live rates.'}</p>`;
     }
 }
 
 async function loadTide() {
     const el = document.getElementById('tideList');
     if (!el) return;
+    const isKn = (currentLang === 'kn');
     try {
         const response = await fetch(BACKEND_URL + '/tide');
         const data = await response.json();
         if (data.success) {
-            el.innerHTML = `<h3 style="font-size:14px;font-weight:800;margin-bottom:8px;color:#38bdf8;">🌊 Tide Telemetry</h3>` +
-                data.tides.map(t => `<div class="item-row"><span>${t.type} Tide</span><span style="font-weight:800;">${t.time} (${t.height}m)</span></div>`).join('');
+            el.innerHTML = `<h3 style="font-size:14px;font-weight:800;margin-bottom:8px;color:#38bdf8;">${isKn ? '🌊 ಉಬ್ಬರವಿಳಿತ ಮಾಹಿತಿ' : '🌊 Tide Telemetry'}</h3>` +
+                data.tides.map(t => {
+                    const tideType = isKn ? (t.type === 'High' ? 'ಏರಿಳಿತ (High)' : 'ಇಳಿಕೆ (Low)') : `${t.type} Tide`;
+                    return `<div class="item-row"><span>${tideType}</span><span style="font-weight:800;">${t.time} (${t.height}m)</span></div>`;
+                }).join('');
         }
     } catch {}
 }
@@ -1890,21 +1916,22 @@ async function loadTide() {
 async function loadCalendar() {
     const el = document.getElementById('calendarList');
     if (!el) return;
+    const isKn = (currentLang === 'kn');
     try {
         const response = await fetch(BACKEND_URL + '/calendar');
         const data = await response.json();
         if (data.success) {
             el.innerHTML = `
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                    <h3 style="font-size:14px;font-weight:800;color:#38bdf8;margin-bottom:0;">🗓️ 7-Day Solunar & Tidal Outlook</h3>
-                    <span style="font-size:10px;background:rgba(6,182,212,0.15);color:#38bdf8;padding:2px 8px;border-radius:10px;font-weight:700;">LUNAR CYCLE</span>
+                    <h3 style="font-size:14px;font-weight:800;color:#38bdf8;margin-bottom:0;">${isKn ? '🗓️ 7 ದಿನಗಳ ಉಬ್ಬರವಿಳಿತ & ಚಂದ್ರನ ಮುನ್ನೋಟ' : '🗓️ 7-Day Solunar & Tidal Outlook'}</h3>
+                    <span style="font-size:10px;background:rgba(6,182,212,0.15);color:#38bdf8;padding:2px 8px;border-radius:10px;font-weight:700;">${isKn ? 'ಚಂದ್ರನ ಚಕ್ರ' : 'LUNAR CYCLE'}</span>
                 </div>
-                <div style="font-size:11px;color:#94a3b8;margin-bottom:8px;">Tidal current estimation based on astronomical moon phases. Check daily weather before trips.</div>
+                <div style="font-size:11px;color:#94a3b8;margin-bottom:8px;">${isKn ? 'ಖಗೋಳ ಚಂದ್ರನ ಹಂತಗಳನ್ನು ಆಧರಿಸಿ ಅಲೆಗಳ ಪ್ರವಾಹ ಅಂದಾಜು. ಕಡಲಿಗೆ ಹೋಗುವ ಮುನ್ನ ದೈನಂದಿನ ಹವಾಮಾನ ಪರಿಶೀಲಿಸಿ.' : 'Tidal current estimation based on astronomical moon phases. Check daily weather before trips.'}</div>
             ` +
                 data.days.map(d => `<div class="item-row"><span>${d.date}</span><span style="font-weight:800;font-size:12px;">${d.rating}</span></div>`).join('');
         }
     } catch {
-        el.innerHTML = '<div style="font-size:12px;color:#94a3b8;padding:10px;">Tidal outlook temporarily unavailable offline.</div>';
+        el.innerHTML = `<div style="font-size:12px;color:#94a3b8;padding:10px;">${isKn ? 'ಉಬ್ಬರವಿಳಿತ ಮುನ್ನೋಟ ಆಫ್‌ಲೈನ್‌ನಲ್ಲಿ ಲಭ್ಯವಿಲ್ಲ.' : 'Tidal outlook temporarily unavailable offline.'}</div>`;
     }
 }
 
@@ -1917,13 +1944,19 @@ async function loadHomeWeather() {
         const hudWind = document.getElementById('hudWind');
         const hudTemp = document.getElementById('hudTemp');
         const hudWave = document.getElementById('hudWave');
+        const isKn = (currentLang === 'kn');
 
         if (data.weather) {
-            if (main) main.textContent = `${data.weather.toUpperCase()} · ${data.temp}°C · Wind ${data.wind} km/h`;
-            if (meta) meta.textContent = `📍 ${data.city || 'Karavali Coast'} · Source: OpenWeather · Live`;
+            if (main) main.textContent = `${data.weather.toUpperCase()} · ${data.temp}°C · ${isKn ? 'ಗಾಳಿ' : 'Wind'} ${data.wind} km/h`;
+            if (meta) meta.textContent = isKn ? `📍 ${data.city || 'ಕರಾವಳಿ ತೀರ'} · ಮೂಲ: OpenWeather · ಲೈವ್` : `📍 ${data.city || 'Karavali Coast'} · Source: OpenWeather · Live`;
             if (hudWind) hudWind.textContent = `${data.wind} km/h`;
             if (hudTemp) hudTemp.textContent = `${data.temp}°C`;
-            if (hudWave) hudWave.textContent = data.wind > 20 ? 'Rough (1.8m)' : data.wind > 12 ? 'Moderate (1.1m)' : 'Calm (0.6m)';
+            const waveText = data.wind > 20
+                ? (isKn ? 'ಪ್ರಕ್ಷುಬ್ಧ (1.8m)' : 'Rough (1.8m)')
+                : data.wind > 12
+                    ? (isKn ? 'ಮಧ್ಯಮ (1.1m)' : 'Moderate (1.1m)')
+                    : (isKn ? 'ಶಾಂತ (0.6m)' : 'Calm (0.6m)');
+            if (hudWave) hudWave.textContent = waveText;
         }
     } catch {}
 }
@@ -1933,12 +1966,13 @@ async function loadBestTime() {
     const dateEl = document.getElementById('bestTimeDate');
     const nowEl = document.getElementById('bestTimeNow');
     if (!container) return;
+    const isKn = (currentLang === 'kn');
 
     try {
         const response = await fetch(BACKEND_URL + '/best-time');
         const data = await response.json();
         if (data.success) {
-            if (dateEl) dateEl.textContent = data.date;
+            if (dateEl) dateEl.textContent = isKn ? 'ಇಂದು' : data.date;
             container.innerHTML = data.windows.map(w => {
                 const color = w.rating === 5 ? '#10b981' : w.rating === 4 ? '#38bdf8' : '#ef4444';
                 const bg = w.rating === 5 ? 'rgba(16,185,129,0.12)' : w.rating === 4 ? 'rgba(56,189,248,0.12)' : 'rgba(239,68,68,0.12)';
@@ -1975,7 +2009,9 @@ if (fishScanBtnEl) {
 
 function renderFishScanner() {
     playTapSound();
-    openMoreFeature('🐟 Fish Guide (ಮೀನು ಪರಿಚಯ)');
+    currentMoreFeature = 'fishGuide';
+    const isKn = (currentLang === 'kn');
+    openMoreFeature(isKn ? '🐟 ಮೀನು ಪರಿಚಯ' : '🐟 Fish Guide');
     selectedFishFile = null;
     const container = document.getElementById('moreContainer');
     if (!container) return;
@@ -1984,19 +2020,19 @@ function renderFishScanner() {
         <div style="background:rgba(15,23,42,0.9);border:1px solid rgba(56,189,248,0.4);border-radius:24px;padding:20px;box-shadow:0 12px 35px rgba(0,0,0,0.5);">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
                 <h3 style="font-size:16px;font-weight:900;color:#38bdf8;display:flex;align-items:center;gap:6px;">
-                    🐟 Fish Species Field Guide & Catalog
+                    ${isKn ? '🐟 ಮೀನು ತಳಿಗಳ ಪರಿಚಯ & ಕ್ಯಾಟಲಾಗ್' : '🐟 Fish Species Field Guide & Catalog'}
                 </h3>
-                <span style="font-size:10px;background:rgba(6,182,212,0.18);color:#38bdf8;padding:3px 8px;border-radius:12px;font-weight:800;">FIELD GUIDE (DEMO)</span>
+                <span style="font-size:10px;background:rgba(6,182,212,0.18);color:#38bdf8;padding:3px 8px;border-radius:12px;font-weight:800;">${isKn ? 'ಮಾರ್ಗದರ್ಶಿ (ಡೆಮೊ)' : 'FIELD GUIDE (DEMO)'}</span>
             </div>
             <p style="font-size:12px;color:#94a3b8;margin-bottom:14px;line-height:1.4;">
-                Select a local species from the directory or upload a photo to inspect regional harbor rates, Kannada/Tulu names & peak landing season.
+                ${isKn ? 'ಕರಾವಳಿ ತಳಿಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ ಅಥವಾ ಫೋಟೋ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ ಮಾರುಕಟ್ಟೆ ದರ, ಕನ್ನಡ ಹೆಸರು & ಗರಿಷ್ಠ ಋತುವಿನ ಮಾಹಿತಿ ಪಡೆಯಿರಿ.' : 'Select a local species from the directory or upload a photo to inspect regional harbor rates, Kannada/Tulu names & peak landing season.'}
             </p>
 
             <!-- DIRECT SPECIES DIRECTORY PICKER -->
             <div style="margin-bottom:14px;background:rgba(3,7,18,0.6);padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,0.08);">
-                <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:6px;">Browse Karavali Coastal Species Catalog directly:</label>
+                <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:6px;">${isKn ? 'ಕರಾವಳಿ ಮೀನುಗಳ ಪಟ್ಟಿಯಿಂದ ಆರಿಸಿ:' : 'Browse Karavali Coastal Species Catalog directly:'}</label>
                 <select id="quickSpeciesSelect" onchange="quickLookupSpecies(this.value)" style="width:100%;padding:10px 12px;background:rgba(15,23,42,0.85);border:1px solid rgba(56,189,248,0.3);border-radius:10px;color:white;font-size:13px;outline:none;">
-                    <option value="">-- Choose Fish to View Catalog Details --</option>
+                    <option value="">${isKn ? '-- ವಿವರ ನೋಡಲು ಮೀನನ್ನು ಆಯ್ಕೆಮಾಡಿ --' : '-- Choose Fish to View Catalog Details --'}</option>
                     <option value="mackerel">Indian Mackerel · ಬಂಗಡೆ (Bangude)</option>
                     <option value="sardine">Oil Sardine · ಬೂತಾಯಿ (Boothai)</option>
                     <option value="pomfret">Silver Pomfret · ಮಾಂಜಿ (Manji)</option>
@@ -2017,18 +2053,18 @@ function renderFishScanner() {
                 <input type="file" id="fishPhotoInput" accept="image/*" capture="environment" style="display:none;" onchange="handleFishPhotoSelected(event)">
                 <div id="dropZonePrompt">
                     <span style="font-size:36px;">📷</span>
-                    <div style="font-weight:800;font-size:14px;margin-top:6px;color:#f8fafc;">Upload or Capture Fish Photo</div>
-                    <div style="font-size:11px;color:#94a3b8;margin-top:3px;">Matches filename/query against coastal species catalog</div>
+                    <div style="font-weight:800;font-size:14px;margin-top:6px;color:#f8fafc;">${isKn ? 'ಮೀನಿನ ಫೋಟೋ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ' : 'Upload or Capture Fish Photo'}</div>
+                    <div style="font-size:11px;color:#94a3b8;margin-top:3px;">${isKn ? 'ಕ್ಯಾಟಲಾಗ್‌ನೊಂದಿಗೆ ತಾಳೆ ನೋಡಿ ಮಾಹಿತಿ ನೀಡುತ್ತದೆ' : 'Matches filename/query against coastal species catalog'}</div>
                 </div>
                 <img id="fishPhotoPreview" style="display:none;max-width:100%;max-height:200px;border-radius:14px;margin:12px auto 0 auto;object-fit:cover;box-shadow:0 6px 20px rgba(0,0,0,0.6);">
             </div>
 
             <div style="display:flex;gap:8px;margin-top:14px;">
                 <button id="analyzeFishBtn" onclick="analyzeFishPhoto()" style="flex:1;padding:14px;background:linear-gradient(135deg,#0ea5e9,#2563eb);border:none;border-radius:14px;color:white;font-weight:900;font-size:14px;cursor:pointer;box-shadow:0 6px 20px rgba(14,165,233,0.4);">
-                    🔍 View Catalog Details (ಮಾಹಿತಿ ನೋಡಿ)
+                    ${isKn ? '🔍 ಮಾಹಿತಿ ನೋಡಿ' : '🔍 View Catalog Details'}
                 </button>
                 <button onclick="renderFishScanner()" style="padding:14px 18px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:14px;color:white;cursor:pointer;font-weight:700;">
-                    Reset
+                    ${isKn ? 'ಮರುಹೊಂದಿಸಿ' : 'Reset'}
                 </button>
             </div>
 
@@ -2049,12 +2085,13 @@ function handleFishPhotoSelected(e) {
     if (!file) return;
     playTapSound();
     selectedFishFile = file;
+    const isKn = (currentLang === 'kn');
     const preview = document.getElementById('fishPhotoPreview');
     const prompt = document.getElementById('dropZonePrompt');
     const reader = new FileReader();
     reader.onload = function(evt) {
         if (preview) { preview.src = evt.target.result; preview.style.display = 'block'; }
-        if (prompt) { prompt.innerHTML = `<span style="font-size:24px;">✅</span> <div style="font-weight:800;font-size:14px;margin-top:4px;">Photo Target Loaded: <b>${file.name}</b></div><div style="font-size:11px;color:#94a3b8;">(Tap to change photo)</div>`; }
+        if (prompt) { prompt.innerHTML = `<span style="font-size:24px;">✅</span> <div style="font-weight:800;font-size:14px;margin-top:4px;">${isKn ? 'ಫೋಟೋ ಲೋಡ್ ಆಗಿದೆ' : 'Photo Loaded'}: <b>${file.name}</b></div><div style="font-size:11px;color:#94a3b8;">${isKn ? '(ಬದಲಾಯಿಸಲು ಮತ್ತೆ ಒತ್ತಿ)' : '(Tap to change photo)'}</div>`; }
     };
     reader.readAsDataURL(file);
 }
@@ -2065,16 +2102,17 @@ async function analyzeFishPhoto(customQuery) {
     if (!resBox) return;
 
     playTapSound();
+    const isKn = (currentLang === 'kn');
     if (btn) {
         btn.disabled = true;
-        btn.textContent = '⏳ Looking up catalog details...';
+        btn.textContent = isKn ? '⏳ ಹುಡುಕಲಾಗುತ್ತಿದೆ...' : '⏳ Looking up catalog details...';
     }
 
     resBox.style.display = 'block';
     resBox.innerHTML = `
         <div style="text-align:center;padding:18px;background:rgba(255,255,255,0.03);border-radius:14px;">
             <div style="font-size:28px;">🔄</div>
-            <div style="font-size:13px;margin-top:8px;color:#cbd5e1;font-weight:600;">Searching Karavali coastal species catalog...</div>
+            <div style="font-size:13px;margin-top:8px;color:#cbd5e1;font-weight:600;">${isKn ? 'ಕರಾವಳಿ ಮೀನುಗಳ ಕ್ಯಾಟಲಾಗ್ ಹುಡುಕಲಾಗುತ್ತಿದೆ...' : 'Searching Karavali coastal species catalog...'}</div>
         </div>
     `;
 
@@ -2105,127 +2143,144 @@ async function analyzeFishPhoto(customQuery) {
                     <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
                         <div>
                             <span style="background:rgba(6,182,212,0.18);color:#38bdf8;font-size:10px;font-weight:800;padding:3px 10px;border-radius:12px;border:1px solid rgba(6,182,212,0.3);letter-spacing:0.4px;">
-                                ${data.match_type || 'CATALOG REFERENCE'}
+                                ${data.match_type || (isKn ? 'ಕ್ಯಾಟಲಾಗ್ ಮಾಹಿತಿ' : 'CATALOG REFERENCE')}
                             </span>
                             <h4 style="font-size:20px;margin-top:6px;margin-bottom:2px;color:white;font-weight:900;">🐟 ${data.fish}</h4>
                             <div style="font-size:16px;color:#6ee7b7;font-weight:800;">${data.kannada}</div>
                         </div>
                         <div style="text-align:right;">
-                            <div style="font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase;">Harbor Rate</div>
+                            <div style="font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase;">${isKn ? 'ಬಂದರು ದರ' : 'Harbor Rate'}</div>
                             <div style="font-size:22px;font-weight:900;color:#facc15;">₹${data.price}/kg</div>
                             <div style="font-size:10px;color:#94a3b8;">${data.range}</div>
                         </div>
                     </div>
 
                     <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.08);font-size:12px;color:#cbd5e1;line-height:1.6;">
-                        <div>🗓️ <b>Peak Landing Season:</b> ${data.season}</div>
-                        <div style="margin-top:4px;">⚓ <b>Port Handling Tip:</b> ${data.advice}</div>
+                        <div>🗓️ <b>${isKn ? 'ಗರಿಷ್ಠ ಋತು:' : 'Peak Landing Season:'}</b> ${data.season}</div>
+                        <div style="margin-top:4px;">⚓ <b>${isKn ? 'ಬಂದರು ಸಲಹೆ:' : 'Port Handling Tip:'}</b> ${data.advice}</div>
                     </div>
 
                     <div style="margin-top:12px;padding:9px 12px;background:rgba(3,7,18,0.7);border-radius:10px;font-size:10px;color:#94a3b8;line-height:1.4;border:1px solid rgba(255,255,255,0.06);">
-                        ⚠️ <b>Demo Field Guide:</b> ${data.disclaimer}
+                        ⚠️ <b>${isKn ? 'ಮಾರ್ಗದರ್ಶಿ ಸೂಚನೆ:' : 'Demo Field Guide:'}</b> ${data.disclaimer}
                     </div>
 
                     <button onclick="speakResponse('${data.fish}. ${data.kannada}. ಇಂದಿನ ಮಾರುಕಟ್ಟೆ ದರ ಕೆಜಿಗೆ ${data.price} ರೂಪಾಯಿ.')" style="margin-top:12px;width:100%;padding:11px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);border-radius:12px;color:white;font-size:12px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
-                        🔊 Hear in Kannada (ಧ್ವನಿಯಲ್ಲಿ ಕೇಳಿ)
+                        ${isKn ? '🔊 ಧ್ವನಿಯಲ್ಲಿ ಕೇಳಿ' : '🔊 Hear in Audio'}
                     </button>
                 </div>
             `;
         } else {
-            resBox.innerHTML = '<div style="color:#ef4444;font-size:13px;padding:10px;text-align:center;">❌ Could not locate species in catalog.</div>';
+            resBox.innerHTML = `<div style="color:#ef4444;font-size:13px;padding:10px;text-align:center;">${isKn ? '❌ ಕ್ಯಾಟಲಾಗ್‌ನಲ್ಲಿ ಮಾಹಿತಿ ಸಿಗಲಿಲ್ಲ.' : '❌ Could not locate species in catalog.'}</div>`;
         }
     } catch (e) {
-        resBox.innerHTML = '<div style="color:#ef4444;font-size:13px;padding:10px;text-align:center;">❌ Server communication error.</div>';
+        resBox.innerHTML = `<div style="color:#ef4444;font-size:13px;padding:10px;text-align:center;">${isKn ? '❌ ಸರ್ವರ್ ಸಂಪರ್ಕ ದೋಷ.' : '❌ Server communication error.'}</div>`;
     } finally {
         if (btn) {
             btn.disabled = false;
-            btn.textContent = '🔍 View Catalog Details (ಮಾಹಿತಿ ನೋಡಿ)';
+            btn.textContent = isKn ? '🔍 ಮಾಹಿತಿ ನೋಡಿ' : '🔍 View Catalog Details';
         }
     }
 }
 
 // ============================================
-// MORE BUTTON EVENT LISTENERS
+// MORE SECTION FEATURES (MULTI-LANGUAGE)
 // ============================================
-document.getElementById('historyBtn').addEventListener('click', function() {
-    playTapSound();
-    openMoreFeature('📋 Advisory History (ಇತಿಹಾಸ)');
+let currentMoreFeature = null;
+
+function renderAdvisoryHistory() {
+    currentMoreFeature = 'history';
+    const isKn = (currentLang === 'kn');
+    openMoreFeature(isKn ? '📋 ಸಲಹೆಗಳ ಇತಿಹಾಸ' : '📋 Advisory History');
     const trips = JSON.parse(localStorage.getItem('trips') || '[]');
-    document.getElementById('moreContainer').innerHTML = `
+    const container = document.getElementById('moreContainer');
+    if (!container) return;
+    container.innerHTML = `
         <div class="glass-card" style="margin-top:0;">
-            <h3 style="font-size:15px;margin-bottom:8px;font-weight:800;color:#38bdf8;">📋 Voyage Advisory Log</h3>
-            <p style="font-size:12px;color:#94a3b8;margin-bottom:12px;">Past safety decisions logged during your fishing trips:</p>
-            ${trips.length === 0 ? '<p style="opacity:0.6;font-size:13px;padding:12px 0;">No past trips recorded yet. Ask a safety question on the Home tab to log trips.</p>' :
-            trips.slice(-10).reverse().map(t => `<div class="item-row"><span>${t.status === 'GO' ? '🟢 GO (ಹೋಗಿ)' : t.status === 'CAUTION' ? '🟡 CAUTION (ಎಚ್ಚರಿಕೆ)' : '🔴 STAY (ಹೋಗಬೇಡಿ)'}</span><span style="font-size:11px;color:#94a3b8;font-weight:600;">${t.date}</span></div>`).join('')}
+            <h3 style="font-size:15px;margin-bottom:8px;font-weight:800;color:#38bdf8;">${isKn ? '📋 ಪ್ರಯಾಣ ಸಲಹಾ ಲಾಗ್‌ಬುಕ್' : '📋 Voyage Advisory Log'}</h3>
+            <p style="font-size:12px;color:#94a3b8;margin-bottom:12px;">${isKn ? 'ನಿಮ್ಮ ಹಿಂದಿನ ಮೀನುಗಾರಿಕೆ ಪ್ರವಾಸಗಳಲ್ಲಿ ದಾಖಲಾದ ಸುರಕ್ಷತಾ ನಿರ್ಧಾರಗಳು:' : 'Past safety decisions logged during your fishing trips:'}</p>
+            ${trips.length === 0 ? `<p style="opacity:0.6;font-size:13px;padding:12px 0;">${isKn ? 'ಇನ್ನೂ ಯಾವುದೇ ಪ್ರವಾಸಗಳು ದಾಖಲಾಗಿಲ್ಲ. ಮುಖಪುಟದಲ್ಲಿ ಪ್ರಶ್ನೆ ಕೇಳಿ ದಾಖಲಿಸಿ.' : 'No past trips recorded yet. Ask a safety question on the Home tab to log trips.'}</p>` :
+            trips.slice(-10).reverse().map(t => `<div class="item-row"><span>${t.status === 'GO' || t.status === 'FAVORABLE' ? (isKn ? '🟢 ಹೋಗಿ (GO)' : '🟢 GO (SAFE)') : t.status === 'CAUTION' ? (isKn ? '🟡 ಎಚ್ಚರಿಕೆ (CAUTION)' : '🟡 CAUTION') : (isKn ? '🔴 ಹೋಗಬೇಡಿ (DON\'T GO)' : '🔴 STAY (DON\'T GO)')}</span><span style="font-size:11px;color:#94a3b8;font-weight:600;">${t.date}</span></div>`).join('')}
         </div>
     `;
-});
+}
 
-document.getElementById('dashboardBtn').addEventListener('click', function() {
-    playTapSound();
-    openMoreFeature('📈 Voyage Stats (ಅಂಕಿಅಂಶ)');
+function renderVoyageStats() {
+    currentMoreFeature = 'dashboard';
+    const isKn = (currentLang === 'kn');
+    openMoreFeature(isKn ? '📈 ಪ್ರಯಾಣದ ಅಂಕಿ-ಅಂಶ' : '📈 Voyage Stats');
     const trips = JSON.parse(localStorage.getItem('trips') || '[]');
-    const go = trips.filter(t => t.status === 'GO').length;
+    const go = trips.filter(t => t.status === 'GO' || t.status === 'FAVORABLE').length;
     const caution = trips.filter(t => t.status === 'CAUTION').length;
-    const dontgo = trips.filter(t => t.status === "DON'T GO").length;
-    document.getElementById('moreContainer').innerHTML = `
+    const dontgo = trips.filter(t => t.status === "DON'T GO" || t.status === 'ROUGH').length;
+    const container = document.getElementById('moreContainer');
+    if (!container) return;
+    container.innerHTML = `
         <div class="glass-card" style="margin-top:0;">
-            <h3 style="font-size:15px;margin-bottom:6px;font-weight:800;color:#38bdf8;">📈 Fishing Voyage Statistics</h3>
-            <p style="font-size:12px;color:#94a3b8;margin-bottom:14px;">Historical summary of all logged maritime safety advisory queries:</p>
+            <h3 style="font-size:15px;margin-bottom:6px;font-weight:800;color:#38bdf8;">${isKn ? '📈 ಮೀನುಗಾರಿಕೆ ಪ್ರಯಾಣ ಅಂಕಿ-ಅಂಶ' : '📈 Fishing Voyage Statistics'}</h3>
+            <p style="font-size:12px;color:#94a3b8;margin-bottom:14px;">${isKn ? 'ದಾಖಲಾದ ಕಡಲ ಸುರಕ್ಷತಾ ಸಲಹಾ ಪ್ರಶ್ನೆಗಳ ಐತಿಹಾಸಿಕ ಸಾರಾಂಶ:' : 'Historical summary of all logged maritime safety advisory queries:'}</p>
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
-                <div style="background:rgba(16,185,129,0.15);padding:14px;border-radius:14px;text-align:center;border:1px solid rgba(16,185,129,0.3);"><div style="font-size:24px;font-weight:900;color:#6ee7b7;">${go}</div><div style="font-size:11px;color:#94a3b8;margin-top:2px;font-weight:700;">GO</div></div>
-                <div style="background:rgba(245,158,11,0.15);padding:14px;border-radius:14px;text-align:center;border:1px solid rgba(245,158,11,0.3);"><div style="font-size:24px;font-weight:900;color:#fcd34d;">${caution}</div><div style="font-size:11px;color:#94a3b8;margin-top:2px;font-weight:700;">CAUTION</div></div>
-                <div style="background:rgba(239,68,68,0.15);padding:14px;border-radius:14px;text-align:center;border:1px solid rgba(239,68,68,0.3);"><div style="font-size:24px;font-weight:900;color:#fca5a5;">${dontgo}</div><div style="font-size:11px;color:#94a3b8;margin-top:2px;font-weight:700;">DON'T GO</div></div>
+                <div style="background:rgba(16,185,129,0.15);padding:14px;border-radius:14px;text-align:center;border:1px solid rgba(16,185,129,0.3);"><div style="font-size:24px;font-weight:900;color:#6ee7b7;">${go}</div><div style="font-size:11px;color:#94a3b8;margin-top:2px;font-weight:700;">${isKn ? 'ಹೋಗಿ' : 'GO'}</div></div>
+                <div style="background:rgba(245,158,11,0.15);padding:14px;border-radius:14px;text-align:center;border:1px solid rgba(245,158,11,0.3);"><div style="font-size:24px;font-weight:900;color:#fcd34d;">${caution}</div><div style="font-size:11px;color:#94a3b8;margin-top:2px;font-weight:700;">${isKn ? 'ಎಚ್ಚರಿಕೆ' : 'CAUTION'}</div></div>
+                <div style="background:rgba(239,68,68,0.15);padding:14px;border-radius:14px;text-align:center;border:1px solid rgba(239,68,68,0.3);"><div style="font-size:24px;font-weight:900;color:#fca5a5;">${dontgo}</div><div style="font-size:11px;color:#94a3b8;margin-top:2px;font-weight:700;">${isKn ? 'ಹೋಗಬೇಡಿ' : "DON'T GO"}</div></div>
             </div>
             <div style="margin-top:14px;padding:10px 12px;background:rgba(255,255,255,0.03);border-radius:12px;font-size:11px;color:#94a3b8;line-height:1.5;">
-                Total Logged Trips: <b style="color:white;">${trips.length}</b> · Safe GO Rate: <b style="color:#6ee7b7;">${trips.length ? Math.round((go / trips.length) * 100) : 0}%</b>
+                ${isKn ? 'ಒಟ್ಟು ದಾಖಲಾದ ಪ್ರವಾಸಗಳು:' : 'Total Logged Trips:'} <b style="color:white;">${trips.length}</b> · ${isKn ? 'ಸುರಕ್ಷಿತ ದರ:' : 'Safe GO Rate:'} <b style="color:#6ee7b7;">${trips.length ? Math.round((go / (trips.length || 1)) * 100) : 0}%</b>
             </div>
         </div>
     `;
-});
+}
 
-document.getElementById('fuelBtn').addEventListener('click', function() {
-    playTapSound();
-    openMoreFeature('⛽ Fuel Calculator (ಇಂಧನ)');
-    document.getElementById('moreContainer').innerHTML = `
+function renderFuelCalculator() {
+    currentMoreFeature = 'fuel';
+    const isKn = (currentLang === 'kn');
+    openMoreFeature(isKn ? '⛽ ಇಂಧನ ಲೆಕ್ಕಾಚಾರ' : '⛽ Fuel Calculator');
+    const container = document.getElementById('moreContainer');
+    if (!container) return;
+    container.innerHTML = `
         <div class="glass-card" style="margin-top:0;">
-            <h3 style="font-size:15px;margin-bottom:8px;font-weight:800;color:#38bdf8;">⛽ Outboard Motor Fuel Calculator</h3>
-            <p style="font-size:12px;color:#94a3b8;margin-bottom:12px;">Estimate voyage diesel consumption and total trip fuel expenditure:</p>
+            <h3 style="font-size:15px;margin-bottom:8px;font-weight:800;color:#38bdf8;">${isKn ? '⛽ ಔಟ್‌ಬೋರ್ಡ್ ಮೋಟಾರ್ ಇಂಧನ ಲೆಕ್ಕಾಚಾರ' : '⛽ Outboard Motor Fuel Calculator'}</h3>
+            <p style="font-size:12px;color:#94a3b8;margin-bottom:12px;">${isKn ? 'ಪ್ರಯಾಣದ ಡೀಸೆಲ್ ಬಳಕೆ ಮತ್ತು ಒಟ್ಟು ಇಂಧನ ವೆಚ್ಚವನ್ನು ಅಂದಾಜಿಸಿ:' : 'Estimate voyage diesel consumption and total trip fuel expenditure:'}</p>
             <div style="display:flex;gap:8px;margin-bottom:10px;">
                 <div style="flex:1;">
-                    <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px;">Distance (km/NM):</label>
-                    <input type="number" id="fuelDistance" placeholder="Distance (km / NM)" value="12" style="width:100%;padding:11px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:rgba(3,7,18,0.6);color:white;font-size:13px;box-sizing:border-box;">
+                    <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px;">${isKn ? 'ದೂರ (km/NM):' : 'Distance (km/NM):'}</label>
+                    <input type="number" id="fuelDistance" placeholder="${isKn ? 'ದೂರ (km / NM)' : 'Distance (km / NM)'}" value="12" style="width:100%;padding:11px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:rgba(3,7,18,0.6);color:white;font-size:13px;box-sizing:border-box;">
                 </div>
                 <div style="flex:1;">
-                    <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px;">Diesel Rate (₹/L):</label>
-                    <input type="number" id="fuelPrice" placeholder="Diesel Rate (₹/L)" value="92" style="width:100%;padding:11px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:rgba(3,7,18,0.6);color:white;font-size:13px;box-sizing:border-box;">
+                    <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px;">${isKn ? 'ಡೀಸೆಲ್ ದರ (₹/L):' : 'Diesel Rate (₹/L):'}</label>
+                    <input type="number" id="fuelPrice" placeholder="${isKn ? 'ಡೀಸೆಲ್ ದರ (₹/L)' : 'Diesel Rate (₹/L)'}" value="92" style="width:100%;padding:11px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:rgba(3,7,18,0.6);color:white;font-size:13px;box-sizing:border-box;">
                 </div>
             </div>
-            <button onclick="calculateFuel()" style="width:100%;padding:13px;background:linear-gradient(135deg,#0ea5e9,#2563eb);border:none;border-radius:12px;color:white;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 4px 14px rgba(14,165,233,0.3);">Calculate Expense</button>
+            <button onclick="calculateFuel()" style="width:100%;padding:13px;background:linear-gradient(135deg,#0ea5e9,#2563eb);border:none;border-radius:12px;color:white;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 4px 14px rgba(14,165,233,0.3);">${isKn ? 'ವೆಚ್ಚ ಲೆಕ್ಕ ಹಾಕಿ' : 'Calculate Expense'}</button>
             <div id="fuelResult" style="margin-top:12px;"></div>
         </div>
     `;
-});
+}
 
 window.calculateFuel = function() {
     playTapSound();
+    const isKn = (currentLang === 'kn');
     const d = parseFloat(document.getElementById('fuelDistance').value) || 12;
     const p = parseFloat(document.getElementById('fuelPrice').value) || 92;
     const liters = (d * 2.8).toFixed(1);
     const cost = d * 2.8 * p;
-    document.getElementById('fuelResult').innerHTML = `
-        <div style="background:rgba(3,7,18,0.7);padding:12px;border-radius:12px;border:1px solid rgba(56,189,248,0.25);">
-            <div class="item-row" style="padding:4px 0;"><span>Estimated Diesel Needed:</span><span style="font-weight:800;color:#38bdf8;">~${liters} L</span></div>
-            <div class="item-row" style="padding:4px 0;"><span>Estimated Fuel Cost:</span><span class="price">₹${cost.toFixed(0)}</span></div>
-        </div>
-    `;
+    const resEl = document.getElementById('fuelResult');
+    if (resEl) {
+        resEl.innerHTML = `
+            <div style="background:rgba(3,7,18,0.7);padding:12px;border-radius:12px;border:1px solid rgba(56,189,248,0.25);">
+                <div class="item-row" style="padding:4px 0;"><span>${isKn ? 'ಅಂದಾಜು ಡೀಸೆಲ್ ಬಳಕೆ:' : 'Estimated Diesel Needed:'}</span><span style="font-weight:800;color:#38bdf8;">~${liters} L</span></div>
+                <div class="item-row" style="padding:4px 0;"><span>${isKn ? 'ಅಂದಾಜು ಇಂಧನ ವೆಚ್ಚ:' : 'Estimated Fuel Cost:'}</span><span class="price">₹${cost.toFixed(0)}</span></div>
+            </div>
+        `;
+    }
 };
 
-document.getElementById('schemeBtn').addEventListener('click', async function() {
-    playTapSound();
-    openMoreFeature('🏛️ Govt Schemes (ಯೋಜನೆಗಳು)');
+async function renderGovtSchemes() {
+    currentMoreFeature = 'schemes';
+    const isKn = (currentLang === 'kn');
+    openMoreFeature(isKn ? '🏛️ ಸರ್ಕಾರಿ ಯೋಜನೆಗಳು' : '🏛️ Govt Schemes');
     const moreContainer = document.getElementById('moreContainer');
-    moreContainer.innerHTML = '<div class="glass-card" style="margin-top:0;"><p style="opacity:0.6;font-size:13px;">⏳ Loading PMMSY government schemes...</p></div>';
+    if (!moreContainer) return;
+    moreContainer.innerHTML = `<div class="glass-card" style="margin-top:0;"><p style="opacity:0.6;font-size:13px;">${isKn ? '⏳ ಪ್ರಧಾನಮಂತ್ರಿ ಮತ್ಸ್ಯ ಸಂಪದ ಯೋಜನೆಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ...' : '⏳ Loading PMMSY government schemes...'}</p></div>`;
     try {
         const response = await fetch(BACKEND_URL + '/schemes');
         const data = await response.json();
@@ -2233,30 +2288,32 @@ document.getElementById('schemeBtn').addEventListener('click', async function() 
             moreContainer.innerHTML = `
                 <div class="glass-card" style="margin-top:0;">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                        <h3 style="font-size:15px;margin-bottom:0;font-weight:800;color:#38bdf8;">🏛️ Government Subsidies & Insurance</h3>
+                        <h3 style="font-size:15px;margin-bottom:0;font-weight:800;color:#38bdf8;">${isKn ? '🏛️ ಸರ್ಕಾರಿ ಸಬ್ಸಿಡಿ & ವಿಮೆ ಯೋಜನೆಗಳು' : '🏛️ Government Subsidies & Insurance'}</h3>
                         <span style="font-size:10px;background:rgba(6,182,212,0.15);color:#38bdf8;padding:2px 8px;border-radius:10px;font-weight:700;">PMMSY / NFDB</span>
                     </div>
-                    <p style="font-size:12px;color:#94a3b8;margin-bottom:12px;">Pradhan Mantri Matsya Sampada Yojana and state marine schemes for Karnataka fishermen:</p>
+                    <p style="font-size:12px;color:#94a3b8;margin-bottom:12px;">${isKn ? 'ಕರ್ನಾಟಕ ಮೀನುಗಾರರಿಗೆ ಪ್ರಧಾನಮಂತ್ರಿ ಮತ್ಸ್ಯ ಸಂಪದ ಯೋಜನೆ ಮತ್ತು ರಾಜ್ಯ ಯೋಜನೆಗಳು:' : 'Pradhan Mantri Matsya Sampada Yojana and state marine schemes for Karnataka fishermen:'}</p>
                     ${data.schemes.map(s => `
                         <div style="padding:12px;background:rgba(255,255,255,0.04);border-radius:14px;margin:8px 0;border:1px solid rgba(255,255,255,0.06);">
                             <div style="font-weight:800;font-size:13px;color:#38bdf8;">${s.name}</div>
                             <div style="font-size:12px;color:#cbd5e1;margin-top:3px;line-height:1.4;">${s.description}</div>
-                            <div style="font-size:11px;color:#facc15;margin-top:6px;font-weight:700;">🎯 Eligibility: ${s.eligibility}</div>
+                            <div style="font-size:11px;color:#facc15;margin-top:6px;font-weight:700;">🎯 ${isKn ? 'ಅರ್ಹತೆ:' : 'Eligibility:'} ${s.eligibility}</div>
                         </div>
                     `).join('')}
                 </div>
             `;
         }
     } catch {
-        moreContainer.innerHTML = '<div class="glass-card" style="margin-top:0;"><p style="color:#ef4444;font-size:13px;">❌ Could not load schemes. Please check your internet connection.</p></div>';
+        moreContainer.innerHTML = `<div class="glass-card" style="margin-top:0;"><p style="color:#ef4444;font-size:13px;">${isKn ? '❌ ಯೋಜನೆಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕ ಪರಿಶೀಲಿಸಿ.' : '❌ Could not load schemes. Please check your internet connection.'}</p></div>`;
     }
-});
+}
 
-document.getElementById('predictionBtn').addEventListener('click', async function() {
-    playTapSound();
-    openMoreFeature('🐟 Seasonal Guide (ಋತುಮಾನ)');
+async function renderSeasonalPrediction() {
+    currentMoreFeature = 'prediction';
+    const isKn = (currentLang === 'kn');
+    openMoreFeature(isKn ? '🐟 ಋತುಮಾನ ಮಾರ್ಗದರ್ಶಿ' : '🐟 Seasonal Guide');
     const moreContainer = document.getElementById('moreContainer');
-    moreContainer.innerHTML = '<div class="glass-card" style="margin-top:0;"><p style="opacity:0.6;font-size:13px;">⏳ Loading Karavali seasonal catch guide...</p></div>';
+    if (!moreContainer) return;
+    moreContainer.innerHTML = `<div class="glass-card" style="margin-top:0;"><p style="opacity:0.6;font-size:13px;">${isKn ? '⏳ ಕರಾವಳಿ ಋತುಮಾನ ಮೀನುಗಾರಿಕೆ ಮಾಹಿತಿ ಲೋಡ್ ಆಗುತ್ತಿದೆ...' : '⏳ Loading Karavali seasonal catch guide...'}</p></div>`;
     try {
         const response = await fetch(BACKEND_URL + '/fish-prediction');
         const data = await response.json();
@@ -2264,11 +2321,11 @@ document.getElementById('predictionBtn').addEventListener('click', async functio
             moreContainer.innerHTML = `
                 <div class="glass-card" style="margin-top:0;">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                        <h3 style="font-size:15px;margin-bottom:0;font-weight:800;color:#38bdf8;">🐟 Seasonal Catch Guide</h3>
-                        <span style="font-size:10px;background:rgba(6,182,212,0.15);color:#38bdf8;padding:2px 8px;border-radius:10px;font-weight:700;">${data.month || 'Karavali Coast'}</span>
+                        <h3 style="font-size:15px;margin-bottom:0;font-weight:800;color:#38bdf8;">${isKn ? '🐟 ಕರಾವಳಿ ಋತುಮಾನ ಮೀನುಗಾರಿಕೆ ಮಾರ್ಗದರ್ಶಿ' : '🐟 Seasonal Catch Guide'}</h3>
+                        <span style="font-size:10px;background:rgba(6,182,212,0.15);color:#38bdf8;padding:2px 8px;border-radius:10px;font-weight:700;">${data.month || (isKn ? 'ಕರಾವಳಿ ತೀರ' : 'Karavali Coast')}</span>
                     </div>
                     <div style="font-size:11px;color:#94a3b8;margin-bottom:12px;line-height:1.4;">
-                        Historical seasonal availability index for Coastal Karnataka (CMFRI reference). Not a live tracking radar.
+                        ${isKn ? 'ಕರಾವಳಿ ಕರ್ನಾಟಕದ ಐತಿಹಾಸಿಕ ಲಭ್ಯತೆ ಸೂಚ್ಯಂಕ (CMFRI ಉಲ್ಲೇಖ). ನೇರ ರೇಡಾರ್ ಅಲ್ಲ.' : 'Historical seasonal availability index for Coastal Karnataka (CMFRI reference). Not a live tracking radar.'}
                     </div>
                     ${data.predictions.map(p => `
                         <div class="item-row" style="align-items:flex-start;padding:10px 12px;">
@@ -2293,16 +2350,18 @@ document.getElementById('predictionBtn').addEventListener('click', async functio
             if (ca) ca.scrollTop = 0;
         }
     } catch {
-        moreContainer.innerHTML = '<div class="glass-card" style="margin-top:0;"><p style="color:#ef4444;font-size:13px;">❌ Could not load seasonal guide. Please check connection.</p></div>';
+        moreContainer.innerHTML = `<div class="glass-card" style="margin-top:0;"><p style="color:#ef4444;font-size:13px;">${isKn ? '❌ ಋತುಮಾನ ಮಾರ್ಗದರ್ಶಿ ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ. ಸಂಪರ್ಕ ಪರಿಶೀಲಿಸಿ.' : '❌ Could not load seasonal guide. Please check connection.'}</p></div>`;
     }
-});
+}
 
-document.getElementById('exportBtn').addEventListener('click', function() {
+function renderExportVoyage() {
     playTapSound();
-    openMoreFeature('📄 Export Voyage (ವರದಿ)');
+    currentMoreFeature = 'export';
+    const isKn = (currentLang === 'kn');
+    openMoreFeature(isKn ? '📄 ವರದಿ ಡೌನ್‌ಲೋಡ್' : '📄 Export Voyage');
     const trips = JSON.parse(localStorage.getItem('trips') || '[]');
     let txt = '=== FISHERMEN-AI KARAVALI TRIP REPORT ===\nGenerated: ' + new Date().toLocaleString() + '\n\n';
-    if (trips.length === 0) txt += 'No recent trips found in local storage.\n';
+    if (trips.length === 0) txt += (isKn ? 'ಯಾವುದೇ ಪ್ರವಾಸಗಳು ದಾಖಲಾಗಿಲ್ಲ.\n' : 'No recent trips found in local storage.\n');
     else trips.forEach((t, i) => txt += `Trip #${i+1} | ${t.date} | Decision: ${t.status}\n`);
     
     // Automatically trigger report text file download
@@ -2314,19 +2373,43 @@ document.getElementById('exportBtn').addEventListener('click', function() {
     a.click();
     URL.revokeObjectURL(url);
 
-    // Display formatted voyage export summary at top
-    document.getElementById('moreContainer').innerHTML = `
+    renderExportVoyageSummaryOnly(txt);
+}
+
+function renderExportVoyageSummaryOnly(customTxt) {
+    currentMoreFeature = 'export';
+    const isKn = (currentLang === 'kn');
+    openMoreFeature(isKn ? '📄 ವರದಿ ಡೌನ್‌ಲೋಡ್' : '📄 Export Voyage');
+    const trips = JSON.parse(localStorage.getItem('trips') || '[]');
+    let txt = customTxt;
+    if (!txt) {
+        txt = '=== FISHERMEN-AI KARAVALI TRIP REPORT ===\nGenerated: ' + new Date().toLocaleString() + '\n\n';
+        if (trips.length === 0) txt += (isKn ? 'ಯಾವುದೇ ಪ್ರವಾಸಗಳು ದಾಖಲಾಗಿಲ್ಲ.\n' : 'No recent trips found in local storage.\n');
+        else trips.forEach((t, i) => txt += `Trip #${i+1} | ${t.date} | Decision: ${t.status}\n`);
+    }
+
+    const container = document.getElementById('moreContainer');
+    if (!container) return;
+    container.innerHTML = `
         <div class="glass-card" style="margin-top:0;">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                <h3 style="font-size:15px;margin-bottom:0;font-weight:800;color:#38bdf8;">📄 Voyage Report Exported</h3>
+                <h3 style="font-size:15px;margin-bottom:0;font-weight:800;color:#38bdf8;">${isKn ? '📄 ಪ್ರಯಾಣದ ವರದಿ ಡೌನ್‌ಲೋಡ್ ಆಗಿದೆ' : '📄 Voyage Report Exported'}</h3>
                 <span style="font-size:10px;background:rgba(16,185,129,0.2);color:#6ee7b7;padding:3px 8px;border-radius:12px;font-weight:700;">DOWNLOADED</span>
             </div>
-            <p style="font-size:12px;color:#cbd5e1;margin-bottom:12px;">Your trip advisory log file has been generated and saved to your device downloads folder.</p>
+            <p style="font-size:12px;color:#cbd5e1;margin-bottom:12px;">${isKn ? 'ನಿಮ್ಮ ಪ್ರಯಾಣದ ವಿವರಗಳ ಫೈಲ್ ಡೌನ್‌ಲೋಡ್ ಫೋಲ್ಡರ್‌ನಲ್ಲಿ ಉಳಿಸಲಾಗಿದೆ.' : 'Your trip advisory log file has been generated and saved to your device downloads folder.'}</p>
             <div style="background:rgba(3,7,18,0.7);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);font-family:monospace;font-size:11px;color:#94a3b8;white-space:pre-wrap;max-height:180px;overflow-y:auto;margin-bottom:14px;">${txt}</div>
-            <button onclick="document.getElementById('exportBtn').click()" style="width:100%;padding:12px;background:linear-gradient(135deg,#0ea5e9,#2563eb);border:none;border-radius:12px;color:white;font-weight:800;font-size:13px;cursor:pointer;box-shadow:0 4px 14px rgba(14,165,233,0.3);">📥 Download Report File Again</button>
+            <button onclick="renderExportVoyage()" style="width:100%;padding:12px;background:linear-gradient(135deg,#0ea5e9,#2563eb);border:none;border-radius:12px;color:white;font-weight:800;font-size:13px;cursor:pointer;box-shadow:0 4px 14px rgba(14,165,233,0.3);">${isKn ? '📥 ವರದಿ ಫೈಲ್ ಮತ್ತೆ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ' : '📥 Download Report File Again'}</button>
         </div>
     `;
-});
+}
+
+// Attach event listeners for 8 More features
+document.getElementById('historyBtn').addEventListener('click', function() { playTapSound(); renderAdvisoryHistory(); });
+document.getElementById('dashboardBtn').addEventListener('click', function() { playTapSound(); renderVoyageStats(); });
+document.getElementById('fuelBtn').addEventListener('click', function() { playTapSound(); renderFuelCalculator(); });
+document.getElementById('schemeBtn').addEventListener('click', function() { playTapSound(); renderGovtSchemes(); });
+document.getElementById('predictionBtn').addEventListener('click', function() { playTapSound(); renderSeasonalPrediction(); });
+document.getElementById('exportBtn').addEventListener('click', function() { renderExportVoyage(); });
 
 // ============================================
 // 🎣 CATCH LOGGER & REVENUE TRACKER
@@ -2340,7 +2423,9 @@ if (catchLogBtnEl) {
 }
 
 function renderCatchLogger() {
-    openMoreFeature('🎣 Catch Logger (ಹಿಡಿದ ಮೀನು)');
+    currentMoreFeature = 'catchLog';
+    const isKn = (currentLang === 'kn');
+    openMoreFeature(isKn ? '🎣 ಮೀನು ಬೇಟೆ ದಾಖಲೆ' : '🎣 Catch Logger');
     const catches = JSON.parse(localStorage.getItem('catches') || '[]');
     const totalKg = catches.reduce((acc, c) => acc + (parseFloat(c.kg) || 0), 0);
     const totalRev = catches.reduce((acc, c) => acc + (parseFloat(c.revenue) || 0), 0);
@@ -2351,18 +2436,18 @@ function renderCatchLogger() {
     container.innerHTML = `
         <div class="glass-card" style="margin-top:0;">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                <h3 style="font-size:15px;margin-bottom:0;font-weight:800;color:#38bdf8;">🎣 Daily Catch & Revenue Logger</h3>
+                <h3 style="font-size:15px;margin-bottom:0;font-weight:800;color:#38bdf8;">${isKn ? '🎣 ದೈನಂದಿನ ಮೀನು ಬೇಟೆ & ಆದಾಯ ದಾಖಲೆ' : '🎣 Daily Catch & Revenue Logger'}</h3>
                 <span style="font-size:10px;background:rgba(16,185,129,0.2);color:#6ee7b7;padding:3px 8px;border-radius:12px;font-weight:700;">LIVE LOG</span>
             </div>
 
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
                 <div style="background:rgba(15,23,42,0.8);padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);text-align:center;">
                     <div style="font-size:18px;font-weight:900;color:#38bdf8;">${totalKg.toFixed(1)} kg</div>
-                    <div style="font-size:10px;color:#94a3b8;font-weight:700;">TOTAL CATCH</div>
+                    <div style="font-size:10px;color:#94a3b8;font-weight:700;">${isKn ? 'ಒಟ್ಟು ಮೀನು' : 'TOTAL CATCH'}</div>
                 </div>
                 <div style="background:rgba(15,23,42,0.8);padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);text-align:center;">
                     <div style="font-size:18px;font-weight:900;color:#facc15;">₹${totalRev.toFixed(0)}</div>
-                    <div style="font-size:10px;color:#94a3b8;font-weight:700;">GROSS EARNINGS</div>
+                    <div style="font-size:10px;color:#94a3b8;font-weight:700;">${isKn ? 'ಒಟ್ಟು ಆದಾಯ' : 'GROSS EARNINGS'}</div>
                 </div>
             </div>
 
@@ -2379,22 +2464,22 @@ function renderCatchLogger() {
                 </select>
 
                 <div style="display:flex;gap:8px;">
-                    <input type="number" id="catchWeight" placeholder="Catch Quantity (kg)" value="15" style="flex:1;padding:11px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:rgba(3,7,18,0.7);color:white;font-size:13px;outline:none;" oninput="updateCatchEstimate()">
-                    <button onclick="saveCatchLog()" style="padding:11px 18px;background:linear-gradient(135deg,#10b981,#059669);border:none;border-radius:12px;color:white;font-weight:800;font-size:13px;cursor:pointer;box-shadow:0 4px 15px rgba(16,185,129,0.35);">+ Log Catch</button>
+                    <input type="number" id="catchWeight" placeholder="${isKn ? 'ತೂಕ (ಕೆಜಿ)' : 'Catch Quantity (kg)'}" value="15" style="flex:1;padding:11px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:rgba(3,7,18,0.7);color:white;font-size:13px;outline:none;" oninput="updateCatchEstimate()">
+                    <button onclick="saveCatchLog()" style="padding:11px 18px;background:linear-gradient(135deg,#10b981,#059669);border:none;border-radius:12px;color:white;font-weight:800;font-size:13px;cursor:pointer;box-shadow:0 4px 15px rgba(16,185,129,0.35);">${isKn ? '+ ದಾಖಲಿಸಿ' : '+ Log Catch'}</button>
                 </div>
             </div>
 
             <div id="catchEstimateMsg" style="margin-top:10px;font-size:12px;color:#cbd5e1;background:rgba(255,255,255,0.04);padding:8px 12px;border-radius:10px;">
-                Estimated Value: <b style="color:#facc15;">₹3,300</b> (15 kg × ₹220)
+                ${isKn ? 'ಅಂದಾಜು ಮೌಲ್ಯ:' : 'Estimated Value:'} <b style="color:#facc15;">₹3,300</b> (15 kg × ₹220)
             </div>
 
             <div style="margin-top:14px;border-top:1px solid rgba(255,255,255,0.08);padding-top:10px;">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                    <span style="font-size:11px;font-weight:800;color:#94a3b8;letter-spacing:0.4px;">RECENT CATCHES</span>
-                    ${catches.length > 0 ? `<button onclick="clearCatchLogs()" style="background:none;border:none;color:#f87171;font-size:11px;cursor:pointer;">Clear Log</button>` : ''}
+                    <span style="font-size:11px;font-weight:800;color:#94a3b8;letter-spacing:0.4px;">${isKn ? 'ಇತ್ತೀಚಿನ ದಾಖಲೆಗಳು' : 'RECENT CATCHES'}</span>
+                    ${catches.length > 0 ? `<button onclick="clearCatchLogs()" style="background:none;border:none;color:#f87171;font-size:11px;cursor:pointer;">${isKn ? 'ದಾಖಲೆ ತೆರವುಗೊಳಿಸಿ' : 'Clear Log'}</button>` : ''}
                 </div>
                 <div id="catchHistoryList">
-                    ${catches.length === 0 ? '<p style="opacity:0.6;font-size:12px;">No catches logged yet today.</p>' :
+                    ${catches.length === 0 ? `<p style="opacity:0.6;font-size:12px;">${isKn ? 'ಇಂದು ಇನ್ನೂ ಯಾವುದೇ ಮೀನು ದಾಖಲಾಗಿಲ್ಲ.' : 'No catches logged yet today.'}</p>` :
                     catches.slice(-4).reverse().map(c => `
                         <div class="item-row" style="padding:8px 12px;margin:4px 0;">
                             <div>
@@ -2470,13 +2555,14 @@ function openSOS() {
     if (!modal) return;
     modal.style.display = 'flex';
     
+    const isKn = (currentLang === 'kn');
     const coordEl = document.getElementById('sosCoordinates');
     const statusEl = document.getElementById('sosGpsStatus');
     const metaEl = document.getElementById('sosGpsMeta');
     
-    if (coordEl) coordEl.textContent = 'Acquiring satellite fix...';
-    if (statusEl) { statusEl.textContent = 'Acquiring...'; statusEl.style.color = '#facc15'; }
-    if (metaEl) metaEl.textContent = 'Requesting GPS satellite fix from phone...';
+    if (coordEl) coordEl.textContent = isKn ? 'ಉಪಗ್ರಹ ಜಿಪಿಎಸ್ ಹುಡುಕಲಾಗುತ್ತಿದೆ...' : 'Acquiring satellite fix...';
+    if (statusEl) { statusEl.textContent = isKn ? 'ಹುಡುಕಲಾಗುತ್ತಿದೆ...' : 'Acquiring...'; statusEl.style.color = '#facc15'; }
+    if (metaEl) metaEl.textContent = isKn ? 'ಫೋನ್‌ನಿಂದ ಉಪಗ್ರಹ ಜಿಪಿಎಸ್ ಸಂಪರ್ಕ ಕೋರಲಾಗುತ್ತಿದೆ...' : 'Requesting GPS satellite fix from phone...';
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -2488,19 +2574,19 @@ function openSOS() {
                 currentGpsCoords = { lat: lat, lon: lon, accuracy: acc, time: timeStr };
 
                 if (coordEl) coordEl.innerHTML = `${lat.toFixed(5)}° N, ${lon.toFixed(5)}° E`;
-                if (statusEl) { statusEl.textContent = '● GPS Locked'; statusEl.style.color = '#10b981'; }
-                if (metaEl) metaEl.innerHTML = `Satellite accuracy: ±${acc}m · Fixed at ${timeStr}`;
+                if (statusEl) { statusEl.textContent = isKn ? '● GPS ಲಭ್ಯವಿದೆ' : '● GPS Locked'; statusEl.style.color = '#10b981'; }
+                if (metaEl) metaEl.innerHTML = isKn ? `ಉಪಗ್ರಹ ನಿಖರತೆ: ±${acc}m · ಸಮಯ: ${timeStr}` : `Satellite accuracy: ±${acc}m · Fixed at ${timeStr}`;
             },
             err => {
-                if (coordEl) coordEl.textContent = '❌ Location Unavailable';
-                if (statusEl) { statusEl.textContent = 'GPS Failed'; statusEl.style.color = '#ef4444'; }
-                if (metaEl) metaEl.textContent = 'Please enable location / GPS permissions in device settings.';
+                if (coordEl) coordEl.textContent = isKn ? '❌ ಲೊಕೇಶನ್ ಲಭ್ಯವಿಲ್ಲ' : '❌ Location Unavailable';
+                if (statusEl) { statusEl.textContent = isKn ? 'GPS ವಿಫಲವಾಗಿದೆ' : 'GPS Failed'; statusEl.style.color = '#ef4444'; }
+                if (metaEl) metaEl.textContent = isKn ? 'ದಯವಿಟ್ಟು ಸಾಧನ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಲೊಕೇಶನ್ ಅನುಮತಿ ನೀಡಿ.' : 'Please enable location / GPS permissions in device settings.';
             },
             { enableHighAccuracy: true, timeout: 12000, maximumAge: 30000 }
         );
     } else {
-        if (coordEl) coordEl.textContent = '❌ GPS Not Supported';
-        if (statusEl) { statusEl.textContent = 'Unavailable'; statusEl.style.color = '#ef4444'; }
+        if (coordEl) coordEl.textContent = isKn ? '❌ ಈ ಸಾಧನದಲ್ಲಿ ಜಿಪಿಎಸ್ ಬೆಂಬಲಿಸುವುದಿಲ್ಲ' : '❌ GPS Not Supported';
+        if (statusEl) { statusEl.textContent = isKn ? 'ಲಭ್ಯವಿಲ್ಲ' : 'Unavailable'; statusEl.style.color = '#ef4444'; }
     }
 }
 
@@ -2512,24 +2598,25 @@ function closeSOS() {
 function copyGpsCoordinates() {
     playTapSound();
     const btn = document.getElementById('copyCoordsBtn');
+    const isKn = (currentLang === 'kn');
     if (currentGpsCoords) {
         const text = `${currentGpsCoords.lat.toFixed(5)}, ${currentGpsCoords.lon.toFixed(5)} (±${currentGpsCoords.accuracy}m at ${currentGpsCoords.time})`;
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(text).then(() => {
                 if (btn) {
-                    btn.textContent = '✅ Coordinates Copied to Clipboard!';
-                    setTimeout(() => { btn.textContent = '📋 Copy GPS Coordinates'; }, 3000);
+                    btn.textContent = isKn ? '✅ ಜಿಪಿಎಸ್ ಸ್ಥಾನ ನಕಲಿಸಲಾಗಿದೆ!' : '✅ Coordinates Copied to Clipboard!';
+                    setTimeout(() => { btn.textContent = isKn ? '📋 ಜಿಪಿಎಸ್ ಸ್ಥಾನ ನಕಲಿಸಿ' : '📋 Copy GPS Coordinates'; }, 3000);
                 }
             }).catch(() => {
-                prompt('Copy your GPS coordinates:', text);
+                prompt(isKn ? 'ನಿಮ್ಮ ಜಿಪಿಎಸ್ ಸ್ಥಾನ ನಕಲಿಸಿ:' : 'Copy your GPS coordinates:', text);
             });
         } else {
-            prompt('Copy your GPS coordinates:', text);
+            prompt(isKn ? 'ನಿಮ್ಮ ಜಿಪಿಎಸ್ ಸ್ಥಾನ ನಕಲಿಸಿ:' : 'Copy your GPS coordinates:', text);
         }
     } else {
         if (btn) {
-            btn.textContent = '⚠️ Waiting for GPS satellite lock...';
-            setTimeout(() => { btn.textContent = '📋 Copy GPS Coordinates'; }, 2500);
+            btn.textContent = isKn ? '⚠️ ಉಪಗ್ರಹ ಸಂಪರ್ಕಕ್ಕೆ ಕಾಯಲಾಗುತ್ತಿದೆ...' : '⚠️ Waiting for GPS satellite lock...';
+            setTimeout(() => { btn.textContent = isKn ? '📋 ಜಿಪಿಎಸ್ ಸ್ಥಾನ ನಕಲಿಸಿ' : '📋 Copy GPS Coordinates'; }, 2500);
         }
     }
 }
@@ -2544,10 +2631,14 @@ function confirmEmergencyCall(number, name) {
         window.location.href = 'tel:' + number;
         return;
     }
-    if (title) title.textContent = 'Call ' + name + '?';
-    if (msg) msg.textContent = 'You are about to dial emergency service ' + number + '. Please confirm to proceed.';
+    const isKn = (currentLang === 'kn');
+    if (title) title.textContent = isKn ? `${name} ಗೆ ಕರೆ ಮಾಡಬೇಕೇ?` : 'Call ' + name + '?';
+    if (msg) msg.textContent = isKn
+        ? `ನೀವು ತುರ್ತು ಸೇವೆ ${number} ಗೆ ಕರೆ ಮಾಡುತ್ತಿದ್ದೀರಿ. ಮುಂದುವರಿಯಲು ದೃಢೀಕರಿಸಿ.`
+        : 'You are about to dial emergency service ' + number + '. Please confirm to proceed.';
     if (link) {
         link.href = 'tel:' + number;
+        link.textContent = isKn ? 'ಹೌದು, ಕರೆ ಮಾಡಿ' : 'Yes, Call Now';
         link.onclick = function() {
             modal.style.display = 'none';
         };
@@ -2557,17 +2648,20 @@ function confirmEmergencyCall(number, name) {
 
 function sendEmergencyBeacon() {
     playTapSound();
+    const isKn = (currentLang === 'kn');
     let coordsText = currentGpsCoords
         ? `${currentGpsCoords.lat.toFixed(5)}, ${currentGpsCoords.lon.toFixed(5)} (Accuracy: ±${currentGpsCoords.accuracy}m)`
-        : 'Coordinates acquiring/unavailable';
+        : (isKn ? 'ಸ್ಥಳ/ಜಿಪಿಎಸ್ ಲಭ್ಯವಿಲ್ಲ' : 'Coordinates acquiring/unavailable');
     let mapLink = currentGpsCoords
         ? `https://maps.google.com/?q=${currentGpsCoords.lat},${currentGpsCoords.lon}`
-        : 'Please contact Indian Coast Guard 1554';
+        : (isKn ? 'ದಯವಿಟ್ಟು ಭಾರತೀಯ ಕೋಸ್ಟ್ ಗಾರ್ಡ್ 1554 ಗೆ ಕರೆ ಮಾಡಿ' : 'Please contact Indian Coast Guard 1554');
 
-    const msg = `🆘 EMERGENCY MARITIME DISTRESS BEACON\n\n📍 Sea Coordinates:\n${coordsText}\n\n🗺️ Map Location:\n${mapLink}\n\n⏰ Time: ${new Date().toLocaleTimeString()}\nOrigin: Karavali Coast (Fishermen-AI). Require maritime assistance. Please contact Coast Guard 1554.`;
+    const msg = isKn
+        ? `🆘 ತುರ್ತು ಸಾಗರ ರಕ್ಷಣಾ ಸಂದೇಶ (EMERGENCY DISTRESS BEACON)\n\n📍 ಸಮುದ್ರ ಸ್ಥಾನ:\n${coordsText}\n\n🗺️ ನಕ್ಷೆ ಲಿಂಕ್:\n${mapLink}\n\n⏰ ಸಮಯ: ${new Date().toLocaleTimeString()}\nಮೂಲ: ಕರಾವಳಿ ತೀರ (Fishermen-AI). ಸಮುದ್ರದಲ್ಲಿ ತುರ್ತು ರಕ್ಷಣೆ ಅಗತ್ಯವಿದೆ. ದಯವಿಟ್ಟು ಕೋಸ್ಟ್ ಗಾರ್ಡ್ 1554 ಸಂಪರ್ಕಿಸಿ.`
+        : `🆘 EMERGENCY MARITIME DISTRESS BEACON\n\n📍 Sea Coordinates:\n${coordsText}\n\n🗺️ Map Location:\n${mapLink}\n\n⏰ Time: ${new Date().toLocaleTimeString()}\nOrigin: Karavali Coast (Fishermen-AI). Require maritime assistance. Please contact Coast Guard 1554.`;
 
     if (navigator.share) {
-        navigator.share({ title: '🆘 Maritime Distress Beacon', text: msg }).catch(() => {});
+        navigator.share({ title: isKn ? '🆘 ತುರ್ತು ಸಾಗರ ರಕ್ಷಣಾ ಸಂದೇಶ' : '🆘 Maritime Distress Beacon', text: msg }).catch(() => {});
         return;
     }
     window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(msg), '_blank');
@@ -2575,8 +2669,9 @@ function sendEmergencyBeacon() {
 
 function shareLocationWithFamily() {
     playTapSound();
+    const isKn = (currentLang === 'kn');
     if (!navigator.geolocation) {
-        alert('GPS location is not supported on this device.');
+        alert(isKn ? 'ಈ ಸಾಧನದಲ್ಲಿ ಜಿಪಿಎಸ್ ಲಭ್ಯವಿಲ್ಲ.' : 'GPS location is not supported on this device.');
         return;
     }
     navigator.geolocation.getCurrentPosition(
@@ -2584,13 +2679,15 @@ function shareLocationWithFamily() {
             const lat = pos.coords.latitude;
             const lng = pos.coords.longitude;
             const acc = Math.round(pos.coords.accuracy || 0);
-            const msg = `📍 Fishermen-AI Safe Location Share\n\nSea Position: ${lat.toFixed(5)}, ${lng.toFixed(5)} (±${acc}m)\nMaps Link: https://maps.google.com/?q=${lat},${lng}\nTime: ${new Date().toLocaleTimeString()}\nKaravali Coast, Karnataka.`;
+            const msg = isKn
+                ? `📍 Fishermen-AI ಸುರಕ್ಷಿತ ಲೊಕೇಶನ್ ಹಂಚಿಕೆ\n\nಸಮುದ್ರ ಸ್ಥಾನ: ${lat.toFixed(5)}, ${lng.toFixed(5)} (±${acc}m)\nನಕ್ಷೆ: https://maps.google.com/?q=${lat},${lng}\nಸಮಯ: ${new Date().toLocaleTimeString()}\nಕರ್ನಾಟಕ ಕರಾವಳಿ ತೀರ.`
+                : `📍 Fishermen-AI Safe Location Share\n\nSea Position: ${lat.toFixed(5)}, ${lng.toFixed(5)} (±${acc}m)\nMaps Link: https://maps.google.com/?q=${lat},${lng}\nTime: ${new Date().toLocaleTimeString()}\nKaravali Coast, Karnataka.`;
             if (navigator.share) {
-                try { await navigator.share({ title: '📍 My Sea Location', text: msg }); return; } catch (e) {}
+                try { await navigator.share({ title: isKn ? '📍 ನನ್ನ ಸಮುದ್ರ ಸ್ಥಾನ' : '📍 My Sea Location', text: msg }); return; } catch (e) {}
             }
             window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(msg), '_blank');
         },
-        () => alert('Please enable location permissions to share your GPS position.')
+        () => alert(isKn ? 'ನಿಮ್ಮ ಜಿಪಿಎಸ್ ಸ್ಥಾನ ಪಡೆಯಲು ಲೊಕೇಶನ್ ಅನುಮತಿ ನೀಡಿ.' : 'Please enable location permissions to share your GPS position.')
     );
 }
 
@@ -2603,67 +2700,348 @@ function saveToHistory(decision) {
 }
 
 // ============================================
-// REGIONAL LANGUAGE SWITCHER
+// VOICE PROMPTS RUNNER
+// ============================================
+function runVoicePrompt(index) {
+    playTapSound();
+    let query = '';
+    if (currentLang === 'kn') {
+        if (index === 1) query = 'ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ?';
+        else if (index === 2) query = 'ಬಂಗಡೆ ಮೀನು ಬೆಲೆ ಎಷ್ಟು?';
+        else if (index === 3) query = 'ಈಗ ಗಾಳಿ ಮತ್ತು ಅಲೆಗಳ ಸ್ಥಿತಿ ಹೇಗಿದೆ?';
+    } else {
+        if (index === 1) query = 'Should I go fishing tomorrow?';
+        else if (index === 2) query = 'What is mackerel fish rate today?';
+        else if (index === 3) query = 'What are current wind and wave conditions?';
+    }
+    transcriptText.textContent = '📝 "' + query + '"';
+    showVoiceState('processing', currentLang === 'kn' ? '⏳ ಉತ್ತರಿಸಲಾಗುತ್ತಿದೆ...' : '⏳ Processing query...');
+    sendToBackend(query);
+}
+
+// ============================================
+// MORE FEATURE DYNAMIC RENDERER
+// ============================================
+function renderCurrentMoreFeature() {
+    if (currentMoreFeature === 'fishGuide') renderFishScanner();
+    else if (currentMoreFeature === 'prediction') renderSeasonalPrediction();
+    else if (currentMoreFeature === 'fuel') renderFuelCalculator();
+    else if (currentMoreFeature === 'schemes') renderGovtSchemes();
+    else if (currentMoreFeature === 'dashboard') renderVoyageStats();
+    else if (currentMoreFeature === 'history') renderAdvisoryHistory();
+    else if (currentMoreFeature === 'export') renderExportVoyageSummaryOnly();
+    else if (currentMoreFeature === 'catchLog') renderCatchLogger();
+}
+
+// ============================================
+// REGIONAL LANGUAGE SWITCHER & LOCALIZATION ENGINE
 // ============================================
 let currentLang = 'kn';
 const translations = {
     'kn': {
-        title: 'ಕರಾವಳಿ ಮೀನುಗಾರರ ಧ್ವನಿ ಸಹಾಯಕ · Karavali Coast',
+        marineTag: '🌊 ಕರಾವಳಿ ಸಾಗರ ಹವಾಮಾನ ವರದಿ',
+        appSubtitle: 'ಕರಾವಳಿ ಮೀನುಗಾರರ ಹವಾಮಾನ & ಸುರಕ್ಷತಾ ಸಹಾಯಕ · Karavali Coast',
+        heroBadge: '🎙️ ಮೈಕ್ ಒತ್ತಿ ನಿಮ್ಮ ಮಾತಲ್ಲೇ ಕೇಳಿ',
         heroTitle: 'ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ?',
-        heroSub: 'Should I go fishing tomorrow?',
-        heroBadge: 'ಮೈಕ್ ಒತ್ತಿ ನಿಮ್ಮ ಮಾತಲ್ಲೇ ಕೇಳಿ',
+        heroSub: 'ಕರಾವಳಿ ಹವಾಮಾನ ವರದಿ & ಬಂದರು ಮಾರುಕಟ್ಟೆ ಮುನ್ಸೂಚನೆ',
         micText: 'ಒತ್ತಿ ಮಾತನಾಡಿ',
         micSub: 'ಕನ್ನಡ / English',
-        sosText: 'ತುರ್ತು ಸಹಾಯ · SOS (1554)',
-        weatherLink: 'ಗಾಳಿ & ಅಲೆಗಳ ವಿವರ ನೋಡಿ',
-        replayText: 'ಧ್ವನಿಯಲ್ಲಿ ಮತ್ತೆ ಕೇಳಿ (Listen Again)'
+        typeBtnText: 'ಬರೆದು ಕೇಳಿ',
+        textInputPlaceholder: 'ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ? ಅಥವಾ ಪ್ರಶ್ನೆ ಟೈಪ್ ಮಾಡಿ...',
+        textSubmitBtn: 'ಕೇಳಿ (Ask)',
+        sosHomeTitle: 'ತುರ್ತು ಸಹಾಯ · SOS (1554)',
+        sosHomeSub: 'ಭಾರತೀಯ ಕರಾವಳಿ ಕಾವಲು ಪಡೆ (Coast Guard)',
+        weatherLinkTitle: 'ಗಾಳಿ & ಅಲೆಗಳ ವಿವರ ನೋಡಿ',
+        weatherLinkSub: 'ಗಾಳಿಯ ವೇಗ, ಅಲೆಗಳ ಎತ್ತರ, ಉಬ್ಬರವಿಳಿತ & ಸೂರ್ಯೋದಯ ➔',
+        replayText: 'ಧ್ವನಿಯಲ್ಲಿ ಮತ್ತೆ ಕೇಳಿ (Listen Again)',
+
+        // Voice Tab
+        voicePageTitle: '🎤 ಕರಾವಳಿ ಧ್ವನಿ ಕಾಕ್‌ಪಿಟ್',
+        voicePageSub: 'ಕನ್ನಡ ಅಥವಾ ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿ ನೇರವಾಗಿ ಮಾತನಾಡಿ.',
+        voiceReadyStatus: 'ಧ್ವನಿ ಪ್ರಶ್ನೆಗೆ ಸಿದ್ಧವಾಗಿದೆ',
+        voicePromptsTitle: '💡 ಜನಪ್ರಿಯ ಪ್ರಶ್ನೆಗಳು (POPULAR PROMPTS)',
+        promptItem1: '🐟 "ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ?"',
+        promptItem2: '💰 "ಬಂಗಡೆ ಮೀನು ಬೆಲೆ ಎಷ್ಟು?"',
+        promptItem3: '🌊 "ಈಗ ಗಾಳಿ ಮತ್ತು ಅಲೆಗಳ ಸ್ಥಿತಿ ಹೇಗಿದೆ?"',
+        promptAskLabel: 'ಕೇಳಿ ➔',
+
+        // Market Tab
+        marketPageTitle: '📊 ಬಂದರು ಮೀನು ದರಗಳು',
+        marketPageBadge: 'ಮಲ್ಪೆ & ಮಂಗಳೂರು',
+        marketPageSub: 'ಕನ್ನಡ ಮತ್ತು ತುಳು ಹೆಸರುಗಳೊಂದಿಗೆ ದೈನಂದಿನ ಸಗಟು ದರ ಸೂಚ್ಯಂಕ.',
+
+        // Safety Tab
+        safetyPageTitle: '🆘 ತುರ್ತು & ಕಡಲ ಸುರಕ್ಷತಾ ಕೇಂದ್ರ',
+        safetySosText: 'ತುರ್ತು ಕಡಲ ರಕ್ಷಣೆ · SOS (1554)',
+        safetyAssistTitle: '📞 ಕರಾವಳಿ ತುರ್ತು ಸಹಾಯವಾಣಿ',
+        contactGuardText: '🚨 ಭಾರತೀಯ ಕೋಸ್ಟ್ ಗಾರ್ಡ್ (SAR)',
+        contactPoliceText: '🌊 ಕರಾವಳಿ ಭದ್ರತಾ ಪೊಲೀಸ್',
+        contactRescueText: '🛟 ಸಾಗರ ರಕ್ಷಣಾ ಸಮನ್ವಯ (MRCC)',
+        shareLocationBtnText: 'WhatsApp ಮೂಲಕ ಲೈವ್ GPS ಹಂಚಿಕೊಳ್ಳಿ',
+        telemetrySectionTitle: '🌊 ಲೈವ್ ಸಾಗರ & ಹವಾಮಾನ ಮಾಹಿತಿ',
+        hudWindLabel: 'ಗಾಳಿಯ ವೇಗ',
+        hudTempLabel: 'ಸಾಗರ ತಾಪಮಾನ',
+        hudWaveLabel: 'ಅಲೆಗಳ ಎತ್ತರ',
+        bestTimeTitle: 'ಕಡಲಿಗೆ ಇಳಿಯಲು ಸೂಕ್ತ ಸಮಯ',
+
+        // More Tab
+        morePageTitle: '⚙️ ಮೀನುಗಾರರ ಉಪಕರಣಗಳು & ಮಾಹಿತಿ',
+        morePageSub: 'ಸಲಹಾ ಪರಿಕರ ಅಥವಾ ಸಮುದಾಯ ಸಾಗರ ಸೇವೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ:',
+        moreBackBtnText: 'ಎಲ್ಲಾ ಪರಿಕರಗಳಿಗೆ ಹಿಂತಿರುಗಿ (ಮೆನು)',
+        fishScanCardTitle: 'ಮೀನು ಮಾಹಿತಿ ಮಾರ್ಗದರ್ಶಿ',
+        fishScanCardSub: 'ತಳಿಗಳು, ಬಂದರು ದರ & ಋತುಮಾನದ ವಿವರ',
+        predictionCardTitle: 'ಋತುಮಾನ ಮಾರ್ಗದರ್ಶಿ',
+        predictionCardSub: 'ಕರಾವಳಿ ಮೀನು ಲಭ್ಯತೆ ಸೂಚ್ಯಂಕ',
+        fuelCardTitle: 'ಇಂಧನ ಲೆಕ್ಕಾಚಾರ',
+        fuelCardSub: 'ಪ್ರಯಾಣದ ಡೀಸೆಲ್ ಬಳಕೆ ಮತ್ತು ವೆಚ್ಚ',
+        schemeCardTitle: 'ಸರ್ಕಾರಿ ಯೋಜನೆಗಳು',
+        schemeCardSub: 'PMMSY ಸಬ್ಸಿಡಿ & ವಿಮೆ ಯೋಜನೆಗಳು',
+        dashboardCardTitle: 'ಪ್ರಯಾಣದ ಡ್ಯಾಶ್‌ಬೋರ್ಡ್',
+        dashboardCardSub: 'ಸುರಕ್ಷತಾ ನಿರ್ಧಾರಗಳ ಲಾಗ್‌ಬುಕ್',
+        historyCardTitle: 'ಸಲಹೆಗಳ ಇತಿಹಾಸ',
+        historyCardSub: 'ಹಿಂದಿನ ದಾಖಲಾದ ಪ್ರವಾಸಗಳು',
+        exportCardTitle: 'ವರದಿ ಡೌನ್‌ಲೋಡ್',
+        exportCardSub: 'ಪ್ರಯಾಣ ವರದಿ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ',
+        catchLogCardTitle: 'ಮೀನು ಬೇಟೆ ದಾಖಲೆ',
+        catchLogCardSub: 'ಹಿಡಿದ ಮೀನಿನ ತೂಕ & ಆದಾಯ ದಾಖಲಿಸಿ',
+
+        // Bottom Navigation
+        tabHomeLabel: 'ಮುಖಪುಟ',
+        tabVoiceLabel: 'ಧ್ವನಿ',
+        tabMarketLabel: 'ಮಾರುಕಟ್ಟೆ',
+        tabSafetyLabel: 'ಸುರಕ್ಷತೆ',
+        tabMoreLabel: 'ಇನ್ನಷ್ಟು',
+        footerTagline: '"ಟೈಪ್ ಮಾಡುವುದಕ್ಕಿಂತ ಮಾತನಾಡುವುದೇ ಸುಲಭ" · ಕರಾವಳಿ Fishermen-AI 2.0',
+
+        // Modals
+        sosModalTitle: 'ಕರಾವಳಿ ತುರ್ತು ರಕ್ಷಣಾ ಸೇವೆ (SOS)',
+        sosModalSub: 'ರಕ್ಷಣಾ ಆಪರೇಟರ್‌ಗೆ ನಿಮ್ಮ ಜಿಪಿಎಸ್ ಸ್ಥಾನ ಓದಿ ತಿಳಿಸಿ',
+        sosGpsHeader: '📍 ಪ್ರಸ್ತುತ ಸಮುದ್ರ ಜಿಪಿಎಸ್ ಸ್ಥಾನ',
+        copyCoordsBtn: '📋 ಜಿಪಿಎಸ್ ಸ್ಥಾನ ನಕಲಿಸಿ',
+        sosCallGuardBtnText: 'ಕೋಸ್ಟ್ ಗಾರ್ಡ್ ರಕ್ಷಣೆ (1554)',
+        sosCallPoliceBtnText: 'ಕರಾವಳಿ ಪೊಲೀಸ್ (1093)',
+        sosCallAmbulanceBtnText: 'ಆಂಬ್ಯುಲೆನ್ಸ್ ಸೇವೆ (108)',
+        sosBeaconBtnText: 'ಜಿಪಿಎಸ್ ತುರ್ತು ಸಂದೇಶ (WhatsApp/SMS)',
+        sosModalDisclaimer: 'ಸಲಹಾ ಪರಿಕರ: ನೇರ ತುರ್ತು ಡಯಲ್ ಲಿಂಕ್. ಸಮುದ್ರದ VHF Channel 16 ಅಥವಾ EPIRB ಗೆ ಬದಲಿಯಲ್ಲ.',
+        confirmCallTitle: 'ತುರ್ತು ಕರೆ ದೃಢೀಕರಿಸಿ',
+        confirmCallMsg: 'ನೀವು ತುರ್ತು ರಕ್ಷಣಾ ಸೇವೆಗೆ ಕರೆ ಮಾಡಲು ಹೊರಟಿದ್ದೀರಿ. ಮುಂದುವರಿಯುವುದೇ?',
+        confirmCallCancelBtn: 'ರದ್ದುಮಾಡಿ',
+        confirmCallLink: 'ಹೌದು, ಕರೆ ಮಾಡಿ'
     },
     'en': {
-        title: 'Marine Weather & Safety Co-Pilot · Karavali Coast',
+        marineTag: '🌊 MARINE WEATHER ADVISORY',
+        appSubtitle: 'Marine Weather & Safety Co-Pilot · Karavali Coast',
+        heroBadge: '🎙️ Tap mic and ask in your language',
         heroTitle: 'Should I go fishing tomorrow?',
         heroSub: 'Marine weather advisory & harbor market outlook',
-        heroBadge: 'Tap mic and ask in your language',
         micText: 'Tap to Speak',
         micSub: 'Kannada / English',
-        sosText: 'Coast Guard Distress SOS (1554)',
-        weatherLink: 'View Live Marine Telemetry',
-        replayText: 'Listen Again in Audio'
+        typeBtnText: 'Type your query',
+        textInputPlaceholder: 'Should I go fishing? Type query...',
+        textSubmitBtn: 'Ask',
+        sosHomeTitle: 'Coast Guard Distress SOS (1554)',
+        sosHomeSub: 'Direct emergency dial 1554',
+        weatherLinkTitle: 'View Live Marine Telemetry',
+        weatherLinkSub: 'Wind speed, wave height, tides & solunar times ➔',
+        replayText: 'Listen Again in Audio',
+
+        // Voice Tab
+        voicePageTitle: '🎤 Karavali Voice Cockpit',
+        voicePageSub: 'Speak directly in Kannada or English.',
+        voiceReadyStatus: 'Ready for voice inquiry',
+        voicePromptsTitle: '💡 POPULAR ADVISORY PROMPTS',
+        promptItem1: '🐟 "Should I go fishing tomorrow?"',
+        promptItem2: '💰 "What is mackerel fish rate today?"',
+        promptItem3: '🌊 "How are wind and wave conditions?"',
+        promptAskLabel: 'Ask ➔',
+
+        // Market Tab
+        marketPageTitle: '📊 Harbor Catch Rates',
+        marketPageBadge: 'MALPE & MANGALORE',
+        marketPageSub: 'Daily wholesale rate index with Kannada & Tulu names.',
+
+        // Safety Tab
+        safetyPageTitle: '🆘 Emergency & Safety HUD',
+        safetySosText: 'MARITIME DISTRESS & SOS (1554)',
+        safetyAssistTitle: '📞 Rapid Coastal Assistance',
+        contactGuardText: '🚨 Indian Coast Guard (SAR)',
+        contactPoliceText: '🌊 Coastal Marine Police',
+        contactRescueText: '🛟 Marine Rescue Coordination',
+        shareLocationBtnText: 'Share My GPS Location via WhatsApp',
+        telemetrySectionTitle: '🌊 Live Marine Telemetry & Swell',
+        hudWindLabel: 'Wind Speed',
+        hudTempLabel: 'Sea Temp',
+        hudWaveLabel: 'Wave Swell',
+        bestTimeTitle: 'Best Fishing Window',
+
+        // More Tab
+        morePageTitle: '⚙️ Fishermen Feature Hub',
+        morePageSub: 'Select an advisory tool or community marine service:',
+        moreBackBtnText: 'Back to Tools (ಮೆನು)',
+        fishScanCardTitle: 'Fish Species Guide (ಮೀನು ಪರಿಚಯ)',
+        fishScanCardSub: 'Photo & catalog reference: species, port rates & season',
+        predictionCardTitle: 'Seasonal Guide',
+        predictionCardSub: 'Karavali landing trends',
+        fuelCardTitle: 'Fuel Calculator',
+        fuelCardSub: 'Voyage cost & net profit',
+        schemeCardTitle: 'Govt Schemes',
+        schemeCardSub: 'PMMSY Subsidies & Loans',
+        dashboardCardTitle: 'Voyage Stats',
+        dashboardCardSub: 'Safety decision log',
+        historyCardTitle: 'Advisory History',
+        historyCardSub: 'Past trips logged',
+        exportCardTitle: 'Export Voyage',
+        exportCardSub: 'Download trip report',
+        catchLogCardTitle: 'Catch Logger',
+        catchLogCardSub: 'Log kg & earnings',
+
+        // Navigation Dock
+        tabHomeLabel: 'Home',
+        tabVoiceLabel: 'Voice',
+        tabMarketLabel: 'Market',
+        tabSafetyLabel: 'Safety',
+        tabMoreLabel: 'More',
+        footerTagline: '"Asking is easier than typing" · Karavali Fishermen AI 2.0',
+
+        // Modals
+        sosModalTitle: 'COASTAL DISTRESS & RESCUE',
+        sosModalSub: 'Read coordinates out loud to maritime rescue operator',
+        sosGpsHeader: '📍 Live Sea Coordinates',
+        copyCoordsBtn: '📋 Copy GPS Coordinates',
+        sosCallGuardBtnText: 'COAST GUARD RESCUE (1554)',
+        sosCallPoliceBtnText: 'Coastal Marine Police (1093)',
+        sosCallAmbulanceBtnText: '🚑 Medical Ambulance (108)',
+        sosBeaconBtnText: 'Send GPS Distress Beacon (WhatsApp / SMS)',
+        sosModalDisclaimer: 'Advisory tool: Direct dial link. Does not replace marine VHF Channel 16 or EPIRB beacons.',
+        confirmCallTitle: 'Confirm Emergency Call',
+        confirmCallMsg: 'You are about to dial emergency assistance. Please confirm to proceed.',
+        confirmCallCancelBtn: 'Cancel',
+        confirmCallLink: 'Yes, Call Now'
     }
 };
+
+function applyLanguage(lang) {
+    currentLang = lang;
+    document.querySelectorAll('.lang-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.lang === lang);
+    });
+
+    if (recognition) {
+        recognition.lang = (lang === 'en') ? 'en-US' : 'kn-IN';
+    }
+
+    const t = translations[lang] || translations.kn;
+
+    const setTxt = (id, val) => {
+        const el = document.getElementById(id);
+        if (el && val !== undefined) el.textContent = val;
+    };
+
+    setTxt('marineTag', t.marineTag);
+    setTxt('appSubtitle', t.appSubtitle);
+    setTxt('heroPromptBadge', t.heroBadge);
+    setTxt('heroPromptTitle', t.heroTitle);
+    setTxt('heroPromptSub', t.heroSub);
+    setTxt('micText', t.micText);
+    setTxt('micSub', t.micSub);
+    setTxt('micText2', t.micText);
+    setTxt('typeBtnText', t.typeBtnText);
+    setTxt('textSubmitBtn', t.textSubmitBtn);
+    setTxt('sosHomeTitle', t.sosHomeTitle);
+    setTxt('sosHomeSub', t.sosHomeSub);
+    setTxt('weatherLinkTitle', t.weatherLinkTitle);
+    setTxt('weatherLinkSub', t.weatherLinkSub);
+    setTxt('replayBtnText', t.replayText);
+
+    const input = document.getElementById('textInput');
+    if (input) input.placeholder = t.textInputPlaceholder;
+
+    // Voice Cockpit
+    setTxt('voicePageTitle', t.voicePageTitle);
+    setTxt('voicePageSub', t.voicePageSub);
+    setTxt('statusText2', t.voiceReadyStatus);
+    setTxt('voicePromptsTitle', t.voicePromptsTitle);
+    setTxt('promptItem1', t.promptItem1);
+    setTxt('promptItem2', t.promptItem2);
+    setTxt('promptItem3', t.promptItem3);
+    document.querySelectorAll('.prompt-ask-label').forEach(el => el.textContent = t.promptAskLabel);
+
+    // Market Tab
+    setTxt('marketPageTitle', t.marketPageTitle);
+    setTxt('marketPageBadge', t.marketPageBadge);
+    setTxt('marketPageSub', t.marketPageSub);
+
+    // Safety Tab
+    setTxt('safetyPageTitle', t.safetyPageTitle);
+    setTxt('safetySosText', t.safetySosText);
+    setTxt('safetyAssistTitle', t.safetyAssistTitle);
+    setTxt('contactGuardText', t.contactGuardText);
+    setTxt('contactPoliceText', t.contactPoliceText);
+    setTxt('contactRescueText', t.contactRescueText);
+    setTxt('shareLocationBtnText', t.shareLocationBtnText);
+    setTxt('telemetrySectionTitle', t.telemetrySectionTitle);
+    setTxt('hudWindLabel', t.hudWindLabel);
+    setTxt('hudTempLabel', t.hudTempLabel);
+    setTxt('hudWaveLabel', t.hudWaveLabel);
+    setTxt('bestTimeTitle', t.bestTimeTitle);
+
+    // More Tab
+    setTxt('morePageTitle', t.morePageTitle);
+    setTxt('morePageSub', t.morePageSub);
+    setTxt('moreBackBtnText', t.moreBackBtnText);
+    setTxt('fishScanCardTitle', t.fishScanCardTitle);
+    setTxt('fishScanCardSub', t.fishScanCardSub);
+    setTxt('predictionCardTitle', t.predictionCardTitle);
+    setTxt('predictionCardSub', t.predictionCardSub);
+    setTxt('fuelCardTitle', t.fuelCardTitle);
+    setTxt('fuelCardSub', t.fuelCardSub);
+    setTxt('schemeCardTitle', t.schemeCardTitle);
+    setTxt('schemeCardSub', t.schemeCardSub);
+    setTxt('dashboardCardTitle', t.dashboardCardTitle);
+    setTxt('dashboardCardSub', t.dashboardCardSub);
+    setTxt('historyCardTitle', t.historyCardTitle);
+    setTxt('historyCardSub', t.historyCardSub);
+    setTxt('exportCardTitle', t.exportCardTitle);
+    setTxt('exportCardSub', t.exportCardSub);
+    setTxt('catchLogCardTitle', t.catchLogCardTitle);
+    setTxt('catchLogCardSub', t.catchLogCardSub);
+
+    // Bottom Navigation
+    setTxt('tabHomeLabel', t.tabHomeLabel);
+    setTxt('tabVoiceLabel', t.tabVoiceLabel);
+    setTxt('tabMarketLabel', t.tabMarketLabel);
+    setTxt('tabSafetyLabel', t.tabSafetyLabel);
+    setTxt('tabMoreLabel', t.tabMoreLabel);
+    setTxt('footerTagline', t.footerTagline);
+
+    // Modals
+    setTxt('sosModalTitle', t.sosModalTitle);
+    setTxt('sosModalSub', t.sosModalSub);
+    setTxt('sosGpsHeader', t.sosGpsHeader);
+    setTxt('copyCoordsBtn', t.copyCoordsBtn);
+    setTxt('sosCallGuardBtnText', t.sosCallGuardBtnText);
+    setTxt('sosCallPoliceBtnText', t.sosCallPoliceBtnText);
+    setTxt('sosCallAmbulanceBtnText', t.sosCallAmbulanceBtnText);
+    setTxt('sosBeaconBtnText', t.sosBeaconBtnText);
+    setTxt('sosModalDisclaimer', t.sosModalDisclaimer);
+    setTxt('confirmCallTitle', t.confirmCallTitle);
+    setTxt('confirmCallMsg', t.confirmCallMsg);
+    setTxt('confirmCallCancelBtn', t.confirmCallCancelBtn);
+    setTxt('confirmCallLink', t.confirmCallLink);
+
+    // Update dynamic cards if currently displayed
+    if (currentDecision) {
+        showResult(currentDecision);
+    }
+    if (currentMoreFeature) {
+        renderCurrentMoreFeature();
+    }
+}
 
 document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.addEventListener('click', function() {
         playTapSound();
-        currentLang = this.dataset.lang;
-        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-
-        const t = translations[currentLang] || translations.kn;
-        const sub = document.querySelector('.subtitle');
-        if (sub) sub.textContent = t.title;
-
-        const hTitle = document.getElementById('heroPromptTitle');
-        if (hTitle) hTitle.textContent = t.heroTitle;
-        const hSub = document.getElementById('heroPromptSub');
-        if (hSub) hSub.textContent = t.heroSub;
-        const hBadge = document.getElementById('heroPromptBadge');
-        if (hBadge) hBadge.textContent = t.heroBadge;
-
-        const mText = document.getElementById('micText');
-        if (mText) mText.textContent = t.micText;
-        const mSub = document.getElementById('micSub');
-        if (mSub) mSub.textContent = t.micSub;
-        const mText2 = document.getElementById('micText2');
-        if (mText2) mText2.textContent = t.micText;
-
-        const sTitle = document.getElementById('sosHomeTitle');
-        if (sTitle) sTitle.textContent = t.sosText;
-        const wTitle = document.getElementById('weatherLinkTitle');
-        if (wTitle) wTitle.textContent = t.weatherLink;
-        const rText = document.getElementById('replayBtnText');
-        if (rText) rText.textContent = t.replayText;
-
-        if (recognition) recognition.lang = currentLang === 'en' ? 'en-US' : 'kn-IN';
+        applyLanguage(this.dataset.lang);
     });
 });
 
@@ -2700,6 +3078,7 @@ document.addEventListener('DOMContentLoaded', function(){
 // INITIALIZATION
 // ============================================
 initSpeech();
+applyLanguage(currentLang);
 checkBackend();
 setInterval(checkBackend, 30000);
 loadHomeWeather();
@@ -2708,9 +3087,9 @@ loadBestTime();
 // Register Service Worker for PWA & Deep-Sea Offline Support
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=3')
+        navigator.serviceWorker.register('./sw.js?v=4')
             .then(reg => {
-                console.log('🐟 [PWA] Service Worker v3 registered:', reg.scope);
+                console.log('🐟 [PWA] Service Worker v4 registered:', reg.scope);
                 reg.update();
             })
             .catch(err => console.log('🐟 [PWA] SW registration failed:', err));
