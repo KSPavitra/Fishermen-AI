@@ -955,11 +955,11 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
-            background: rgba(10, 18, 36, 0.95);
+            background: var(--dock-bg);
             backdrop-filter: blur(28px);
             -webkit-backdrop-filter: blur(28px);
-            border-top: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.65);
+            border-top: 1px solid var(--dock-border);
+            box-shadow: var(--dock-shadow);
             flex-shrink: 0;
             z-index: 100;
         }
@@ -967,7 +967,7 @@
             flex: 1;
             background: transparent;
             border: 1px solid transparent;
-            color: #94a3b8;
+            color: var(--text-muted);
             cursor: pointer;
             padding: 8px 2px 7px;
             min-height: 52px;
@@ -1003,6 +1003,17 @@
         }
         .tab-btn.active .tab-icon {
             transform: scale(1.18) translateY(-1px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 4px 0 8px;
+            color: var(--text-muted);
+            font-size: 11px;
+        }
+        .tagline {
+            margin: 0;
+            color: inherit;
         }
 
         /* THEME HELPER CLASSES */
@@ -1228,14 +1239,27 @@
             color: #0284c7;
             border-color: rgba(14, 165, 233, 0.3);
         }
+        [data-theme="light"] .tab-bar {
+            background: rgba(255, 255, 255, 0.98) !important;
+            border-top: 1px solid rgba(14, 165, 233, 0.25) !important;
+            box-shadow: 0 -8px 25px rgba(15, 23, 42, 0.08) !important;
+        }
+        [data-theme="light"] .tab-btn {
+            color: #475569;
+        }
         [data-theme="light"] .tab-btn:hover {
-            color: #0f172a;
+            color: #0369a1;
+            background: rgba(14, 165, 233, 0.08);
         }
         [data-theme="light"] .tab-btn.active {
             color: #0284c7;
-            background: linear-gradient(135deg, rgba(14, 165, 233, 0.15), rgba(59, 130, 246, 0.12));
-            border-color: rgba(14, 165, 233, 0.3);
-            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.18);
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.16), rgba(59, 130, 246, 0.12));
+            border-color: rgba(14, 165, 233, 0.35);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
+        }
+        [data-theme="light"] .tab-btn.active .tab-label {
+            color: #0369a1;
+            font-weight: 800;
         }
         [data-theme="light"] #sosModal > div {
             background: #ffffff !important;
@@ -1346,6 +1370,7 @@
                 border-left: none;
                 border-right: none;
                 border-bottom: none;
+                border-top: 1px solid var(--dock-border);
             }
             .tab-btn {
                 min-height: 50px;
@@ -1375,7 +1400,10 @@
                 border-radius: 22px;
                 padding: 7px 6px;
                 margin: 6px 0 12px;
-                border: 1px solid rgba(255, 255, 255, 0.14);
+                border: 1px solid var(--dock-border);
+            }
+            [data-theme="light"] .tab-bar {
+                border: 1px solid rgba(14, 165, 233, 0.25) !important;
             }
         }
     </style>
@@ -3535,9 +3563,9 @@ loadBestTime();
 // Register Service Worker for PWA & Deep-Sea Offline Support
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=5')
+        navigator.serviceWorker.register('./sw.js?v=6')
             .then(reg => {
-                console.log('🐟 [PWA] Service Worker v5 registered:', reg.scope);
+                console.log('🐟 [PWA] Service Worker v6 registered:', reg.scope);
                 reg.update();
             })
             .catch(err => console.log('🐟 [PWA] SW registration failed:', err));
