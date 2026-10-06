@@ -76,8 +76,13 @@ Fishermen simply tap the microphone and ask: *"ನಾಳೆ ಕಡಲಿಗೆ �
 - **Distress Beacon Broadcast**: Formatted emergency payload containing GPS coordinates and Google Maps pin dispatchable via WhatsApp or SMS.
 
 ### 📴 7. Deep-Sea PWA Offline Support
-- Built as a Progressive Web App (PWA) with **Service Worker v3**.
+- Built as a Progressive Web App (PWA) with **Service Worker v5**.
 - Employs a **Network-First** strategy for document requests when online, with instant offline cache fallback to ensure safety tools remain functional far out at sea.
+
+### ☀️ / 🌙 8. Daylight & Deep-Sea Night Mode
+- **Sunlight Readability**: High-contrast daylight theme designed specifically for outdoor visibility against intense sun glare on open fishing crafts and harbor docks.
+- **Deep-Sea Night Mode**: Bioluminescent dark theme tailored for night navigation and pre-dawn voyages without blinding boat operators.
+- **One-Tap Header HUD Switcher**: Bilingual toggle button (`☀️ Light / ಬೆಳಕು` ↔ `🌙 Dark / ಕತ್ತಲೆ`) with automatic `localStorage` persistence and OS `prefers-color-scheme` support.
 
 ---
 

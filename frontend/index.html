@@ -19,6 +19,30 @@
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         :root {
             --bg-base: #030712;
+            --bg-gradient: radial-gradient(circle at 10% 10%, rgba(6, 182, 212, 0.16) 0%, transparent 45%),
+                            radial-gradient(circle at 90% 85%, rgba(59, 130, 246, 0.18) 0%, transparent 50%),
+                            radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.75) 0%, #030712 100%);
+            --app-bg: rgba(11, 19, 38, 0.82);
+            --app-border: rgba(255, 255, 255, 0.12);
+            --app-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.8), 0 0 50px -10px rgba(6, 182, 212, 0.2);
+            --header-border: rgba(255, 255, 255, 0.08);
+            --title-gradient: linear-gradient(135deg, #ffffff 25%, #38bdf8 65%, #818cf8 100%);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-subtle: #cbd5e1;
+            --surface-glass: rgba(13, 22, 41, 0.72);
+            --surface-card: rgba(15, 23, 42, 0.75);
+            --surface-nested: rgba(3, 7, 18, 0.6);
+            --surface-border: rgba(56, 189, 248, 0.18);
+            --surface-hover-border: rgba(56, 189, 248, 0.45);
+            --item-bg: rgba(15, 23, 42, 0.65);
+            --item-hover-bg: rgba(15, 23, 42, 0.9);
+            --dock-bg: rgba(10, 18, 36, 0.95);
+            --dock-border: rgba(255, 255, 255, 0.12);
+            --dock-shadow: 0 -8px 32px rgba(0, 0, 0, 0.65);
+            --input-bg: rgba(3, 7, 18, 0.6);
+            --input-border: rgba(255, 255, 255, 0.14);
+            --input-text: #ffffff;
             --primary: #06b6d4;
             --primary-glow: rgba(6, 182, 212, 0.45);
             --accent-blue: #3b82f6;
@@ -26,25 +50,55 @@
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
-            --surface-glass: rgba(13, 22, 41, 0.72);
-            --surface-border: rgba(56, 189, 248, 0.18);
-            --surface-hover-border: rgba(56, 189, 248, 0.4);
+            --price-color: #facc15;
             --radius-xl: 32px;
             --radius-lg: 24px;
             --radius-md: 16px;
             --radius-sm: 12px;
         }
 
+        /* LIGHT / DAYTIME MARITIME SUNLIGHT THEME */
+        [data-theme="light"] {
+            --bg-base: #f0f7ff;
+            --bg-gradient: radial-gradient(circle at 10% 10%, rgba(14, 165, 233, 0.18) 0%, transparent 45%),
+                            radial-gradient(circle at 90% 85%, rgba(59, 130, 246, 0.14) 0%, transparent 50%),
+                            radial-gradient(circle at 50% 50%, #f8fafc 0%, #e0f2fe 100%);
+            --app-bg: rgba(255, 255, 255, 0.92);
+            --app-border: rgba(14, 165, 233, 0.22);
+            --app-shadow: 0 20px 60px -10px rgba(15, 23, 42, 0.12), 0 0 35px -5px rgba(14, 165, 233, 0.18);
+            --header-border: rgba(14, 165, 233, 0.16);
+            --title-gradient: linear-gradient(135deg, #0369a1 0%, #0284c7 50%, #312e81 100%);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --text-subtle: #334155;
+            --surface-glass: rgba(255, 255, 255, 0.94);
+            --surface-card: rgba(255, 255, 255, 0.96);
+            --surface-nested: rgba(241, 245, 249, 0.92);
+            --surface-border: rgba(14, 165, 233, 0.22);
+            --surface-hover-border: rgba(2, 132, 199, 0.5);
+            --item-bg: rgba(248, 250, 252, 0.95);
+            --item-hover-bg: #ffffff;
+            --dock-bg: rgba(255, 255, 255, 0.97);
+            --dock-border: rgba(14, 165, 233, 0.22);
+            --dock-shadow: 0 -8px 25px rgba(15, 23, 42, 0.08);
+            --input-bg: #ffffff;
+            --input-border: rgba(14, 165, 233, 0.35);
+            --input-text: #0f172a;
+            --price-color: #b45309;
+        }
+
+        /* Smooth Theme Transitions */
+        body, #app, .glass-card, .item-row, .hud-tile, .tab-bar, .tab-btn, .hero-prompt-card, .bento-tool-card, .transcript, .text-fallback, .theme-toggle-pill, .type-toggle-btn, .weather-link-banner {
+            transition: background-color 0.25s ease, background 0.25s ease, border-color 0.25s ease, color 0.2s ease, box-shadow 0.25s ease;
+        }
+
         /* Fluid Ambient Background */
         body {
             font-family: 'Plus Jakarta Sans', 'Noto Sans Kannada', -apple-system, sans-serif;
             background-color: var(--bg-base);
-            background-image: 
-                radial-gradient(circle at 10% 10%, rgba(6, 182, 212, 0.16) 0%, transparent 45%),
-                radial-gradient(circle at 90% 85%, rgba(59, 130, 246, 0.18) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.75) 0%, #030712 100%);
+            background-image: var(--bg-gradient);
             min-height: 100vh;
-            color: #f8fafc;
+            color: var(--text-main);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -88,13 +142,13 @@
         #app {
             max-width: 440px;
             width: 100%;
-            background: rgba(11, 19, 38, 0.78);
+            background: var(--app-bg);
             backdrop-filter: blur(32px);
             -webkit-backdrop-filter: blur(32px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            border: 1px solid var(--app-border);
             border-radius: var(--radius-xl);
             padding: 20px 16px 0;
-            box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.8), 0 0 50px -10px rgba(6, 182, 212, 0.2);
+            box-shadow: var(--app-shadow);
             height: 94vh;
             max-height: 900px;
             display: flex;
@@ -119,7 +173,7 @@
         header {
             text-align: center;
             padding-bottom: 14px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid var(--header-border);
             flex-shrink: 0;
         }
         .brand-bar {
@@ -127,6 +181,39 @@
             align-items: center;
             justify-content: space-between;
             margin-bottom: 8px;
+            gap: 6px;
+        }
+        .brand-actions {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .theme-toggle-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.22s ease;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .theme-toggle-pill:hover {
+            background: rgba(255, 255, 255, 0.16);
+            border-color: rgba(56, 189, 248, 0.5);
+            transform: translateY(-1px);
+        }
+        .theme-toggle-pill:active {
+            transform: scale(0.95);
+        }
+        .theme-toggle-pill span {
+            line-height: 1;
         }
         .marine-tag {
             display: inline-flex;
@@ -153,6 +240,7 @@
             border-radius: 20px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-main);
         }
         .status-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
         .status-dot.online { background: #10b981; box-shadow: 0 0 10px #10b981; animation: radarPing 2s infinite; }
@@ -166,7 +254,7 @@
             font-size: 26px;
             font-weight: 900;
             letter-spacing: -0.6px;
-            background: linear-gradient(135deg, #ffffff 25%, #38bdf8 65%, #818cf8 100%);
+            background: var(--title-gradient);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -175,7 +263,7 @@
             justify-content: center;
             gap: 8px;
         }
-        .subtitle { font-size: 12px; color: #94a3b8; font-weight: 600; margin-top: 2px; }
+        .subtitle { font-size: 12px; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
 
         /* LANGUAGE SELECTOR PILL */
         .lang-selector {
@@ -917,9 +1005,313 @@
             transform: scale(1.18) translateY(-1px);
         }
 
-        footer { text-align: center; font-size: 10px; color: #64748b; margin-top: 8px; padding-top: 6px; }
+        /* THEME HELPER CLASSES */
+        .bento-tool-card {
+            background: var(--surface-card);
+            border: 1px solid var(--surface-border);
+            align-items: flex-start;
+            text-align: left;
+            padding: 14px;
+            color: var(--text-main);
+        }
+        .app-input, .app-select {
+            background: var(--input-bg);
+            color: var(--input-text);
+            border: 1px solid var(--input-border);
+            border-radius: 12px;
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .app-input:focus, .app-select:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
+        }
+        .secondary-btn {
+            background: var(--surface-nested);
+            border: 1px solid var(--surface-border);
+            color: var(--text-main);
+            border-radius: 14px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+        .secondary-btn:hover {
+            border-color: var(--surface-hover-border);
+            background: var(--surface-card);
+        }
+        #advisoryDisclaimer {
+            margin-top: 12px;
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            background: var(--surface-nested);
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid var(--surface-border);
+            text-align: center;
+        }
+
+        /* LIGHT THEME SPECIFIC COMPONENT OVERRIDES */
+        [data-theme="light"] .aurora-orb-1 {
+            background: rgba(14, 165, 233, 0.25);
+            opacity: 0.35;
+        }
+        [data-theme="light"] .aurora-orb-2 {
+            background: rgba(59, 130, 246, 0.2);
+            opacity: 0.3;
+        }
+        [data-theme="light"] #app::before {
+            background: linear-gradient(90deg, transparent, rgba(2, 132, 199, 0.7), transparent);
+        }
+        [data-theme="light"] .marine-tag {
+            background: rgba(14, 165, 233, 0.12);
+            color: #0284c7;
+            border-color: rgba(14, 165, 233, 0.35);
+            box-shadow: 0 0 10px rgba(14, 165, 233, 0.12);
+        }
+        [data-theme="light"] .connection-status {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(14, 165, 233, 0.25);
+            color: #334155;
+        }
+        [data-theme="light"] .theme-toggle-pill {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            color: #0f172a;
+            box-shadow: 0 2px 8px rgba(14, 165, 233, 0.12);
+        }
+        [data-theme="light"] .theme-toggle-pill:hover {
+            background: #ffffff;
+            border-color: #0284c7;
+        }
+        [data-theme="light"] .lang-selector {
+            background: rgba(241, 245, 249, 0.9);
+            border-color: rgba(14, 165, 233, 0.25);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        [data-theme="light"] .lang-btn {
+            color: #475569;
+        }
+        [data-theme="light"] .lang-btn:hover:not(.active) {
+            color: #0f172a;
+            background: rgba(14, 165, 233, 0.08);
+        }
+        [data-theme="light"] .hero-prompt-card {
+            background: linear-gradient(135deg, rgba(224, 242, 254, 0.95), rgba(219, 234, 254, 0.8));
+            border-color: rgba(56, 189, 248, 0.45);
+            box-shadow: 0 8px 25px -5px rgba(14, 165, 233, 0.2);
+        }
+        [data-theme="light"] .hero-prompt-title {
+            background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        [data-theme="light"] .hero-prompt-sub {
+            color: #334155;
+        }
+        [data-theme="light"] .hero-prompt-badge {
+            background: rgba(14, 165, 233, 0.15);
+            border-color: rgba(14, 165, 233, 0.35);
+            color: #0369a1;
+        }
+        [data-theme="light"] .hud-tile {
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+        }
+        [data-theme="light"] .sonar-ring-1 {
+            border-color: rgba(14, 165, 233, 0.4);
+        }
+        [data-theme="light"] .sonar-ring-2 {
+            border-color: rgba(59, 130, 246, 0.25);
+        }
+        [data-theme="light"] .transcript {
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+        }
+        [data-theme="light"] .type-toggle-btn {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: rgba(14, 165, 233, 0.4);
+            color: #0f172a;
+            box-shadow: 0 4px 14px rgba(14, 165, 233, 0.15);
+        }
+        [data-theme="light"] .type-toggle-btn .type-btn-text {
+            color: #0f172a;
+        }
+        [data-theme="light"] .type-toggle-btn .type-btn-arrow {
+            color: #0284c7;
+        }
+        [data-theme="light"] .type-toggle-btn:hover {
+            background: #ffffff;
+            border-color: #0284c7;
+        }
+        [data-theme="light"] .decision-card {
+            background: #ffffff;
+            border-color: rgba(14, 165, 233, 0.3);
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+            color: #0f172a;
+        }
+        [data-theme="light"] .decision-card.go {
+            background: linear-gradient(145deg, rgba(209, 250, 229, 0.9), #ffffff);
+            border-color: #10b981;
+            box-shadow: 0 16px 45px rgba(16, 185, 129, 0.2);
+        }
+        [data-theme="light"] .decision-card.caution {
+            background: linear-gradient(145deg, rgba(254, 243, 199, 0.9), #ffffff);
+            border-color: #f59e0b;
+            box-shadow: 0 16px 45px rgba(245, 158, 11, 0.2);
+        }
+        [data-theme="light"] .decision-card.dontgo {
+            background: linear-gradient(145deg, rgba(254, 226, 226, 0.9), #ffffff);
+            border-color: #ef4444;
+            box-shadow: 0 16px 45px rgba(239, 68, 68, 0.2);
+        }
+        [data-theme="light"] #decisionReasons li {
+            background: rgba(241, 245, 249, 0.85);
+            color: #0f172a;
+            border-left: 3px solid #0284c7;
+            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+        }
+        [data-theme="light"] #decisionDetails {
+            background: rgba(241, 245, 249, 0.9);
+            color: #1e293b;
+            border-color: rgba(14, 165, 233, 0.2);
+        }
+        [data-theme="light"] .weather-link-banner {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: rgba(14, 165, 233, 0.3);
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+            color: #0f172a;
+        }
+        [data-theme="light"] .weather-link-banner:hover {
+            background: #ffffff;
+            border-color: #0284c7;
+        }
+        [data-theme="light"] #weatherLinkTitle {
+            color: #0284c7 !important;
+        }
+        [data-theme="light"] #weatherLinkSub {
+            color: #475569 !important;
+        }
+        [data-theme="light"] .bento-tool-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: rgba(14, 165, 233, 0.25);
+            color: #0f172a;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+        }
+        [data-theme="light"] .bento-tool-card:hover {
+            background: #ffffff !important;
+            border-color: #0284c7 !important;
+        }
+        [data-theme="light"] #fishScanBtn {
+            background: linear-gradient(135deg, rgba(224, 242, 254, 0.95), rgba(238, 242, 255, 0.95)) !important;
+            border-color: rgba(14, 165, 233, 0.4) !important;
+            color: #0f172a !important;
+            box-shadow: 0 8px 24px rgba(14, 165, 233, 0.15) !important;
+        }
+        [data-theme="light"] #fishScanCardTitle {
+            color: #0284c7 !important;
+        }
+        [data-theme="light"] #fishScanCardSub {
+            color: #475569 !important;
+        }
+        [data-theme="light"] .more-nav-bar {
+            border-bottom-color: rgba(14, 165, 233, 0.2);
+        }
+        [data-theme="light"] .more-back-btn {
+            background: #ffffff;
+            border-color: rgba(14, 165, 233, 0.35);
+            color: #0f172a;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+        }
+        [data-theme="light"] .more-feature-badge {
+            background: rgba(14, 165, 233, 0.12);
+            color: #0284c7;
+            border-color: rgba(14, 165, 233, 0.3);
+        }
+        [data-theme="light"] .tab-btn:hover {
+            color: #0f172a;
+        }
+        [data-theme="light"] .tab-btn.active {
+            color: #0284c7;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.15), rgba(59, 130, 246, 0.12));
+            border-color: rgba(14, 165, 233, 0.3);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.18);
+        }
+        [data-theme="light"] #sosModal > div {
+            background: #ffffff !important;
+            border-color: rgba(239, 68, 68, 0.5) !important;
+            box-shadow: 0 25px 60px rgba(239, 68, 68, 0.25) !important;
+            color: #0f172a;
+        }
+        [data-theme="light"] #sosGpsBox {
+            background: #f8fafc !important;
+            border-color: rgba(14, 165, 233, 0.3) !important;
+        }
+        [data-theme="light"] #sosCoordinates {
+            color: #0f172a !important;
+        }
+        [data-theme="light"] #callConfirmModal > div {
+            background: #ffffff !important;
+            color: #0f172a !important;
+        }
+        [data-theme="light"] #confirmCallTitle {
+            color: #0f172a !important;
+        }
+        [data-theme="light"] #confirmCallMsg {
+            color: #475569 !important;
+        }
+        [data-theme="light"] #confirmCallCancelBtn {
+            background: #f1f5f9;
+            color: #1e293b;
+            border-color: #cbd5e1;
+        }
+        [data-theme="light"] .app-input,
+        [data-theme="light"] .app-select {
+            background: #ffffff !important;
+            color: #0f172a !important;
+            border-color: rgba(14, 165, 233, 0.35) !important;
+        }
+        [data-theme="light"] .app-select option {
+            background: #ffffff;
+            color: #0f172a;
+        }
+        [data-theme="light"] .secondary-btn {
+            background: #f1f5f9 !important;
+            border-color: rgba(14, 165, 233, 0.3) !important;
+            color: #0f172a !important;
+        }
+        [data-theme="light"] .secondary-btn:hover {
+            background: #e2e8f0 !important;
+        }
+        [data-theme="light"] footer {
+            color: #64748b;
+        }
+        [data-theme="light"] #homeWeatherMain {
+            color: #0f172a !important;
+        }
+        [data-theme="light"] #homeWeatherMeta {
+            color: #475569 !important;
+        }
+        [data-theme="light"] #bestTimeCard {
+            background: linear-gradient(135deg, rgba(224, 242, 254, 0.8), rgba(240, 249, 255, 0.8)) !important;
+            border-color: rgba(14, 165, 233, 0.3) !important;
+        }
+        [data-theme="light"] #bestTimeDate {
+            color: #475569 !important;
+        }
 
         /* Mobile vs Desktop Viewport Architecture */
+        @media (max-width: 400px) {
+            .theme-toggle-text {
+                display: none;
+            }
+            .marine-tag {
+                max-width: 170px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
         @media (max-width: 480px) {
             body {
                 padding: 0;
@@ -1000,9 +1392,15 @@
     <header>
         <div class="brand-bar">
             <span class="marine-tag" id="marineTag">🌊 MARINE WEATHER ADVISORY</span>
-            <div class="connection-status">
-                <span class="status-dot online" id="connectionDot"></span>
-                <span id="connectionText">Online</span>
+            <div class="brand-actions">
+                <button id="themeToggleBtn" class="theme-toggle-pill" onclick="toggleTheme()" aria-label="Toggle Light / Dark Mode" title="Toggle Theme">
+                    <span id="themeToggleIcon">☀️</span>
+                    <span id="themeToggleText" class="theme-toggle-text">Light</span>
+                </button>
+                <div class="connection-status">
+                    <span class="status-dot online" id="connectionDot"></span>
+                    <span id="connectionText">Online</span>
+                </div>
             </div>
         </div>
         <h1>🐟 Fishermen-AI</h1>
@@ -1179,21 +1577,21 @@
             <div class="glass-card" style="margin-bottom:12px;">
                 <h3 id="safetyAssistTitle" style="font-size:14px;font-weight:800;margin-bottom:10px;color:#f87171;">📞 Rapid Coastal Assistance</h3>
                 
-                <a href="tel:1554" style="text-decoration:none;color:white;display:block;">
+                <a href="tel:1554" style="text-decoration:none;color:inherit;display:block;">
                     <div class="item-row" style="border-left:4px solid #ef4444;">
                         <span id="contactGuardText">🚨 Indian Coast Guard (SAR)</span>
                         <span style="color:#fca5a5;font-weight:800;">1554 📞</span>
                     </div>
                 </a>
                 
-                <a href="tel:1093" style="text-decoration:none;color:white;display:block;">
+                <a href="tel:1093" style="text-decoration:none;color:inherit;display:block;">
                     <div class="item-row" style="border-left:4px solid #06b6d4;">
                         <span id="contactPoliceText">🌊 Coastal Marine Police</span>
                         <span style="color:#67e8f9;font-weight:800;">1093 📞</span>
                     </div>
                 </a>
 
-                <a href="tel:1073" style="text-decoration:none;color:white;display:block;">
+                <a href="tel:1073" style="text-decoration:none;color:inherit;display:block;">
                     <div class="item-row" style="border-left:4px solid #f59e0b;">
                         <span id="contactRescueText">🛟 Marine Rescue Coordination</span>
                         <span style="color:#fbbf24;font-weight:800;">1073 📞</span>
@@ -1288,46 +1686,46 @@
                         </div>
                     </button>
 
-                    <button id="predictionBtn" class="action-tile more-card" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
+                    <button id="predictionBtn" class="action-tile more-card bento-tool-card">
                         <span style="font-size:24px;">🐟</span>
                         <span id="predictionCardTitle" style="font-size:13px;font-weight:800;margin-top:4px;">Seasonal Guide</span>
-                        <span id="predictionCardSub" style="font-size:10px;color:#94a3b8;font-weight:400;">Karavali landing trends</span>
+                        <span id="predictionCardSub" style="font-size:10px;color:var(--text-muted);font-weight:400;">Karavali landing trends</span>
                     </button>
 
-                    <button id="fuelBtn" class="action-tile more-card" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
+                    <button id="fuelBtn" class="action-tile more-card bento-tool-card">
                         <span style="font-size:24px;">⛽</span>
                         <span id="fuelCardTitle" style="font-size:13px;font-weight:800;margin-top:4px;">Fuel Calculator</span>
-                        <span id="fuelCardSub" style="font-size:10px;color:#94a3b8;font-weight:400;">Voyage cost & net profit</span>
+                        <span id="fuelCardSub" style="font-size:10px;color:var(--text-muted);font-weight:400;">Voyage cost & net profit</span>
                     </button>
 
-                    <button id="schemeBtn" class="action-tile more-card" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
+                    <button id="schemeBtn" class="action-tile more-card bento-tool-card">
                         <span style="font-size:24px;">🏛️</span>
                         <span id="schemeCardTitle" style="font-size:13px;font-weight:800;margin-top:4px;">Govt Schemes</span>
-                        <span id="schemeCardSub" style="font-size:10px;color:#94a3b8;font-weight:400;">PMMSY Subsidies & Loans</span>
+                        <span id="schemeCardSub" style="font-size:10px;color:var(--text-muted);font-weight:400;">PMMSY Subsidies & Loans</span>
                     </button>
 
-                    <button id="dashboardBtn" class="action-tile more-card" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
+                    <button id="dashboardBtn" class="action-tile more-card bento-tool-card">
                         <span style="font-size:24px;">📈</span>
                         <span id="dashboardCardTitle" style="font-size:13px;font-weight:800;margin-top:4px;">Voyage Stats</span>
-                        <span id="dashboardCardSub" style="font-size:10px;color:#94a3b8;font-weight:400;">Safety decision log</span>
+                        <span id="dashboardCardSub" style="font-size:10px;color:var(--text-muted);font-weight:400;">Safety decision log</span>
                     </button>
 
-                    <button id="historyBtn" class="action-tile more-card" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
+                    <button id="historyBtn" class="action-tile more-card bento-tool-card">
                         <span style="font-size:24px;">📋</span>
                         <span id="historyCardTitle" style="font-size:13px;font-weight:800;margin-top:4px;">Advisory History</span>
-                        <span id="historyCardSub" style="font-size:10px;color:#94a3b8;font-weight:400;">Past trips logged</span>
+                        <span id="historyCardSub" style="font-size:10px;color:var(--text-muted);font-weight:400;">Past trips logged</span>
                     </button>
 
-                    <button id="exportBtn" class="action-tile more-card" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
+                    <button id="exportBtn" class="action-tile more-card bento-tool-card">
                         <span style="font-size:24px;">📄</span>
                         <span id="exportCardTitle" style="font-size:13px;font-weight:800;margin-top:4px;">Export Voyage</span>
-                        <span id="exportCardSub" style="font-size:10px;color:#94a3b8;font-weight:400;">Download trip report</span>
+                        <span id="exportCardSub" style="font-size:10px;color:var(--text-muted);font-weight:400;">Download trip report</span>
                     </button>
 
-                    <button id="catchLogBtn" class="action-tile more-card" style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.08);align-items:flex-start;text-align:left;padding:14px;">
+                    <button id="catchLogBtn" class="action-tile more-card bento-tool-card">
                         <span style="font-size:24px;">🎣</span>
                         <span id="catchLogCardTitle" style="font-size:13px;font-weight:800;margin-top:4px;">Catch Logger</span>
-                        <span id="catchLogCardSub" style="font-size:10px;color:#94a3b8;font-weight:400;">Log kg & earnings</span>
+                        <span id="catchLogCardSub" style="font-size:10px;color:var(--text-muted);font-weight:400;">Log kg & earnings</span>
                     </button>
                 </div>
             </div>
@@ -1808,7 +2206,7 @@ function showResult(decision) {
 
     let reasonsHtml = '';
     if (decision.advisory_text) {
-        reasonsHtml += `<div style="font-size:12px;font-weight:700;color:#cbd5e1;margin-bottom:10px;padding:8px 12px;background:rgba(255,255,255,0.06);border-radius:10px;border-left:3px solid ${isFavorable ? '#10b981' : isCaution ? '#f59e0b' : '#ef4444'};line-height:1.4;">${decision.advisory_text}</div>`;
+        reasonsHtml += `<div style="font-size:12px;font-weight:700;color:var(--text-main);margin-bottom:10px;padding:8px 12px;background:var(--surface-nested);border-radius:10px;border-left:3px solid ${isFavorable ? '#10b981' : isCaution ? '#f59e0b' : '#ef4444'};line-height:1.4;">${decision.advisory_text}</div>`;
     }
 
     if (decision.reasons && decision.reasons.length) {
@@ -1839,7 +2237,7 @@ function showResult(decision) {
     if (!disclaimerEl) {
         disclaimerEl = document.createElement('div');
         disclaimerEl.id = 'advisoryDisclaimer';
-        disclaimerEl.style.cssText = 'margin-top:12px;font-size:11px;color:#94a3b8;line-height:1.5;background:rgba(3,7,18,0.7);padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);text-align:center;';
+        disclaimerEl.style.cssText = 'margin-top:12px;font-size:11px;color:var(--text-muted);line-height:1.5;background:var(--surface-nested);padding:10px 12px;border-radius:12px;border:1px solid var(--surface-border);text-align:center;';
         card.parentNode.appendChild(disclaimerEl);
     }
     disclaimerEl.innerHTML = isKn
@@ -1880,7 +2278,7 @@ async function loadMarket() {
             list.innerHTML = data.prices.map(p => `
                 <div class="item-row" style="align-items:center;">
                     <div>
-                        <div style="font-weight:800;font-size:14px;color:white;">🐟 ${p.name || p.fish}</div>
+                        <div style="font-weight:800;font-size:14px;color:var(--text-main);">🐟 ${p.name || p.fish}</div>
                         <div style="font-size:12px;color:#38bdf8;font-weight:700;margin-top:2px;">${p.kannada || ''}</div>
                         ${p.season ? `<div style="font-size:10px;color:#94a3b8;margin-top:2px;">🗓️ ${isKn ? 'ಉತ್ತಮ ಕಾಲ:' : 'Peak:'} ${p.season}</div>` : ''}
                     </div>
@@ -2017,21 +2415,21 @@ function renderFishScanner() {
     if (!container) return;
 
     container.innerHTML = `
-        <div style="background:rgba(15,23,42,0.9);border:1px solid rgba(56,189,248,0.4);border-radius:24px;padding:20px;box-shadow:0 12px 35px rgba(0,0,0,0.5);">
+        <div style="background:var(--surface-card);border:1px solid var(--surface-border);border-radius:24px;padding:20px;box-shadow:var(--app-shadow);">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
                 <h3 style="font-size:16px;font-weight:900;color:#38bdf8;display:flex;align-items:center;gap:6px;">
                     ${isKn ? '🐟 ಮೀನು ತಳಿಗಳ ಪರಿಚಯ & ಕ್ಯಾಟಲಾಗ್' : '🐟 Fish Species Field Guide & Catalog'}
                 </h3>
                 <span style="font-size:10px;background:rgba(6,182,212,0.18);color:#38bdf8;padding:3px 8px;border-radius:12px;font-weight:800;">${isKn ? 'ಮಾರ್ಗದರ್ಶಿ (ಡೆಮೊ)' : 'FIELD GUIDE (DEMO)'}</span>
             </div>
-            <p style="font-size:12px;color:#94a3b8;margin-bottom:14px;line-height:1.4;">
+            <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;line-height:1.4;">
                 ${isKn ? 'ಕರಾವಳಿ ತಳಿಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ ಅಥವಾ ಫೋಟೋ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ ಮಾರುಕಟ್ಟೆ ದರ, ಕನ್ನಡ ಹೆಸರು & ಗರಿಷ್ಠ ಋತುವಿನ ಮಾಹಿತಿ ಪಡೆಯಿರಿ.' : 'Select a local species from the directory or upload a photo to inspect regional harbor rates, Kannada/Tulu names & peak landing season.'}
             </p>
 
             <!-- DIRECT SPECIES DIRECTORY PICKER -->
-            <div style="margin-bottom:14px;background:rgba(3,7,18,0.6);padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,0.08);">
-                <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:6px;">${isKn ? 'ಕರಾವಳಿ ಮೀನುಗಳ ಪಟ್ಟಿಯಿಂದ ಆರಿಸಿ:' : 'Browse Karavali Coastal Species Catalog directly:'}</label>
-                <select id="quickSpeciesSelect" onchange="quickLookupSpecies(this.value)" style="width:100%;padding:10px 12px;background:rgba(15,23,42,0.85);border:1px solid rgba(56,189,248,0.3);border-radius:10px;color:white;font-size:13px;outline:none;">
+            <div style="margin-bottom:14px;background:var(--surface-nested);padding:10px 12px;border-radius:14px;border:1px solid var(--surface-border);">
+                <label style="font-size:11px;font-weight:700;color:var(--text-muted);display:block;margin-bottom:6px;">${isKn ? 'ಕರಾವಳಿ ಮೀನುಗಳ ಪಟ್ಟಿಯಿಂದ ಆರಿಸಿ:' : 'Browse Karavali Coastal Species Catalog directly:'}</label>
+                <select id="quickSpeciesSelect" onchange="quickLookupSpecies(this.value)" class="app-select">
                     <option value="">${isKn ? '-- ವಿವರ ನೋಡಲು ಮೀನನ್ನು ಆಯ್ಕೆಮಾಡಿ --' : '-- Choose Fish to View Catalog Details --'}</option>
                     <option value="mackerel">Indian Mackerel · ಬಂಗಡೆ (Bangude)</option>
                     <option value="sardine">Oil Sardine · ಬೂತಾಯಿ (Boothai)</option>
@@ -2053,8 +2451,8 @@ function renderFishScanner() {
                 <input type="file" id="fishPhotoInput" accept="image/*" capture="environment" style="display:none;" onchange="handleFishPhotoSelected(event)">
                 <div id="dropZonePrompt">
                     <span style="font-size:36px;">📷</span>
-                    <div style="font-weight:800;font-size:14px;margin-top:6px;color:#f8fafc;">${isKn ? 'ಮೀನಿನ ಫೋಟೋ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ' : 'Upload or Capture Fish Photo'}</div>
-                    <div style="font-size:11px;color:#94a3b8;margin-top:3px;">${isKn ? 'ಕ್ಯಾಟಲಾಗ್‌ನೊಂದಿಗೆ ತಾಳೆ ನೋಡಿ ಮಾಹಿತಿ ನೀಡುತ್ತದೆ' : 'Matches filename/query against coastal species catalog'}</div>
+                    <div style="font-weight:800;font-size:14px;margin-top:6px;color:var(--text-main);">${isKn ? 'ಮೀನಿನ ಫೋಟೋ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ' : 'Upload or Capture Fish Photo'}</div>
+                    <div style="font-size:11px;color:var(--text-muted);margin-top:3px;">${isKn ? 'ಕ್ಯಾಟಲಾಗ್‌ನೊಂದಿಗೆ ತಾಳೆ ನೋಡಿ ಮಾಹಿತಿ ನೀಡುತ್ತದೆ' : 'Matches filename/query against coastal species catalog'}</div>
                 </div>
                 <img id="fishPhotoPreview" style="display:none;max-width:100%;max-height:200px;border-radius:14px;margin:12px auto 0 auto;object-fit:cover;box-shadow:0 6px 20px rgba(0,0,0,0.6);">
             </div>
@@ -2063,7 +2461,7 @@ function renderFishScanner() {
                 <button id="analyzeFishBtn" onclick="analyzeFishPhoto()" style="flex:1;padding:14px;background:linear-gradient(135deg,#0ea5e9,#2563eb);border:none;border-radius:14px;color:white;font-weight:900;font-size:14px;cursor:pointer;box-shadow:0 6px 20px rgba(14,165,233,0.4);">
                     ${isKn ? '🔍 ಮಾಹಿತಿ ನೋಡಿ' : '🔍 View Catalog Details'}
                 </button>
-                <button onclick="renderFishScanner()" style="padding:14px 18px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:14px;color:white;cursor:pointer;font-weight:700;">
+                <button onclick="renderFishScanner()" class="secondary-btn" style="padding:14px 18px;">
                     ${isKn ? 'ಮರುಹೊಂದಿಸಿ' : 'Reset'}
                 </button>
             </div>
@@ -2091,7 +2489,7 @@ function handleFishPhotoSelected(e) {
     const reader = new FileReader();
     reader.onload = function(evt) {
         if (preview) { preview.src = evt.target.result; preview.style.display = 'block'; }
-        if (prompt) { prompt.innerHTML = `<span style="font-size:24px;">✅</span> <div style="font-weight:800;font-size:14px;margin-top:4px;">${isKn ? 'ಫೋಟೋ ಲೋಡ್ ಆಗಿದೆ' : 'Photo Loaded'}: <b>${file.name}</b></div><div style="font-size:11px;color:#94a3b8;">${isKn ? '(ಬದಲಾಯಿಸಲು ಮತ್ತೆ ಒತ್ತಿ)' : '(Tap to change photo)'}</div>`; }
+        if (prompt) { prompt.innerHTML = `<span style="font-size:24px;">✅</span> <div style="font-weight:800;font-size:14px;margin-top:4px;">${isKn ? 'ಫೋಟೋ ಲೋಡ್ ಆಗಿದೆ' : 'Photo Loaded'}: <b>${file.name}</b></div><div style="font-size:11px;color:var(--text-muted);">${isKn ? '(ಬದಲಾಯಿಸಲು ಮತ್ತೆ ಒತ್ತಿ)' : '(Tap to change photo)'}</div>`; }
     };
     reader.readAsDataURL(file);
 }
@@ -2110,9 +2508,9 @@ async function analyzeFishPhoto(customQuery) {
 
     resBox.style.display = 'block';
     resBox.innerHTML = `
-        <div style="text-align:center;padding:18px;background:rgba(255,255,255,0.03);border-radius:14px;">
+        <div style="text-align:center;padding:18px;background:var(--surface-nested);border-radius:14px;border:1px solid var(--surface-border);">
             <div style="font-size:28px;">🔄</div>
-            <div style="font-size:13px;margin-top:8px;color:#cbd5e1;font-weight:600;">${isKn ? 'ಕರಾವಳಿ ಮೀನುಗಳ ಕ್ಯಾಟಲಾಗ್ ಹುಡುಕಲಾಗುತ್ತಿದೆ...' : 'Searching Karavali coastal species catalog...'}</div>
+            <div style="font-size:13px;margin-top:8px;color:var(--text-main);font-weight:600;">${isKn ? 'ಕರಾವಳಿ ಮೀನುಗಳ ಕ್ಯಾಟಲಾಗ್ ಹುಡುಕಲಾಗುತ್ತಿದೆ...' : 'Searching Karavali coastal species catalog...'}</div>
         </div>
     `;
 
@@ -2139,32 +2537,32 @@ async function analyzeFishPhoto(customQuery) {
         if (data.success) {
             playSuccessChime();
             resBox.innerHTML = `
-                <div style="background:rgba(15,23,42,0.95);border:1px solid rgba(56,189,248,0.35);border-radius:18px;padding:18px;box-shadow:0 8px 30px rgba(0,0,0,0.5);">
+                <div style="background:var(--surface-card);border:1px solid var(--surface-border);border-radius:18px;padding:18px;box-shadow:var(--app-shadow);">
                     <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
                         <div>
                             <span style="background:rgba(6,182,212,0.18);color:#38bdf8;font-size:10px;font-weight:800;padding:3px 10px;border-radius:12px;border:1px solid rgba(6,182,212,0.3);letter-spacing:0.4px;">
                                 ${data.match_type || (isKn ? 'ಕ್ಯಾಟಲಾಗ್ ಮಾಹಿತಿ' : 'CATALOG REFERENCE')}
                             </span>
-                            <h4 style="font-size:20px;margin-top:6px;margin-bottom:2px;color:white;font-weight:900;">🐟 ${data.fish}</h4>
-                            <div style="font-size:16px;color:#6ee7b7;font-weight:800;">${data.kannada}</div>
+                            <h4 style="font-size:20px;margin-top:6px;margin-bottom:2px;color:var(--text-main);font-weight:900;">🐟 ${data.fish}</h4>
+                            <div style="font-size:16px;color:#10b981;font-weight:800;">${data.kannada}</div>
                         </div>
                         <div style="text-align:right;">
-                            <div style="font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase;">${isKn ? 'ಬಂದರು ದರ' : 'Harbor Rate'}</div>
+                            <div style="font-size:10px;color:var(--text-muted);font-weight:700;text-transform:uppercase;">${isKn ? 'ಬಂದರು ದರ' : 'Harbor Rate'}</div>
                             <div style="font-size:22px;font-weight:900;color:#facc15;">₹${data.price}/kg</div>
-                            <div style="font-size:10px;color:#94a3b8;">${data.range}</div>
+                            <div style="font-size:10px;color:var(--text-muted);">${data.range}</div>
                         </div>
                     </div>
 
-                    <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.08);font-size:12px;color:#cbd5e1;line-height:1.6;">
+                    <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--surface-border);font-size:12px;color:var(--text-main);line-height:1.6;">
                         <div>🗓️ <b>${isKn ? 'ಗರಿಷ್ಠ ಋತು:' : 'Peak Landing Season:'}</b> ${data.season}</div>
                         <div style="margin-top:4px;">⚓ <b>${isKn ? 'ಬಂದರು ಸಲಹೆ:' : 'Port Handling Tip:'}</b> ${data.advice}</div>
                     </div>
 
-                    <div style="margin-top:12px;padding:9px 12px;background:rgba(3,7,18,0.7);border-radius:10px;font-size:10px;color:#94a3b8;line-height:1.4;border:1px solid rgba(255,255,255,0.06);">
+                    <div style="margin-top:12px;padding:9px 12px;background:var(--surface-nested);border-radius:10px;font-size:10px;color:var(--text-muted);line-height:1.4;border:1px solid var(--surface-border);">
                         ⚠️ <b>${isKn ? 'ಮಾರ್ಗದರ್ಶಿ ಸೂಚನೆ:' : 'Demo Field Guide:'}</b> ${data.disclaimer}
                     </div>
 
-                    <button onclick="speakResponse('${data.fish}. ${data.kannada}. ಇಂದಿನ ಮಾರುಕಟ್ಟೆ ದರ ಕೆಜಿಗೆ ${data.price} ರೂಪಾಯಿ.')" style="margin-top:12px;width:100%;padding:11px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);border-radius:12px;color:white;font-size:12px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+                    <button onclick="speakResponse('${data.fish}. ${data.kannada}. ಇಂದಿನ ಮಾರುಕಟ್ಟೆ ದರ ಕೆಜಿಗೆ ${data.price} ರೂಪಾಯಿ.')" class="secondary-btn" style="margin-top:12px;width:100%;padding:11px;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;">
                         ${isKn ? '🔊 ಧ್ವನಿಯಲ್ಲಿ ಕೇಳಿ' : '🔊 Hear in Audio'}
                     </button>
                 </div>
@@ -2217,14 +2615,14 @@ function renderVoyageStats() {
     container.innerHTML = `
         <div class="glass-card" style="margin-top:0;">
             <h3 style="font-size:15px;margin-bottom:6px;font-weight:800;color:#38bdf8;">${isKn ? '📈 ಮೀನುಗಾರಿಕೆ ಪ್ರಯಾಣ ಅಂಕಿ-ಅಂಶ' : '📈 Fishing Voyage Statistics'}</h3>
-            <p style="font-size:12px;color:#94a3b8;margin-bottom:14px;">${isKn ? 'ದಾಖಲಾದ ಕಡಲ ಸುರಕ್ಷತಾ ಸಲಹಾ ಪ್ರಶ್ನೆಗಳ ಐತಿಹಾಸಿಕ ಸಾರಾಂಶ:' : 'Historical summary of all logged maritime safety advisory queries:'}</p>
+            <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;">${isKn ? 'ದಾಖಲಾದ ಕಡಲ ಸುರಕ್ಷತಾ ಸಲಹಾ ಪ್ರಶ್ನೆಗಳ ಐತಿಹಾಸಿಕ ಸಾರಾಂಶ:' : 'Historical summary of all logged maritime safety advisory queries:'}</p>
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
-                <div style="background:rgba(16,185,129,0.15);padding:14px;border-radius:14px;text-align:center;border:1px solid rgba(16,185,129,0.3);"><div style="font-size:24px;font-weight:900;color:#6ee7b7;">${go}</div><div style="font-size:11px;color:#94a3b8;margin-top:2px;font-weight:700;">${isKn ? 'ಹೋಗಿ' : 'GO'}</div></div>
-                <div style="background:rgba(245,158,11,0.15);padding:14px;border-radius:14px;text-align:center;border:1px solid rgba(245,158,11,0.3);"><div style="font-size:24px;font-weight:900;color:#fcd34d;">${caution}</div><div style="font-size:11px;color:#94a3b8;margin-top:2px;font-weight:700;">${isKn ? 'ಎಚ್ಚರಿಕೆ' : 'CAUTION'}</div></div>
-                <div style="background:rgba(239,68,68,0.15);padding:14px;border-radius:14px;text-align:center;border:1px solid rgba(239,68,68,0.3);"><div style="font-size:24px;font-weight:900;color:#fca5a5;">${dontgo}</div><div style="font-size:11px;color:#94a3b8;margin-top:2px;font-weight:700;">${isKn ? 'ಹೋಗಬೇಡಿ' : "DON'T GO"}</div></div>
+                <div style="background:rgba(16,185,129,0.15);padding:14px;border-radius:14px;text-align:center;border:1px solid rgba(16,185,129,0.3);"><div style="font-size:24px;font-weight:900;color:#10b981;">${go}</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px;font-weight:700;">${isKn ? 'ಹೋಗಿ' : 'GO'}</div></div>
+                <div style="background:rgba(245,158,11,0.15);padding:14px;border-radius:14px;text-align:center;border:1px solid rgba(245,158,11,0.3);"><div style="font-size:24px;font-weight:900;color:#f59e0b;">${caution}</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px;font-weight:700;">${isKn ? 'ಎಚ್ಚರಿಕೆ' : 'CAUTION'}</div></div>
+                <div style="background:rgba(239,68,68,0.15);padding:14px;border-radius:14px;text-align:center;border:1px solid rgba(239,68,68,0.3);"><div style="font-size:24px;font-weight:900;color:#ef4444;">${dontgo}</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px;font-weight:700;">${isKn ? 'ಹೋಗಬೇಡಿ' : "DON'T GO"}</div></div>
             </div>
-            <div style="margin-top:14px;padding:10px 12px;background:rgba(255,255,255,0.03);border-radius:12px;font-size:11px;color:#94a3b8;line-height:1.5;">
-                ${isKn ? 'ಒಟ್ಟು ದಾಖಲಾದ ಪ್ರವಾಸಗಳು:' : 'Total Logged Trips:'} <b style="color:white;">${trips.length}</b> · ${isKn ? 'ಸುರಕ್ಷಿತ ದರ:' : 'Safe GO Rate:'} <b style="color:#6ee7b7;">${trips.length ? Math.round((go / (trips.length || 1)) * 100) : 0}%</b>
+            <div style="margin-top:14px;padding:10px 12px;background:var(--surface-nested);border:1px solid var(--surface-border);border-radius:12px;font-size:11px;color:var(--text-muted);line-height:1.5;">
+                ${isKn ? 'ಒಟ್ಟು ದಾಖಲಾದ ಪ್ರವಾಸಗಳು:' : 'Total Logged Trips:'} <b style="color:var(--text-main);">${trips.length}</b> · ${isKn ? 'ಸುರಕ್ಷಿತ ದರ:' : 'Safe GO Rate:'} <b style="color:#10b981;">${trips.length ? Math.round((go / (trips.length || 1)) * 100) : 0}%</b>
             </div>
         </div>
     `;
@@ -2239,15 +2637,15 @@ function renderFuelCalculator() {
     container.innerHTML = `
         <div class="glass-card" style="margin-top:0;">
             <h3 style="font-size:15px;margin-bottom:8px;font-weight:800;color:#38bdf8;">${isKn ? '⛽ ಔಟ್‌ಬೋರ್ಡ್ ಮೋಟಾರ್ ಇಂಧನ ಲೆಕ್ಕಾಚಾರ' : '⛽ Outboard Motor Fuel Calculator'}</h3>
-            <p style="font-size:12px;color:#94a3b8;margin-bottom:12px;">${isKn ? 'ಪ್ರಯಾಣದ ಡೀಸೆಲ್ ಬಳಕೆ ಮತ್ತು ಒಟ್ಟು ಇಂಧನ ವೆಚ್ಚವನ್ನು ಅಂದಾಜಿಸಿ:' : 'Estimate voyage diesel consumption and total trip fuel expenditure:'}</p>
+            <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">${isKn ? 'ಪ್ರಯಾಣದ ಡೀಸೆಲ್ ಬಳಕೆ ಮತ್ತು ಒಟ್ಟು ಇಂಧನ ವೆಚ್ಚವನ್ನು ಅಂದಾಜಿಸಿ:' : 'Estimate voyage diesel consumption and total trip fuel expenditure:'}</p>
             <div style="display:flex;gap:8px;margin-bottom:10px;">
                 <div style="flex:1;">
-                    <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px;">${isKn ? 'ದೂರ (km/NM):' : 'Distance (km/NM):'}</label>
-                    <input type="number" id="fuelDistance" placeholder="${isKn ? 'ದೂರ (km / NM)' : 'Distance (km / NM)'}" value="12" style="width:100%;padding:11px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:rgba(3,7,18,0.6);color:white;font-size:13px;box-sizing:border-box;">
+                    <label style="font-size:11px;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px;">${isKn ? 'ದೂರ (km/NM):' : 'Distance (km/NM):'}</label>
+                    <input type="number" id="fuelDistance" class="app-input" placeholder="${isKn ? 'ದೂರ (km / NM)' : 'Distance (km / NM)'}" value="12" style="width:100%;box-sizing:border-box;">
                 </div>
                 <div style="flex:1;">
-                    <label style="font-size:11px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px;">${isKn ? 'ಡೀಸೆಲ್ ದರ (₹/L):' : 'Diesel Rate (₹/L):'}</label>
-                    <input type="number" id="fuelPrice" placeholder="${isKn ? 'ಡೀಸೆಲ್ ದರ (₹/L)' : 'Diesel Rate (₹/L)'}" value="92" style="width:100%;padding:11px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:rgba(3,7,18,0.6);color:white;font-size:13px;box-sizing:border-box;">
+                    <label style="font-size:11px;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px;">${isKn ? 'ಡೀಸೆಲ್ ದರ (₹/L):' : 'Diesel Rate (₹/L):'}</label>
+                    <input type="number" id="fuelPrice" class="app-input" placeholder="${isKn ? 'ಡೀಸೆಲ್ ದರ (₹/L)' : 'Diesel Rate (₹/L)'}" value="92" style="width:100%;box-sizing:border-box;">
                 </div>
             </div>
             <button onclick="calculateFuel()" style="width:100%;padding:13px;background:linear-gradient(135deg,#0ea5e9,#2563eb);border:none;border-radius:12px;color:white;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 4px 14px rgba(14,165,233,0.3);">${isKn ? 'ವೆಚ್ಚ ಲೆಕ್ಕ ಹಾಕಿ' : 'Calculate Expense'}</button>
@@ -2266,7 +2664,7 @@ window.calculateFuel = function() {
     const resEl = document.getElementById('fuelResult');
     if (resEl) {
         resEl.innerHTML = `
-            <div style="background:rgba(3,7,18,0.7);padding:12px;border-radius:12px;border:1px solid rgba(56,189,248,0.25);">
+            <div style="background:var(--surface-nested);padding:12px;border-radius:12px;border:1px solid var(--surface-border);">
                 <div class="item-row" style="padding:4px 0;"><span>${isKn ? 'ಅಂದಾಜು ಡೀಸೆಲ್ ಬಳಕೆ:' : 'Estimated Diesel Needed:'}</span><span style="font-weight:800;color:#38bdf8;">~${liters} L</span></div>
                 <div class="item-row" style="padding:4px 0;"><span>${isKn ? 'ಅಂದಾಜು ಇಂಧನ ವೆಚ್ಚ:' : 'Estimated Fuel Cost:'}</span><span class="price">₹${cost.toFixed(0)}</span></div>
             </div>
@@ -2291,11 +2689,11 @@ async function renderGovtSchemes() {
                         <h3 style="font-size:15px;margin-bottom:0;font-weight:800;color:#38bdf8;">${isKn ? '🏛️ ಸರ್ಕಾರಿ ಸಬ್ಸಿಡಿ & ವಿಮೆ ಯೋಜನೆಗಳು' : '🏛️ Government Subsidies & Insurance'}</h3>
                         <span style="font-size:10px;background:rgba(6,182,212,0.15);color:#38bdf8;padding:2px 8px;border-radius:10px;font-weight:700;">PMMSY / NFDB</span>
                     </div>
-                    <p style="font-size:12px;color:#94a3b8;margin-bottom:12px;">${isKn ? 'ಕರ್ನಾಟಕ ಮೀನುಗಾರರಿಗೆ ಪ್ರಧಾನಮಂತ್ರಿ ಮತ್ಸ್ಯ ಸಂಪದ ಯೋಜನೆ ಮತ್ತು ರಾಜ್ಯ ಯೋಜನೆಗಳು:' : 'Pradhan Mantri Matsya Sampada Yojana and state marine schemes for Karnataka fishermen:'}</p>
+                    <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">${isKn ? 'ಕರ್ನಾಟಕ ಮೀನುಗಾರರಿಗೆ ಪ್ರಧಾನಮಂತ್ರಿ ಮತ್ಸ್ಯ ಸಂಪದ ಯೋಜನೆ ಮತ್ತು ರಾಜ್ಯ ಯೋಜನೆಗಳು:' : 'Pradhan Mantri Matsya Sampada Yojana and state marine schemes for Karnataka fishermen:'}</p>
                     ${data.schemes.map(s => `
-                        <div style="padding:12px;background:rgba(255,255,255,0.04);border-radius:14px;margin:8px 0;border:1px solid rgba(255,255,255,0.06);">
+                        <div style="padding:12px;background:var(--surface-nested);border-radius:14px;margin:8px 0;border:1px solid var(--surface-border);">
                             <div style="font-weight:800;font-size:13px;color:#38bdf8;">${s.name}</div>
-                            <div style="font-size:12px;color:#cbd5e1;margin-top:3px;line-height:1.4;">${s.description}</div>
+                            <div style="font-size:12px;color:var(--text-main);margin-top:3px;line-height:1.4;">${s.description}</div>
                             <div style="font-size:11px;color:#facc15;margin-top:6px;font-weight:700;">🎯 ${isKn ? 'ಅರ್ಹತೆ:' : 'Eligibility:'} ${s.eligibility}</div>
                         </div>
                     `).join('')}
@@ -2324,24 +2722,24 @@ async function renderSeasonalPrediction() {
                         <h3 style="font-size:15px;margin-bottom:0;font-weight:800;color:#38bdf8;">${isKn ? '🐟 ಕರಾವಳಿ ಋತುಮಾನ ಮೀನುಗಾರಿಕೆ ಮಾರ್ಗದರ್ಶಿ' : '🐟 Seasonal Catch Guide'}</h3>
                         <span style="font-size:10px;background:rgba(6,182,212,0.15);color:#38bdf8;padding:2px 8px;border-radius:10px;font-weight:700;">${data.month || (isKn ? 'ಕರಾವಳಿ ತೀರ' : 'Karavali Coast')}</span>
                     </div>
-                    <div style="font-size:11px;color:#94a3b8;margin-bottom:12px;line-height:1.4;">
+                    <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;line-height:1.4;">
                         ${isKn ? 'ಕರಾವಳಿ ಕರ್ನಾಟಕದ ಐತಿಹಾಸಿಕ ಲಭ್ಯತೆ ಸೂಚ್ಯಂಕ (CMFRI ಉಲ್ಲೇಖ). ನೇರ ರೇಡಾರ್ ಅಲ್ಲ.' : 'Historical seasonal availability index for Coastal Karnataka (CMFRI reference). Not a live tracking radar.'}
                     </div>
                     ${data.predictions.map(p => `
                         <div class="item-row" style="align-items:flex-start;padding:10px 12px;">
                             <div style="flex:1;">
-                                <div style="font-weight:800;color:white;font-size:13px;">🐟 ${p.fish} (${p.kannada})</div>
+                                <div style="font-weight:800;color:var(--text-main);font-size:13px;">🐟 ${p.fish} (${p.kannada})</div>
                                 <div style="font-size:11px;color:#38bdf8;margin-top:2px;">📍 ${p.location} · ⚓ ${p.gear}</div>
-                                <div style="font-size:11px;color:#cbd5e1;margin-top:3px;line-height:1.3;">${p.advice}</div>
+                                <div style="font-size:11px;color:var(--text-muted);margin-top:3px;line-height:1.3;">${p.advice}</div>
                             </div>
                             <div style="text-align:right;margin-left:8px;flex-shrink:0;">
-                                <span style="font-weight:900;color:${p.probability >= 80 ? '#10b981' : p.probability >= 60 ? '#f59e0b' : '#94a3b8'};font-size:11px;background:rgba(255,255,255,0.06);padding:3px 7px;border-radius:8px;display:inline-block;">
+                                <span style="font-weight:900;color:${p.probability >= 80 ? '#10b981' : p.probability >= 60 ? '#f59e0b' : 'var(--text-muted)'};font-size:11px;background:var(--surface-nested);padding:3px 7px;border-radius:8px;display:inline-block;border:1px solid var(--surface-border);">
                                     ${p.status_text ? p.status_text.replace('🎯 ', '').replace('✅ ', '').replace('⚠️ ', '') : p.probability + '%'}
                                 </span>
                             </div>
                         </div>
                     `).join('')}
-                    <div style="margin-top:12px;font-size:10px;color:#94a3b8;text-align:center;padding:8px;background:rgba(255,255,255,0.03);border-radius:8px;line-height:1.4;">
+                    <div style="margin-top:12px;font-size:10px;color:var(--text-muted);text-align:center;padding:8px;background:var(--surface-nested);border:1px solid var(--surface-border);border-radius:8px;line-height:1.4;">
                         ℹ️ ${data.disclaimer}
                     </div>
                 </div>
@@ -2441,18 +2839,18 @@ function renderCatchLogger() {
             </div>
 
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
-                <div style="background:rgba(15,23,42,0.8);padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);text-align:center;">
+                <div style="background:var(--surface-nested);padding:10px;border-radius:12px;border:1px solid var(--surface-border);text-align:center;">
                     <div style="font-size:18px;font-weight:900;color:#38bdf8;">${totalKg.toFixed(1)} kg</div>
-                    <div style="font-size:10px;color:#94a3b8;font-weight:700;">${isKn ? 'ಒಟ್ಟು ಮೀನು' : 'TOTAL CATCH'}</div>
+                    <div style="font-size:10px;color:var(--text-muted);font-weight:700;">${isKn ? 'ಒಟ್ಟು ಮೀನು' : 'TOTAL CATCH'}</div>
                 </div>
-                <div style="background:rgba(15,23,42,0.8);padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);text-align:center;">
+                <div style="background:var(--surface-nested);padding:10px;border-radius:12px;border:1px solid var(--surface-border);text-align:center;">
                     <div style="font-size:18px;font-weight:900;color:#facc15;">₹${totalRev.toFixed(0)}</div>
-                    <div style="font-size:10px;color:#94a3b8;font-weight:700;">${isKn ? 'ಒಟ್ಟು ಆದಾಯ' : 'GROSS EARNINGS'}</div>
+                    <div style="font-size:10px;color:var(--text-muted);font-weight:700;">${isKn ? 'ಒಟ್ಟು ಆದಾಯ' : 'GROSS EARNINGS'}</div>
                 </div>
             </div>
 
             <div style="display:flex;flex-direction:column;gap:8px;">
-                <select id="catchSpecies" style="padding:11px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:rgba(3,7,18,0.7);color:white;font-size:13px;outline:none;" onchange="updateCatchEstimate()">
+                <select id="catchSpecies" class="app-select" onchange="updateCatchEstimate()">
                     <option value="220" data-name="Indian Mackerel (ಬಂಗಡೆ)">🐟 Mackerel / ಬಂಗಡೆ (₹220/kg)</option>
                     <option value="150" data-name="Oil Sardine (ಬೂತಾಯಿ)">🐟 Sardine / ಬೂತಾಯಿ (₹150/kg)</option>
                     <option value="450" data-name="Silver Pomfret (ಮಾಂಜಿ)">🐟 Pomfret / ಮಾಂಜಿ (₹450/kg)</option>
@@ -2464,12 +2862,12 @@ function renderCatchLogger() {
                 </select>
 
                 <div style="display:flex;gap:8px;">
-                    <input type="number" id="catchWeight" placeholder="${isKn ? 'ತೂಕ (ಕೆಜಿ)' : 'Catch Quantity (kg)'}" value="15" style="flex:1;padding:11px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:rgba(3,7,18,0.7);color:white;font-size:13px;outline:none;" oninput="updateCatchEstimate()">
+                    <input type="number" id="catchWeight" class="app-input" placeholder="${isKn ? 'ತೂಕ (ಕೆಜಿ)' : 'Catch Quantity (kg)'}" value="15" style="flex:1;" oninput="updateCatchEstimate()">
                     <button onclick="saveCatchLog()" style="padding:11px 18px;background:linear-gradient(135deg,#10b981,#059669);border:none;border-radius:12px;color:white;font-weight:800;font-size:13px;cursor:pointer;box-shadow:0 4px 15px rgba(16,185,129,0.35);">${isKn ? '+ ದಾಖಲಿಸಿ' : '+ Log Catch'}</button>
                 </div>
             </div>
 
-            <div id="catchEstimateMsg" style="margin-top:10px;font-size:12px;color:#cbd5e1;background:rgba(255,255,255,0.04);padding:8px 12px;border-radius:10px;">
+            <div id="catchEstimateMsg" style="margin-top:10px;font-size:12px;color:var(--text-main);background:var(--surface-nested);padding:8px 12px;border-radius:10px;border:1px solid var(--surface-border);">
                 ${isKn ? 'ಅಂದಾಜು ಮೌಲ್ಯ:' : 'Estimated Value:'} <b style="color:#facc15;">₹3,300</b> (15 kg × ₹220)
             </div>
 
@@ -2734,6 +3132,50 @@ function renderCurrentMoreFeature() {
 }
 
 // ============================================
+// THEME CONTROLLER (LIGHT / DARK SUNLIGHT MODE)
+// ============================================
+let currentTheme = localStorage.getItem('fishermen_theme');
+if (!currentTheme) {
+    currentTheme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+}
+
+function applyTheme(theme) {
+    currentTheme = theme;
+    localStorage.setItem('fishermen_theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'light' ? '#f0f7ff' : '#030712');
+    updateThemeToggleUI();
+}
+
+function toggleTheme() {
+    playTapSound();
+    applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+}
+
+function updateThemeToggleUI() {
+    const icon = document.getElementById('themeToggleIcon');
+    const text = document.getElementById('themeToggleText');
+    const btn = document.getElementById('themeToggleBtn');
+    const t = (typeof translations !== 'undefined' && translations[currentLang]) ? translations[currentLang] : (translations ? translations.kn : null);
+    if (currentTheme === 'dark') {
+        if (icon) icon.textContent = '☀️';
+        if (text) text.textContent = (t && t.themeLight) ? t.themeLight : 'Light';
+        if (btn) {
+            btn.setAttribute('title', currentLang === 'kn' ? 'ಬೆಳಕಿನ ಮೋಡ್‌ಗೆ ಬದಲಾಯಿಸಿ (Light Mode)' : 'Switch to Light Mode');
+            btn.setAttribute('aria-label', currentLang === 'kn' ? 'ಬೆಳಕಿನ ಮೋಡ್‌ಗೆ ಬದಲಾಯಿಸಿ' : 'Switch to Light Mode');
+        }
+    } else {
+        if (icon) icon.textContent = '🌙';
+        if (text) text.textContent = (t && t.themeDark) ? t.themeDark : 'Dark';
+        if (btn) {
+            btn.setAttribute('title', currentLang === 'kn' ? 'ಕತ್ತಲೆಯ ಮೋಡ್‌ಗೆ ಬದಲಾಯಿಸಿ (Dark Mode)' : 'Switch to Dark Mode');
+            btn.setAttribute('aria-label', currentLang === 'kn' ? 'ಕತ್ತಲೆಯ ಮೋಡ್‌ಗೆ ಬದಲಾಯಿಸಿ' : 'Switch to Dark Mode');
+        }
+    }
+}
+
+// ============================================
 // REGIONAL LANGUAGE SWITCHER & LOCALIZATION ENGINE
 // ============================================
 let currentLang = 'kn';
@@ -2826,7 +3268,9 @@ const translations = {
         confirmCallTitle: 'ತುರ್ತು ಕರೆ ದೃಢೀಕರಿಸಿ',
         confirmCallMsg: 'ನೀವು ತುರ್ತು ರಕ್ಷಣಾ ಸೇವೆಗೆ ಕರೆ ಮಾಡಲು ಹೊರಟಿದ್ದೀರಿ. ಮುಂದುವರಿಯುವುದೇ?',
         confirmCallCancelBtn: 'ರದ್ದುಮಾಡಿ',
-        confirmCallLink: 'ಹೌದು, ಕರೆ ಮಾಡಿ'
+        confirmCallLink: 'ಹೌದು, ಕರೆ ಮಾಡಿ',
+        themeLight: 'ಬೆಳಕು',
+        themeDark: 'ಕತ್ತಲೆ'
     },
     'en': {
         marineTag: '🌊 MARINE WEATHER ADVISORY',
@@ -2916,7 +3360,9 @@ const translations = {
         confirmCallTitle: 'Confirm Emergency Call',
         confirmCallMsg: 'You are about to dial emergency assistance. Please confirm to proceed.',
         confirmCallCancelBtn: 'Cancel',
-        confirmCallLink: 'Yes, Call Now'
+        confirmCallLink: 'Yes, Call Now',
+        themeLight: 'Light',
+        themeDark: 'Dark'
     }
 };
 
@@ -3036,6 +3482,7 @@ function applyLanguage(lang) {
     if (currentMoreFeature) {
         renderCurrentMoreFeature();
     }
+    updateThemeToggleUI();
 }
 
 document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -3078,6 +3525,7 @@ document.addEventListener('DOMContentLoaded', function(){
 // INITIALIZATION
 // ============================================
 initSpeech();
+applyTheme(currentTheme);
 applyLanguage(currentLang);
 checkBackend();
 setInterval(checkBackend, 30000);
@@ -3087,9 +3535,9 @@ loadBestTime();
 // Register Service Worker for PWA & Deep-Sea Offline Support
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=4')
+        navigator.serviceWorker.register('./sw.js?v=5')
             .then(reg => {
-                console.log('🐟 [PWA] Service Worker v4 registered:', reg.scope);
+                console.log('🐟 [PWA] Service Worker v5 registered:', reg.scope);
                 reg.update();
             })
             .catch(err => console.log('🐟 [PWA] SW registration failed:', err));

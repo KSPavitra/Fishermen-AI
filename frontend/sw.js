@@ -1,4 +1,4 @@
-const CACHE_NAME = 'fishermen-ai-v4';
+const CACHE_NAME = 'fishermen-ai-v5';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -10,7 +10,7 @@ const STATIC_ASSETS = [
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      console.log('🐟 [Service Worker v4] Caching App Shell');
+      console.log('🐟 [Service Worker v5] Caching App Shell');
       return cache.addAll(STATIC_ASSETS);
     })
   );
@@ -23,7 +23,7 @@ self.addEventListener('activate', event => {
     caches.keys().then(keys => {
       return Promise.all(
         keys.filter(key => key !== CACHE_NAME).map(key => {
-          console.log('🐟 [Service Worker v4] Removing old cache:', key);
+          console.log('🐟 [Service Worker v5] Removing old cache:', key);
           return caches.delete(key);
         })
       );
