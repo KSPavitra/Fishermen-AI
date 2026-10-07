@@ -424,7 +424,7 @@
             width: 136px;
             height: 136px;
             border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.35);
             background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #4f46e5 100%);
             color: white;
             cursor: pointer;
@@ -436,6 +436,15 @@
             justify-content: center;
             position: relative;
             z-index: 2;
+            animation: micIdleBreath 3.5s infinite ease-in-out;
+        }
+        @keyframes micIdleBreath {
+            0%, 100% {
+                box-shadow: 0 14px 45px rgba(14, 165, 233, 0.45), 0 0 0 0 rgba(14, 165, 233, 0.35);
+            }
+            50% {
+                box-shadow: 0 18px 55px rgba(14, 165, 233, 0.65), 0 0 0 10px rgba(14, 165, 233, 0);
+            }
         }
         .mic-btn:hover {
             transform: scale(1.04);
@@ -443,18 +452,35 @@
         }
         .mic-btn:active { transform: scale(0.95); }
         .mic-btn.recording {
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #991b1b 100%);
-            border-color: rgba(254, 202, 202, 0.7);
-            box-shadow: 0 14px 50px rgba(239, 68, 68, 0.75);
-            animation: recordHeartbeat 1s infinite alternate;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%) !important;
+            border: 3px solid #fee2e2 !important;
+            animation: activeMicPulse 1.2s infinite ease-in-out !important;
         }
-        @keyframes recordHeartbeat {
-            0% { transform: scale(1); box-shadow: 0 0 25px rgba(239, 68, 68, 0.6); }
-            100% { transform: scale(1.08); box-shadow: 0 0 50px rgba(239, 68, 68, 0.95); }
+        @keyframes activeMicPulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.85), 0 10px 35px rgba(239, 68, 68, 0.6);
+            }
+            50% {
+                transform: scale(1.10);
+                box-shadow: 0 0 0 24px rgba(239, 68, 68, 0), 0 18px 55px rgba(239, 68, 68, 0.95);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0), 0 10px 35px rgba(239, 68, 68, 0.6);
+            }
+        }
+        .mic-stage.recording .sonar-ring-1 {
+            border-color: rgba(239, 68, 68, 0.7);
+            animation: sonarSpin 4s linear infinite, sonarPulse 1.2s infinite ease-out;
+        }
+        .mic-stage.recording .sonar-ring-2 {
+            border-color: rgba(239, 68, 68, 0.45);
+            animation: sonarPulse 1.2s infinite ease-out 0.35s;
         }
         #micIcon { font-size: 44px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4)); line-height: 1; }
         #micText { font-size: 14px; margin-top: 5px; font-weight: 800; letter-spacing: 0.2px; }
-        .mic-sub { font-size: 10px; color: rgba(255, 255, 255, 0.75); font-weight: 600; margin-top: 1px; }
+        .mic-sub { font-size: 10px; color: rgba(255, 255, 255, 0.85); font-weight: 600; margin-top: 2px; }
 
         /* LIVE AUDIO EQUALIZER BARS */
         .equalizer-wave {
@@ -507,19 +533,33 @@
         @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
 
         .transcript {
-            margin-top: 10px;
+            margin-top: 12px;
             font-size: 14px;
-            font-weight: 600;
-            color: #f1f5f9;
-            background: rgba(15, 23, 42, 0.6);
-            padding: 11px 16px;
+            font-weight: 700;
+            color: #ffffff;
+            background: rgba(9, 19, 43, 0.95);
+            padding: 12px 18px;
             border-radius: var(--radius-md);
-            min-height: 42px;
-            border: 1px dashed rgba(255, 255, 255, 0.12);
+            min-height: 46px;
+            border: 1.5px solid #38bdf8;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.55), 0 0 12px rgba(56, 189, 248, 0.2);
+            letter-spacing: 0.1px;
+            transition: all 0.25s ease;
+        }
+        .transcript.active-listening {
+            border-color: #ef4444;
+            background: rgba(45, 10, 20, 0.95);
+            color: #fecaca;
+            box-shadow: 0 0 25px rgba(239, 68, 68, 0.5);
+            animation: transcriptPulse 1.2s infinite alternate;
+        }
+        @keyframes transcriptPulse {
+            0% { border-color: rgba(239, 68, 68, 0.5); box-shadow: 0 0 15px rgba(239, 68, 68, 0.3); }
+            100% { border-color: #ef4444; box-shadow: 0 0 30px rgba(239, 68, 68, 0.7); }
         }
 
         /* TEXT FALLBACK BAR */
@@ -686,55 +726,55 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
             margin: 12px auto 4px;
-            padding: 8px 18px;
-            background: rgba(15, 23, 42, 0.65);
+            padding: 10px 22px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 58, 138, 0.92));
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(56, 189, 248, 0.32);
+            border: 2px solid #38bdf8;
             border-radius: 9999px;
-            color: #f1f5f9;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 0.2px;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
             transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
             user-select: none;
             text-decoration: none;
             font-family: inherit;
         }
         .type-toggle-btn .type-btn-icon {
-            font-size: 14px;
+            font-size: 16px;
             line-height: 1;
-            filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.4));
+            filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.7));
         }
         .type-toggle-btn .type-btn-text {
-            color: #f1f5f9;
-            font-weight: 600;
+            color: #ffffff;
+            font-weight: 800;
         }
         .type-toggle-btn .type-btn-arrow {
-            font-size: 13px;
-            font-weight: 700;
+            font-size: 14px;
+            font-weight: 900;
             color: #38bdf8;
             transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             line-height: 1;
         }
         .type-toggle-btn:hover {
             color: #ffffff;
-            background: rgba(30, 41, 59, 0.8);
-            border-color: rgba(56, 189, 248, 0.65);
-            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.25), 0 0 14px rgba(56, 189, 248, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            transform: translateY(-1px) scale(1.02);
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            border-color: #bae6fd;
+            box-shadow: 0 8px 28px rgba(14, 165, 233, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px) scale(1.03);
         }
         .type-toggle-btn:hover .type-btn-arrow {
-            transform: translateX(3px);
-            color: #7dd3fc;
+            transform: translateX(4px);
+            color: #ffffff;
         }
         .type-toggle-btn:active {
-            transform: translateY(0) scale(0.98);
-            box-shadow: 0 2px 8px rgba(6, 182, 212, 0.2);
+            transform: translateY(0) scale(0.97);
+            box-shadow: 0 3px 12px rgba(6, 182, 212, 0.4);
         }
 
         /* ACTION TILES: SOS & MARKET */
@@ -967,7 +1007,8 @@
             flex: 1;
             background: transparent;
             border: 1px solid transparent;
-            color: var(--text-muted);
+            color: #e2e8f0;
+            font-weight: 700;
             cursor: pointer;
             padding: 8px 2px 7px;
             min-height: 52px;
@@ -1137,23 +1178,36 @@
             border-color: rgba(59, 130, 246, 0.25);
         }
         [data-theme="light"] .transcript {
-            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+            background: #ffffff !important;
+            border: 2px solid #0284c7 !important;
+            color: #0c4a6e !important;
+            font-weight: 800 !important;
+            box-shadow: 0 4px 18px rgba(2, 132, 199, 0.2) !important;
+        }
+        [data-theme="light"] .transcript.active-listening {
+            border-color: #dc2626 !important;
+            background: #fef2f2 !important;
+            color: #991b1b !important;
+            box-shadow: 0 4px 22px rgba(220, 38, 38, 0.3) !important;
         }
         [data-theme="light"] .type-toggle-btn {
-            background: rgba(255, 255, 255, 0.95);
-            border-color: rgba(14, 165, 233, 0.4);
-            color: #0f172a;
-            box-shadow: 0 4px 14px rgba(14, 165, 233, 0.15);
+            background: #ffffff !important;
+            border: 2px solid #0284c7 !important;
+            color: #0369a1 !important;
+            box-shadow: 0 4px 18px rgba(2, 132, 199, 0.25), inset 0 1px 0 #ffffff !important;
         }
         [data-theme="light"] .type-toggle-btn .type-btn-text {
-            color: #0f172a;
+            color: #0369a1 !important;
+            font-weight: 800 !important;
         }
         [data-theme="light"] .type-toggle-btn .type-btn-arrow {
-            color: #0284c7;
+            color: #0284c7 !important;
+            font-weight: 900 !important;
         }
         [data-theme="light"] .type-toggle-btn:hover {
-            background: #ffffff;
-            border-color: #0284c7;
+            background: #f0f9ff !important;
+            border-color: #0369a1 !important;
+            box-shadow: 0 6px 24px rgba(2, 132, 199, 0.35) !important;
         }
         [data-theme="light"] .decision-card {
             background: #ffffff;
@@ -1245,7 +1299,8 @@
             box-shadow: 0 -8px 25px rgba(15, 23, 42, 0.08) !important;
         }
         [data-theme="light"] .tab-btn {
-            color: #475569;
+            color: #0f172a !important;
+            font-weight: 700;
         }
         [data-theme="light"] .tab-btn:hover {
             color: #0369a1;
@@ -1322,6 +1377,196 @@
         }
         [data-theme="light"] #bestTimeDate {
             color: #475569 !important;
+        }
+
+        /* PWA ADD TO HOME SCREEN PROMPT BANNER */
+        .pwa-install-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(6, 182, 212, 0.22));
+            border: 1.5px solid rgba(56, 189, 248, 0.45);
+            border-radius: 16px;
+            padding: 9px 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(6, 182, 212, 0.15);
+            animation: slideDownFade 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            z-index: 50;
+            flex-shrink: 0;
+        }
+        @keyframes slideDownFade {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .pwa-banner-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            min-width: 0;
+        }
+        .pwa-banner-icon {
+            font-size: 22px;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+        .pwa-banner-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+        .pwa-banner-title {
+            font-size: 12.5px;
+            font-weight: 800;
+            color: #ffffff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .pwa-banner-sub {
+            font-size: 10px;
+            color: #cbd5e1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .pwa-banner-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .pwa-install-btn {
+            background: linear-gradient(135deg, #0ea5e9, #2563eb);
+            border: none;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 6px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);
+            transition: transform 0.15s ease;
+        }
+        .pwa-install-btn:hover {
+            transform: scale(1.05);
+        }
+        .pwa-close-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #94a3b8;
+            font-size: 13px;
+            font-weight: 700;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .pwa-close-btn:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* LIGHT THEME FOR PWA BANNER */
+        [data-theme="light"] .pwa-install-banner {
+            background: #ffffff !important;
+            border: 1.5px solid #0284c7 !important;
+            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.16) !important;
+        }
+        [data-theme="light"] .pwa-banner-title {
+            color: #0f172a !important;
+        }
+        [data-theme="light"] .pwa-banner-sub {
+            color: #475569 !important;
+        }
+        [data-theme="light"] .pwa-close-btn {
+            color: #64748b !important;
+            background: #f1f5f9 !important;
+        }
+
+        /* PWA iOS MODAL */
+        .pwa-modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(14px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        .pwa-modal-card {
+            background: var(--surface-card);
+            border: 1px solid var(--surface-border);
+            border-radius: 24px;
+            padding: 22px 20px;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: var(--app-shadow);
+            animation: zoomFade 0.25s ease;
+        }
+        .pwa-modal-close {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 16px;
+            cursor: pointer;
+            padding: 4px;
+        }
+        .pwa-ios-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .pwa-ios-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            background: var(--surface-nested);
+            border: 1px solid var(--surface-border);
+            padding: 10px 12px;
+            border-radius: 12px;
+        }
+        .pwa-ios-step .step-num {
+            background: #0284c7;
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 800;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .pwa-ios-step .step-text {
+            font-size: 12px;
+            color: var(--text-main);
+            line-height: 1.4;
+        }
+        .pwa-ios-ok-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #0ea5e9, #2563eb);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 800;
+            font-size: 13px;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(14, 165, 233, 0.4);
         }
 
         /* Mobile vs Desktop Viewport Architecture */
@@ -1441,6 +1686,23 @@
         </div>
     </header>
 
+    <!-- PWA ADD TO HOME SCREEN BANNER -->
+    <div id="pwaInstallBanner" class="pwa-install-banner" style="display:none;">
+        <div class="pwa-banner-left">
+            <span class="pwa-banner-icon">📱</span>
+            <div class="pwa-banner-info">
+                <span class="pwa-banner-title" id="pwaBannerTitle">ಹೋಮ್ ಸ್ಕ್ರೀನ್‌ಗೆ ಸೇರಿಸಿ</span>
+                <span class="pwa-banner-sub" id="pwaBannerSub">ಬ್ರೌಸರ್ ಬಾರ್ ತೆಗೆದು ಆ್ಯಪ್‌ನಂತೆ ಬಳಸಿ</span>
+            </div>
+        </div>
+        <div class="pwa-banner-actions">
+            <button id="pwaInstallBtn" class="pwa-install-btn" onclick="triggerPwaInstall()">
+                <span id="pwaInstallBtnText">ಇನ್‌ಸ್ಟಾಲ್</span>
+            </button>
+            <button class="pwa-close-btn" onclick="dismissPwaBanner()" aria-label="Dismiss banner" title="Dismiss">✕</button>
+        </div>
+    </div>
+
     <!-- CONTENT DISPLAY -->
     <div class="content-area" id="contentArea">
 
@@ -1451,21 +1713,17 @@
             <div class="hero-prompt-card">
                 <h2 class="hero-prompt-title" id="heroPromptTitle">ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ?</h2>
                 <p class="hero-prompt-sub" id="heroPromptSub">Should I go fishing tomorrow?</p>
-                <div class="hero-prompt-badge">
-                    <span>🎙️</span>
-                    <span id="heroPromptBadge">ಮೈಕ್ ಒತ್ತಿ ನಿಮ್ಮ ಮಾತಲ್ಲೇ ಕೇಳಿ</span>
-                </div>
             </div>
 
             <!-- BIOLUMINESCENT SONAR VOICE COCKPIT -->
             <div class="voice-cockpit">
-                <div class="mic-stage">
+                <div class="mic-stage" id="micStage">
                     <div class="sonar-ring-1"></div>
                     <div class="sonar-ring-2"></div>
-                    <button class="mic-btn" id="micBtn">
+                    <button class="mic-btn" id="micBtn" aria-label="Press to Speak">
                         <span id="micIcon">🎤</span>
                         <span id="micText">ಒತ್ತಿ ಮಾತನಾಡಿ</span>
-                        <span class="mic-sub" id="micSub">ಕನ್ನಡ / English</span>
+                        <span class="mic-sub" id="micSub">ನಿಮ್ಮ ಮಾತಲ್ಲೇ ಕೇಳಿ · ಕನ್ನಡ / English</span>
                     </button>
                 </div>
 
@@ -1755,6 +2013,12 @@
                         <span id="catchLogCardTitle" style="font-size:13px;font-weight:800;margin-top:4px;">Catch Logger</span>
                         <span id="catchLogCardSub" style="font-size:10px;color:var(--text-muted);font-weight:400;">Log kg & earnings</span>
                     </button>
+
+                    <button id="installAppBtn" class="action-tile more-card bento-tool-card" onclick="triggerPwaInstall()">
+                        <span style="font-size:24px;">📱</span>
+                        <span id="installCardTitle" style="font-size:13px;font-weight:800;margin-top:4px;">Add to Home Screen</span>
+                        <span id="installCardSub" style="font-size:10px;color:var(--text-muted);font-weight:400;">Install standalone app</span>
+                    </button>
                 </div>
             </div>
 
@@ -1869,6 +2133,37 @@
             <button id="confirmCallCancelBtn" onclick="document.getElementById('callConfirmModal').style.display='none'" style="flex:1;padding:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);border-radius:12px;color:white;font-weight:700;font-size:13px;cursor:pointer;">Cancel</button>
             <a id="confirmCallLink" href="tel:1554" style="flex:1;padding:12px;background:#ef4444;border:none;border-radius:12px;color:white;font-weight:900;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;">Yes, Call Now</a>
         </div>
+    </div>
+</div>
+
+<!-- PWA iOS / BROWSER INSTALLATION MODAL -->
+<div id="pwaIosModal" class="pwa-modal-backdrop" style="display:none;" onclick="if(event.target===this)closeIosInstallModal()">
+    <div class="pwa-modal-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:22px;">📱</span>
+                <h4 style="margin:0;font-size:16px;font-weight:900;color:var(--text-main);" id="iosModalTitle">ಆ್ಯಪ್ ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿ</h4>
+            </div>
+            <button class="pwa-modal-close" onclick="closeIosInstallModal()" aria-label="Close">✕</button>
+        </div>
+        <p style="font-size:12px;color:var(--text-muted);margin:0 0 16px;line-height:1.4;" id="iosModalSub">
+            ಸಫಾರಿ (Safari) ಅಥವಾ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಕೆಳಗಿನ ಹಂತಗಳನ್ನು ಅನುಸರಿಸಿ:
+        </p>
+        <div class="pwa-ios-steps">
+            <div class="pwa-ios-step">
+                <span class="step-num">1</span>
+                <span class="step-text" id="iosStep1">ಬ್ರೌಸರ್ ಮೆನು ಅಥವಾ ಹಂಚಿಕೆ ಬಟನ್ <b>Share (⎋)</b> ಟ್ಯಾಪ್ ಮಾಡಿ.</span>
+            </div>
+            <div class="pwa-ios-step">
+                <span class="step-num">2</span>
+                <span class="step-text" id="iosStep2">ಕೆಳಗೆ ಸ್ಕ್ರಾಲ್ ಮಾಡಿ <b>'Add to Home Screen' (➕)</b> ಆಯ್ಕೆಮಾಡಿ.</span>
+            </div>
+            <div class="pwa-ios-step">
+                <span class="step-num">3</span>
+                <span class="step-text" id="iosStep3">ಮೇಲ್ಭಾಗದಲ್ಲಿ <b>'Add'</b> ಒತ್ತಿ. ಬ್ರೌಸರ್ ಬಾರ್ ಇಲ್ಲದೆ ಆ್ಯಪ್ ತೆರೆಯುತ್ತದೆ!</span>
+            </div>
+        </div>
+        <button class="pwa-ios-ok-btn" onclick="closeIosInstallModal()" id="iosModalOkBtn">ಅರ್ಥವಾಯಿತು (Got it)</button>
     </div>
 </div>
 
@@ -2058,8 +2353,16 @@ function initSpeech() {
     recognition.onstart = function() {
         isRecording = true;
         playTapSound();
+        if (navigator.vibrate) {
+            try { navigator.vibrate([80]); } catch (e) {}
+        }
         if (micBtn) micBtn.classList.add('recording');
         if (micBtn2) micBtn2.classList.add('recording');
+        const micStage = document.getElementById('micStage');
+        if (micStage) micStage.classList.add('recording');
+        if (transcriptText) transcriptText.classList.add('active-listening');
+        const t2 = document.getElementById('transcriptText2');
+        if (t2) t2.classList.add('active-listening');
         if (micIcon) micIcon.textContent = '🔴';
         if (document.getElementById('micIcon2')) document.getElementById('micIcon2').textContent = '🔴';
         const listenText = currentLang === 'kn' ? 'ಕೇಳಿಸಿಕೊಳ್ಳುತ್ತಿದ್ದೇವೆ...' : 'Listening...';
@@ -2099,6 +2402,11 @@ function stopRecording() {
     isRecording = false;
     if (micBtn) micBtn.classList.remove('recording');
     if (micBtn2) micBtn2.classList.remove('recording');
+    const micStage = document.getElementById('micStage');
+    if (micStage) micStage.classList.remove('recording');
+    if (transcriptText) transcriptText.classList.remove('active-listening');
+    const t2 = document.getElementById('transcriptText2');
+    if (t2) t2.classList.remove('active-listening');
     if (micIcon) micIcon.textContent = '🎤';
     if (document.getElementById('micIcon2')) document.getElementById('micIcon2').textContent = '🎤';
     if (micText && translations[currentLang]) micText.textContent = translations[currentLang].micText;
@@ -3215,7 +3523,7 @@ const translations = {
         heroTitle: 'ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ?',
         heroSub: 'ಕರಾವಳಿ ಹವಾಮಾನ ವರದಿ & ಬಂದರು ಮಾರುಕಟ್ಟೆ ಮುನ್ಸೂಚನೆ',
         micText: 'ಒತ್ತಿ ಮಾತನಾಡಿ',
-        micSub: 'ಕನ್ನಡ / English',
+        micSub: 'ನಿಮ್ಮ ಮಾತಲ್ಲೇ ಕೇಳಿ · ಕನ್ನಡ / English',
         typeBtnText: 'ಬರೆದು ಕೇಳಿ',
         textInputPlaceholder: 'ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ? ಅಥವಾ ಪ್ರಶ್ನೆ ಟೈಪ್ ಮಾಡಿ...',
         textSubmitBtn: 'ಕೇಳಿ (Ask)',
@@ -3298,7 +3606,20 @@ const translations = {
         confirmCallCancelBtn: 'ರದ್ದುಮಾಡಿ',
         confirmCallLink: 'ಹೌದು, ಕರೆ ಮಾಡಿ',
         themeLight: 'ಬೆಳಕು',
-        themeDark: 'ಕತ್ತಲೆ'
+        themeDark: 'ಕತ್ತಲೆ',
+
+        // PWA & Home Screen
+        pwaBannerTitle: 'ಹೋಮ್ ಸ್ಕ್ರೀನ್‌ಗೆ ಸೇರಿಸಿ',
+        pwaBannerSub: 'ಬ್ರೌಸರ್ ಬಾರ್ ತೆಗೆದು ಆ್ಯಪ್‌ನಂತೆ ಬಳಸಿ',
+        pwaInstallBtnText: 'ಇನ್‌ಸ್ಟಾಲ್',
+        installCardTitle: 'ಹೋಮ್ ಸ್ಕ್ರೀನ್‌ಗೆ ಸೇರಿಸಿ',
+        installCardSub: 'ಬ್ರೌಸರ್ ರಹಿತ ಆ್ಯಪ್ ಸ್ಥಾಪಿಸಿ',
+        iosModalTitle: 'ಆ್ಯಪ್ ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿ',
+        iosModalSub: 'ಸಫಾರಿ (Safari) ಅಥವಾ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಕೆಳಗಿನ ಹಂತಗಳನ್ನು ಅನುಸರಿಸಿ:',
+        iosStep1: 'ಬ್ರೌಸರ್ ಮೆನು ಅಥವಾ ಹಂಚಿಕೆ ಬಟನ್ Share (⎋) ಟ್ಯಾಪ್ ಮಾಡಿ.',
+        iosStep2: 'ಕೆಳಗೆ ಸ್ಕ್ರಾಲ್ ಮಾಡಿ \'Add to Home Screen\' (➕) ಆಯ್ಕೆಮಾಡಿ.',
+        iosStep3: 'ಮೇಲ್ಭಾಗದಲ್ಲಿ \'Add\' ಒತ್ತಿ. ಬ್ರೌಸರ್ ಬಾರ್ ಇಲ್ಲದೆ ಆ್ಯಪ್ ತೆರೆಯುತ್ತದೆ!',
+        iosModalOkBtn: 'ಅರ್ಥವಾಯಿತು (Got it)'
     },
     'en': {
         marineTag: '🌊 MARINE WEATHER ADVISORY',
@@ -3307,7 +3628,7 @@ const translations = {
         heroTitle: 'Should I go fishing tomorrow?',
         heroSub: 'Marine weather advisory & harbor market outlook',
         micText: 'Tap to Speak',
-        micSub: 'Kannada / English',
+        micSub: 'Ask in your language · Kannada / English',
         typeBtnText: 'Type your query',
         textInputPlaceholder: 'Should I go fishing? Type query...',
         textSubmitBtn: 'Ask',
@@ -3390,7 +3711,20 @@ const translations = {
         confirmCallCancelBtn: 'Cancel',
         confirmCallLink: 'Yes, Call Now',
         themeLight: 'Light',
-        themeDark: 'Dark'
+        themeDark: 'Dark',
+
+        // PWA & Home Screen
+        pwaBannerTitle: 'Add to Home Screen',
+        pwaBannerSub: 'Remove browser UI & use as native app',
+        pwaInstallBtnText: 'Install',
+        installCardTitle: 'Add to Home Screen',
+        installCardSub: 'Install standalone app',
+        iosModalTitle: 'Install App on Device',
+        iosModalSub: 'Follow these steps in Safari or your browser:',
+        iosStep1: 'Tap the browser Share button (⎋) or menu.',
+        iosStep2: 'Scroll down and select \'Add to Home Screen\' (➕).',
+        iosStep3: 'Tap \'Add\' in the top corner to launch without browser UI.',
+        iosModalOkBtn: 'Got it'
     }
 };
 
@@ -3503,6 +3837,19 @@ function applyLanguage(lang) {
     setTxt('confirmCallCancelBtn', t.confirmCallCancelBtn);
     setTxt('confirmCallLink', t.confirmCallLink);
 
+    // PWA & Home Screen Localizations
+    setTxt('pwaBannerTitle', t.pwaBannerTitle);
+    setTxt('pwaBannerSub', t.pwaBannerSub);
+    setTxt('pwaInstallBtnText', t.pwaInstallBtnText);
+    setTxt('installCardTitle', t.installCardTitle);
+    setTxt('installCardSub', t.installCardSub);
+    setTxt('iosModalTitle', t.iosModalTitle);
+    setTxt('iosModalSub', t.iosModalSub);
+    setTxt('iosStep1', t.iosStep1);
+    setTxt('iosStep2', t.iosStep2);
+    setTxt('iosStep3', t.iosStep3);
+    setTxt('iosModalOkBtn', t.iosModalOkBtn);
+
     // Update dynamic cards if currently displayed
     if (currentDecision) {
         showResult(currentDecision);
@@ -3550,6 +3897,103 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 // ============================================
+// PWA INSTALLATION CONTROLLER (ADD TO HOME SCREEN)
+// ============================================
+let deferredInstallPrompt = null;
+
+function isPwaStandalone() {
+    return window.matchMedia('(display-mode: standalone)').matches ||
+           window.navigator.standalone === true ||
+           document.referrer.includes('android-app://');
+}
+
+function isIosDevice() {
+    return /iphone|ipad|ipod/i.test(window.navigator.userAgent) && !window.MSStream;
+}
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent the mini-infobar from appearing on mobile
+    e.preventDefault();
+    deferredInstallPrompt = e;
+
+    // Show banner only if not standalone and not dismissed this session
+    if (!isPwaStandalone() && !sessionStorage.getItem('pwa_banner_dismissed')) {
+        const banner = document.getElementById('pwaInstallBanner');
+        if (banner) {
+            banner.style.display = 'flex';
+        }
+    }
+});
+
+window.addEventListener('appinstalled', () => {
+    deferredInstallPrompt = null;
+    dismissPwaBanner();
+    console.log('🐟 [PWA] Fishermen-AI successfully installed on device!');
+    showVoiceState('responding', currentLang === 'kn' ? '✅ ಆ್ಯಪ್ ಹೋಮ್ ಸ್ಕ್ರೀನ್‌ಗೆ ಸೇರಿಸಲಾಗಿದೆ!' : '✅ App successfully added to Home Screen!');
+});
+
+function triggerPwaInstall() {
+    playTapSound();
+    if (isPwaStandalone()) {
+        showVoiceState('responding', currentLang === 'kn' ? '✅ ಆ್ಯಪ್ ಈಗಾಗಲೇ ಇನ್‌ಸ್ಟಾಲ್ ಆಗಿದೆ' : '✅ Fishermen-AI is already running as installed app');
+        return;
+    }
+
+    if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+        deferredInstallPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('🐟 [PWA] User accepted the install prompt');
+                dismissPwaBanner();
+            }
+            deferredInstallPrompt = null;
+        });
+        return;
+    }
+
+    // iOS or browser fallback modal
+    openIosInstallModal();
+}
+
+function dismissPwaBanner() {
+    const banner = document.getElementById('pwaInstallBanner');
+    if (banner) {
+        banner.style.display = 'none';
+    }
+    try {
+        sessionStorage.setItem('pwa_banner_dismissed', 'true');
+    } catch (e) {}
+}
+
+function openIosInstallModal() {
+    playTapSound();
+    const modal = document.getElementById('pwaIosModal');
+    if (modal) {
+        modal.style.display = 'flex';
+    }
+}
+
+function closeIosInstallModal() {
+    playTapSound();
+    const modal = document.getElementById('pwaIosModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// Check on initial startup: on mobile browser (not standalone), show banner after brief delay
+window.addEventListener('DOMContentLoaded', () => {
+    if (!isPwaStandalone() && !sessionStorage.getItem('pwa_banner_dismissed')) {
+        setTimeout(() => {
+            const banner = document.getElementById('pwaInstallBanner');
+            if (banner && (deferredInstallPrompt || isIosDevice())) {
+                banner.style.display = 'flex';
+            }
+        }, 1500);
+    }
+});
+
+// ============================================
 // INITIALIZATION
 // ============================================
 initSpeech();
@@ -3563,9 +4007,9 @@ loadBestTime();
 // Register Service Worker for PWA & Deep-Sea Offline Support
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=6')
+        navigator.serviceWorker.register('./sw.js?v=7')
             .then(reg => {
-                console.log('🐟 [PWA] Service Worker v6 registered:', reg.scope);
+                console.log('🐟 [PWA] Service Worker v7 registered:', reg.scope);
                 reg.update();
             })
             .catch(err => console.log('🐟 [PWA] SW registration failed:', err));
