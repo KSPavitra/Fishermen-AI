@@ -147,7 +147,7 @@
             -webkit-backdrop-filter: blur(32px);
             border: 1px solid var(--app-border);
             border-radius: var(--radius-xl);
-            padding: 20px 16px 0;
+            padding: 12px 16px 0;
             box-shadow: var(--app-shadow);
             height: 94vh;
             max-height: 900px;
@@ -169,149 +169,156 @@
             border-radius: 50%;
         }
 
-        /* HEADER */
+        /* HEADER (COMPACT TOOL HUD) */
         header {
-            text-align: center;
-            padding-bottom: 14px;
-            border-bottom: 1px solid var(--header-border);
-            flex-shrink: 0;
-        }
-        .brand-bar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 8px;
-            gap: 6px;
+            padding: 2px 0 8px;
+            border-bottom: 1px solid var(--header-border);
+            flex-shrink: 0;
+            gap: 10px;
         }
-        .brand-actions {
-            display: inline-flex;
+        .header-brand {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            text-align: left;
+        }
+        .brand-title-row {
+            display: flex;
             align-items: center;
             gap: 6px;
         }
-        .theme-toggle-pill {
+        .brand-title {
+            font-size: 16px;
+            font-weight: 850;
+            letter-spacing: -0.3px;
+            margin: 0;
+            line-height: 1.2;
+            background: var(--title-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            white-space: nowrap;
+        }
+        .connection-status-dot {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: var(--text-main);
-            cursor: pointer;
-            transition: all 0.22s ease;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .theme-toggle-pill:hover {
-            background: rgba(255, 255, 255, 0.16);
-            border-color: rgba(56, 189, 248, 0.5);
-            transform: translateY(-1px);
-        }
-        .theme-toggle-pill:active {
-            transform: scale(0.95);
-        }
-        .theme-toggle-pill span {
-            line-height: 1;
-        }
-        .marine-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 10px;
-            font-weight: 800;
-            letter-spacing: 0.8px;
-            text-transform: uppercase;
-            color: #38bdf8;
-            background: rgba(6, 182, 212, 0.12);
-            padding: 4px 10px;
-            border-radius: 20px;
-            border: 1px solid rgba(6, 182, 212, 0.25);
-            box-shadow: 0 0 12px rgba(6, 182, 212, 0.15);
-        }
-        .connection-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 4px 11px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: var(--text-main);
+            flex-shrink: 0;
         }
         .status-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
-        .status-dot.online { background: #10b981; box-shadow: 0 0 10px #10b981; animation: radarPing 2s infinite; }
-        .status-dot.offline { background: var(--danger); box-shadow: 0 0 8px var(--danger); }
+        .status-dot.online { background: #10b981; box-shadow: 0 0 8px #10b981; animation: radarPing 2s infinite; }
+        .status-dot.offline { background: var(--danger); box-shadow: 0 0 6px var(--danger); }
         @keyframes radarPing {
             0%, 100% { transform: scale(1); opacity: 1; }
             50% { transform: scale(1.3); opacity: 0.5; }
         }
 
-        header h1 {
-            font-size: 26px;
-            font-weight: 900;
-            letter-spacing: -0.6px;
-            background: var(--title-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+        .subtitle {
+            font-size: 10px;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin: 1px 0 0;
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
-        .subtitle { font-size: 12px; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
 
-        /* LANGUAGE SELECTOR PILL */
-        .lang-selector {
-            display: flex;
-            gap: 6px;
-            justify-content: center;
-            background: rgba(15, 23, 42, 0.75);
-            padding: 4px;
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin: 10px auto 0;
-            width: fit-content;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-        }
-        .lang-btn {
-            padding: 6px 16px;
-            border: 1px solid transparent;
-            border-radius: 20px;
-            background: transparent;
-            color: #94a3b8;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 700;
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        .header-controls {
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            flex-shrink: 0;
+        }
+
+        /* CONDENSED LANGUAGE TOGGLE (EN | ಕನ್ನಡ) */
+        .lang-toggle-compact {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            background: rgba(15, 23, 42, 0.75);
+            padding: 3px 8px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .lang-link.lang-btn {
+            background: transparent;
+            border: none;
+            padding: 2px 4px;
+            color: #94a3b8;
+            font-size: 11.5px;
+            font-weight: 700;
+            cursor: pointer;
+            line-height: 1;
+            transition: all 0.18s ease;
+            border-radius: 4px;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
-        .lang-btn:hover:not(.active) {
-            color: #f1f5f9;
-            background: rgba(255, 255, 255, 0.05);
-        }
-        .lang-btn.active {
-            background: linear-gradient(135deg, #0ea5e9, #2563eb);
+        .lang-link.lang-btn:hover:not(.active) {
             color: #ffffff;
-            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.45);
+        }
+        .lang-link.lang-btn.active {
+            color: #38bdf8;
+            font-weight: 900;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+        }
+        .lang-sep {
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 10px;
+            line-height: 1;
+            user-select: none;
+            margin: 0 1px;
+        }
+
+        /* COMPACT THEME TOGGLE */
+        .theme-toggle-compact {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-main);
+            cursor: pointer;
+            font-size: 13px;
+            padding: 0;
+            transition: all 0.2s ease;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            flex-shrink: 0;
+        }
+        .theme-toggle-compact:hover {
+            background: rgba(255, 255, 255, 0.18);
             border-color: rgba(56, 189, 248, 0.5);
-            font-weight: 800;
+            transform: scale(1.05);
+        }
+        .theme-toggle-compact:active {
+            transform: scale(0.95);
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
 
         /* CONTENT DISPLAY */
         .content-area {
             flex: 1;
             overflow-y: auto;
-            padding: 14px 2px 8px;
-            margin-bottom: 6px;
+            padding: 8px 2px 6px;
+            margin-bottom: 4px;
         }
         .content-area::-webkit-scrollbar { width: 4px; }
         .content-area::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 10px; }
@@ -322,38 +329,38 @@
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* HERO CARD (QUESTION HOOK) */
+        /* HERO CARD (QUESTION HOOK - COMPACT TOOL STYLE) */
         .hero-prompt-card {
             background: linear-gradient(135deg, rgba(6, 182, 212, 0.16), rgba(59, 130, 246, 0.1));
             border: 1px solid rgba(6, 182, 212, 0.3);
-            border-radius: var(--radius-lg);
-            padding: 16px 14px;
-            margin-bottom: 12px;
+            border-radius: var(--radius-md);
+            padding: 8px 12px;
+            margin-bottom: 6px;
             text-align: center;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 8px 25px -5px rgba(6, 182, 212, 0.15);
+            box-shadow: 0 4px 15px -3px rgba(6, 182, 212, 0.15);
         }
         .hero-prompt-title {
-            font-size: 23px;
-            font-weight: 900;
+            font-size: 16px;
+            font-weight: 850;
             line-height: 1.25;
             background: linear-gradient(135deg, #ffffff 30%, #7dd3fc 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .hero-prompt-sub { font-size: 13px; color: #cbd5e1; margin-top: 4px; font-weight: 500; }
+        .hero-prompt-sub { font-size: 11px; color: #cbd5e1; margin-top: 2px; font-weight: 500; }
         .hero-prompt-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            margin-top: 8px;
+            margin-top: 6px;
             background: rgba(6, 182, 212, 0.15);
             border: 1px solid rgba(6, 182, 212, 0.3);
             border-radius: 20px;
-            padding: 4px 12px;
-            font-size: 11px;
+            padding: 3px 10px;
+            font-size: 10.5px;
             font-weight: 700;
             color: #38bdf8;
         }
@@ -381,7 +388,7 @@
         /* BIOLUMINESCENT SONAR MIC COCKPIT */
         .voice-cockpit {
             text-align: center;
-            padding: 6px 0 16px;
+            padding: 2px 0 6px;
             position: relative;
         }
         .mic-stage {
@@ -389,7 +396,7 @@
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            margin: 6px 0 14px;
+            margin: 4px 0 8px;
         }
 
         /* Multi-layered Sonar Rings */
@@ -533,14 +540,14 @@
         @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
 
         .transcript {
-            margin-top: 12px;
-            font-size: 14px;
+            margin-top: 8px;
+            font-size: 13.5px;
             font-weight: 700;
             color: #ffffff;
             background: rgba(9, 19, 43, 0.95);
-            padding: 12px 18px;
+            padding: 9px 14px;
             border-radius: var(--radius-md);
-            min-height: 46px;
+            min-height: 38px;
             border: 1.5px solid #38bdf8;
             display: flex;
             align-items: center;
@@ -681,8 +688,8 @@
         /* RAPID EMERGENCY LIFELINE (SOS) BANNER */
         .home-sos-btn {
             width: 100%;
-            margin-top: 14px;
-            padding: 14px 16px;
+            margin-top: 8px;
+            padding: 11px 14px;
             background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #991b1b 100%);
             border: 1px solid rgba(254, 202, 202, 0.35);
             border-radius: var(--radius-lg);
@@ -702,8 +709,8 @@
         /* QUICK TELEMETRY SHORTCUT BANNER */
         .weather-link-banner {
             width: 100%;
-            margin-top: 10px;
-            padding: 12px 16px;
+            margin-top: 8px;
+            padding: 10px 14px;
             background: rgba(15, 23, 42, 0.65);
             border: 1px solid rgba(56, 189, 248, 0.25);
             border-radius: var(--radius-lg);
@@ -726,9 +733,9 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            margin: 12px auto 4px;
-            padding: 10px 22px;
+            gap: 8px;
+            margin: 8px auto 2px;
+            padding: 8px 18px;
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 58, 138, 0.92));
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
@@ -1127,27 +1134,34 @@
             border-color: rgba(14, 165, 233, 0.25);
             color: #334155;
         }
-        [data-theme="light"] .theme-toggle-pill {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(14, 165, 233, 0.3);
-            color: #0f172a;
-            box-shadow: 0 2px 8px rgba(14, 165, 233, 0.12);
+        [data-theme="light"] .theme-toggle-compact {
+            background: #ffffff !important;
+            border-color: rgba(14, 165, 233, 0.3) !important;
+            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06) !important;
+            color: #0f172a !important;
         }
-        [data-theme="light"] .theme-toggle-pill:hover {
-            background: #ffffff;
-            border-color: #0284c7;
+        [data-theme="light"] .theme-toggle-compact:hover {
+            border-color: #0284c7 !important;
+            background: #f0f9ff !important;
         }
-        [data-theme="light"] .lang-selector {
-            background: rgba(241, 245, 249, 0.9);
-            border-color: rgba(14, 165, 233, 0.25);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        [data-theme="light"] .lang-toggle-compact {
+            background: #ffffff !important;
+            border-color: rgba(14, 165, 233, 0.3) !important;
+            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05) !important;
         }
-        [data-theme="light"] .lang-btn {
-            color: #475569;
+        [data-theme="light"] .lang-link.lang-btn {
+            color: #64748b !important;
         }
-        [data-theme="light"] .lang-btn:hover:not(.active) {
-            color: #0f172a;
-            background: rgba(14, 165, 233, 0.08);
+        [data-theme="light"] .lang-link.lang-btn:hover:not(.active) {
+            color: #0f172a !important;
+        }
+        [data-theme="light"] .lang-link.lang-btn.active {
+            color: #0284c7 !important;
+            font-weight: 900 !important;
+            text-shadow: none !important;
+        }
+        [data-theme="light"] .lang-sep {
+            color: rgba(0, 0, 0, 0.2) !important;
         }
         [data-theme="light"] .hero-prompt-card {
             background: linear-gradient(135deg, rgba(224, 242, 254, 0.95), rgba(219, 234, 254, 0.8));
@@ -1596,7 +1610,7 @@
                 max-width: 100%;
                 border-radius: 0;
                 border: none;
-                padding: 12px 14px 0;
+                padding: 8px 12px 0;
                 box-shadow: none;
             }
             .content-area {
@@ -1608,8 +1622,8 @@
                 bottom: 0;
                 left: 0;
                 right: 0;
-                width: calc(100% + 28px);
-                margin: 0 -14px;
+                width: calc(100% + 24px);
+                margin: 0 -12px;
                 border-radius: 20px 20px 0 0;
                 padding: 6px 4px calc(8px + env(safe-area-inset-bottom, 0px));
                 border-left: none;
@@ -1634,7 +1648,7 @@
                 height: 92vh;
                 max-height: 890px;
                 border-radius: 36px;
-                padding: 20px 18px 0;
+                padding: 12px 16px 0;
             }
             .content-area {
                 padding-bottom: 14px;
@@ -1661,28 +1675,33 @@
 
 <div id="app">
 
-    <!-- HEADER HUD -->
+    <!-- HEADER HUD (COMPACT TOOL HEADER) -->
     <header>
-        <div class="brand-bar">
-            <span class="marine-tag" id="marineTag">🌊 MARINE WEATHER ADVISORY</span>
-            <div class="brand-actions">
-                <button id="themeToggleBtn" class="theme-toggle-pill" onclick="toggleTheme()" aria-label="Toggle Light / Dark Mode" title="Toggle Theme">
-                    <span id="themeToggleIcon">☀️</span>
-                    <span id="themeToggleText" class="theme-toggle-text">Light</span>
-                </button>
-                <div class="connection-status">
+        <div class="header-brand">
+            <div class="brand-title-row">
+                <h1 class="brand-title">🐟 Fishermen-AI</h1>
+                <div class="connection-status-dot" title="Server Status">
                     <span class="status-dot online" id="connectionDot"></span>
-                    <span id="connectionText">Online</span>
+                    <span id="connectionText" class="sr-only">Online</span>
                 </div>
             </div>
+            <p class="subtitle" id="appSubtitle">Marine Weather & Safety Co-Pilot · Karavali Coast</p>
+            <span class="marine-tag sr-only" id="marineTag">🌊 MARINE WEATHER ADVISORY</span>
         </div>
-        <h1>🐟 Fishermen-AI</h1>
-        <p class="subtitle" id="appSubtitle">Marine Weather & Safety Co-Pilot · Karavali Coast</p>
 
-        <!-- REGIONAL LANGUAGE TOGGLE -->
-        <div class="lang-selector">
-            <button class="lang-btn active" data-lang="kn">🇮🇳 ಕನ್ನಡ (Kannada)</button>
-            <button class="lang-btn" data-lang="en">🇬🇧 English</button>
+        <div class="header-controls">
+            <!-- CONDENSED LANGUAGE TOGGLE: EN | ಕನ್ನಡ -->
+            <div class="lang-toggle-compact" role="group" aria-label="Language Selector">
+                <button class="lang-link lang-btn" data-lang="en" aria-label="Switch to English">EN</button>
+                <span class="lang-sep">|</span>
+                <button class="lang-link lang-btn active" data-lang="kn" aria-label="ಕನ್ನಡಕ್ಕೆ ಬದಲಾಯಿಸಿ">ಕನ್ನಡ</button>
+            </div>
+
+            <!-- COMPACT THEME TOGGLE -->
+            <button id="themeToggleBtn" class="theme-toggle-compact" onclick="toggleTheme()" aria-label="Toggle Light / Dark Mode" title="Toggle Theme">
+                <span id="themeToggleIcon">☀️</span>
+                <span id="themeToggleText" class="sr-only">Light</span>
+            </button>
         </div>
     </header>
 
@@ -4007,9 +4026,9 @@ loadBestTime();
 // Register Service Worker for PWA & Deep-Sea Offline Support
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=7')
+        navigator.serviceWorker.register('./sw.js?v=8')
             .then(reg => {
-                console.log('🐟 [PWA] Service Worker v7 registered:', reg.scope);
+                console.log('🐟 [PWA] Service Worker v8 registered:', reg.scope);
                 reg.update();
             })
             .catch(err => console.log('🐟 [PWA] SW registration failed:', err));
