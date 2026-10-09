@@ -35,8 +35,9 @@
             --surface-nested: rgba(3, 7, 18, 0.6);
             --surface-border: rgba(56, 189, 248, 0.18);
             --surface-hover-border: rgba(56, 189, 248, 0.45);
-            --item-bg: rgba(15, 23, 42, 0.65);
-            --item-hover-bg: rgba(15, 23, 42, 0.9);
+            --item-bg: transparent;
+            --item-hover-bg: rgba(255, 255, 255, 0.02);
+            --item-separator: rgba(255, 255, 255, 0.08);
             --dock-bg: rgba(10, 18, 36, 0.95);
             --dock-border: rgba(255, 255, 255, 0.12);
             --dock-shadow: 0 -8px 32px rgba(0, 0, 0, 0.65);
@@ -76,8 +77,9 @@
             --surface-nested: rgba(241, 245, 249, 0.92);
             --surface-border: rgba(14, 165, 233, 0.22);
             --surface-hover-border: rgba(2, 132, 199, 0.5);
-            --item-bg: rgba(248, 250, 252, 0.95);
-            --item-hover-bg: #ffffff;
+            --item-bg: transparent;
+            --item-hover-bg: rgba(14, 165, 233, 0.03);
+            --item-separator: rgba(15, 23, 42, 0.08);
             --dock-bg: rgba(255, 255, 255, 0.97);
             --dock-border: rgba(14, 165, 233, 0.22);
             --dock-shadow: 0 -8px 25px rgba(15, 23, 42, 0.08);
@@ -388,15 +390,19 @@
         /* BIOLUMINESCENT SONAR MIC COCKPIT */
         .voice-cockpit {
             text-align: center;
-            padding: 2px 0 6px;
+            padding: 4px 0 0;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
         }
         .mic-stage {
             position: relative;
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            margin: 4px 0 8px;
+            margin: 6px auto 0;
         }
 
         /* Multi-layered Sonar Rings */
@@ -407,14 +413,14 @@
             transition: all 0.3s ease;
         }
         .sonar-ring-1 {
-            width: 168px;
-            height: 168px;
+            width: 120px;
+            height: 120px;
             border: 1px dashed rgba(6, 182, 212, 0.35);
             animation: sonarSpin 20s linear infinite;
         }
         .sonar-ring-2 {
-            width: 198px;
-            height: 198px;
+            width: 144px;
+            height: 144px;
             border: 1px solid rgba(59, 130, 246, 0.18);
             animation: sonarPulse 3s infinite ease-out;
         }
@@ -428,15 +434,15 @@
         }
 
         .mic-btn {
-            width: 136px;
-            height: 136px;
+            width: 96px;
+            height: 96px;
             border-radius: 50%;
             border: 2px solid rgba(255, 255, 255, 0.35);
             background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #4f46e5 100%);
             color: white;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 14px 45px rgba(14, 165, 233, 0.5), inset 0 2px 10px rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 26px rgba(14, 165, 233, 0.45), inset 0 2px 8px rgba(255, 255, 255, 0.4);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -447,15 +453,15 @@
         }
         @keyframes micIdleBreath {
             0%, 100% {
-                box-shadow: 0 14px 45px rgba(14, 165, 233, 0.45), 0 0 0 0 rgba(14, 165, 233, 0.35);
+                box-shadow: 0 8px 26px rgba(14, 165, 233, 0.4), 0 0 0 0 rgba(14, 165, 233, 0.3);
             }
             50% {
-                box-shadow: 0 18px 55px rgba(14, 165, 233, 0.65), 0 0 0 10px rgba(14, 165, 233, 0);
+                box-shadow: 0 12px 34px rgba(14, 165, 233, 0.6), 0 0 0 7px rgba(14, 165, 233, 0);
             }
         }
         .mic-btn:hover {
             transform: scale(1.04);
-            box-shadow: 0 18px 55px rgba(14, 165, 233, 0.7), inset 0 3px 12px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 14px 44px rgba(14, 165, 233, 0.7), inset 0 3px 12px rgba(255, 255, 255, 0.5);
         }
         .mic-btn:active { transform: scale(0.95); }
         .mic-btn.recording {
@@ -466,15 +472,15 @@
         @keyframes activeMicPulse {
             0% {
                 transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.85), 0 10px 35px rgba(239, 68, 68, 0.6);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.85), 0 8px 28px rgba(239, 68, 68, 0.6);
             }
             50% {
-                transform: scale(1.10);
-                box-shadow: 0 0 0 24px rgba(239, 68, 68, 0), 0 18px 55px rgba(239, 68, 68, 0.95);
+                transform: scale(1.08);
+                box-shadow: 0 0 0 20px rgba(239, 68, 68, 0), 0 14px 44px rgba(239, 68, 68, 0.95);
             }
             100% {
                 transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0), 0 10px 35px rgba(239, 68, 68, 0.6);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0), 0 8px 28px rgba(239, 68, 68, 0.6);
             }
         }
         .mic-stage.recording .sonar-ring-1 {
@@ -485,9 +491,17 @@
             border-color: rgba(239, 68, 68, 0.45);
             animation: sonarPulse 1.2s infinite ease-out 0.35s;
         }
-        #micIcon { font-size: 44px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4)); line-height: 1; }
-        #micText { font-size: 14px; margin-top: 5px; font-weight: 800; letter-spacing: 0.2px; }
-        .mic-sub { font-size: 10px; color: rgba(255, 255, 255, 0.85); font-weight: 600; margin-top: 2px; }
+        #micIcon { font-size: 28px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); line-height: 1; margin-bottom: 2px; }
+        #micText { font-size: 11px; margin-top: 1px; font-weight: 700; letter-spacing: 0.1px; text-align: center; }
+        .mic-sub {
+            font-size: 10.5px;
+            color: #94a3b8;
+            font-weight: 450;
+            margin-top: 8px;
+            margin-bottom: 12px;
+            text-align: center;
+            line-height: 1.3;
+        }
 
         /* LIVE AUDIO EQUALIZER BARS */
         .equalizer-wave {
@@ -496,7 +510,7 @@
             align-items: center;
             gap: 4px;
             height: 24px;
-            margin: 6px auto;
+            margin: 4px auto 10px;
         }
         .equalizer-wave.active { display: flex; }
         .eq-bar {
@@ -521,11 +535,11 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 8px 18px;
+            padding: 6px 16px;
             border-radius: 20px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
-            margin: 8px auto 0;
+            margin: 4px auto 10px;
             width: fit-content;
             transition: all 0.3s ease;
         }
@@ -540,29 +554,38 @@
         @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
 
         .transcript {
-            margin-top: 8px;
-            font-size: 13.5px;
-            font-weight: 700;
-            color: #ffffff;
-            background: rgba(9, 19, 43, 0.95);
-            padding: 9px 14px;
-            border-radius: var(--radius-md);
-            min-height: 38px;
-            border: 1.5px solid #38bdf8;
-            display: flex;
+            margin: 0 auto 12px;
+            font-size: 11px;
+            font-weight: 500;
+            color: #cbd5e1;
+            background: rgba(15, 23, 42, 0.45);
+            padding: 4px 13px;
+            border-radius: 9999px;
+            min-height: 25px;
+            border: 1px solid rgba(56, 189, 248, 0.22);
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.55), 0 0 12px rgba(56, 189, 248, 0.2);
+            box-shadow: none;
             letter-spacing: 0.1px;
             transition: all 0.25s ease;
+            max-width: 85%;
+            width: fit-content;
+            cursor: pointer;
+        }
+        .transcript:hover {
+            border-color: rgba(56, 189, 248, 0.45);
+            background: rgba(15, 23, 42, 0.65);
         }
         .transcript.active-listening {
-            border-color: #ef4444;
-            background: rgba(45, 10, 20, 0.95);
-            color: #fecaca;
-            box-shadow: 0 0 25px rgba(239, 68, 68, 0.5);
+            border-color: #ef4444 !important;
+            border-style: solid !important;
+            background: rgba(45, 10, 20, 0.95) !important;
+            color: #fecaca !important;
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.45) !important;
             animation: transcriptPulse 1.2s infinite alternate;
+            font-weight: 700 !important;
         }
         @keyframes transcriptPulse {
             0% { border-color: rgba(239, 68, 68, 0.5); box-shadow: 0 0 15px rgba(239, 68, 68, 0.3); }
@@ -572,11 +595,12 @@
         /* TEXT FALLBACK BAR */
         .text-fallback {
             display: none;
-            margin-top: 12px;
+            margin: 0 auto 14px;
             padding: 12px;
             background: rgba(15, 23, 42, 0.75);
             border-radius: var(--radius-md);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
         }
         .text-fallback.active { display: block; }
         .text-fallback input {
@@ -637,27 +661,32 @@
             letter-spacing: 0.5px;
             margin-bottom: 12px;
         }
-        #decisionReasons ul { list-style: none; padding: 0; margin: 8px 0 0; display: flex; flex-direction: column; gap: 8px; }
+        #decisionReasons ul { list-style: none; padding: 0; margin: 8px 0 0; display: flex; flex-direction: column; gap: 0; }
         #decisionReasons li {
-            padding: 10px 14px;
-            background: rgba(255, 255, 255, 0.06);
-            border-radius: var(--radius-sm);
+            padding: 9px 2px;
+            background: transparent !important;
+            border-radius: 0;
             font-size: 13px;
             font-weight: 600;
             display: flex;
             align-items: center;
-            border-left: 3px solid rgba(255, 255, 255, 0.3);
+            border: none;
+            border-bottom: 1px solid var(--item-separator);
+        }
+        #decisionReasons li:last-child {
+            border-bottom: none;
         }
         #decisionDetails {
             margin-top: 14px;
-            padding: 12px 14px;
-            background: rgba(3, 7, 18, 0.5);
-            border-radius: var(--radius-sm);
+            padding: 12px 2px 4px;
+            background: transparent !important;
+            border-radius: 0;
             font-size: 12px;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 8px 12px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: none;
+            border-top: 1px solid var(--item-separator);
         }
 
         /* VOICE REPLAY PILL (AUDIO FOR ILLITERATE USERS) */
@@ -688,32 +717,34 @@
         /* RAPID EMERGENCY LIFELINE (SOS) BANNER */
         .home-sos-btn {
             width: 100%;
-            margin-top: 8px;
-            padding: 11px 14px;
+            margin-top: 0;
+            margin-bottom: 12px;
+            padding: 7px 12px;
             background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #991b1b 100%);
             border: 1px solid rgba(254, 202, 202, 0.35);
-            border-radius: var(--radius-lg);
+            border-radius: 12px;
             color: white;
             cursor: pointer;
-            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+            box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
             display: flex;
             align-items: center;
             transition: all 0.25s ease;
         }
         .home-sos-btn:hover {
             transform: translateY(-1px);
-            box-shadow: 0 12px 30px rgba(239, 68, 68, 0.55);
+            box-shadow: 0 8px 22px rgba(239, 68, 68, 0.45);
         }
         .home-sos-btn:active { transform: scale(0.98); }
 
         /* QUICK TELEMETRY SHORTCUT BANNER */
         .weather-link-banner {
             width: 100%;
-            margin-top: 8px;
-            padding: 10px 14px;
+            margin-top: 0;
+            margin-bottom: 14px;
+            padding: 7px 12px;
             background: rgba(15, 23, 42, 0.65);
-            border: 1px solid rgba(56, 189, 248, 0.25);
-            border-radius: var(--radius-lg);
+            border: 1px solid rgba(56, 189, 248, 0.22);
+            border-radius: 12px;
             color: white;
             cursor: pointer;
             display: flex;
@@ -723,7 +754,7 @@
         }
         .weather-link-banner:hover {
             background: rgba(15, 23, 42, 0.85);
-            border-color: rgba(56, 189, 248, 0.5);
+            border-color: rgba(56, 189, 248, 0.45);
             transform: translateY(-1px);
         }
         .weather-link-banner:active { transform: scale(0.98); }
@@ -733,20 +764,20 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            margin: 8px auto 2px;
-            padding: 8px 18px;
+            gap: 7px;
+            margin: 0 auto 14px;
+            padding: 6px 14px;
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 58, 138, 0.92));
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 2px solid #38bdf8;
+            border: 1.5px solid #38bdf8;
             border-radius: 9999px;
             color: #ffffff;
-            font-size: 13px;
-            font-weight: 800;
-            letter-spacing: 0.3px;
+            font-size: 11.5px;
+            font-weight: 750;
+            letter-spacing: 0.2px;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 14px rgba(6, 182, 212, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.25);
             transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
             user-select: none;
             text-decoration: none;
@@ -925,28 +956,38 @@
             gap: 8px;
         }
 
-        /* MARKET & PREDICTION ITEMS */
+        /* CLEAN FLATTENED LIST & MENU ROWS (APP-WIDE) */
         .item-row {
-            padding: 12px 14px;
-            margin: 6px 0;
-            background: rgba(15, 23, 42, 0.65);
-            border-radius: var(--radius-sm);
+            padding: 12px 2px;
+            margin: 0;
+            background: transparent !important;
+            border-radius: 0;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             font-size: 13px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: all 0.2s ease;
+            text-decoration: none;
+            color: inherit;
+            border: none;
+            border-bottom: 1px solid var(--item-separator, rgba(255, 255, 255, 0.08));
+            transition: background 0.15s ease, border-color 0.15s ease;
+        }
+        .item-row:last-child {
+            border-bottom: none;
         }
         .item-row:hover {
-            border-color: rgba(6, 182, 212, 0.4);
-            background: rgba(15, 23, 42, 0.9);
-            transform: translateY(-1px);
+            border-bottom-color: rgba(56, 189, 248, 0.3);
+            background: var(--item-hover-bg, rgba(255, 255, 255, 0.02)) !important;
+            transform: none;
         }
         .item-row .price {
-            font-weight: 900;
-            color: #facc15;
-            text-shadow: 0 0 12px rgba(250, 204, 21, 0.3);
+            font-weight: 850;
+            color: var(--price-color, #facc15);
+            font-size: 15px;
+            line-height: 1.3;
+            letter-spacing: -0.2px;
+            text-shadow: none;
+            white-space: nowrap;
         }
 
         /* HUD FISH SCANNER CAMERA VIEWPORT */
@@ -1104,10 +1145,9 @@
             font-size: 11px;
             color: var(--text-muted);
             line-height: 1.5;
-            background: var(--surface-nested);
-            padding: 10px 12px;
-            border-radius: 12px;
-            border: 1px solid var(--surface-border);
+            background: transparent;
+            padding: 8px 4px;
+            border-top: 1px solid var(--item-separator);
             text-align: center;
         }
 
@@ -1188,27 +1228,32 @@
         [data-theme="light"] .sonar-ring-1 {
             border-color: rgba(14, 165, 233, 0.4);
         }
-        [data-theme="light"] .sonar-ring-2 {
-            border-color: rgba(59, 130, 246, 0.25);
+        [data-theme="light"] .mic-sub {
+            color: #64748b !important;
         }
         [data-theme="light"] .transcript {
-            background: #ffffff !important;
-            border: 2px solid #0284c7 !important;
-            color: #0c4a6e !important;
-            font-weight: 800 !important;
-            box-shadow: 0 4px 18px rgba(2, 132, 199, 0.2) !important;
+            background: rgba(241, 245, 249, 0.8) !important;
+            border: 1px solid rgba(14, 165, 233, 0.22) !important;
+            color: #475569 !important;
+            font-weight: 500 !important;
+            box-shadow: none !important;
+        }
+        [data-theme="light"] .transcript:hover {
+            background: #f8fafc !important;
+            border-color: #0284c7 !important;
         }
         [data-theme="light"] .transcript.active-listening {
             border-color: #dc2626 !important;
+            border-style: solid !important;
             background: #fef2f2 !important;
             color: #991b1b !important;
             box-shadow: 0 4px 22px rgba(220, 38, 38, 0.3) !important;
         }
         [data-theme="light"] .type-toggle-btn {
             background: #ffffff !important;
-            border: 2px solid #0284c7 !important;
+            border: 1.5px solid #0284c7 !important;
             color: #0369a1 !important;
-            box-shadow: 0 4px 18px rgba(2, 132, 199, 0.25), inset 0 1px 0 #ffffff !important;
+            box-shadow: 0 2px 10px rgba(2, 132, 199, 0.18) !important;
         }
         [data-theme="light"] .type-toggle-btn .type-btn-text {
             color: #0369a1 !important;
@@ -1222,6 +1267,20 @@
             background: #f0f9ff !important;
             border-color: #0369a1 !important;
             box-shadow: 0 6px 24px rgba(2, 132, 199, 0.35) !important;
+        }
+        [data-theme="light"] .item-row {
+            border-bottom: 1px solid var(--item-separator, rgba(15, 23, 42, 0.08)) !important;
+            background: transparent !important;
+        }
+        [data-theme="light"] .item-row:last-child {
+            border-bottom: none !important;
+        }
+        [data-theme="light"] .item-row:hover {
+            background: rgba(14, 165, 233, 0.03) !important;
+            border-bottom-color: rgba(14, 165, 233, 0.25) !important;
+        }
+        [data-theme="light"] .item-row .price {
+            color: #b45309;
         }
         [data-theme="light"] .decision-card {
             background: #ffffff;
@@ -1245,15 +1304,18 @@
             box-shadow: 0 16px 45px rgba(239, 68, 68, 0.2);
         }
         [data-theme="light"] #decisionReasons li {
-            background: rgba(241, 245, 249, 0.85);
+            background: transparent !important;
             color: #0f172a;
-            border-left: 3px solid #0284c7;
-            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+            border-bottom: 1px solid var(--item-separator) !important;
+            box-shadow: none;
+        }
+        [data-theme="light"] #decisionReasons li:last-child {
+            border-bottom: none !important;
         }
         [data-theme="light"] #decisionDetails {
-            background: rgba(241, 245, 249, 0.9);
+            background: transparent !important;
             color: #1e293b;
-            border-color: rgba(14, 165, 233, 0.2);
+            border-top: 1px solid var(--item-separator) !important;
         }
         [data-theme="light"] .weather-link-banner {
             background: rgba(255, 255, 255, 0.95);
@@ -1728,12 +1790,6 @@
         <!-- ================= HOME PAGE ================= -->
         <div class="page active" id="page-home">
 
-            <!-- HERO QUESTION BANNER -->
-            <div class="hero-prompt-card">
-                <h2 class="hero-prompt-title" id="heroPromptTitle">ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ?</h2>
-                <p class="hero-prompt-sub" id="heroPromptSub">Should I go fishing tomorrow?</p>
-            </div>
-
             <!-- BIOLUMINESCENT SONAR VOICE COCKPIT -->
             <div class="voice-cockpit">
                 <div class="mic-stage" id="micStage">
@@ -1742,9 +1798,9 @@
                     <button class="mic-btn" id="micBtn" aria-label="Press to Speak">
                         <span id="micIcon">🎤</span>
                         <span id="micText">ಒತ್ತಿ ಮಾತನಾಡಿ</span>
-                        <span class="mic-sub" id="micSub">ನಿಮ್ಮ ಮಾತಲ್ಲೇ ಕೇಳಿ · ಕನ್ನಡ / English</span>
                     </button>
                 </div>
+                <div class="mic-sub" id="micSub">ನಿಮ್ಮ ಮಾತಲ್ಲೇ ಕೇಳಿ (ಕನ್ನಡ / English)</div>
 
                 <!-- Animated Waveform Equalizer -->
                 <div class="equalizer-wave" id="equalizerWave">
@@ -1763,8 +1819,8 @@
                     <span id="voiceStateText">Listening...</span>
                 </div>
 
-                <!-- Live Voice Transcript -->
-                <div class="transcript" id="transcriptText">"ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ? / Should I go fishing?"</div>
+                <!-- Live Voice Transcript / Subtle Prompt -->
+                <div class="transcript" id="transcriptText" onclick="runVoicePrompt(1)" title="Ask this prompt">"ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ? / Should I go fishing?"</div>
 
                 <!-- Keyboard Fallback (Subtle & clean) -->
                 <div class="text-fallback" id="textFallback">
@@ -1797,26 +1853,26 @@
 
             <!-- RAPID EMERGENCY LIFELINE (SOS) -->
             <button class="home-sos-btn" id="sosBtn">
-                <div style="display:flex;align-items:center;gap:12px;width:100%;">
-                    <span style="font-size:32px;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.4));">🆘</span>
+                <div style="display:flex;align-items:center;gap:9px;width:100%;">
+                    <span style="font-size:16px;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3));">🆘</span>
                     <div style="flex:1;text-align:left;">
-                        <div style="font-size:15px;font-weight:900;letter-spacing:0.3px;" id="sosHomeTitle">ತುರ್ತು ಸಹಾಯ · SOS (1554)</div>
-                        <div style="font-size:11px;opacity:0.9;margin-top:2px;" id="sosHomeSub">ಭಾರತೀಯ ಕರಾವಳಿ ಕಾವಲು ಪಡೆ (Coast Guard)</div>
+                        <div style="font-size:11.5px;font-weight:700;letter-spacing:0.1px;" id="sosHomeTitle">ತುರ್ತು ಸಹಾಯ · SOS (1554)</div>
+                        <div style="font-size:9.5px;opacity:0.82;margin-top:1px;" id="sosHomeSub">ಭಾರತೀಯ ಕರಾವಳಿ ಕಾವಲು ಪಡೆ (Coast Guard)</div>
                     </div>
-                    <span style="font-size:20px;opacity:0.8;">📞</span>
+                    <span style="font-size:12px;opacity:0.8;">📞</span>
                 </div>
             </button>
 
             <!-- QUICK LINK TO DETAILED MARINE WEATHER -->
             <button class="weather-link-banner" onclick="showPage('page-safety')">
-                <div style="display:flex;align-items:center;gap:12px;">
-                    <span style="font-size:26px;">🌊</span>
+                <div style="display:flex;align-items:center;gap:9px;">
+                    <span style="font-size:16px;">🌊</span>
                     <div style="text-align:left;">
-                        <div style="font-size:13px;font-weight:800;color:#38bdf8;" id="weatherLinkTitle">ಗಾಳಿ & ಅಲೆಗಳ ವಿವರ ನೋಡಿ</div>
-                        <div style="font-size:11px;color:#94a3b8;" id="weatherLinkSub">Wind speed, wave height, tides & solunar times ➔</div>
+                        <div style="font-size:11.5px;font-weight:700;color:#38bdf8;" id="weatherLinkTitle">ಗಾಳಿ & ಅಲೆಗಳ ವಿವರ ನೋಡಿ</div>
+                        <div style="font-size:9.5px;color:#94a3b8;margin-top:1px;" id="weatherLinkSub">Wind speed, wave height, tides & solunar times ➔</div>
                     </div>
                 </div>
-                <span style="font-size:16px;color:#38bdf8;font-weight:800;">➔</span>
+                <span style="font-size:11px;color:#38bdf8;font-weight:700;">➔</span>
             </button>
 
         </div>
@@ -1841,18 +1897,18 @@
             <!-- Quick Suggestions -->
             <div style="margin-top:18px;">
                 <div id="voicePromptsTitle" style="font-size:11px;font-weight:800;color:#94a3b8;letter-spacing:0.5px;margin-bottom:8px;">💡 POPULAR ADVISORY PROMPTS</div>
-                <div style="display:flex;flex-direction:column;gap:6px;">
-                    <div class="item-row" style="cursor:pointer;" onclick="runVoicePrompt(1)">
-                        <span id="promptItem1">🐟 "ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ?"</span>
-                        <span class="prompt-ask-label" style="font-size:11px;color:#38bdf8;font-weight:700;">Ask ➔</span>
+                <div style="display:flex;flex-direction:column;">
+                    <div class="item-row" style="cursor:pointer;align-items:center;padding:11px 2px;" onclick="runVoicePrompt(1)">
+                        <span id="promptItem1" style="font-weight:600;">🐟 "ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ?"</span>
+                        <span class="prompt-ask-label" style="font-size:11px;color:#38bdf8;font-weight:700;text-align:right;flex-shrink:0;">Ask ➔</span>
                     </div>
-                    <div class="item-row" style="cursor:pointer;" onclick="runVoicePrompt(2)">
-                        <span id="promptItem2">💰 "ಬಂಗಡೆ ಮೀನು ಬೆಲೆ ಎಷ್ಟು?"</span>
-                        <span class="prompt-ask-label" style="font-size:11px;color:#38bdf8;font-weight:700;">Ask ➔</span>
+                    <div class="item-row" style="cursor:pointer;align-items:center;padding:11px 2px;" onclick="runVoicePrompt(2)">
+                        <span id="promptItem2" style="font-weight:600;">💰 "ಬಂಗಡೆ ಮೀನು ಬೆಲೆ ಎಷ್ಟು?"</span>
+                        <span class="prompt-ask-label" style="font-size:11px;color:#38bdf8;font-weight:700;text-align:right;flex-shrink:0;">Ask ➔</span>
                     </div>
-                    <div class="item-row" style="cursor:pointer;" onclick="runVoicePrompt(3)">
-                        <span id="promptItem3">🌊 "ಈಗ ಗಾಳಿ ಮತ್ತು ಅಲೆಗಳ ಸ್ಥಿತಿ ಹೇಗಿದೆ?"</span>
-                        <span class="prompt-ask-label" style="font-size:11px;color:#38bdf8;font-weight:700;">Ask ➔</span>
+                    <div class="item-row" style="cursor:pointer;align-items:center;padding:11px 2px;" onclick="runVoicePrompt(3)">
+                        <span id="promptItem3" style="font-weight:600;">🌊 "ಈಗ ಗಾಳಿ ಮತ್ತು ಅಲೆಗಳ ಸ್ಥಿತಿ ಹೇಗಿದೆ?"</span>
+                        <span class="prompt-ask-label" style="font-size:11px;color:#38bdf8;font-weight:700;text-align:right;flex-shrink:0;">Ask ➔</span>
                     </div>
                 </div>
             </div>
@@ -1882,25 +1938,19 @@
             <div class="glass-card" style="margin-bottom:12px;">
                 <h3 id="safetyAssistTitle" style="font-size:14px;font-weight:800;margin-bottom:10px;color:#f87171;">📞 Rapid Coastal Assistance</h3>
                 
-                <a href="tel:1554" style="text-decoration:none;color:inherit;display:block;">
-                    <div class="item-row" style="border-left:4px solid #ef4444;">
-                        <span id="contactGuardText">🚨 Indian Coast Guard (SAR)</span>
-                        <span style="color:#fca5a5;font-weight:800;">1554 📞</span>
-                    </div>
+                <a href="tel:1554" class="item-row" style="align-items:center;padding:11px 2px;">
+                    <span id="contactGuardText" style="font-weight:700;color:var(--text-main);">🚨 Indian Coast Guard (SAR)</span>
+                    <span style="color:#f87171;font-weight:800;text-align:right;">1554 📞</span>
                 </a>
                 
-                <a href="tel:1093" style="text-decoration:none;color:inherit;display:block;">
-                    <div class="item-row" style="border-left:4px solid #06b6d4;">
-                        <span id="contactPoliceText">🌊 Coastal Marine Police</span>
-                        <span style="color:#67e8f9;font-weight:800;">1093 📞</span>
-                    </div>
+                <a href="tel:1093" class="item-row" style="align-items:center;padding:11px 2px;">
+                    <span id="contactPoliceText" style="font-weight:700;color:var(--text-main);">🌊 Coastal Marine Police</span>
+                    <span style="color:#38bdf8;font-weight:800;text-align:right;">1093 📞</span>
                 </a>
 
-                <a href="tel:1073" style="text-decoration:none;color:inherit;display:block;">
-                    <div class="item-row" style="border-left:4px solid #f59e0b;">
-                        <span id="contactRescueText">🛟 Marine Rescue Coordination</span>
-                        <span style="color:#fbbf24;font-weight:800;">1073 📞</span>
-                    </div>
+                <a href="tel:1073" class="item-row" style="align-items:center;padding:11px 2px;">
+                    <span id="contactRescueText" style="font-weight:700;color:var(--text-main);">🛟 Marine Rescue Coordination</span>
+                    <span style="color:#fbbf24;font-weight:800;text-align:right;">1073 📞</span>
                 </a>
             </div>
 
@@ -2561,7 +2611,7 @@ function showResult(decision) {
 
     let reasonsHtml = '';
     if (decision.advisory_text) {
-        reasonsHtml += `<div style="font-size:12px;font-weight:700;color:var(--text-main);margin-bottom:10px;padding:8px 12px;background:var(--surface-nested);border-radius:10px;border-left:3px solid ${isFavorable ? '#10b981' : isCaution ? '#f59e0b' : '#ef4444'};line-height:1.4;">${decision.advisory_text}</div>`;
+        reasonsHtml += `<div style="font-size:12.5px;font-weight:700;color:var(--text-main);margin-bottom:8px;padding:6px 2px;border-bottom:1px solid var(--item-separator);line-height:1.4;">${decision.advisory_text}</div>`;
     }
 
     if (decision.reasons && decision.reasons.length) {
@@ -2592,7 +2642,7 @@ function showResult(decision) {
     if (!disclaimerEl) {
         disclaimerEl = document.createElement('div');
         disclaimerEl.id = 'advisoryDisclaimer';
-        disclaimerEl.style.cssText = 'margin-top:12px;font-size:11px;color:var(--text-muted);line-height:1.5;background:var(--surface-nested);padding:10px 12px;border-radius:12px;border:1px solid var(--surface-border);text-align:center;';
+        disclaimerEl.style.cssText = 'margin-top:12px;font-size:11px;color:var(--text-muted);line-height:1.5;padding:8px 4px;border-top:1px solid var(--item-separator);text-align:center;';
         card.parentNode.appendChild(disclaimerEl);
     }
     disclaimerEl.innerHTML = isKn
@@ -2626,27 +2676,43 @@ async function loadMarket() {
     const list = document.getElementById('marketList');
     if (!list) return;
     const isKn = (currentLang === 'kn');
+
+    const renderPrices = (prices) => {
+        list.innerHTML = prices.map(p => `
+            <div class="item-row" style="align-items:flex-start;">
+                <div style="flex:1;min-width:0;padding-right:12px;">
+                    <div style="font-weight:750;font-size:14px;color:var(--text-main);line-height:1.3;">🐟 ${p.name || p.fish}</div>
+                    ${p.kannada ? `<div style="font-size:11.5px;color:#38bdf8;font-weight:600;margin-top:2px;line-height:1.2;">${p.kannada}</div>` : ''}
+                    ${p.season ? `<div style="font-size:10px;color:var(--text-muted);font-weight:500;margin-top:3px;line-height:1.2;">📅 ${isKn ? 'ಉತ್ತಮ ಕಾಲ:' : 'Peak:'} ${p.season}</div>` : ''}
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                    <div class="price" style="font-size:15px;font-weight:850;line-height:1.3;">₹${p.price}/kg</div>
+                    ${p.range ? `<div style="font-size:10px;color:var(--text-muted);margin-top:2px;line-height:1.2;">${p.range}</div>` : ''}
+                </div>
+            </div>
+        `).join('');
+    };
+
     try {
         const response = await fetch(BACKEND_URL + '/market-prices');
         const data = await response.json();
-        if (data.success) {
-            list.innerHTML = data.prices.map(p => `
-                <div class="item-row" style="align-items:center;">
-                    <div>
-                        <div style="font-weight:800;font-size:14px;color:var(--text-main);">🐟 ${p.name || p.fish}</div>
-                        <div style="font-size:12px;color:#38bdf8;font-weight:700;margin-top:2px;">${p.kannada || ''}</div>
-                        ${p.season ? `<div style="font-size:10px;color:#94a3b8;margin-top:2px;">🗓️ ${isKn ? 'ಉತ್ತಮ ಕಾಲ:' : 'Peak:'} ${p.season}</div>` : ''}
-                    </div>
-                    <div style="text-align:right;">
-                        <div class="price" style="font-size:16px;">₹${p.price}/kg</div>
-                        ${p.range ? `<div style="font-size:10px;color:#94a3b8;margin-top:1px;">${p.range}</div>` : ''}
-                    </div>
-                </div>
-            `).join('');
+        if (data.success && data.prices && data.prices.length) {
+            renderPrices(data.prices);
+            return;
         }
-    } catch {
-        list.innerHTML = `<p style="opacity:0.6;font-size:13px;">${isKn ? 'ದರಗಳನ್ನು ಪಡೆಯಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ.' : 'Could not load live rates.'}</p>`;
-    }
+    } catch {}
+
+    const fallbackPrices = [
+        { name: 'Indian Mackerel', kannada: 'ಬಂಗಡೆ (Bangude)', price: 220, range: '₹200 - ₹240', season: 'Sep - Feb' },
+        { name: 'Oil Sardine', kannada: 'ಬೂತಾಯಿ (Boothai)', price: 120, range: '₹100 - ₹140', season: 'Aug - Jan' },
+        { name: 'Silver Pomfret', kannada: 'ಮಾಂಜಿ (Manji)', price: 650, range: '₹600 - ₹700', season: 'Oct - Mar' },
+        { name: 'Kingfish / Seer', kannada: 'ಅಂಜಲ್ (Anjal)', price: 750, range: '₹700 - ₹850', season: 'Nov - Apr' },
+        { name: 'Yellowfin Tuna', kannada: 'ಗೆದ್ದಾರ್ (Geddare)', price: 280, range: '₹250 - ₹320', season: 'Oct - May' },
+        { name: 'Tiger Prawn', kannada: 'ಸೀಗಡಿ (Sigadi)', price: 450, range: '₹400 - ₹500', season: 'Sep - Mar' },
+        { name: 'Mud Crab', kannada: 'ಡೆಂಜಿ (Denji)', price: 380, range: '₹340 - ₹420', season: 'Nov - Jun' },
+        { name: 'Squid', kannada: 'ಬೊಂಡಾಸ್ (Bondas)', price: 320, range: '₹280 - ₹360', season: 'Oct - Mar' }
+    ];
+    renderPrices(fallbackPrices);
 }
 
 async function loadTide() {
@@ -2660,7 +2726,12 @@ async function loadTide() {
             el.innerHTML = `<h3 style="font-size:14px;font-weight:800;margin-bottom:8px;color:#38bdf8;">${isKn ? '🌊 ಉಬ್ಬರವಿಳಿತ ಮಾಹಿತಿ' : '🌊 Tide Telemetry'}</h3>` +
                 data.tides.map(t => {
                     const tideType = isKn ? (t.type === 'High' ? 'ಏರಿಳಿತ (High)' : 'ಇಳಿಕೆ (Low)') : `${t.type} Tide`;
-                    return `<div class="item-row"><span>${tideType}</span><span style="font-weight:800;">${t.time} (${t.height}m)</span></div>`;
+                    return `
+                        <div class="item-row" style="align-items:center;">
+                            <span style="font-weight:650;font-size:13px;color:var(--text-main);">${tideType}</span>
+                            <span style="font-weight:750;font-size:13px;color:var(--primary);text-align:right;">${t.time} <span style="font-size:11px;color:var(--text-muted);font-weight:500;">(${t.height}m)</span></span>
+                        </div>
+                    `;
                 }).join('');
         }
     } catch {}
@@ -2681,7 +2752,12 @@ async function loadCalendar() {
                 </div>
                 <div style="font-size:11px;color:#94a3b8;margin-bottom:8px;">${isKn ? 'ಖಗೋಳ ಚಂದ್ರನ ಹಂತಗಳನ್ನು ಆಧರಿಸಿ ಅಲೆಗಳ ಪ್ರವಾಹ ಅಂದಾಜು. ಕಡಲಿಗೆ ಹೋಗುವ ಮುನ್ನ ದೈನಂದಿನ ಹವಾಮಾನ ಪರಿಶೀಲಿಸಿ.' : 'Tidal current estimation based on astronomical moon phases. Check daily weather before trips.'}</div>
             ` +
-                data.days.map(d => `<div class="item-row"><span>${d.date}</span><span style="font-weight:800;font-size:12px;">${d.rating}</span></div>`).join('');
+                data.days.map(d => `
+                    <div class="item-row" style="align-items:center;">
+                        <span style="font-weight:650;font-size:13px;color:var(--text-main);">${d.date}</span>
+                        <span style="font-weight:750;font-size:12px;color:var(--primary);text-align:right;">${d.rating}</span>
+                    </div>
+                `).join('');
         }
     } catch {
         el.innerHTML = `<div style="font-size:12px;color:#94a3b8;padding:10px;">${isKn ? 'ಉಬ್ಬರವಿಳಿತ ಮುನ್ನೋಟ ಆಫ್‌ಲೈನ್‌ನಲ್ಲಿ ಲಭ್ಯವಿಲ್ಲ.' : 'Tidal outlook temporarily unavailable offline.'}</div>`;
@@ -2728,14 +2804,13 @@ async function loadBestTime() {
             if (dateEl) dateEl.textContent = isKn ? 'ಇಂದು' : data.date;
             container.innerHTML = data.windows.map(w => {
                 const color = w.rating === 5 ? '#10b981' : w.rating === 4 ? '#38bdf8' : '#ef4444';
-                const bg = w.rating === 5 ? 'rgba(16,185,129,0.12)' : w.rating === 4 ? 'rgba(56,189,248,0.12)' : 'rgba(239,68,68,0.12)';
                 return `
-                    <div style="padding:10px 12px;margin:5px 0;background:${bg};border-radius:12px;border-left:3px solid ${color};">
+                    <div class="item-row" style="display:block;padding:10px 2px;">
                         <div style="display:flex;justify-content:space-between;align-items:center;">
-                            <span style="font-size:12px;font-weight:800;color:${color};">${w.label}</span>
-                            <span style="font-size:12px;font-weight:700;">${w.time}</span>
+                            <span style="font-size:13px;font-weight:750;color:${color};">${w.label}</span>
+                            <span style="font-size:12.5px;font-weight:750;color:var(--text-main);">${w.time}</span>
                         </div>
-                        <div style="font-size:11px;color:#94a3b8;margin-top:2px;">${w.reason}</div>
+                        <div style="font-size:11px;color:var(--text-muted);margin-top:2px;line-height:1.3;">${w.reason}</div>
                     </div>
                 `;
             }).join('');
@@ -2782,7 +2857,7 @@ function renderFishScanner() {
             </p>
 
             <!-- DIRECT SPECIES DIRECTORY PICKER -->
-            <div style="margin-bottom:14px;background:var(--surface-nested);padding:10px 12px;border-radius:14px;border:1px solid var(--surface-border);">
+            <div style="margin-bottom:14px;">
                 <label style="font-size:11px;font-weight:700;color:var(--text-muted);display:block;margin-bottom:6px;">${isKn ? 'ಕರಾವಳಿ ಮೀನುಗಳ ಪಟ್ಟಿಯಿಂದ ಆರಿಸಿ:' : 'Browse Karavali Coastal Species Catalog directly:'}</label>
                 <select id="quickSpeciesSelect" onchange="quickLookupSpecies(this.value)" class="app-select">
                     <option value="">${isKn ? '-- ವಿವರ ನೋಡಲು ಮೀನನ್ನು ಆಯ್ಕೆಮಾಡಿ --' : '-- Choose Fish to View Catalog Details --'}</option>
@@ -2863,9 +2938,9 @@ async function analyzeFishPhoto(customQuery) {
 
     resBox.style.display = 'block';
     resBox.innerHTML = `
-        <div style="text-align:center;padding:18px;background:var(--surface-nested);border-radius:14px;border:1px solid var(--surface-border);">
-            <div style="font-size:28px;">🔄</div>
-            <div style="font-size:13px;margin-top:8px;color:var(--text-main);font-weight:600;">${isKn ? 'ಕರಾವಳಿ ಮೀನುಗಳ ಕ್ಯಾಟಲಾಗ್ ಹುಡುಕಲಾಗುತ್ತಿದೆ...' : 'Searching Karavali coastal species catalog...'}</div>
+        <div style="text-align:center;padding:16px 8px;">
+            <div style="font-size:26px;">🔄</div>
+            <div style="font-size:12.5px;margin-top:6px;color:var(--text-muted);font-weight:600;">${isKn ? 'ಕರಾವಳಿ ಮೀನುಗಳ ಕ್ಯಾಟಲಾಗ್ ಹುಡುಕಲಾಗುತ್ತಿದೆ...' : 'Searching Karavali coastal species catalog...'}</div>
         </div>
     `;
 
@@ -2913,7 +2988,7 @@ async function analyzeFishPhoto(customQuery) {
                         <div style="margin-top:4px;">⚓ <b>${isKn ? 'ಬಂದರು ಸಲಹೆ:' : 'Port Handling Tip:'}</b> ${data.advice}</div>
                     </div>
 
-                    <div style="margin-top:12px;padding:9px 12px;background:var(--surface-nested);border-radius:10px;font-size:10px;color:var(--text-muted);line-height:1.4;border:1px solid var(--surface-border);">
+                    <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--item-separator);font-size:10.5px;color:var(--text-muted);line-height:1.4;">
                         ⚠️ <b>${isKn ? 'ಮಾರ್ಗದರ್ಶಿ ಸೂಚನೆ:' : 'Demo Field Guide:'}</b> ${data.disclaimer}
                     </div>
 
@@ -2952,7 +3027,12 @@ function renderAdvisoryHistory() {
             <h3 style="font-size:15px;margin-bottom:8px;font-weight:800;color:#38bdf8;">${isKn ? '📋 ಪ್ರಯಾಣ ಸಲಹಾ ಲಾಗ್‌ಬುಕ್' : '📋 Voyage Advisory Log'}</h3>
             <p style="font-size:12px;color:#94a3b8;margin-bottom:12px;">${isKn ? 'ನಿಮ್ಮ ಹಿಂದಿನ ಮೀನುಗಾರಿಕೆ ಪ್ರವಾಸಗಳಲ್ಲಿ ದಾಖಲಾದ ಸುರಕ್ಷತಾ ನಿರ್ಧಾರಗಳು:' : 'Past safety decisions logged during your fishing trips:'}</p>
             ${trips.length === 0 ? `<p style="opacity:0.6;font-size:13px;padding:12px 0;">${isKn ? 'ಇನ್ನೂ ಯಾವುದೇ ಪ್ರವಾಸಗಳು ದಾಖಲಾಗಿಲ್ಲ. ಮುಖಪುಟದಲ್ಲಿ ಪ್ರಶ್ನೆ ಕೇಳಿ ದಾಖಲಿಸಿ.' : 'No past trips recorded yet. Ask a safety question on the Home tab to log trips.'}</p>` :
-            trips.slice(-10).reverse().map(t => `<div class="item-row"><span>${t.status === 'GO' || t.status === 'FAVORABLE' ? (isKn ? '🟢 ಹೋಗಿ (GO)' : '🟢 GO (SAFE)') : t.status === 'CAUTION' ? (isKn ? '🟡 ಎಚ್ಚರಿಕೆ (CAUTION)' : '🟡 CAUTION') : (isKn ? '🔴 ಹೋಗಬೇಡಿ (DON\'T GO)' : '🔴 STAY (DON\'T GO)')}</span><span style="font-size:11px;color:#94a3b8;font-weight:600;">${t.date}</span></div>`).join('')}
+            trips.slice(-10).reverse().map(t => `
+                <div class="item-row" style="align-items:center;padding:10px 2px;">
+                    <span style="font-weight:700;font-size:13px;">${t.status === 'GO' || t.status === 'FAVORABLE' ? (isKn ? '🟢 ಹೋಗಿ (GO)' : '🟢 GO (SAFE)') : t.status === 'CAUTION' ? (isKn ? '🟡 ಎಚ್ಚರಿಕೆ (CAUTION)' : '🟡 CAUTION') : (isKn ? '🔴 ಹೋಗಬೇಡಿ (DON\'T GO)' : '🔴 STAY (DON\'T GO)')}</span>
+                    <span style="font-size:11px;color:var(--text-muted);font-weight:500;text-align:right;">${t.date}</span>
+                </div>
+            `).join('')}
         </div>
     `;
 }
@@ -2976,7 +3056,7 @@ function renderVoyageStats() {
                 <div style="background:rgba(245,158,11,0.15);padding:14px;border-radius:14px;text-align:center;border:1px solid rgba(245,158,11,0.3);"><div style="font-size:24px;font-weight:900;color:#f59e0b;">${caution}</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px;font-weight:700;">${isKn ? 'ಎಚ್ಚರಿಕೆ' : 'CAUTION'}</div></div>
                 <div style="background:rgba(239,68,68,0.15);padding:14px;border-radius:14px;text-align:center;border:1px solid rgba(239,68,68,0.3);"><div style="font-size:24px;font-weight:900;color:#ef4444;">${dontgo}</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px;font-weight:700;">${isKn ? 'ಹೋಗಬೇಡಿ' : "DON'T GO"}</div></div>
             </div>
-            <div style="margin-top:14px;padding:10px 12px;background:var(--surface-nested);border:1px solid var(--surface-border);border-radius:12px;font-size:11px;color:var(--text-muted);line-height:1.5;">
+            <div style="margin-top:14px;padding-top:10px;border-top:1px solid var(--item-separator);font-size:11.5px;color:var(--text-muted);line-height:1.5;">
                 ${isKn ? 'ಒಟ್ಟು ದಾಖಲಾದ ಪ್ರವಾಸಗಳು:' : 'Total Logged Trips:'} <b style="color:var(--text-main);">${trips.length}</b> · ${isKn ? 'ಸುರಕ್ಷಿತ ದರ:' : 'Safe GO Rate:'} <b style="color:#10b981;">${trips.length ? Math.round((go / (trips.length || 1)) * 100) : 0}%</b>
             </div>
         </div>
@@ -3019,9 +3099,15 @@ window.calculateFuel = function() {
     const resEl = document.getElementById('fuelResult');
     if (resEl) {
         resEl.innerHTML = `
-            <div style="background:var(--surface-nested);padding:12px;border-radius:12px;border:1px solid var(--surface-border);">
-                <div class="item-row" style="padding:4px 0;"><span>${isKn ? 'ಅಂದಾಜು ಡೀಸೆಲ್ ಬಳಕೆ:' : 'Estimated Diesel Needed:'}</span><span style="font-weight:800;color:#38bdf8;">~${liters} L</span></div>
-                <div class="item-row" style="padding:4px 0;"><span>${isKn ? 'ಅಂದಾಜು ಇಂಧನ ವೆಚ್ಚ:' : 'Estimated Fuel Cost:'}</span><span class="price">₹${cost.toFixed(0)}</span></div>
+            <div style="padding:4px 0;">
+                <div class="item-row" style="align-items:center;padding:8px 2px;">
+                    <span style="font-weight:600;color:var(--text-main);">${isKn ? 'ಅಂದಾಜು ಡೀಸೆಲ್ ಬಳಕೆ:' : 'Estimated Diesel Needed:'}</span>
+                    <span style="font-weight:800;color:#38bdf8;text-align:right;">~${liters} L</span>
+                </div>
+                <div class="item-row" style="align-items:center;padding:8px 2px;">
+                    <span style="font-weight:600;color:var(--text-main);">${isKn ? 'ಅಂದಾಜು ಇಂಧನ ವೆಚ್ಚ:' : 'Estimated Fuel Cost:'}</span>
+                    <span class="price" style="font-size:15px;font-weight:850;text-align:right;">₹${cost.toFixed(0)}</span>
+                </div>
             </div>
         `;
     }
@@ -3034,30 +3120,42 @@ async function renderGovtSchemes() {
     const moreContainer = document.getElementById('moreContainer');
     if (!moreContainer) return;
     moreContainer.innerHTML = `<div class="glass-card" style="margin-top:0;"><p style="opacity:0.6;font-size:13px;">${isKn ? '⏳ ಪ್ರಧಾನಮಂತ್ರಿ ಮತ್ಸ್ಯ ಸಂಪದ ಯೋಜನೆಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ...' : '⏳ Loading PMMSY government schemes...'}</p></div>`;
+
+    const fallbackSchemes = [
+        { name: 'Pradhan Mantri Matsya Sampada Yojana (PMMSY)', description: isKn ? 'ದೋಣಿಗಳು, ಬಲೆಗಳು ಮತ್ತು ಶೀತಲ ಸರಣಿ ಸುರಕ್ಷತಾ ಸಲಕರಣೆಗಳಿಗೆ 60% ವರೆಗೆ ಸಬ್ಸಿಡಿ.' : 'Up to 60% subsidy for boats, nets, and cold chain safety equipment.', eligibility: isKn ? 'ನೋಂದಾಯಿತ ಸಾಂಪ್ರದಾಯಿಕ ಮತ್ತು ಯಾಂತ್ರಿಕೃತ ಮೀನುಗಾರರು' : 'Registered traditional & mechanized fishermen' },
+        { name: 'Kisan Credit Card (KCC) for Fisheries', description: isKn ? 'ಕಡಿಮೆ 7% ಬಡ್ಡಿದರದಲ್ಲಿ ₹2 ಲಕ್ಷದವರೆಗೆ ಸಾಲ ಸೌಲಭ್ಯ.' : 'Concessional working capital loans up to ₹2 Lakhs with low 7% interest.', eligibility: isKn ? 'ಸಕ್ರಿಯ ಮೀನುಗಾರರು & ದೋಣಿ ಮಾಲೀಕರು' : 'Active fishermen & boat owners' },
+        { name: 'Group Accident Insurance Scheme (GAIS)', description: isKn ? 'ಯಾವುದೇ ಪ್ರೀಮಿಯಂ ವೆಚ್ಚವಿಲ್ಲದೆ ₹5 ಲಕ್ಷ ಅಪಘಾತ ವಿಮೆ ರಕ್ಷಣೆ.' : '₹5 Lakhs accident death/disability coverage without any premium cost.', eligibility: isKn ? 'ಎಲ್ಲಾ ಕರಾವಳಿ ಕರ್ನಾಟಕ ಮೀನುಗಾರರು' : 'All coastal Karnataka fishermen' },
+        { name: 'Mathsyashraya Housing Scheme', description: isKn ? 'ವಸತಿ ರಹಿತ ಮೀನುಗಾರರಿಗೆ ಮನೆ ನಿರ್ಮಾಣಕ್ಕೆ ಆರ್ಥಿಕ ನೆರವು.' : 'Financial assistance for construction of houses for houseless fishermen.', eligibility: isKn ? 'ರಾಜ್ಯ ನೋಂದಾಯಿತ ಕರಾವಳಿ ಮೀನುಗಾರರು' : 'State registered coastal fishermen' }
+    ];
+
+    const displaySchemes = (schemesList) => {
+        moreContainer.innerHTML = `
+            <div class="glass-card" style="margin-top:0;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                    <h3 style="font-size:15px;margin-bottom:0;font-weight:800;color:#38bdf8;">${isKn ? '🏛️ ಸರ್ಕಾರಿ ಸಬ್ಸಿಡಿ & ವಿಮೆ ಯೋಜನೆಗಳು' : '🏛️ Government Subsidies & Insurance'}</h3>
+                    <span style="font-size:10px;background:rgba(6,182,212,0.15);color:#38bdf8;padding:2px 8px;border-radius:10px;font-weight:700;">PMMSY / NFDB</span>
+                </div>
+                <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">${isKn ? 'ಕರ್ನಾಟಕ ಮೀನುಗಾರರಿಗೆ ಪ್ರಧಾನಮಂತ್ರಿ ಮತ್ಸ್ಯ ಸಂಪದ ಯೋಜನೆ ಮತ್ತು ರಾಜ್ಯ ಯೋಜನೆಗಳು:' : 'Pradhan Mantri Matsya Sampada Yojana and state marine schemes for Karnataka fishermen:'}</p>
+                ${schemesList.map(s => `
+                    <div class="item-row" style="display:block;padding:12px 2px;">
+                        <div style="font-weight:800;font-size:13.5px;color:#38bdf8;line-height:1.3;">${s.name}</div>
+                        <div style="font-size:12px;color:var(--text-main);margin-top:4px;line-height:1.45;">${s.description}</div>
+                        <div style="font-size:11px;color:#facc15;margin-top:6px;font-weight:700;">🎯 ${isKn ? 'ಅರ್ಹತೆ:' : 'Eligibility:'} ${s.eligibility}</div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    };
+
     try {
         const response = await fetch(BACKEND_URL + '/schemes');
         const data = await response.json();
-        if (data.success) {
-            moreContainer.innerHTML = `
-                <div class="glass-card" style="margin-top:0;">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                        <h3 style="font-size:15px;margin-bottom:0;font-weight:800;color:#38bdf8;">${isKn ? '🏛️ ಸರ್ಕಾರಿ ಸಬ್ಸಿಡಿ & ವಿಮೆ ಯೋಜನೆಗಳು' : '🏛️ Government Subsidies & Insurance'}</h3>
-                        <span style="font-size:10px;background:rgba(6,182,212,0.15);color:#38bdf8;padding:2px 8px;border-radius:10px;font-weight:700;">PMMSY / NFDB</span>
-                    </div>
-                    <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">${isKn ? 'ಕರ್ನಾಟಕ ಮೀನುಗಾರರಿಗೆ ಪ್ರಧಾನಮಂತ್ರಿ ಮತ್ಸ್ಯ ಸಂಪದ ಯೋಜನೆ ಮತ್ತು ರಾಜ್ಯ ಯೋಜನೆಗಳು:' : 'Pradhan Mantri Matsya Sampada Yojana and state marine schemes for Karnataka fishermen:'}</p>
-                    ${data.schemes.map(s => `
-                        <div style="padding:12px;background:var(--surface-nested);border-radius:14px;margin:8px 0;border:1px solid var(--surface-border);">
-                            <div style="font-weight:800;font-size:13px;color:#38bdf8;">${s.name}</div>
-                            <div style="font-size:12px;color:var(--text-main);margin-top:3px;line-height:1.4;">${s.description}</div>
-                            <div style="font-size:11px;color:#facc15;margin-top:6px;font-weight:700;">🎯 ${isKn ? 'ಅರ್ಹತೆ:' : 'Eligibility:'} ${s.eligibility}</div>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
+        if (data.success && data.schemes && data.schemes.length) {
+            displaySchemes(data.schemes);
+            return;
         }
-    } catch {
-        moreContainer.innerHTML = `<div class="glass-card" style="margin-top:0;"><p style="color:#ef4444;font-size:13px;">${isKn ? '❌ ಯೋಜನೆಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕ ಪರಿಶೀಲಿಸಿ.' : '❌ Could not load schemes. Please check your internet connection.'}</p></div>`;
-    }
+    } catch {}
+    displaySchemes(fallbackSchemes);
 }
 
 async function renderSeasonalPrediction() {
@@ -3080,21 +3178,25 @@ async function renderSeasonalPrediction() {
                     <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;line-height:1.4;">
                         ${isKn ? 'ಕರಾವಳಿ ಕರ್ನಾಟಕದ ಐತಿಹಾಸಿಕ ಲಭ್ಯತೆ ಸೂಚ್ಯಂಕ (CMFRI ಉಲ್ಲೇಖ). ನೇರ ರೇಡಾರ್ ಅಲ್ಲ.' : 'Historical seasonal availability index for Coastal Karnataka (CMFRI reference). Not a live tracking radar.'}
                     </div>
-                    ${data.predictions.map(p => `
-                        <div class="item-row" style="align-items:flex-start;padding:10px 12px;">
-                            <div style="flex:1;">
-                                <div style="font-weight:800;color:var(--text-main);font-size:13px;">🐟 ${p.fish} (${p.kannada})</div>
-                                <div style="font-size:11px;color:#38bdf8;margin-top:2px;">📍 ${p.location} · ⚓ ${p.gear}</div>
-                                <div style="font-size:11px;color:var(--text-muted);margin-top:3px;line-height:1.3;">${p.advice}</div>
+                    ${data.predictions.map(p => {
+                        const statusColor = p.probability >= 80 ? '#10b981' : p.probability >= 60 ? '#f59e0b' : '#94a3b8';
+                        const statusText = p.status_text ? p.status_text.replace('🎯 ', '').replace('✅ ', '').replace('⚠️ ', '') : p.probability + '%';
+                        return `
+                        <div class="item-row" style="align-items:flex-start;padding:12px 2px;">
+                            <div style="flex:1;min-width:0;padding-right:12px;">
+                                <div style="font-weight:750;color:var(--text-main);font-size:13.5px;line-height:1.3;">🐟 ${p.fish} <span style="font-size:12px;color:#38bdf8;font-weight:600;">(${p.kannada})</span></div>
+                                <div style="font-size:11px;color:#38bdf8;margin-top:3px;line-height:1.2;">📍 ${p.location} · ⚓ ${p.gear}</div>
+                                <div style="font-size:11px;color:var(--text-muted);margin-top:3px;line-height:1.35;">${p.advice}</div>
                             </div>
-                            <div style="text-align:right;margin-left:8px;flex-shrink:0;">
-                                <span style="font-weight:900;color:${p.probability >= 80 ? '#10b981' : p.probability >= 60 ? '#f59e0b' : 'var(--text-muted)'};font-size:11px;background:var(--surface-nested);padding:3px 7px;border-radius:8px;display:inline-block;border:1px solid var(--surface-border);">
-                                    ${p.status_text ? p.status_text.replace('🎯 ', '').replace('✅ ', '').replace('⚠️ ', '') : p.probability + '%'}
+                            <div style="text-align:right;flex-shrink:0;">
+                                <span style="font-weight:800;color:${statusColor};font-size:11px;background:transparent;padding:2px 8px;border-radius:12px;display:inline-block;border:1px solid ${statusColor};line-height:1.3;">
+                                    ${statusText}
                                 </span>
                             </div>
                         </div>
-                    `).join('')}
-                    <div style="margin-top:12px;font-size:10px;color:var(--text-muted);text-align:center;padding:8px;background:var(--surface-nested);border:1px solid var(--surface-border);border-radius:8px;line-height:1.4;">
+                        `;
+                    }).join('')}
+                    <div style="margin-top:14px;font-size:10.5px;color:var(--text-muted);text-align:center;padding-top:10px;border-top:1px solid var(--item-separator);line-height:1.4;">
                         ℹ️ ${data.disclaimer}
                     </div>
                 </div>
@@ -3194,11 +3296,11 @@ function renderCatchLogger() {
             </div>
 
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
-                <div style="background:var(--surface-nested);padding:10px;border-radius:12px;border:1px solid var(--surface-border);text-align:center;">
+                <div style="background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.22);padding:10px;border-radius:12px;text-align:center;">
                     <div style="font-size:18px;font-weight:900;color:#38bdf8;">${totalKg.toFixed(1)} kg</div>
                     <div style="font-size:10px;color:var(--text-muted);font-weight:700;">${isKn ? 'ಒಟ್ಟು ಮೀನು' : 'TOTAL CATCH'}</div>
                 </div>
-                <div style="background:var(--surface-nested);padding:10px;border-radius:12px;border:1px solid var(--surface-border);text-align:center;">
+                <div style="background:rgba(250,204,21,0.08);border:1px solid rgba(250,204,21,0.22);padding:10px;border-radius:12px;text-align:center;">
                     <div style="font-size:18px;font-weight:900;color:#facc15;">₹${totalRev.toFixed(0)}</div>
                     <div style="font-size:10px;color:var(--text-muted);font-weight:700;">${isKn ? 'ಒಟ್ಟು ಆದಾಯ' : 'GROSS EARNINGS'}</div>
                 </div>
@@ -3222,24 +3324,26 @@ function renderCatchLogger() {
                 </div>
             </div>
 
-            <div id="catchEstimateMsg" style="margin-top:10px;font-size:12px;color:var(--text-main);background:var(--surface-nested);padding:8px 12px;border-radius:10px;border:1px solid var(--surface-border);">
-                ${isKn ? 'ಅಂದಾಜು ಮೌಲ್ಯ:' : 'Estimated Value:'} <b style="color:#facc15;">₹3,300</b> (15 kg × ₹220)
+            <div id="catchEstimateMsg" style="margin-top:8px;font-size:12px;color:var(--text-main);padding:6px 2px;line-height:1.4;">
+                ${isKn ? 'ಅಂದಾಜು ಮೌಲ್ಯ:' : 'Estimated Value:'} <b style="color:#facc15;font-size:13.5px;">₹3,300</b> <span style="color:var(--text-muted);font-size:11px;">(15 kg × ₹220)</span>
             </div>
 
-            <div style="margin-top:14px;border-top:1px solid rgba(255,255,255,0.08);padding-top:10px;">
+            <div style="margin-top:14px;border-top:1px solid var(--item-separator);padding-top:10px;">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
                     <span style="font-size:11px;font-weight:800;color:#94a3b8;letter-spacing:0.4px;">${isKn ? 'ಇತ್ತೀಚಿನ ದಾಖಲೆಗಳು' : 'RECENT CATCHES'}</span>
                     ${catches.length > 0 ? `<button onclick="clearCatchLogs()" style="background:none;border:none;color:#f87171;font-size:11px;cursor:pointer;">${isKn ? 'ದಾಖಲೆ ತೆರವುಗೊಳಿಸಿ' : 'Clear Log'}</button>` : ''}
                 </div>
                 <div id="catchHistoryList">
-                    ${catches.length === 0 ? `<p style="opacity:0.6;font-size:12px;">${isKn ? 'ಇಂದು ಇನ್ನೂ ಯಾವುದೇ ಮೀನು ದಾಖಲಾಗಿಲ್ಲ.' : 'No catches logged yet today.'}</p>` :
+                    ${catches.length === 0 ? `<p style="opacity:0.6;font-size:12px;padding:8px 0;">${isKn ? 'ಇಂದು ಇನ್ನೂ ಯಾವುದೇ ಮೀನು ದಾಖಲಾಗಿಲ್ಲ.' : 'No catches logged yet today.'}</p>` :
                     catches.slice(-4).reverse().map(c => `
-                        <div class="item-row" style="padding:8px 12px;margin:4px 0;">
-                            <div>
-                                <span style="font-weight:700;">${c.name}</span>
-                                <div style="font-size:10px;color:#94a3b8;">${c.kg} kg · ${c.time}</div>
+                        <div class="item-row" style="align-items:flex-start;padding:10px 2px;">
+                            <div style="flex:1;min-width:0;padding-right:12px;">
+                                <div style="font-weight:750;font-size:13px;color:var(--text-main);line-height:1.3;">${c.name}</div>
+                                <div style="font-size:10.5px;color:var(--text-muted);margin-top:2px;line-height:1.2;">${c.kg} kg · ${c.time}</div>
                             </div>
-                            <span class="price" style="font-size:14px;">₹${c.revenue}</span>
+                            <div style="text-align:right;flex-shrink:0;">
+                                <div class="price" style="font-size:14.5px;font-weight:850;line-height:1.3;">₹${c.revenue}</div>
+                            </div>
                         </div>
                     `).join('')}
                 </div>
@@ -3255,10 +3359,11 @@ window.updateCatchEstimate = function() {
     const input = document.getElementById('catchWeight');
     const msg = document.getElementById('catchEstimateMsg');
     if (!sel || !input || !msg) return;
+    const isKn = (currentLang === 'kn');
     const price = parseFloat(sel.value) || 0;
     const kg = parseFloat(input.value) || 0;
     const total = price * kg;
-    msg.innerHTML = `Estimated Value: <b style="color:#facc15;">₹${total.toFixed(0)}</b> (${kg} kg × ₹${price})`;
+    msg.innerHTML = `${isKn ? 'ಅಂದಾಜು ಮೌಲ್ಯ:' : 'Estimated Value:'} <b style="color:#facc15;font-size:13.5px;">₹${total.toFixed(0)}</b> <span style="color:var(--text-muted);font-size:11px;">(${kg} kg × ₹${price})</span>`;
 };
 
 window.saveCatchLog = function() {
@@ -3542,7 +3647,7 @@ const translations = {
         heroTitle: 'ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ?',
         heroSub: 'ಕರಾವಳಿ ಹವಾಮಾನ ವರದಿ & ಬಂದರು ಮಾರುಕಟ್ಟೆ ಮುನ್ಸೂಚನೆ',
         micText: 'ಒತ್ತಿ ಮಾತನಾಡಿ',
-        micSub: 'ನಿಮ್ಮ ಮಾತಲ್ಲೇ ಕೇಳಿ · ಕನ್ನಡ / English',
+        micSub: 'ನಿಮ್ಮ ಮಾತಲ್ಲೇ ಕೇಳಿ (ಕನ್ನಡ / English)',
         typeBtnText: 'ಬರೆದು ಕೇಳಿ',
         textInputPlaceholder: 'ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ? ಅಥವಾ ಪ್ರಶ್ನೆ ಟೈಪ್ ಮಾಡಿ...',
         textSubmitBtn: 'ಕೇಳಿ (Ask)',
@@ -3647,7 +3752,7 @@ const translations = {
         heroTitle: 'Should I go fishing tomorrow?',
         heroSub: 'Marine weather advisory & harbor market outlook',
         micText: 'Tap to Speak',
-        micSub: 'Ask in your language · Kannada / English',
+        micSub: 'Ask in your language (Kannada / English)',
         typeBtnText: 'Type your query',
         textInputPlaceholder: 'Should I go fishing? Type query...',
         textSubmitBtn: 'Ask',
@@ -3779,6 +3884,10 @@ function applyLanguage(lang) {
     setTxt('weatherLinkTitle', t.weatherLinkTitle);
     setTxt('weatherLinkSub', t.weatherLinkSub);
     setTxt('replayBtnText', t.replayText);
+
+    if (transcriptText && (!transcriptText.dataset.userSpoke || transcriptText.dataset.userSpoke === 'false')) {
+        transcriptText.textContent = currentLang === 'kn' ? '"ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ? / Should I go fishing?"' : '"Should I go fishing tomorrow? / ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ?"';
+    }
 
     const input = document.getElementById('textInput');
     if (input) input.placeholder = t.textInputPlaceholder;
@@ -4026,9 +4135,9 @@ loadBestTime();
 // Register Service Worker for PWA & Deep-Sea Offline Support
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=8')
+        navigator.serviceWorker.register('./sw.js?v=9')
             .then(reg => {
-                console.log('🐟 [PWA] Service Worker v8 registered:', reg.scope);
+                console.log('🐟 [PWA] Service Worker v9 registered:', reg.scope);
                 reg.update();
             })
             .catch(err => console.log('🐟 [PWA] SW registration failed:', err));
