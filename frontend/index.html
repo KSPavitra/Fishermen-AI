@@ -957,38 +957,48 @@
         }
 
         /* CLEAN FLATTENED LIST & MENU ROWS (APP-WIDE) */
+        .clean-menu-list {
+            width: 100%;
+            background: transparent !important;
+            border: none !important;
+            border-top: 1px solid var(--item-separator) !important;
+        }
         .item-row {
             padding: 12px 2px;
-            margin: 0;
+            margin: 0 !important;
             background: transparent !important;
-            border-radius: 0;
+            background-color: transparent !important;
+            border-radius: 0 !important;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             font-size: 13px;
             text-decoration: none;
             color: inherit;
-            border: none;
-            border-bottom: 1px solid var(--item-separator, rgba(255, 255, 255, 0.08));
-            transition: background 0.15s ease, border-color 0.15s ease;
+            border: none !important;
+            border-bottom: 1px solid var(--item-separator) !important;
+            box-shadow: none !important;
+            transition: background-color 0.15s ease, border-color 0.15s ease;
         }
         .item-row:last-child {
-            border-bottom: none;
+            border-bottom: none !important;
         }
         .item-row:hover {
-            border-bottom-color: rgba(56, 189, 248, 0.3);
+            border-bottom-color: rgba(56, 189, 248, 0.3) !important;
             background: var(--item-hover-bg, rgba(255, 255, 255, 0.02)) !important;
             transform: none;
         }
         .item-row .price {
-            font-weight: 850;
+            font-weight: 800;
             color: var(--price-color, #facc15);
             font-size: 15px;
-            line-height: 1.3;
+            line-height: 1.25;
             letter-spacing: -0.2px;
             text-shadow: none;
             white-space: nowrap;
+            margin: 0;
         }
+
 
         /* HUD FISH SCANNER CAMERA VIEWPORT */
         .scanner-hud-box {
@@ -1268,9 +1278,14 @@
             border-color: #0369a1 !important;
             box-shadow: 0 6px 24px rgba(2, 132, 199, 0.35) !important;
         }
+        [data-theme="light"] .clean-menu-list {
+            border-top: 1px solid var(--item-separator, rgba(15, 23, 42, 0.08)) !important;
+        }
         [data-theme="light"] .item-row {
             border-bottom: 1px solid var(--item-separator, rgba(15, 23, 42, 0.08)) !important;
             background: transparent !important;
+            background-color: transparent !important;
+            box-shadow: none !important;
         }
         [data-theme="light"] .item-row:last-child {
             border-bottom: none !important;
@@ -1916,12 +1931,12 @@
 
         <!-- ================= MARKET TAB ================= -->
         <div class="page" id="page-market">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
                 <h2 class="page-title" id="marketPageTitle" style="margin-bottom:0;">📊 Harbor Catch Rates</h2>
-                <span id="marketPageBadge" style="font-size:10px;background:rgba(6,182,212,0.15);color:#38bdf8;padding:3px 8px;border-radius:12px;border:1px solid rgba(6,182,212,0.3);font-weight:800;">MALPE & MANGALORE</span>
+                <span id="marketPageBadge" style="font-size:10px;background:rgba(6,182,212,0.12);color:#38bdf8;padding:2px 8px;border-radius:10px;border:1px solid rgba(6,182,212,0.25);font-weight:700;">MALPE & MANGALORE</span>
             </div>
-            <p id="marketPageSub" style="font-size:12px;color:#94a3b8;margin-bottom:12px;">Daily wholesale rate index with Kannada & Tulu names.</p>
-            <div id="marketList"><p style="opacity:0.6;font-size:13px;">Loading market rates...</p></div>
+            <p id="marketPageSub" style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Daily wholesale rate index with Kannada & Tulu names.</p>
+            <div id="marketList" class="clean-menu-list"><p style="opacity:0.6;font-size:13px;padding:12px 0;">Loading market rates...</p></div>
         </div>
 
         <!-- ================= SAFETY & SOS TAB ================= -->
@@ -2681,13 +2696,13 @@ async function loadMarket() {
         list.innerHTML = prices.map(p => `
             <div class="item-row" style="align-items:flex-start;">
                 <div style="flex:1;min-width:0;padding-right:12px;">
-                    <div style="font-weight:750;font-size:14px;color:var(--text-main);line-height:1.3;">🐟 ${p.name || p.fish}</div>
-                    ${p.kannada ? `<div style="font-size:11.5px;color:#38bdf8;font-weight:600;margin-top:2px;line-height:1.2;">${p.kannada}</div>` : ''}
-                    ${p.season ? `<div style="font-size:10px;color:var(--text-muted);font-weight:500;margin-top:3px;line-height:1.2;">📅 ${isKn ? 'ಉತ್ತಮ ಕಾಲ:' : 'Peak:'} ${p.season}</div>` : ''}
+                    <div style="font-weight:750;font-size:14.5px;color:var(--text-main);line-height:1.25;margin:0;">🐟 ${p.name || p.fish}</div>
+                    ${p.kannada ? `<div style="font-size:11.5px;color:var(--text-muted);font-weight:500;margin-top:2px;line-height:1.2;">${p.kannada}</div>` : ''}
+                    ${p.season ? `<div style="font-size:10.5px;color:var(--text-muted);opacity:0.85;margin-top:3px;line-height:1.2;">📅 ${isKn ? 'ಉತ್ತಮ ಕಾಲ:' : 'Peak Season:'} ${p.season}</div>` : ''}
                 </div>
                 <div style="text-align:right;flex-shrink:0;">
-                    <div class="price" style="font-size:15px;font-weight:850;line-height:1.3;">₹${p.price}/kg</div>
-                    ${p.range ? `<div style="font-size:10px;color:var(--text-muted);margin-top:2px;line-height:1.2;">${p.range}</div>` : ''}
+                    <div class="price" style="font-size:15px;font-weight:800;color:var(--price-color);line-height:1.25;margin:0;letter-spacing:-0.2px;">₹${p.price}<span style="font-size:11px;font-weight:600;color:var(--text-muted);opacity:0.85;">/kg</span></div>
+                    ${p.range ? `<div style="font-size:10.5px;color:var(--text-muted);opacity:0.85;margin-top:2px;line-height:1.2;">${p.range}</div>` : ''}
                 </div>
             </div>
         `).join('');
@@ -2748,19 +2763,19 @@ async function loadCalendar() {
             el.innerHTML = `
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
                     <h3 style="font-size:14px;font-weight:800;color:#38bdf8;margin-bottom:0;">${isKn ? '🗓️ 7 ದಿನಗಳ ಉಬ್ಬರವಿಳಿತ & ಚಂದ್ರನ ಮುನ್ನೋಟ' : '🗓️ 7-Day Solunar & Tidal Outlook'}</h3>
-                    <span style="font-size:10px;background:rgba(6,182,212,0.15);color:#38bdf8;padding:2px 8px;border-radius:10px;font-weight:700;">${isKn ? 'ಚಂದ್ರನ ಚಕ್ರ' : 'LUNAR CYCLE'}</span>
+                    <span style="font-size:10px;background:rgba(6,182,212,0.12);color:#38bdf8;padding:2px 8px;border-radius:10px;font-weight:700;">${isKn ? 'ಚಂದ್ರನ ಚಕ್ರ' : 'LUNAR CYCLE'}</span>
                 </div>
-                <div style="font-size:11px;color:#94a3b8;margin-bottom:8px;">${isKn ? 'ಖಗೋಳ ಚಂದ್ರನ ಹಂತಗಳನ್ನು ಆಧರಿಸಿ ಅಲೆಗಳ ಪ್ರವಾಹ ಅಂದಾಜು. ಕಡಲಿಗೆ ಹೋಗುವ ಮುನ್ನ ದೈನಂದಿನ ಹವಾಮಾನ ಪರಿಶೀಲಿಸಿ.' : 'Tidal current estimation based on astronomical moon phases. Check daily weather before trips.'}</div>
+                <div style="font-size:11px;color:var(--text-muted);margin-bottom:8px;">${isKn ? 'ಖಗೋಳ ಚಂದ್ರನ ಹಂತಗಳನ್ನು ಆಧರಿಸಿ ಅಲೆಗಳ ಪ್ರವಾಹ ಅಂದಾಜು. ಕಡಲಿಗೆ ಹೋಗುವ ಮುನ್ನ ದೈನಂದಿನ ಹವಾಮಾನ ಪರಿಶೀಲಿಸಿ.' : 'Tidal current estimation based on astronomical moon phases. Check daily weather before trips.'}</div>
             ` +
                 data.days.map(d => `
                     <div class="item-row" style="align-items:center;">
-                        <span style="font-weight:650;font-size:13px;color:var(--text-main);">${d.date}</span>
-                        <span style="font-weight:750;font-size:12px;color:var(--primary);text-align:right;">${d.rating}</span>
+                        <span style="font-weight:650;font-size:13px;color:var(--text-main);line-height:1.25;">${d.date}</span>
+                        <span style="font-weight:750;font-size:12.5px;color:var(--primary);text-align:right;line-height:1.25;">${d.rating}</span>
                     </div>
                 `).join('');
         }
     } catch {
-        el.innerHTML = `<div style="font-size:12px;color:#94a3b8;padding:10px;">${isKn ? 'ಉಬ್ಬರವಿಳಿತ ಮುನ್ನೋಟ ಆಫ್‌ಲೈನ್‌ನಲ್ಲಿ ಲಭ್ಯವಿಲ್ಲ.' : 'Tidal outlook temporarily unavailable offline.'}</div>`;
+        el.innerHTML = `<div style="font-size:12px;color:var(--text-muted);padding:10px 0;">${isKn ? 'ಉಬ್ಬರವಿಳಿತ ಮುನ್ನೋಟ ಆಫ್‌ಲೈನ್‌ನಲ್ಲಿ ಲಭ್ಯವಿಲ್ಲ.' : 'Tidal outlook temporarily unavailable offline.'}</div>`;
     }
 }
 
@@ -2807,10 +2822,10 @@ async function loadBestTime() {
                 return `
                     <div class="item-row" style="display:block;padding:10px 2px;">
                         <div style="display:flex;justify-content:space-between;align-items:center;">
-                            <span style="font-size:13px;font-weight:750;color:${color};">${w.label}</span>
-                            <span style="font-size:12.5px;font-weight:750;color:var(--text-main);">${w.time}</span>
+                            <span style="font-size:13px;font-weight:750;color:${color};line-height:1.25;">${w.label}</span>
+                            <span style="font-size:12.5px;font-weight:750;color:var(--text-main);line-height:1.25;">${w.time}</span>
                         </div>
-                        <div style="font-size:11px;color:var(--text-muted);margin-top:2px;line-height:1.3;">${w.reason}</div>
+                        <div style="font-size:10.5px;color:var(--text-muted);opacity:0.85;margin-top:2px;line-height:1.3;">${w.reason}</div>
                     </div>
                 `;
             }).join('');
@@ -3025,12 +3040,12 @@ function renderAdvisoryHistory() {
     container.innerHTML = `
         <div class="glass-card" style="margin-top:0;">
             <h3 style="font-size:15px;margin-bottom:8px;font-weight:800;color:#38bdf8;">${isKn ? '📋 ಪ್ರಯಾಣ ಸಲಹಾ ಲಾಗ್‌ಬುಕ್' : '📋 Voyage Advisory Log'}</h3>
-            <p style="font-size:12px;color:#94a3b8;margin-bottom:12px;">${isKn ? 'ನಿಮ್ಮ ಹಿಂದಿನ ಮೀನುಗಾರಿಕೆ ಪ್ರವಾಸಗಳಲ್ಲಿ ದಾಖಲಾದ ಸುರಕ್ಷತಾ ನಿರ್ಧಾರಗಳು:' : 'Past safety decisions logged during your fishing trips:'}</p>
+            <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">${isKn ? 'ನಿಮ್ಮ ಹಿಂದಿನ ಮೀನುಗಾರಿಕೆ ಪ್ರವಾಸಗಳಲ್ಲಿ ದಾಖಲಾದ ಸುರಕ್ಷತಾ ನಿರ್ಧಾರಗಳು:' : 'Past safety decisions logged during your fishing trips:'}</p>
             ${trips.length === 0 ? `<p style="opacity:0.6;font-size:13px;padding:12px 0;">${isKn ? 'ಇನ್ನೂ ಯಾವುದೇ ಪ್ರವಾಸಗಳು ದಾಖಲಾಗಿಲ್ಲ. ಮುಖಪುಟದಲ್ಲಿ ಪ್ರಶ್ನೆ ಕೇಳಿ ದಾಖಲಿಸಿ.' : 'No past trips recorded yet. Ask a safety question on the Home tab to log trips.'}</p>` :
             trips.slice(-10).reverse().map(t => `
                 <div class="item-row" style="align-items:center;padding:10px 2px;">
-                    <span style="font-weight:700;font-size:13px;">${t.status === 'GO' || t.status === 'FAVORABLE' ? (isKn ? '🟢 ಹೋಗಿ (GO)' : '🟢 GO (SAFE)') : t.status === 'CAUTION' ? (isKn ? '🟡 ಎಚ್ಚರಿಕೆ (CAUTION)' : '🟡 CAUTION') : (isKn ? '🔴 ಹೋಗಬೇಡಿ (DON\'T GO)' : '🔴 STAY (DON\'T GO)')}</span>
-                    <span style="font-size:11px;color:var(--text-muted);font-weight:500;text-align:right;">${t.date}</span>
+                    <span style="font-weight:700;font-size:13px;color:var(--text-main);line-height:1.25;">${t.status === 'GO' || t.status === 'FAVORABLE' ? (isKn ? '🟢 ಹೋಗಿ (GO)' : '🟢 GO (SAFE)') : t.status === 'CAUTION' ? (isKn ? '🟡 ಎಚ್ಚರಿಕೆ (CAUTION)' : '🟡 CAUTION') : (isKn ? '🔴 ಹೋಗಬೇಡಿ (DON\'T GO)' : '🔴 STAY (DON\'T GO)')}</span>
+                    <span style="font-size:11px;color:var(--text-muted);font-weight:500;text-align:right;line-height:1.25;">${t.date}</span>
                 </div>
             `).join('')}
         </div>
@@ -3100,13 +3115,13 @@ window.calculateFuel = function() {
     if (resEl) {
         resEl.innerHTML = `
             <div style="padding:4px 0;">
-                <div class="item-row" style="align-items:center;padding:8px 2px;">
-                    <span style="font-weight:600;color:var(--text-main);">${isKn ? 'ಅಂದಾಜು ಡೀಸೆಲ್ ಬಳಕೆ:' : 'Estimated Diesel Needed:'}</span>
-                    <span style="font-weight:800;color:#38bdf8;text-align:right;">~${liters} L</span>
+                <div class="item-row" style="align-items:center;padding:10px 2px;">
+                    <span style="font-weight:600;font-size:13px;color:var(--text-main);line-height:1.25;">${isKn ? 'ಅಂದಾಜು ಡೀಸೆಲ್ ಬಳಕೆ:' : 'Estimated Diesel Needed:'}</span>
+                    <span style="font-weight:800;font-size:13.5px;color:var(--primary);text-align:right;line-height:1.25;">~${liters} L</span>
                 </div>
-                <div class="item-row" style="align-items:center;padding:8px 2px;">
-                    <span style="font-weight:600;color:var(--text-main);">${isKn ? 'ಅಂದಾಜು ಇಂಧನ ವೆಚ್ಚ:' : 'Estimated Fuel Cost:'}</span>
-                    <span class="price" style="font-size:15px;font-weight:850;text-align:right;">₹${cost.toFixed(0)}</span>
+                <div class="item-row" style="align-items:center;padding:10px 2px;">
+                    <span style="font-weight:600;font-size:13px;color:var(--text-main);line-height:1.25;">${isKn ? 'ಅಂದಾಜು ಇಂಧನ ವೆಚ್ಚ:' : 'Estimated Fuel Cost:'}</span>
+                    <span class="price" style="font-size:15px;font-weight:800;color:var(--price-color);text-align:right;line-height:1.25;margin:0;">₹${cost.toFixed(0)}</span>
                 </div>
             </div>
         `;
@@ -3133,14 +3148,14 @@ async function renderGovtSchemes() {
             <div class="glass-card" style="margin-top:0;">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
                     <h3 style="font-size:15px;margin-bottom:0;font-weight:800;color:#38bdf8;">${isKn ? '🏛️ ಸರ್ಕಾರಿ ಸಬ್ಸಿಡಿ & ವಿಮೆ ಯೋಜನೆಗಳು' : '🏛️ Government Subsidies & Insurance'}</h3>
-                    <span style="font-size:10px;background:rgba(6,182,212,0.15);color:#38bdf8;padding:2px 8px;border-radius:10px;font-weight:700;">PMMSY / NFDB</span>
+                    <span style="font-size:10px;background:rgba(6,182,212,0.12);color:#38bdf8;padding:2px 8px;border-radius:10px;font-weight:700;">PMMSY / NFDB</span>
                 </div>
                 <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">${isKn ? 'ಕರ್ನಾಟಕ ಮೀನುಗಾರರಿಗೆ ಪ್ರಧಾನಮಂತ್ರಿ ಮತ್ಸ್ಯ ಸಂಪದ ಯೋಜನೆ ಮತ್ತು ರಾಜ್ಯ ಯೋಜನೆಗಳು:' : 'Pradhan Mantri Matsya Sampada Yojana and state marine schemes for Karnataka fishermen:'}</p>
                 ${schemesList.map(s => `
                     <div class="item-row" style="display:block;padding:12px 2px;">
-                        <div style="font-weight:800;font-size:13.5px;color:#38bdf8;line-height:1.3;">${s.name}</div>
-                        <div style="font-size:12px;color:var(--text-main);margin-top:4px;line-height:1.45;">${s.description}</div>
-                        <div style="font-size:11px;color:#facc15;margin-top:6px;font-weight:700;">🎯 ${isKn ? 'ಅರ್ಹತೆ:' : 'Eligibility:'} ${s.eligibility}</div>
+                        <div style="font-weight:750;font-size:14px;color:var(--text-main);line-height:1.3;margin:0;">${s.name}</div>
+                        <div style="font-size:12px;color:var(--text-muted);margin-top:4px;line-height:1.45;">${s.description}</div>
+                        <div style="font-size:11px;color:var(--price-color);margin-top:6px;font-weight:700;">🎯 ${isKn ? 'ಅರ್ಹತೆ:' : 'Eligibility:'} <span style="color:var(--text-main);font-weight:500;">${s.eligibility}</span></div>
                     </div>
                 `).join('')}
             </div>
@@ -3173,7 +3188,7 @@ async function renderSeasonalPrediction() {
                 <div class="glass-card" style="margin-top:0;">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
                         <h3 style="font-size:15px;margin-bottom:0;font-weight:800;color:#38bdf8;">${isKn ? '🐟 ಕರಾವಳಿ ಋತುಮಾನ ಮೀನುಗಾರಿಕೆ ಮಾರ್ಗದರ್ಶಿ' : '🐟 Seasonal Catch Guide'}</h3>
-                        <span style="font-size:10px;background:rgba(6,182,212,0.15);color:#38bdf8;padding:2px 8px;border-radius:10px;font-weight:700;">${data.month || (isKn ? 'ಕರಾವಳಿ ತೀರ' : 'Karavali Coast')}</span>
+                        <span style="font-size:10px;background:rgba(6,182,212,0.12);color:#38bdf8;padding:2px 8px;border-radius:10px;font-weight:700;">${data.month || (isKn ? 'ಕರಾವಳಿ ತೀರ' : 'Karavali Coast')}</span>
                     </div>
                     <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;line-height:1.4;">
                         ${isKn ? 'ಕರಾವಳಿ ಕರ್ನಾಟಕದ ಐತಿಹಾಸಿಕ ಲಭ್ಯತೆ ಸೂಚ್ಯಂಕ (CMFRI ಉಲ್ಲೇಖ). ನೇರ ರೇಡಾರ್ ಅಲ್ಲ.' : 'Historical seasonal availability index for Coastal Karnataka (CMFRI reference). Not a live tracking radar.'}
@@ -3184,12 +3199,12 @@ async function renderSeasonalPrediction() {
                         return `
                         <div class="item-row" style="align-items:flex-start;padding:12px 2px;">
                             <div style="flex:1;min-width:0;padding-right:12px;">
-                                <div style="font-weight:750;color:var(--text-main);font-size:13.5px;line-height:1.3;">🐟 ${p.fish} <span style="font-size:12px;color:#38bdf8;font-weight:600;">(${p.kannada})</span></div>
-                                <div style="font-size:11px;color:#38bdf8;margin-top:3px;line-height:1.2;">📍 ${p.location} · ⚓ ${p.gear}</div>
-                                <div style="font-size:11px;color:var(--text-muted);margin-top:3px;line-height:1.35;">${p.advice}</div>
+                                <div style="font-weight:750;color:var(--text-main);font-size:14px;line-height:1.25;margin:0;">🐟 ${p.fish} <span style="font-size:11.5px;color:var(--text-muted);font-weight:500;">(${p.kannada})</span></div>
+                                <div style="font-size:11px;color:var(--text-muted);margin-top:3px;line-height:1.2;">📍 ${p.location} · ⚓ ${p.gear}</div>
+                                <div style="font-size:11px;color:var(--text-muted);opacity:0.85;margin-top:3px;line-height:1.35;">${p.advice}</div>
                             </div>
                             <div style="text-align:right;flex-shrink:0;">
-                                <span style="font-weight:800;color:${statusColor};font-size:11px;background:transparent;padding:2px 8px;border-radius:12px;display:inline-block;border:1px solid ${statusColor};line-height:1.3;">
+                                <span style="font-weight:800;color:${statusColor};font-size:11px;background:transparent;padding:2px 8px;border-radius:12px;display:inline-block;border:1px solid ${statusColor};line-height:1.25;margin:0;">
                                     ${statusText}
                                 </span>
                             </div>
@@ -3338,11 +3353,11 @@ function renderCatchLogger() {
                     catches.slice(-4).reverse().map(c => `
                         <div class="item-row" style="align-items:flex-start;padding:10px 2px;">
                             <div style="flex:1;min-width:0;padding-right:12px;">
-                                <div style="font-weight:750;font-size:13px;color:var(--text-main);line-height:1.3;">${c.name}</div>
-                                <div style="font-size:10.5px;color:var(--text-muted);margin-top:2px;line-height:1.2;">${c.kg} kg · ${c.time}</div>
+                                <div style="font-weight:750;font-size:13.5px;color:var(--text-main);line-height:1.25;margin:0;">${c.name}</div>
+                                <div style="font-size:11px;color:var(--text-muted);margin-top:2px;line-height:1.2;">${c.kg} kg · ${c.time}</div>
                             </div>
                             <div style="text-align:right;flex-shrink:0;">
-                                <div class="price" style="font-size:14.5px;font-weight:850;line-height:1.3;">₹${c.revenue}</div>
+                                <div class="price" style="font-size:15px;font-weight:800;color:var(--price-color);line-height:1.25;margin:0;">₹${c.revenue}</div>
                             </div>
                         </div>
                     `).join('')}
@@ -3985,6 +4000,10 @@ function applyLanguage(lang) {
     if (currentMoreFeature) {
         renderCurrentMoreFeature();
     }
+    const marketPage = document.getElementById('page-market');
+    if (marketPage && marketPage.classList.contains('active')) {
+        loadMarket();
+    }
     updateThemeToggleUI();
 }
 
@@ -4135,9 +4154,9 @@ loadBestTime();
 // Register Service Worker for PWA & Deep-Sea Offline Support
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=9')
+        navigator.serviceWorker.register('./sw.js?v=10')
             .then(reg => {
-                console.log('🐟 [PWA] Service Worker v9 registered:', reg.scope);
+                console.log('🐟 [PWA] Service Worker v10 registered:', reg.scope);
                 reg.update();
             })
             .catch(err => console.log('🐟 [PWA] SW registration failed:', err));
