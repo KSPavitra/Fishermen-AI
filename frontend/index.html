@@ -56,6 +56,15 @@
             --radius-lg: 24px;
             --radius-md: 16px;
             --radius-sm: 12px;
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 12px;
+            --space-lg: 16px;
+            --space-xl: 20px;
+            --space-2xl: 30px;
+            --space-3xl: 32px;
+            --content-pad-x: 16px;
+            --content-pad-bottom: 100px;
         }
 
         /* LIGHT / DAYTIME MARITIME SUNLIGHT THEME */
@@ -319,7 +328,7 @@
         .content-area {
             flex: 1;
             overflow-y: auto;
-            padding: 8px 2px 6px;
+            padding: 8px 2px var(--content-pad-bottom, 100px);
             margin-bottom: 4px;
         }
         .content-area::-webkit-scrollbar { width: 4px; }
@@ -402,7 +411,7 @@
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            margin: 6px auto 0;
+            margin: var(--space-2xl, 30px) auto 0;
         }
 
         /* Multi-layered Sonar Rings */
@@ -413,14 +422,14 @@
             transition: all 0.3s ease;
         }
         .sonar-ring-1 {
-            width: 120px;
-            height: 120px;
+            width: 106px;
+            height: 106px;
             border: 1px dashed rgba(6, 182, 212, 0.35);
             animation: sonarSpin 20s linear infinite;
         }
         .sonar-ring-2 {
-            width: 144px;
-            height: 144px;
+            width: 122px;
+            height: 122px;
             border: 1px solid rgba(59, 130, 246, 0.18);
             animation: sonarPulse 3s infinite ease-out;
         }
@@ -497,8 +506,8 @@
             font-size: 10.5px;
             color: #94a3b8;
             font-weight: 450;
-            margin-top: 8px;
-            margin-bottom: 12px;
+            margin-top: var(--space-lg, 16px);
+            margin-bottom: 0;
             text-align: center;
             line-height: 1.3;
         }
@@ -554,12 +563,12 @@
         @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
 
         .transcript {
-            margin: 0 auto 12px;
+            margin: var(--space-xl, 20px) auto 0;
             font-size: 11px;
             font-weight: 500;
             color: #cbd5e1;
             background: rgba(15, 23, 42, 0.45);
-            padding: 4px 13px;
+            padding: 8px var(--space-lg, 16px);
             border-radius: 9999px;
             min-height: 25px;
             border: 1px solid rgba(56, 189, 248, 0.22);
@@ -717,12 +726,12 @@
         /* RAPID EMERGENCY LIFELINE (SOS) BANNER */
         .home-sos-btn {
             width: 100%;
-            margin-top: 0;
-            margin-bottom: 12px;
-            padding: 7px 12px;
+            margin-top: var(--space-3xl, 32px);
+            margin-bottom: var(--space-lg, 16px);
+            padding: 9px 14px;
             background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #991b1b 100%);
             border: 1px solid rgba(254, 202, 202, 0.35);
-            border-radius: 12px;
+            border-radius: 14px;
             color: white;
             cursor: pointer;
             box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
@@ -740,11 +749,11 @@
         .weather-link-banner {
             width: 100%;
             margin-top: 0;
-            margin-bottom: 14px;
-            padding: 7px 12px;
+            margin-bottom: var(--space-lg, 16px);
+            padding: var(--space-lg, 16px) 14px;
             background: rgba(15, 23, 42, 0.65);
             border: 1px solid rgba(56, 189, 248, 0.22);
-            border-radius: 12px;
+            border-radius: 14px;
             color: white;
             cursor: pointer;
             display: flex;
@@ -765,7 +774,7 @@
             align-items: center;
             justify-content: center;
             gap: 7px;
-            margin: 0 auto 14px;
+            margin: var(--space-xl, 20px) auto 0;
             padding: 6px 14px;
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 58, 138, 0.92));
             backdrop-filter: blur(12px);
@@ -1096,12 +1105,17 @@
         }
         .tab-btn.active {
             color: #38bdf8;
-            background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(59, 130, 246, 0.15));
-            border-color: rgba(56, 189, 248, 0.35);
-            box-shadow: 0 4px 14px rgba(14, 165, 233, 0.25);
+            background: transparent;
+            border-color: transparent;
+            box-shadow: none;
         }
         .tab-btn.active .tab-icon {
+            color: #38bdf8;
             transform: scale(1.18) translateY(-1px);
+        }
+        .tab-btn.active .tab-label {
+            color: #38bdf8;
+            font-weight: 800;
         }
 
         footer {
@@ -1398,13 +1412,17 @@
             background: rgba(14, 165, 233, 0.08);
         }
         [data-theme="light"] .tab-btn.active {
-            color: #0284c7;
-            background: linear-gradient(135deg, rgba(14, 165, 233, 0.16), rgba(59, 130, 246, 0.12));
-            border-color: rgba(14, 165, 233, 0.35);
-            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
+            color: #0284c7 !important;
+            background: transparent !important;
+            border-color: transparent !important;
+            box-shadow: none !important;
+        }
+        [data-theme="light"] .tab-btn.active .tab-icon {
+            color: #0284c7 !important;
+            transform: scale(1.18) translateY(-1px);
         }
         [data-theme="light"] .tab-btn.active .tab-label {
-            color: #0369a1;
+            color: #0284c7 !important;
             font-weight: 800;
         }
         [data-theme="light"] #sosModal > div {
@@ -1479,8 +1497,9 @@
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(6, 182, 212, 0.22));
             border: 1.5px solid rgba(56, 189, 248, 0.45);
             border-radius: 16px;
-            padding: 9px 12px;
-            margin-bottom: 12px;
+            padding: 6px 12px;
+            margin-top: var(--space-md, 12px);
+            margin-bottom: var(--space-md, 12px);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(6, 182, 212, 0.15);
             animation: slideDownFade 0.35s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
@@ -1687,11 +1706,11 @@
                 max-width: 100%;
                 border-radius: 0;
                 border: none;
-                padding: 8px 12px 0;
+                padding: 8px var(--content-pad-x, 16px) 0;
                 box-shadow: none;
             }
             .content-area {
-                padding-bottom: 24px;
+                padding-bottom: var(--content-pad-bottom, 100px);
                 -webkit-overflow-scrolling: touch;
             }
             .tab-bar {
@@ -1699,8 +1718,8 @@
                 bottom: 0;
                 left: 0;
                 right: 0;
-                width: calc(100% + 24px);
-                margin: 0 -12px;
+                width: calc(100% + (2 * var(--content-pad-x, 16px)));
+                margin: 0 calc(-1 * var(--content-pad-x, 16px));
                 border-radius: 20px 20px 0 0;
                 padding: 6px 4px calc(8px + env(safe-area-inset-bottom, 0px));
                 border-left: none;
@@ -1725,10 +1744,10 @@
                 height: 92vh;
                 max-height: 890px;
                 border-radius: 36px;
-                padding: 12px 16px 0;
+                padding: 12px var(--content-pad-x, 16px) 0;
             }
             .content-area {
-                padding-bottom: 14px;
+                padding-bottom: var(--content-pad-bottom, 100px);
             }
             .tab-bar {
                 position: sticky;
@@ -1788,7 +1807,7 @@
             <span class="pwa-banner-icon">📱</span>
             <div class="pwa-banner-info">
                 <span class="pwa-banner-title" id="pwaBannerTitle">ಹೋಮ್ ಸ್ಕ್ರೀನ್‌ಗೆ ಸೇರಿಸಿ</span>
-                <span class="pwa-banner-sub" id="pwaBannerSub">ಬ್ರೌಸರ್ ಬಾರ್ ತೆಗೆದು ಆ್ಯಪ್‌ನಂತೆ ಬಳಸಿ</span>
+                <span class="pwa-banner-sub" id="pwaBannerSub">ಆಫ್‌ಲೈನ್ ಬಳಕೆಗಾಗಿ ಆ್ಯಪ್ ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿ</span>
             </div>
         </div>
         <div class="pwa-banner-actions">
@@ -1867,14 +1886,14 @@
             </div>
 
             <!-- RAPID EMERGENCY LIFELINE (SOS) -->
-            <button class="home-sos-btn" id="sosBtn">
-                <div style="display:flex;align-items:center;gap:9px;width:100%;">
-                    <span style="font-size:16px;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3));">🆘</span>
+            <button class="home-sos-btn" id="sosBtn" aria-label="Coast Guard Distress SOS">
+                <div style="display:flex;align-items:center;gap:10px;width:100%;">
+                    <span style="font-size:20px;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3));line-height:1;">🆘</span>
                     <div style="flex:1;text-align:left;">
-                        <div style="font-size:11.5px;font-weight:700;letter-spacing:0.1px;" id="sosHomeTitle">ತುರ್ತು ಸಹಾಯ · SOS (1554)</div>
-                        <div style="font-size:9.5px;opacity:0.82;margin-top:1px;" id="sosHomeSub">ಭಾರತೀಯ ಕರಾವಳಿ ಕಾವಲು ಪಡೆ (Coast Guard)</div>
+                        <div style="font-size:15px;font-weight:900;letter-spacing:0.5px;line-height:1.2;" id="sosHomeTitle">SOS · ತುರ್ತು ಸಹಾಯ</div>
+                        <div style="font-size:10px;font-weight:600;opacity:0.9;margin-top:2px;line-height:1.2;" id="sosHomeSub">ಕೋಸ್ಟ್ ಗಾರ್ಡ್ ರಕ್ಷಣೆ (1554)</div>
                     </div>
-                    <span style="font-size:12px;opacity:0.8;">📞</span>
+                    <span style="font-size:14px;opacity:0.85;">📞</span>
                 </div>
             </button>
 
@@ -3666,8 +3685,8 @@ const translations = {
         typeBtnText: 'ಬರೆದು ಕೇಳಿ',
         textInputPlaceholder: 'ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ? ಅಥವಾ ಪ್ರಶ್ನೆ ಟೈಪ್ ಮಾಡಿ...',
         textSubmitBtn: 'ಕೇಳಿ (Ask)',
-        sosHomeTitle: 'ತುರ್ತು ಸಹಾಯ · SOS (1554)',
-        sosHomeSub: 'ಭಾರತೀಯ ಕರಾವಳಿ ಕಾವಲು ಪಡೆ (Coast Guard)',
+        sosHomeTitle: 'SOS · ತುರ್ತು ಸಹಾಯ',
+        sosHomeSub: 'ಕೋಸ್ಟ್ ಗಾರ್ಡ್ ರಕ್ಷಣೆ (1554)',
         weatherLinkTitle: 'ಗಾಳಿ & ಅಲೆಗಳ ವಿವರ ನೋಡಿ',
         weatherLinkSub: 'ಗಾಳಿಯ ವೇಗ, ಅಲೆಗಳ ಎತ್ತರ, ಉಬ್ಬರವಿಳಿತ & ಸೂರ್ಯೋದಯ ➔',
         replayText: 'ಧ್ವನಿಯಲ್ಲಿ ಮತ್ತೆ ಕೇಳಿ (Listen Again)',
@@ -3749,7 +3768,7 @@ const translations = {
 
         // PWA & Home Screen
         pwaBannerTitle: 'ಹೋಮ್ ಸ್ಕ್ರೀನ್‌ಗೆ ಸೇರಿಸಿ',
-        pwaBannerSub: 'ಬ್ರೌಸರ್ ಬಾರ್ ತೆಗೆದು ಆ್ಯಪ್‌ನಂತೆ ಬಳಸಿ',
+        pwaBannerSub: 'ಆಫ್‌ಲೈನ್ ಬಳಕೆಗಾಗಿ ಆ್ಯಪ್ ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿ',
         pwaInstallBtnText: 'ಇನ್‌ಸ್ಟಾಲ್',
         installCardTitle: 'ಹೋಮ್ ಸ್ಕ್ರೀನ್‌ಗೆ ಸೇರಿಸಿ',
         installCardSub: 'ಬ್ರೌಸರ್ ರಹಿತ ಆ್ಯಪ್ ಸ್ಥಾಪಿಸಿ',
@@ -3771,8 +3790,8 @@ const translations = {
         typeBtnText: 'Type your query',
         textInputPlaceholder: 'Should I go fishing? Type query...',
         textSubmitBtn: 'Ask',
-        sosHomeTitle: 'Coast Guard Distress SOS (1554)',
-        sosHomeSub: 'Direct emergency dial 1554',
+        sosHomeTitle: 'SOS',
+        sosHomeSub: 'Coast Guard Distress (1554)',
         weatherLinkTitle: 'View Live Marine Telemetry',
         weatherLinkSub: 'Wind speed, wave height, tides & solunar times ➔',
         replayText: 'Listen Again in Audio',
@@ -3854,7 +3873,7 @@ const translations = {
 
         // PWA & Home Screen
         pwaBannerTitle: 'Add to Home Screen',
-        pwaBannerSub: 'Remove browser UI & use as native app',
+        pwaBannerSub: 'Install App for offline use',
         pwaInstallBtnText: 'Install',
         installCardTitle: 'Add to Home Screen',
         installCardSub: 'Install standalone app',
@@ -4154,9 +4173,9 @@ loadBestTime();
 // Register Service Worker for PWA & Deep-Sea Offline Support
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=10')
+        navigator.serviceWorker.register('./sw.js?v=11')
             .then(reg => {
-                console.log('🐟 [PWA] Service Worker v10 registered:', reg.scope);
+                console.log('🐟 [PWA] Service Worker v11 registered:', reg.scope);
                 reg.update();
             })
             .catch(err => console.log('🐟 [PWA] SW registration failed:', err));
