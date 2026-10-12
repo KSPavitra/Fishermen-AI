@@ -1057,6 +1057,197 @@
             100% { top: 92%; }
         }
 
+        /* ============================================ */
+        /* 🎬 FISH LEARNING VIDEOS LIBRARY (FEATURE HUB) */
+        /* ============================================ */
+        .video-filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+            margin-bottom: 12px;
+            scrollbar-width: thin;
+            -webkit-overflow-scrolling: touch;
+        }
+        .video-filter-bar::-webkit-scrollbar {
+            height: 3px;
+        }
+        .video-filter-bar::-webkit-scrollbar-thumb {
+            background: rgba(168, 85, 247, 0.4);
+            border-radius: 4px;
+        }
+        .video-chip {
+            padding: 5px 11px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #cbd5e1;
+            cursor: pointer;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
+        }
+        .video-chip:hover {
+            border-color: rgba(56, 189, 248, 0.5);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+        .video-chip.active {
+            background: linear-gradient(135deg, #7c3aed 0%, #06b6d4 100%);
+            border-color: rgba(168, 85, 247, 0.7);
+            color: #ffffff;
+            box-shadow: 0 3px 12px rgba(124, 58, 237, 0.35);
+        }
+        .video-card {
+            background: var(--surface-card);
+            border: 1px solid rgba(168, 85, 247, 0.25);
+            border-radius: 18px;
+            padding: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        .video-card:hover {
+            border-color: rgba(56, 189, 248, 0.45);
+            box-shadow: 0 8px 26px rgba(124, 58, 237, 0.22);
+            transform: translateY(-2px);
+        }
+        .video-thumb-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            border-radius: 14px;
+            overflow: hidden;
+            background: #030712;
+            cursor: pointer;
+        }
+        .video-thumb-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.35s ease;
+        }
+        .video-thumb-container:hover .video-thumb-img {
+            transform: scale(1.04);
+        }
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.95), rgba(124, 58, 237, 0.95));
+            border: 2px solid rgba(255, 255, 255, 0.85);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            padding-left: 3px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(6, 182, 212, 0.5);
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: none;
+        }
+        .video-thumb-container:hover .video-play-btn {
+            transform: translate(-50%, -50%) scale(1.12);
+            box-shadow: 0 6px 26px rgba(124, 58, 237, 0.7), 0 0 22px rgba(6, 182, 212, 0.8);
+        }
+        .video-duration-tag {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(3, 7, 18, 0.85);
+            color: #ffffff;
+            font-size: 9.5px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 6px;
+            letter-spacing: 0.3px;
+        }
+        .video-lang-tag {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.92), rgba(217, 70, 239, 0.92));
+            color: #ffffff;
+            font-size: 9.5px;
+            font-weight: 800;
+            padding: 2px 7px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .video-cat-tag {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 7px;
+            border-radius: 8px;
+            display: inline-block;
+            letter-spacing: 0.2px;
+        }
+        .cat-tag-identification { background: rgba(168, 85, 247, 0.18); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.35); }
+        .cat-tag-marine_life { background: rgba(6, 182, 212, 0.18); color: #38bdf8; border: 1px solid rgba(6, 182, 212, 0.35); }
+        .cat-tag-sustainable { background: rgba(16, 185, 129, 0.18); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.35); }
+        .cat-tag-freshness { background: rgba(245, 158, 11, 0.18); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.35); }
+        .cat-tag-facts { background: rgba(99, 102, 241, 0.18); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.35); }
+
+        /* Video Modal Player */
+        #videoPlayerModal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(3, 7, 18, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 14px;
+        }
+        .video-modal-card {
+            background: linear-gradient(145deg, #0b1329 0%, #1e1b4b 100%);
+            border: 1px solid rgba(168, 85, 247, 0.45);
+            border-radius: 24px;
+            max-width: 440px;
+            width: 100%;
+            padding: 16px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(124, 58, 237, 0.25);
+            position: relative;
+            max-height: 92vh;
+            overflow-y: auto;
+        }
+        .video-iframe-wrap {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #000000;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+            margin: 10px 0;
+        }
+        .video-iframe-wrap iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border: none;
+        }
+
         /* FLOATING DOCK BOTTOM NAVIGATION */
         .tab-bar {
             display: flex;
@@ -1383,6 +1574,39 @@
         }
         [data-theme="light"] #fishScanCardSub {
             color: #475569 !important;
+        }
+        [data-theme="light"] #videosBtn {
+            background: linear-gradient(135deg, rgba(243, 232, 255, 0.95), rgba(224, 242, 254, 0.95)) !important;
+            border-color: rgba(168, 85, 247, 0.4) !important;
+            color: #0f172a !important;
+            box-shadow: 0 8px 24px rgba(147, 51, 234, 0.15) !important;
+        }
+        [data-theme="light"] #videosCardTitle {
+            color: #7e22ce !important;
+        }
+        [data-theme="light"] #videosCardSub {
+            color: #475569 !important;
+        }
+        [data-theme="light"] .video-chip {
+            background: rgba(241, 245, 249, 0.9);
+            border-color: rgba(14, 165, 233, 0.25);
+            color: #334155;
+        }
+        [data-theme="light"] .video-chip.active {
+            background: linear-gradient(135deg, #7c3aed 0%, #0284c7 100%);
+            color: #ffffff;
+            box-shadow: 0 3px 12px rgba(124, 58, 237, 0.25);
+        }
+        [data-theme="light"] .video-card {
+            background: #ffffff;
+            border-color: rgba(168, 85, 247, 0.25);
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+        }
+        [data-theme="light"] .video-modal-card {
+            background: #ffffff !important;
+            border-color: rgba(168, 85, 247, 0.45) !important;
+            color: #0f172a !important;
+            box-shadow: 0 25px 60px rgba(15, 23, 42, 0.25) !important;
         }
         [data-theme="light"] .more-nav-bar {
             border-bottom-color: rgba(14, 165, 233, 0.2);
@@ -2075,6 +2299,18 @@
                         </div>
                     </button>
 
+                    <!-- Feature #2: Fish Learning Videos (Hero 2-column Card) -->
+                    <button id="videosBtn" class="more-card" style="grid-column: span 2;padding:16px;background:linear-gradient(135deg,rgba(124,58,237,0.28),rgba(6,182,212,0.22));border:1px solid rgba(168,85,247,0.45);border-radius:20px;color:white;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;box-shadow:0 8px 24px rgba(124,58,237,0.22);">
+                        <span style="font-size:34px;">🐟🎥</span>
+                        <div style="flex:1;min-width:0;">
+                            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+                                <div id="videosCardTitle" style="font-weight:900;font-size:15px;color:#c084fc;">Fish Learning Videos (ಮೀನು ಕಲಿಕಾ ವೀಡಿಯೊಗಳು)</div>
+                                <span style="font-size:9.5px;background:rgba(192,132,252,0.25);color:#f3e8ff;padding:2px 8px;border-radius:10px;font-weight:800;letter-spacing:0.3px;white-space:nowrap;border:1px solid rgba(192,132,252,0.4);">KANNADA 1st ⭐</span>
+                            </div>
+                            <div id="videosCardSub" style="font-size:11px;color:#cbd5e1;margin-top:2px;line-height:1.35;">Educational marine guides, fish identification, freshness tests & facts</div>
+                        </div>
+                    </button>
+
                     <button id="predictionBtn" class="action-tile more-card bento-tool-card">
                         <span style="font-size:24px;">🐟</span>
                         <span id="predictionCardTitle" style="font-size:13px;font-weight:800;margin-top:4px;">Seasonal Guide</span>
@@ -2267,6 +2503,41 @@
             </div>
         </div>
         <button class="pwa-ios-ok-btn" onclick="closeIosInstallModal()" id="iosModalOkBtn">ಅರ್ಥವಾಯಿತು (Got it)</button>
+    </div>
+</div>
+
+<!-- DEDICATED FISH LEARNING VIDEO PLAYER MODAL -->
+<div id="videoPlayerModal" style="display:none;" onclick="if(event.target===this)closeVideoPlayer()">
+    <div class="video-modal-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <div style="display:flex;align-items:center;gap:8px;min-width:0;">
+                <span style="font-size:20px;">🎬</span>
+                <span id="videoModalCategory" class="video-cat-tag cat-tag-identification">Fish Identification</span>
+                <span id="videoModalLang" style="font-size:10px;background:rgba(124,58,237,0.25);color:#c084fc;padding:2px 7px;border-radius:6px;font-weight:800;">KN</span>
+            </div>
+            <button onclick="closeVideoPlayer()" style="background:rgba(255,255,255,0.1);border:none;border-radius:50%;width:32px;height:32px;color:#cbd5e1;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;" aria-label="Close Video">✕</button>
+        </div>
+
+        <h4 id="videoModalTitle" style="margin:4px 0 8px;font-size:14.5px;font-weight:800;color:var(--text-main);line-height:1.35;"></h4>
+
+        <!-- On-Demand Loaded 16:9 Responsive Video Player -->
+        <div class="video-iframe-wrap" id="videoIframeWrap">
+            <!-- iframe inserted only on demand -->
+        </div>
+
+        <p id="videoModalDesc" style="font-size:11.5px;color:var(--text-muted);margin:8px 0 12px;line-height:1.45;"></p>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--item-separator);gap:8px;">
+            <span id="videoModalAuthor" style="font-size:11px;color:#94a3b8;font-weight:600;"></span>
+            <div style="display:flex;gap:6px;">
+                <a id="videoModalYtLink" href="#" target="_blank" rel="noopener noreferrer" style="padding:7px 12px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.35);border-radius:10px;color:#f87171;font-size:11px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">
+                    <span>▶</span> <span id="videoModalYtText">YouTube</span>
+                </a>
+                <button onclick="closeVideoPlayer()" style="padding:7px 14px;background:linear-gradient(135deg,#7c3aed,#06b6d4);border:none;border-radius:10px;color:white;font-size:11px;font-weight:800;cursor:pointer;">
+                    <span id="videoModalCloseBtn">ಮುಚ್ಚಿ (Close)</span>
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -3430,6 +3701,516 @@ window.clearCatchLogs = function() {
 };
 
 // ============================================
+// 🎬 FISH LEARNING VIDEOS LIBRARY (FEATURE HUB)
+// ============================================
+const FISH_VIDEOS = [
+    // 1. Fish Identification (ಮೀನು ಗುರುತಿಸುವಿಕೆ)
+    {
+        id: "EBjX-stIX2s",
+        category: "identification",
+        lang: "kn",
+        titleKn: "ಮಲ್ಪೆ ಮೀನುಗಾರಿಕೆ ಬಂದರು — ಪ್ರಮುಖ ಕರಾವಳಿ ಮೀನುಗಳ ಪರಿಚಯ",
+        titleEn: "Malpe Fishing Harbour — Coastal Fish Species & Market Tour",
+        author: "Masala Chai Media",
+        duration: "10:14",
+        descKn: "ಉಡುಪಿ ಮಲ್ಪೆ ಬಂದರಿನಲ್ಲಿ ಬಂಗಡೆ, ಬೂತಾಯಿ, ಅಂಜಲ್, ಮಾಂಜಿ ಸೇರಿದಂತೆ ವಿವಿಧ ಕರಾವಳಿ ಮೀನುಗಳ ದೈನಂದಿನ ಬಂದರು ಹರಾಜು ಮತ್ತು ಪರಿಚಯ.",
+        descEn: "Live tour of Malpe fishing port showcasing mackerel, sardine, seer fish, pomfret and regional catch species."
+    },
+    {
+        id: "dg5XPW-iFNE",
+        category: "identification",
+        lang: "kn",
+        titleKn: "ಕರಾವಳಿ ಮೀನುಗಳ ಪ್ರಭೇದಗಳು ಮತ್ತು ಮಾರುಕಟ್ಟೆ ದರ ವಿವರ",
+        titleEn: "Karavali Sea Fish Varieties & Port Rates",
+        author: "News Beat Kannada",
+        duration: "6:28",
+        descKn: "ಕರಾವಳಿ ತೀರದ ಜನಪ್ರಿಯ ಸಮುದ್ರ ಮೀನುಗಳ ತಳಿಗಳು, ಸ್ಥಳೀಯ ಹೆಸರುಗಳು ಮತ್ತು ಬಂದರು ಮಾರುಕಟ್ಟೆ ವಿವರ.",
+        descEn: "Guide to local coastal marine fish varieties, regional names, and port wholesale identification."
+    },
+    {
+        id: "I8N1KersEzM",
+        category: "identification",
+        lang: "kn",
+        titleKn: "ಮಂಗಳೂರು & ಮಲ್ಪೆ ಬಂದರು — ಬಂಗಡೆ, ಬೂತಾಯಿ ಮೀನುಗಳ ಪರಿಚಯ",
+        titleEn: "Mangalore Port Catch — Mackerel & Sardine Species Guide",
+        author: "Jyothsna Vlogs",
+        duration: "4:05",
+        descKn: "ಮಂಗಳೂರು ಬಂದರಿನಲ್ಲಿ ಕರಾವಳಿ ಮೀನುಗಳ ದೈನಂದಿನ ಆವಕ ಮತ್ತು ಬಂಗಡೆ, ಬೂತಾಯಿ ಗುರುತಿಸುವಿಕೆ.",
+        descEn: "Port landings overview focusing on Indian Mackerel, Sardine, and common pelagic species."
+    },
+    {
+        id: "WDeUemcRjOU",
+        category: "identification",
+        lang: "kn",
+        titleKn: "ಕರಾವಳಿ ಮೀನುಗಳ ವಿಧಗಳು — ಸಮುದ್ರ ಮೀನು ಪರಿಚಯ",
+        titleEn: "Types of Coastal Fishes & Marine Species Reference",
+        author: "Yuvakeerthiraj_Official",
+        duration: "3:40",
+        descKn: "ಕರಾವಳಿ ಸಮುದ್ರದಲ್ಲಿ ಸಿಗುವ ಮೀನುಗಳ ವೈವಿಧ್ಯತೆ ಮತ್ತು ಮೀನುಗಾರರ ಪ್ರಮುಖ ತಳಿಗಳ ಪಟ್ಟಿ.",
+        descEn: "Overview of diverse coastal marine species harvested along the Arabian Sea coast."
+    },
+    {
+        id: "bewKmVYrok0",
+        category: "identification",
+        lang: "en",
+        titleKn: "ಮಲ್ಪೆ ಬಂದರು ಸೀಫುಡ್ & ಸಮುದ್ರ ತಳಿಗಳ ಮಾರ್ಗದರ್ಶಿ",
+        titleEn: "Malpe Port Seafood & Species Reference Guide",
+        author: "MutantChef",
+        duration: "8:52",
+        descKn: "ಮಲ್ಪೆ ಬಂದರಿನ ಸಮಗ್ರ ಸೀಫುಡ್ ತಳಿಗಳು, ಕಿಂಗ್‌ಫಿಶ್, ಸಿಗಡಿ ಮತ್ತು ಸ್ಕ್ವಿಡ್ ಗುರುತಿಸುವಿಕೆ.",
+        descEn: "Detailed walk-through of coastal marine catches including kingfish, squid, prawns and pomfret."
+    },
+
+    // 2. Marine Life (ಸಮುದ್ರ ಜೀವವೈವಿಧ್ಯ)
+    {
+        id: "OEUJbuCbS9U",
+        category: "marine_life",
+        lang: "en",
+        titleKn: "ಸಮುದ್ರದ ಆಳದ ಅದ್ಭುತ ಜೀವಿಗಳು — BBC Earth",
+        titleEn: "Mysterious Underwater Creatures of the Deep — BBC Earth",
+        author: "BBC Earth",
+        duration: "12:30",
+        descKn: "ಸಾಗರದ ಆಳದಲ್ಲಿ ವಾಸಿಸುವ ಅಪರೂಪದ ಸಮುದ್ರ ಜೀವಿಗಳು, ಬಣ್ಣ ಬದಲಿಸುವ ಶಕ್ತಿ ಮತ್ತು ಜೈವಿಕ ಪ್ರಕಾಶ (Bioluminescence).",
+        descEn: "BBC Earth exploration of bioluminescent deep-sea creatures, coral inhabitants, and ocean wonders."
+    },
+    {
+        id: "rA2j6CrmCkw",
+        category: "marine_life",
+        lang: "en",
+        titleKn: "ಸಮುದ್ರದ ಶೇಪ್‌ಶಿಫ್ಟರ್ — ಮಿಮಿಕ್ ಆಕ್ಟೋಪಸ್ ಮತ್ತು ಲಯನ್‌ಫಿಶ್",
+        titleEn: "Nature's Ocean Shapeshifter — Mimic Octopus & Lionfish",
+        author: "Gurish Discovery",
+        duration: "5:18",
+        descKn: "ಸಮುದ್ರ ಜೀವಿಗಳ ರಕ್ಷಣಾ ತಂತ್ರಗಳು, ಸಮುದ್ರ ಆಕ್ಟೋಪಸ್ ಅಪಾಯದಿಂದ ತಪ್ಪಿಸಿಕೊಳ್ಳಲು ಲಯನ್‌ಫಿಶ್ ರೂಪ ತಾಳುವ ಅಚ್ಚರಿ.",
+        descEn: "Amazing survival camouflage and marine biology behaviors of mimic octopuses and reef predators."
+    },
+    {
+        id: "-FkEBIu_tg8",
+        category: "marine_life",
+        lang: "en",
+        titleKn: "ಅಪರೂಪದ ಆಳ ಸಮುದ್ರ ಜೀವಿಗಳ ಸಾಕ್ಷ್ಯಚಿತ್ರ",
+        titleEn: "Rarely Seen Deep Sea Creatures — Forrest Galante",
+        author: "Forrest Galante",
+        duration: "9:45",
+        descKn: "ಸಾಗರ ಜೀವಶಾಸ್ತ್ರಜ್ಞರಿಂದ ಅಪರೂಪದ ಸಮುದ್ರ ತಳಿಗಳು ಮತ್ತು ಕಡಲಿನ ಆಳದ ಸಂಶೋಧನೆ.",
+        descEn: "Wildlife biologist examination of elusive deep sea organisms and benthic zone wildlife."
+    },
+    {
+        id: "e3QiPb5c_jM",
+        category: "marine_life",
+        lang: "en",
+        titleKn: "ದಿ ಬಿಗ್ ಬ್ಲೂ — ಸಾಗರದ ಅಲೆಗಳು ಮತ್ತು ತಿಮಿಂಗಿಲಗಳ ಜೀವನ",
+        titleEn: "The Big Blue — Ocean Stories & Marine Ecosystems",
+        author: "Free Documentary Nature",
+        duration: "48:10",
+        descKn: "ಕಡಲಿನ ಬೃಹತ್ ಜೀವಿಗಳು, ಶಾರ್ಕ್, ಡಾಲ್ಫಿನ್ ಮತ್ತು ಹವಳದ ದಿಬ್ಬಗಳ ರಕ್ಷಣೆಯ ಸಮಗ್ರ ಸಾಕ್ಷ್ಯಚಿತ್ರ.",
+        descEn: "In-depth documentary on open ocean ecosystems, marine mammals, pelagic schools, and reef biodiversity."
+    },
+
+    // 3. Sustainable Fishing (ಸುಸ್ಥಿರ ಮೀನುಗಾರಿಕೆ)
+    {
+        id: "FfA-Oah4T2I",
+        category: "sustainable",
+        lang: "kn",
+        titleKn: "ಕರಾವಳಿ ಮೀನುಗಾರರೊಂದಿಗೆ 6 ದಿನಗಳ ಸಮುದ್ರ ಯಾನ — ಸಾಂಪ್ರದಾಯಿಕ ಬೇಟೆ",
+        titleEn: "6-Day Sea Expedition With Coastal Karnataka Fishermen",
+        author: "Arun Travel Stories",
+        duration: "15:20",
+        descKn: "ಕರ್ನಾಟಕ ಕರಾವಳಿ ಮೀನುಗಾರರ ಸಮುದ್ರ ಸಾಹಸ, ಸಾಂಪ್ರದಾಯಿಕ ಬಲೆಗಳ ಬಳಕೆ ಮತ್ತು ಜವಾಬ್ದಾರಿಯುತ ಮೀನುಗಾರಿಕೆ ಪದ್ಧತಿ.",
+        descEn: "Real-life sea voyage with coastal Karnataka fishermen, showing traditional purse-seining and maritime skills."
+    },
+    {
+        id: "XPCBzcb49_M",
+        category: "sustainable",
+        lang: "en",
+        titleKn: "ಸುಸ್ಥಿರ ಮೀನುಗಾರಿಕೆ ಎಂದರೇನು? ಸಮುದ್ರದ ಸಂಪನ್ಮೂಲ ರಕ್ಷಣೆ",
+        titleEn: "Sustainable Fishing Explained — Protecting Ocean Stocks",
+        author: "Marine Stewardship Council",
+        duration: "4:12",
+        descKn: "ಭವಿಷ್ಯದ ಪೀಳಿಗೆಗೆ ಮೀನುಗಳ ಸಂಖ್ಯೆ ಕ್ಷೀಣಿಸದಂತೆ ಜವಾಬ್ದಾರಿಯುತವಾಗಿ ಮೀನು ಹಿಡಿಯುವ ವಿಜ್ಞಾನ ಮತ್ತು ಮಾರ್ಗಸೂಚಿಗಳು.",
+        descEn: "Global guidelines on quota management, bycatch reduction, and selective gear to preserve wild fisheries."
+    },
+    {
+        id: "ADP1j6Uukvw",
+        category: "sustainable",
+        lang: "en",
+        titleKn: "ಸ್ಮಾರ್ಟ್ ಮೀನುಗಾರಿಕೆ: ಕಡಲಿನ ಪರಿಸರ ಸಂರಕ್ಷಣೆ",
+        titleEn: "Smart Fishing: How Responsible Fishermen Protect Oceans",
+        author: "Koshur Kashtkar",
+        duration: "3:45",
+        descKn: "ಅತಿಯಾದ ಮೀನುಗಾರಿಕೆ ತಪ್ಪಿಸುವುದು ಮತ್ತು ತೀರದ ಪರಿಸರವನ್ನು ಸಮತೋಲನದಲ್ಲಿಡುವುದು ಹೇಗೆ.",
+        descEn: "Practical practices to avoid juvenile fish catch, maintain breeding seasons, and protect coastal reefs."
+    },
+
+    // 4. Fish Freshness (ಮೀನಿನ ತಾಜಾತನ)
+    {
+        id: "KEwol923d7k",
+        category: "freshness",
+        lang: "kn",
+        titleKn: "ಮಾರುಕಟ್ಟೆಯಲ್ಲಿ ತಾಜಾ ಮೀನು ಗುರುತಿಸುವುದು ಹೇಗೆ? ಕಿವಿರು & ಕಣ್ಣು ಪರೀಕ್ಷೆ",
+        titleEn: "How to Identify Fresh Fish in Market — Eyes & Gills Test",
+        author: "SuddiYaana",
+        duration: "5:15",
+        descKn: "ಮೀನು ಖರೀದಿಸುವಾಗ ಅಥವಾ ಬಂದರಿನಲ್ಲಿ ತಾಜಾತನ ಪರೀಕ್ಷಿಸಲು ಕಿವಿರುಗಳ ಕೆಂಪು ಬಣ್ಣ, ಕಣ್ಣಿನ ಹೊಳಪು ಮತ್ತು ಗಡಸುತನ ಪರಿಶೀಲನೆ.",
+        descEn: "Essential freshness checklist in Kannada: inspecting bright red gills, clear protruding eyes, and firm elastic flesh."
+    },
+    {
+        id: "ndNdZk0OnkM",
+        category: "freshness",
+        lang: "kn",
+        titleKn: "ತಾಜಾ ಮೀನು ಗುರುತಿಸುವ ಸರಳ ಸಲಹೆಗಳು — ಮಂಗಳೂರು ವ್ಲಾಗ್ಸ್",
+        titleEn: "Tips to Pick Fresh Fish — Mangalore Coastal Guide",
+        author: "Jyothsna Vlogs",
+        duration: "4:32",
+        descKn: "ಮಂಗಳೂರು ಬಂದರಿನಲ್ಲಿ ತಾಜಾ ಬಂಗಡೆ, ಅಂಜಲ್ ಆರಿಸುವ ಪ್ರಾಯೋಗಿಕ ಸಲಹೆಗಳು ಮತ್ತು ಐಸ್ ನಿರ್ವಹಣೆ.",
+        descEn: "Practical coastal tips from Mangalore markets for verifying freshness, iced storage, and avoiding spoiled catch."
+    },
+    {
+        id: "oFv8k3aSUiE",
+        category: "freshness",
+        lang: "en",
+        titleKn: "ತಾಜಾ ಮೀನು ಗುರುತಿಸಲು 4 ಪ್ರಮುಖ ನಿಯಮಗಳು",
+        titleEn: "How to Identify Fresh Fish — 4 Golden Rules",
+        author: "Food Fusion",
+        duration: "2:40",
+        descKn: "ಮೀನಿನ ಮಾಂಸದ ಸ್ಥಿತಿಸ್ಥಾಪಕತ್ವ (Elasticity), ನೈಸರ್ಗಿಕ ಸಮುದ್ರದ ವಾಸನೆ ಮತ್ತು ಮಾಪನ ನಿಯಮಗಳು.",
+        descEn: "Quick 4-step checklist covering finger indentation test, natural brine aroma, gill color, and scale adhesion."
+    },
+    {
+        id: "zorz2KwxrPk",
+        category: "freshness",
+        lang: "en",
+        titleKn: "ಅತ್ಯಂತ ತಾಜಾ ಮೀನು ಆರಿಸುವ ಸುಲಭ ವಿಧಾನ",
+        titleEn: "How to Pick the FRESHEST Fish (Chef Test)",
+        author: "Made With Lau",
+        duration: "1:05",
+        descKn: "ವೃತ್ತಿಪರ ಬಾಣಸಿಗರಿಂದ ತಾಜಾ ಮೀನಿನ ಕಣ್ಣುಗಳು, ಮಾಂಸದ ಗಡಸುತನ ಮತ್ತು ಹೊಳಪು ಪರೀಕ್ಷಿಸುವ ವಿಧಾನ.",
+        descEn: "Chef's rapid physical test for verifying ocean-fresh catch at market counters."
+    },
+
+    // 5. Amazing Fish Facts (ಆಶ್ಚರ್ಯಕರ ಮೀನು ಮಾಹಿತಿಗಳು)
+    {
+        id: "pYJoo7pXVgI",
+        category: "facts",
+        lang: "kn",
+        titleKn: "ಸಮುದ್ರದ ಆಳದ ನಿಗೂಢ ರಹಸ್ಯಗಳು — ಮರಿಯಾನಾ ಟ್ರೆಂಚ್ ಜೀವಿಗಳು",
+        titleEn: "Deep Ocean Mysteries & Mariana Trench Secrets",
+        author: "RJ Facts in Kannada",
+        duration: "8:12",
+        descKn: "ಸಾಗರದ ಆಳದ ಮರಿಯಾನಾ ಕಂದಕದಲ್ಲಿ ಬೆಳಕಿಲ್ಲದೆ ಬದುಕುವ ಅಸಾಮಾನ್ಯ ಮೀನುಗಳು ಮತ್ತು ಅಚ್ಚರಿಯ ಸತ್ಯಗಳು.",
+        descEn: "Kannada science exploration of extreme pressure deep-sea creatures living below 10,000 meters."
+    },
+    {
+        id: "8msrTou40E8",
+        category: "facts",
+        lang: "kn",
+        titleKn: "ಸಮುದ್ರದ ಆಳದ ನಿಗೂಢ ಜಗತ್ತು: ಅಚ್ಚರಿಯ ಮೀನು ಸತ್ಯಗಳು!",
+        titleEn: "The Mystery of Deep Sea World — Amazing Fish Facts",
+        author: "KK. TV",
+        duration: "6:45",
+        descKn: "ಸಮುದ್ರದ ವಿಚಿತ್ರ ಮೀನುಗಳು, ವಿದ್ಯುತ್ ಉತ್ಪಾದಿಸುವ ಈಲ್, ಮತ್ತು ಅತಿ ವೇಗದ ಕತ್ತಿಮೀನು (Swordfish) ಮಾಹಿತಿಗಳು.",
+        descEn: "Fascinating marine biology facts on electric eels, speed of sailfish, and deep oceanic predators."
+    },
+    {
+        id: "VdOtTcZZJZg",
+        category: "facts",
+        lang: "kn",
+        titleKn: "ಸಮುದ್ರದ ಆಳದ ವಿಚಿತ್ರ ಜೀವಿ: ದೈತ್ಯ ಓರ್‌ಫಿಶ್ (Oarfish) ರಹಸ್ಯ! 🌊",
+        titleEn: "Mysterious Giant Oarfish — The King of Herrings",
+        author: "Solo Thrilling Information",
+        duration: "4:20",
+        descKn: "30 ಅಡಿ ಉದ್ದ ಬೆಳೆಯುವ ಸಮುದ್ರದ ದೈತ್ಯ ಓರ್‌ಫಿಶ್ ಮೀನಿನ ವೈಶಿಷ್ಟ್ಯ ಮತ್ತು ಸಮುದ್ರಶಾಸ್ತ್ರದ ಅಚ್ಚರಿಗಳು.",
+        descEn: "The incredible biology of the world's longest bony fish, legendary deep sea sightings and folklore."
+    },
+    {
+        id: "ODyAk439JjM",
+        category: "facts",
+        lang: "en",
+        titleKn: "ವಿಶ್ವದ 5 ಅತ್ಯಂತ ಅಪರೂಪದ ಸಮುದ್ರ ಮೀನುಗಳು",
+        titleEn: "Top 5 Rarest Fish in the World",
+        author: "FlashSlice",
+        duration: "3:15",
+        descKn: "ವಿಶ್ವಾದ್ಯಂತ ವಿಜ್ಞಾನಿಗಳು ಅಪರೂಪವಾಗಿ ಮಾತ್ರ ನೋಡುವ ವಿಚಿತ್ರ ಸಮುದ್ರ ಮೀನುಗಳ ಪರಿಚಯ.",
+        descEn: "Discover the handfish, coelacanth, blob fish, and world's most elusive marine species."
+    }
+];
+
+const VIDEO_CATEGORIES = [
+    { key: 'all', labelKn: 'ಎಲ್ಲಾ (All)', labelEn: 'All Videos' },
+    { key: 'identification', labelKn: 'ಮೀನು ಗುರುತಿಸುವಿಕೆ', labelEn: 'Fish Identification', icon: '🐟' },
+    { key: 'marine_life', labelKn: 'ಸಮುದ್ರ ಜೀವವೈವಿಧ್ಯ', labelEn: 'Marine Life', icon: '🌊' },
+    { key: 'sustainable', labelKn: 'ಸುಸ್ಥಿರ ಮೀನುಗಾರಿಕೆ', labelEn: 'Sustainable Fishing', icon: '🌿' },
+    { key: 'freshness', labelKn: 'ಮೀನಿನ ತಾಜಾತನ', labelEn: 'Fish Freshness', icon: '✨' },
+    { key: 'facts', labelKn: 'ಅಚ್ಚರಿಯ ಮೀನು ಸತ್ಯಗಳು', labelEn: 'Amazing Fish Facts', icon: '💡' }
+];
+
+let currentVideoCategory = 'all';
+let currentVideoLang = 'all';
+let videoSearchQuery = '';
+
+function renderFishLearningVideos() {
+    currentMoreFeature = 'videos';
+    const isKn = (currentLang === 'kn');
+    openMoreFeature(isKn ? '🎬 ಮೀನು ಕಲಿಕಾ ವೀಡಿಯೊಗಳು' : '🎬 Fish Learning Videos');
+    const container = document.getElementById('moreContainer');
+    if (!container) return;
+
+    // Filter videos by category, language, and search query
+    let filtered = FISH_VIDEOS.filter(v => {
+        if (currentVideoCategory !== 'all' && v.category !== currentVideoCategory) return false;
+        if (currentVideoLang !== 'all' && v.lang !== currentVideoLang) return false;
+        if (videoSearchQuery) {
+            const q = videoSearchQuery.toLowerCase();
+            const matchTitle = (v.titleKn && v.titleKn.toLowerCase().includes(q)) || 
+                               (v.titleEn && v.titleEn.toLowerCase().includes(q));
+            const matchDesc = (v.descKn && v.descKn.toLowerCase().includes(q)) || 
+                              (v.descEn && v.descEn.toLowerCase().includes(q));
+            const matchAuthor = v.author && v.author.toLowerCase().includes(q);
+            if (!matchTitle && !matchDesc && !matchAuthor) return false;
+        }
+        return true;
+    });
+
+    // PRIORITY SORT: Kannada-language videos appear first (Requirement 5)
+    filtered.sort((a, b) => {
+        if (a.lang === 'kn' && b.lang !== 'kn') return -1;
+        if (a.lang !== 'kn' && b.lang === 'kn') return 1;
+        return 0;
+    });
+
+    container.innerHTML = `
+        <div class="glass-card" style="margin-top:0;padding:16px 14px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;gap:8px;">
+                <div>
+                    <h3 style="font-size:16px;margin:0;font-weight:900;color:#c084fc;display:flex;align-items:center;gap:6px;">
+                        <span>🎬</span> ${isKn ? 'ಮೀನು ಕಲಿಕಾ ವೀಡಿಯೊ ಗ್ರಂಥಾಲಯ' : 'Fish Learning Video Library'}
+                    </h3>
+                    <p style="font-size:11.5px;color:var(--text-muted);margin:3px 0 0;line-height:1.35;">
+                        ${isKn ? 'ಕರಾವಳಿ ಮೀನುಗಾರರ ಶೈಕ್ಷಣಿಕ ವೀಡಿಯೊಗಳು · ಕನ್ನಡಕ್ಕೆ ಮೊದಲ ಆದ್ಯತೆ ⭐' : 'Educational marine guides & tutorials for coastal communities · Kannada-First ⭐'}
+                    </p>
+                </div>
+                <span style="font-size:10px;background:rgba(124,58,237,0.22);color:#c084fc;border:1px solid rgba(168,85,247,0.4);padding:3px 8px;border-radius:12px;font-weight:800;white-space:nowrap;">
+                    ${filtered.length} ${isKn ? 'ವೀಡಿಯೊಗಳು' : 'Videos'}
+                </span>
+            </div>
+
+            <!-- SEARCH / KEYWORD INPUT -->
+            <div style="margin:10px 0 8px;">
+                <input type="text" 
+                       id="videoSearchInput" 
+                       class="app-input" 
+                       placeholder="${isKn ? '🔍 ವೀಡಿಯೊ ಅಥವಾ ಮೀನಿನ ಹೆಸರು ಹುಡುಕಿ (Search)...' : '🔍 Search videos by fish, port, or topic...'}" 
+                       value="${videoSearchQuery}" 
+                       oninput="onVideoSearchInput(this.value)"
+                       style="width:100%;box-sizing:border-box;font-size:12px;padding:8px 12px;border-radius:12px;">
+            </div>
+
+            <!-- LANGUAGE FILTER TOGGLE -->
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:6px;flex-wrap:wrap;">
+                <span style="font-size:11px;font-weight:700;color:var(--text-muted);">
+                    ${isKn ? 'ಭಾಷೆ (Language):' : 'Language Filter:'}
+                </span>
+                <div style="display:flex;gap:4px;">
+                    <button class="video-chip ${currentVideoLang === 'all' ? 'active' : ''}" onclick="setVideoLangFilter('all')">
+                        ${isKn ? 'ಎಲ್ಲಾ' : 'All'}
+                    </button>
+                    <button class="video-chip ${currentVideoLang === 'kn' ? 'active' : ''}" onclick="setVideoLangFilter('kn')">
+                        ⭐ ಕನ್ನಡ (Kannada)
+                    </button>
+                    <button class="video-chip ${currentVideoLang === 'en' ? 'active' : ''}" onclick="setVideoLangFilter('en')">
+                        🌐 English
+                    </button>
+                </div>
+            </div>
+
+            <!-- CATEGORY FILTER BAR (HORIZONTAL SCROLLING PILLS) -->
+            <div class="video-filter-bar">
+                ${VIDEO_CATEGORIES.map(c => `
+                    <button class="video-chip ${currentVideoCategory === c.key ? 'active' : ''}" onclick="setVideoCategoryFilter('${c.key}')">
+                        ${c.icon ? c.icon + ' ' : ''}${isKn ? c.labelKn : c.labelEn}
+                    </button>
+                `).join('')}
+            </div>
+
+            <!-- VIDEO LIST -->
+            <div id="videoCardsGrid">
+                ${filtered.length === 0 ? `
+                    <div style="text-align:center;padding:28px 12px;color:var(--text-muted);">
+                        <div style="font-size:32px;margin-bottom:6px;">🔍</div>
+                        <div style="font-size:13px;font-weight:700;">${isKn ? 'ಯಾವುದೇ ವೀಡಿಯೊಗಳು ಕಂಡುಬಂದಿಲ್ಲ.' : 'No videos found matching filter.'}</div>
+                        <button onclick="resetVideoFilters()" class="secondary-btn" style="margin-top:10px;padding:8px 14px;font-size:11px;">
+                            ${isKn ? 'ಫಿಲ್ಟರ್ ಮರುಹೊಂದಿಸಿ (Reset)' : 'Reset Filters'}
+                        </button>
+                    </div>
+                ` : filtered.map(v => {
+                    const catObj = VIDEO_CATEGORIES.find(c => c.key === v.category);
+                    const catLabel = catObj ? (isKn ? catObj.labelKn : catObj.labelEn) : v.category;
+                    const title = isKn ? v.titleKn : v.titleEn;
+                    const desc = isKn ? v.descKn : v.descEn;
+                    return `
+                        <div class="video-card">
+                            <!-- 16:9 Thumbnail with Overlay Play Button -->
+                            <div class="video-thumb-container" onclick="openVideoPlayer('${v.id}')" title="${isKn ? 'ಪ್ಲೇ ಮಾಡಲು ಒತ್ತಿ' : 'Tap to Play'}">
+                                <img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" 
+                                     alt="${title}" 
+                                     class="video-thumb-img" 
+                                     loading="lazy">
+                                <div class="video-play-btn">▶</div>
+                                <span class="video-lang-tag">
+                                    ${v.lang === 'kn' ? '⭐ ಕನ್ನಡ' : '🌐 English'}
+                                </span>
+                                <span class="video-duration-tag">⏱️ ${v.duration}</span>
+                            </div>
+
+                            <!-- Meta Details -->
+                            <div>
+                                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;gap:6px;">
+                                    <span class="video-cat-tag cat-tag-${v.category}">
+                                        ${catObj && catObj.icon ? catObj.icon + ' ' : ''}${catLabel}
+                                    </span>
+                                    <span style="font-size:10.5px;color:var(--text-muted);font-weight:600;">
+                                        📺 ${v.author}
+                                    </span>
+                                </div>
+                                <h4 style="margin:2px 0 4px;font-size:13.5px;font-weight:800;color:var(--text-main);line-height:1.35;cursor:pointer;" onclick="openVideoPlayer('${v.id}')">
+                                    ${title}
+                                </h4>
+                                <p style="margin:0 0 8px;font-size:11px;color:var(--text-muted);line-height:1.4;">
+                                    ${desc}
+                                </p>
+                                <div style="display:flex;gap:6px;">
+                                    <button onclick="openVideoPlayer('${v.id}')" style="flex:1;padding:8px 12px;background:linear-gradient(135deg,#7c3aed,#06b6d4);border:none;border-radius:10px;color:white;font-weight:800;font-size:11.5px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 3px 10px rgba(124,58,237,0.35);">
+                                        <span>▶</span> <span>${isKn ? 'ವೀಕ್ಷಿಸಿ (Play)' : 'Play Video'}</span>
+                                    </button>
+                                    <a href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener noreferrer" style="padding:8px 12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:10px;color:var(--text-muted);font-size:11px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:4px;" title="Open in YouTube">
+                                        <span>↗</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+
+            <!-- BOTTOM FOOTER NOTE -->
+            <div style="margin-top:14px;padding-top:10px;border-top:1px solid var(--item-separator);font-size:10.5px;color:var(--text-muted);text-align:center;line-height:1.4;">
+                ${isKn ? '💡 ಅಧಿಕೃತ ಯೂಟ್ಯೂಬ್ ಎಂಬೆಡ್ ಪ್ಲೇಯರ್ ಮೂಲಕ ಚಾಲನೆಗೊಳ್ಳುತ್ತದೆ. ಮೊಬೈಲ್ ಡೇಟಾ ಉಳಿಸಲು ವೀಡಿಯೊಗಳು ಬೇಡಿಕೆಯ ಮೇರೆಗೆ ಮಾತ್ರ ಲೋಡ್ ಆಗುತ್ತವೆ.' : '💡 Powered by YouTube Official Embeds. Players load on-demand to preserve mobile data and ensure rapid performance.'}
+            </div>
+        </div>
+    `;
+
+    const ca = document.getElementById('contentArea');
+    if (ca) ca.scrollTop = 0;
+}
+
+window.setVideoCategoryFilter = function(catKey) {
+    playTapSound();
+    currentVideoCategory = catKey;
+    renderFishLearningVideos();
+};
+
+window.setVideoLangFilter = function(langKey) {
+    playTapSound();
+    currentVideoLang = langKey;
+    renderFishLearningVideos();
+};
+
+window.onVideoSearchInput = function(val) {
+    videoSearchQuery = val;
+    renderFishLearningVideos();
+    const input = document.getElementById('videoSearchInput');
+    if (input) {
+        input.focus();
+        input.selectionStart = input.selectionEnd = input.value.length;
+    }
+};
+
+window.resetVideoFilters = function() {
+    playTapSound();
+    currentVideoCategory = 'all';
+    currentVideoLang = 'all';
+    videoSearchQuery = '';
+    renderFishLearningVideos();
+};
+
+function openVideoPlayer(videoId) {
+    playTapSound();
+    const video = FISH_VIDEOS.find(v => v.id === videoId);
+    if (!video) return;
+
+    const isKn = (currentLang === 'kn');
+    const modal = document.getElementById('videoPlayerModal');
+    const iframeWrap = document.getElementById('videoIframeWrap');
+    const titleEl = document.getElementById('videoModalTitle');
+    const descEl = document.getElementById('videoModalDesc');
+    const authorEl = document.getElementById('videoModalAuthor');
+    const catEl = document.getElementById('videoModalCategory');
+    const langEl = document.getElementById('videoModalLang');
+    const ytLink = document.getElementById('videoModalYtLink');
+    const closeBtn = document.getElementById('videoModalCloseBtn');
+
+    if (!modal || !iframeWrap) return;
+
+    const catObj = VIDEO_CATEGORIES.find(c => c.key === video.category);
+    const catLabel = catObj ? (isKn ? catObj.labelKn : catObj.labelEn) : video.category;
+
+    if (titleEl) titleEl.textContent = isKn ? video.titleKn : video.titleEn;
+    if (descEl) descEl.textContent = isKn ? video.descKn : video.descEn;
+    if (authorEl) authorEl.textContent = `📺 ${video.author} · ⏱️ ${video.duration}`;
+    if (catEl) {
+        catEl.textContent = `${catObj && catObj.icon ? catObj.icon + ' ' : ''}${catLabel}`;
+        catEl.className = `video-cat-tag cat-tag-${video.category}`;
+    }
+    if (langEl) {
+        langEl.textContent = video.lang === 'kn' ? '⭐ ಕನ್ನಡ (Kannada)' : '🌐 English';
+    }
+    if (ytLink) {
+        ytLink.href = `https://www.youtube.com/watch?v=${video.id}`;
+    }
+    if (closeBtn) {
+        closeBtn.textContent = isKn ? 'ಮುಚ್ಚಿ (Close)' : 'Close';
+    }
+
+    // ON-DEMAND LOAD: Inject official YouTube embed iframe only when requested!
+    iframeWrap.innerHTML = `
+        <iframe src="https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&rel=0&modestbranding=1" 
+                title="${isKn ? video.titleKn : video.titleEn}" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen>
+        </iframe>
+    `;
+
+    modal.style.display = 'flex';
+}
+
+function closeVideoPlayer() {
+    playTapSound();
+    const modal = document.getElementById('videoPlayerModal');
+    const iframeWrap = document.getElementById('videoIframeWrap');
+    if (iframeWrap) {
+        // UNLOAD IFRAME IMMEDIATELY TO STOP AUDIO & FREE MEMORY
+        iframeWrap.innerHTML = '';
+    }
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// Global Escape key listener to close video modal
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeVideoPlayer();
+});
+
+// Attach event listener for #videosBtn
+const videosBtnEl = document.getElementById('videosBtn');
+if (videosBtnEl) {
+    videosBtnEl.addEventListener('click', function() {
+        playTapSound();
+        renderFishLearningVideos();
+    });
+}
+
+// ============================================
 // QUICK ACTIONS
 // ============================================
 const sosBtnEl = document.getElementById('sosBtn');
@@ -3623,6 +4404,7 @@ function renderCurrentMoreFeature() {
     else if (currentMoreFeature === 'history') renderAdvisoryHistory();
     else if (currentMoreFeature === 'export') renderExportVoyageSummaryOnly();
     else if (currentMoreFeature === 'catchLog') renderCatchLogger();
+    else if (currentMoreFeature === 'videos') renderFishLearningVideos();
 }
 
 // ============================================
@@ -3726,6 +4508,11 @@ const translations = {
         moreBackBtnText: 'ಎಲ್ಲಾ ಪರಿಕರಗಳಿಗೆ ಹಿಂತಿರುಗಿ (ಮೆನು)',
         fishScanCardTitle: 'ಮೀನು ಮಾಹಿತಿ ಮಾರ್ಗದರ್ಶಿ',
         fishScanCardSub: 'ತಳಿಗಳು, ಬಂದರು ದರ & ಋತುಮಾನದ ವಿವರ',
+        videosCardTitle: 'ಮೀನು ಕಲಿಕಾ ವೀಡಿಯೊಗಳು (Learning Videos)',
+        videosCardSub: 'ಶೈಕ್ಷಣಿಕ ವೀಡಿಯೊಗಳು, ತಳಿ ಪರಿಚಯ, ತಾಜಾತನ ಪರೀಕ್ಷೆ & ಸಾಗರ ಮಾಹಿತಿ',
+        videosPageTitle: '🎬 ಮೀನು ಕಲಿಕಾ ವೀಡಿಯೊಗಳು',
+        videosPageSub: 'ಕರಾವಳಿ ಮೀನುಗಾರರ ಶೈಕ್ಷಣಿಕ ವೀಡಿಯೊ ಗ್ರಂಥಾಲಯ · Kannada-First Educational Hub',
+        videosBadge: '🎬 ವೀಡಿಯೊ ಗ್ರಂಥಾಲಯ',
         predictionCardTitle: 'ಋತುಮಾನ ಮಾರ್ಗದರ್ಶಿ',
         predictionCardSub: 'ಕರಾವಳಿ ಮೀನು ಲಭ್ಯತೆ ಸೂಚ್ಯಂಕ',
         fuelCardTitle: 'ಇಂಧನ ಲೆಕ್ಕಾಚಾರ',
@@ -3831,6 +4618,11 @@ const translations = {
         moreBackBtnText: 'Back to Tools (ಮೆನು)',
         fishScanCardTitle: 'Fish Species Guide (ಮೀನು ಪರಿಚಯ)',
         fishScanCardSub: 'Photo & catalog reference: species, port rates & season',
+        videosCardTitle: 'Fish Learning Videos',
+        videosCardSub: 'Educational marine guides, fish identification, freshness tests & facts',
+        videosPageTitle: '🎬 Fish Learning Videos',
+        videosPageSub: 'Educational video library for coastal fishing communities · Kannada-First Hub',
+        videosBadge: '🎬 Video Library',
         predictionCardTitle: 'Seasonal Guide',
         predictionCardSub: 'Karavali landing trends',
         fuelCardTitle: 'Fuel Calculator',
@@ -3961,6 +4753,8 @@ function applyLanguage(lang) {
     setTxt('moreBackBtnText', t.moreBackBtnText);
     setTxt('fishScanCardTitle', t.fishScanCardTitle);
     setTxt('fishScanCardSub', t.fishScanCardSub);
+    setTxt('videosCardTitle', t.videosCardTitle);
+    setTxt('videosCardSub', t.videosCardSub);
     setTxt('predictionCardTitle', t.predictionCardTitle);
     setTxt('predictionCardSub', t.predictionCardSub);
     setTxt('fuelCardTitle', t.fuelCardTitle);
@@ -4173,9 +4967,9 @@ loadBestTime();
 // Register Service Worker for PWA & Deep-Sea Offline Support
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=11')
+        navigator.serviceWorker.register('./sw.js?v=12')
             .then(reg => {
-                console.log('🐟 [PWA] Service Worker v11 registered:', reg.scope);
+                console.log('🐟 [PWA] Service Worker v12 registered:', reg.scope);
                 reg.update();
             })
             .catch(err => console.log('🐟 [PWA] SW registration failed:', err));
