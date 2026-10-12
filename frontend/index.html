@@ -1124,7 +1124,7 @@
             transform: translateY(-2px);
         }
         /* ============================================ */
-        /* 🎬 FISHREELS (INSTAGRAM REELS VERTICAL FEED)  */
+        /* 🎬 FISHREELS (FULL-SCREEN VERTICAL SHORTS FEED) */
         /* ============================================ */
         .content-area.reels-active {
             padding: 0 !important;
@@ -1132,40 +1132,50 @@
             overflow: hidden !important;
             display: flex;
             flex-direction: column;
+            height: 100% !important;
         }
         #page-more.reels-active {
-            height: 100%;
+            height: 100% !important;
             flex: 1;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            overflow: hidden !important;
+            padding: 0 !important;
+            margin: 0 !important;
         }
         #moreFeatureView.reels-active {
-            height: 100%;
+            height: 100% !important;
             flex: 1;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            overflow: hidden !important;
             position: relative;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        #moreFeatureView.reels-active > .more-nav-bar {
+            display: none !important;
         }
         #moreContainer.reels-active {
             flex: 1;
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
+            height: 100% !important;
+            width: 100% !important;
+            overflow: hidden !important;
             position: relative;
-            padding: 0;
-            margin: 0;
+            padding: 0 !important;
+            margin: 0 !important;
         }
 
         .fish-reels-container {
             width: 100%;
             height: 100%;
+            flex: 1;
+            min-height: 0;
             position: relative;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            background: #030712;
+            background: #000000;
         }
 
         /* Translucent Top HUD Header */
@@ -1173,14 +1183,18 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 8px 12px;
-            background: rgba(11, 19, 41, 0.88);
+            padding: 10px 14px;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 75%, transparent 100%);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(168, 85, 247, 0.3);
-            z-index: 25;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.25);
+            z-index: 30;
             flex-shrink: 0;
             gap: 8px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
         }
         .reels-hud-left {
             display: flex;
@@ -1189,10 +1203,10 @@
             min-width: 0;
         }
         .reels-hud-back-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: #f1f5f9;
-            padding: 4px 10px;
+            padding: 5px 11px;
             border-radius: 12px;
             font-size: 11.5px;
             font-weight: 700;
@@ -1205,7 +1219,7 @@
             -webkit-tap-highlight-color: transparent;
         }
         .reels-hud-back-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.22);
             border-color: rgba(56, 189, 248, 0.5);
         }
         .reels-hud-title {
@@ -1221,8 +1235,8 @@
             text-overflow: ellipsis;
         }
         .reels-live-dot {
-            width: 6px;
-            height: 6px;
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
             background: #06b6d4;
             box-shadow: 0 0 8px #06b6d4;
@@ -1235,27 +1249,27 @@
             flex-shrink: 0;
         }
         .reels-hud-lang-btn {
-            background: rgba(124, 58, 237, 0.25);
-            border: 1px solid rgba(168, 85, 247, 0.45);
+            background: rgba(124, 58, 237, 0.3);
+            border: 1px solid rgba(168, 85, 247, 0.5);
             color: #f3e8ff;
-            padding: 3px 8px;
+            padding: 4px 9px;
             border-radius: 10px;
-            font-size: 10px;
+            font-size: 10.5px;
             font-weight: 800;
             cursor: pointer;
             white-space: nowrap;
             transition: all 0.2s ease;
         }
         .reels-hud-lang-btn:hover {
-            background: rgba(124, 58, 237, 0.4);
+            background: rgba(124, 58, 237, 0.45);
         }
         .reels-hud-counter {
             font-size: 10.5px;
             font-weight: 800;
-            color: #94a3b8;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            padding: 3px 7px;
+            color: #cbd5e1;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 4px 8px;
             border-radius: 10px;
             white-space: nowrap;
         }
@@ -1267,7 +1281,7 @@
             left: 50%;
             transform: translateX(-50%);
             background: rgba(15, 23, 42, 0.92);
-            border: 1px solid rgba(56, 189, 248, 0.4);
+            border: 1px solid rgba(56, 189, 248, 0.5);
             color: #ffffff;
             padding: 6px 14px;
             border-radius: 20px;
@@ -1277,10 +1291,6 @@
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
             pointer-events: none;
             animation: fadeInToast 0.25s ease-out;
-        }
-        @keyframes fadeInToast {
-            from { opacity: 0; transform: translate(-50%, -8px); }
-            to { opacity: 1; transform: translate(-50%, 0); }
         }
 
         /* Vertical Snap Viewport */
@@ -1295,12 +1305,13 @@
             position: relative;
             scrollbar-width: none;
             outline: none;
+            touch-action: pan-y;
         }
         .reels-viewport::-webkit-scrollbar {
             display: none;
         }
 
-        /* Single Reel Slide */
+        /* Single Fullscreen Reel Slide */
         .reel-slide {
             width: 100%;
             height: 100%;
@@ -1312,58 +1323,32 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #030712;
+            background: #000000;
             overflow: hidden;
             user-select: none;
         }
 
-        /* Blurred Ambient Backdrop */
-        .reel-backdrop {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            filter: blur(32px) brightness(0.28);
-            transform: scale(1.2);
-            z-index: 1;
-            pointer-events: none;
-        }
-        .reel-backdrop-vignette {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, transparent 30%, rgba(3, 7, 18, 0.7) 85%);
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        /* Player Container (Center) */
+        /* Centered Mobile Column for Player (100% on phones, max-width on desktop) */
         .reel-player-box {
-            position: relative;
-            z-index: 5;
+            position: absolute;
+            inset: 0;
             width: 100%;
-            max-width: 440px;
+            max-width: 480px;
             height: 100%;
+            margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            background: #000000;
         }
         .reel-player-mount {
-            position: relative;
+            position: absolute;
+            inset: 0;
             width: 100%;
-            aspect-ratio: 16/9;
-            max-height: 62vh;
-            border-radius: 18px;
+            height: 100%;
             overflow: hidden;
             background: #000000;
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.8), 0 0 35px rgba(124, 58, 237, 0.28);
-            border: 1px solid rgba(168, 85, 247, 0.35);
         }
         .reel-player-mount iframe {
             position: absolute;
@@ -1372,6 +1357,7 @@
             width: 100%;
             height: 100%;
             border: none;
+            object-fit: cover;
         }
         .reel-poster-img {
             width: 100%;
@@ -1384,8 +1370,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 52px;
-            height: 52px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             background: linear-gradient(135deg, rgba(6, 182, 212, 0.95), rgba(124, 58, 237, 0.95));
             border: 2px solid rgba(255, 255, 255, 0.85);
@@ -1393,30 +1379,30 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 22px;
             padding-left: 3px;
             box-shadow: 0 6px 26px rgba(124, 58, 237, 0.7), 0 0 20px rgba(6, 182, 212, 0.7);
             pointer-events: none;
         }
 
-        /* Center Tap Feedback Icon */
+        /* Center Tap Play/Pause Ripple */
         .reel-tap-feedback {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            width: 64px;
-            height: 64px;
+            width: 68px;
+            height: 68px;
             border-radius: 50%;
             background: rgba(15, 23, 42, 0.85);
-            border: 2px solid rgba(56, 189, 248, 0.8);
+            border: 2px solid rgba(56, 189, 248, 0.85);
             color: #38bdf8;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 26px;
+            font-size: 28px;
             pointer-events: none;
-            z-index: 20;
+            z-index: 25;
             transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
             opacity: 0;
         }
@@ -1432,25 +1418,21 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(3, 7, 18, 0.85);
+            background: rgba(0, 0, 0, 0.75);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            z-index: 15;
+            z-index: 20;
             pointer-events: none;
         }
         .reel-spinner-fish {
-            font-size: 32px;
+            font-size: 34px;
             animation: bounceFish 1.2s infinite ease-in-out;
         }
-        @keyframes bounceFish {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-8px) scale(1.1); }
-        }
         .reel-spinner-text {
-            font-size: 11.5px;
+            font-size: 12px;
             font-weight: 700;
             color: #38bdf8;
             letter-spacing: 0.2px;
@@ -1468,9 +1450,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 16px;
+            padding: 20px;
             text-align: center;
-            z-index: 18;
+            z-index: 22;
             box-sizing: border-box;
         }
         .reel-error-btn {
@@ -1478,13 +1460,13 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
-            padding: 8px 14px;
+            padding: 9px 16px;
             border-radius: 12px;
-            font-size: 11.5px;
+            font-size: 12px;
             font-weight: 700;
             text-decoration: none;
             cursor: pointer;
-            margin: 3px 0;
+            margin: 4px 0;
             width: 80%;
             box-sizing: border-box;
             transition: all 0.2s ease;
@@ -1501,160 +1483,137 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* Top Slide Badge */
-        .reel-slide-top-badge {
-            position: absolute;
-            top: 10px;
-            left: 12px;
-            z-index: 12;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            pointer-events: none;
-        }
-        .reel-cat-pill {
-            background: rgba(15, 23, 42, 0.85);
-            border: 1px solid rgba(168, 85, 247, 0.45);
-            color: #c084fc;
-            font-size: 10px;
-            font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 10px;
-            backdrop-filter: blur(8px);
-        }
-        .reel-lang-pill {
-            font-size: 9.5px;
-            font-weight: 800;
-            padding: 3px 7px;
-            border-radius: 10px;
-            backdrop-filter: blur(8px);
-        }
-        .reel-lang-pill.kn {
-            background: linear-gradient(135deg, rgba(124, 58, 237, 0.9), rgba(217, 70, 239, 0.9));
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        .reel-lang-pill.en {
-            background: rgba(15, 23, 42, 0.85);
-            color: #38bdf8;
-            border: 1px solid rgba(56, 189, 248, 0.4);
-        }
-
-        /* Bottom Overlay (Above Bottom Dock) */
-        .reel-bottom-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 58px; /* Leave space for action column */
-            z-index: 12;
-            padding: 16px 14px calc(var(--content-pad-bottom, 80px) + 14px);
-            background: linear-gradient(to top, rgba(3, 7, 18, 0.95) 0%, rgba(3, 7, 18, 0.65) 65%, transparent 100%);
-            pointer-events: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        .reel-video-title {
-            font-size: 14px;
-            font-weight: 850;
-            line-height: 1.3;
-            color: #ffffff;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
-        }
-        .reel-fact-badge {
-            display: flex;
-            align-items: flex-start;
-            gap: 6px;
-            background: rgba(124, 58, 237, 0.28);
-            border: 1px solid rgba(168, 85, 247, 0.45);
-            backdrop-filter: blur(10px);
-            padding: 6px 10px;
-            border-radius: 12px;
-            margin-top: 3px;
-        }
-        .reel-fact-icon {
-            font-size: 12px;
-            flex-shrink: 0;
-            margin-top: 1px;
-        }
-        .reel-fact-text {
-            font-size: 11px;
-            line-height: 1.35;
-            color: #f3e8ff;
-            font-weight: 600;
-        }
-        .reel-meta-row {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 10px;
-            color: #94a3b8;
-            margin-top: 2px;
-        }
-
-        /* Right-Side Vertical Action Column */
+        /* Right Minimal Action Column */
         .reel-action-bar {
             position: absolute;
-            right: 8px;
-            bottom: calc(var(--content-pad-bottom, 80px) + 14px);
-            z-index: 14;
+            right: 10px;
+            bottom: 16px;
+            z-index: 25;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 9px;
+            gap: 10px;
             pointer-events: auto;
         }
         .reel-action-btn {
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: rgba(15, 23, 42, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(15, 23, 42, 0.78);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: #ffffff;
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             cursor: pointer;
-            text-decoration: none;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
             -webkit-tap-highlight-color: transparent;
             padding: 0;
         }
-        .reel-action-btn:hover {
-            transform: scale(1.1);
-            border-color: rgba(56, 189, 248, 0.6);
-            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4);
-        }
         .reel-action-btn:active {
-            transform: scale(0.92);
+            transform: scale(0.9);
         }
-        .reel-action-btn.unmuted {
+        .reel-action-btn.unmuted,
+        .reel-action-btn.fact-active {
             border-color: rgba(6, 182, 212, 0.7);
             color: #38bdf8;
             box-shadow: 0 0 16px rgba(6, 182, 212, 0.4);
         }
-        .reel-action-btn.nav-btn {
-            width: 36px;
-            height: 36px;
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.12);
-            font-size: 11px;
-        }
         .reel-action-icon {
-            font-size: 16px;
+            font-size: 18px;
             line-height: 1;
         }
-        .reel-action-label {
-            font-size: 7.5px;
-            font-weight: 750;
-            margin-top: 1px;
-            letter-spacing: 0.1px;
-            color: #cbd5e1;
+
+        /* Bottom Fact Overlay (Minimal Caption + Single-Line Kannada Fact) */
+        .reel-bottom-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 58px;
+            z-index: 24;
+            padding: 14px 12px 14px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.45) 75%, transparent 100%);
+            pointer-events: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .reel-title-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .reel-video-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.2px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+            line-height: 1.3;
+            margin: 0;
+        }
+        .reel-duration-pill {
+            font-size: 10px;
+            font-weight: 800;
+            color: #38bdf8;
+            background: rgba(6, 182, 212, 0.2);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            padding: 1px 6px;
+            border-radius: 8px;
             white-space: nowrap;
+        }
+        .reel-fact-snippet {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 6px 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .reel-fact-snippet.collapsed {
+            display: none !important;
+        }
+        .reel-fact-icon {
+            font-size: 13px;
+            flex-shrink: 0;
+            line-height: 1.3;
+        }
+        .reel-fact-text {
+            font-size: 11px;
+            line-height: 1.4;
+            color: #f1f5f9;
+            font-weight: 600;
+            margin: 0;
+        }
+        .reel-show-fact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(124, 58, 237, 0.35);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(168, 85, 247, 0.5);
+            color: #f3e8ff;
+            padding: 3px 9px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 750;
+            cursor: pointer;
+            align-self: flex-start;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: all 0.2s ease;
+        }
+        .reel-show-fact-btn.hidden {
+            display: none !important;
         }
 
         /* FLOATING DOCK BOTTOM NAVIGATION */
@@ -1997,53 +1956,53 @@
             color: #475569 !important;
         }
         [data-theme="light"] .fish-reels-container {
-            background: #f1f5f9;
+            background: #0f172a;
         }
         [data-theme="light"] .reels-hud-header {
-            background: rgba(255, 255, 255, 0.92);
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.7) 75%, transparent 100%);
             border-bottom-color: rgba(168, 85, 247, 0.25);
         }
         [data-theme="light"] .reels-hud-back-btn {
             background: #ffffff;
-            border-color: rgba(14, 165, 233, 0.3);
+            border-color: rgba(14, 165, 233, 0.35);
             color: #0f172a;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
         }
         [data-theme="light"] .reels-hud-counter {
             background: #ffffff;
-            border-color: rgba(14, 165, 233, 0.2);
-            color: #475569;
+            border-color: rgba(14, 165, 233, 0.25);
+            color: #334155;
         }
         [data-theme="light"] .reel-slide {
-            background: #f8fafc;
-        }
-        [data-theme="light"] .reel-backdrop-vignette {
-            background: radial-gradient(circle at center, transparent 30%, rgba(248, 250, 252, 0.7) 85%);
+            background: #000000;
         }
         [data-theme="light"] .reel-bottom-overlay {
-            background: linear-gradient(to top, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.7) 65%, transparent 100%);
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.92) 0%, rgba(15, 23, 42, 0.5) 70%, transparent 100%);
         }
-        [data-theme="light"] .reel-video-title {
-            color: #0f172a;
-            text-shadow: none;
+        [data-theme="light"] .reel-fact-card {
+            background: rgba(255, 255, 255, 0.92);
+            border-color: rgba(168, 85, 247, 0.4);
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.18);
         }
-        [data-theme="light"] .reel-fact-badge {
-            background: rgba(124, 58, 237, 0.08);
-            border-color: rgba(168, 85, 247, 0.3);
+        [data-theme="light"] .reel-fact-title {
+            color: #7e22ce;
         }
-        [data-theme="light"] .reel-fact-text {
-            color: #4c1d95;
-        }
-        [data-theme="light"] .reel-meta-row {
+        [data-theme="light"] .reel-fact-close-btn {
             color: #64748b;
         }
-        [data-theme="light"] .reel-action-btn {
-            background: #ffffff;
-            border-color: rgba(14, 165, 233, 0.25);
-            color: #0f172a;
-            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
+        [data-theme="light"] .reel-fact-text {
+            color: #1e1b4b;
         }
-        [data-theme="light"] .reel-action-label {
-            color: #475569;
+        [data-theme="light"] .reel-fact-pill-btn {
+            background: rgba(255, 255, 255, 0.92);
+            color: #6b21a8;
+            border-color: rgba(168, 85, 247, 0.4);
+        }
+        [data-theme="light"] .reel-action-btn {
+            background: rgba(255, 255, 255, 0.92);
+            border-color: rgba(14, 165, 233, 0.3);
+            color: #0f172a;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
         }
         [data-theme="light"] .more-nav-bar {
             border-bottom-color: rgba(14, 165, 233, 0.2);
@@ -2742,9 +2701,9 @@
                         <div style="flex:1;min-width:0;">
                             <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
                                 <div id="videosCardTitle" style="font-weight:900;font-size:15px;color:#c084fc;">FishReels · ಮೀನು ಕಲಿಯೋಣ</div>
-                                <span style="font-size:9.5px;background:linear-gradient(135deg, #7c3aed, #06b6d4);color:#ffffff;padding:2px 8px;border-radius:10px;font-weight:800;letter-spacing:0.3px;white-space:nowrap;border:1px solid rgba(255,255,255,0.3);box-shadow:0 2px 8px rgba(124,58,237,0.4);">REELS 🎬</span>
+                                <span style="font-size:9.5px;background:linear-gradient(135deg, #7c3aed, #06b6d4);color:#ffffff;padding:2px 8px;border-radius:10px;font-weight:800;letter-spacing:0.3px;white-space:nowrap;border:1px solid rgba(255,255,255,0.3);box-shadow:0 2px 8px rgba(124,58,237,0.4);">SHORTS 15–45s 🎬</span>
                             </div>
-                            <div id="videosCardSub" style="font-size:11px;color:#cbd5e1;margin-top:2px;line-height:1.35;">Mobile-first vertical feed: bite-sized educational fish & marine clips</div>
+                            <div id="videosCardSub" style="font-size:11px;color:#cbd5e1;margin-top:2px;line-height:1.35;">15–45s short educational fish & marine clips (ಲಂಬ ಶಾರ್ಟ್ಸ್)</div>
                         </div>
                     </button>
 
@@ -2943,40 +2902,7 @@
     </div>
 </div>
 
-<!-- DEDICATED FISH LEARNING VIDEO PLAYER MODAL -->
-<div id="videoPlayerModal" style="display:none;" onclick="if(event.target===this)closeVideoPlayer()">
-    <div class="video-modal-card">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-            <div style="display:flex;align-items:center;gap:8px;min-width:0;">
-                <span style="font-size:20px;">🎬</span>
-                <span id="videoModalCategory" class="video-cat-tag cat-tag-identification">Fish Identification</span>
-                <span id="videoModalLang" style="font-size:10px;background:rgba(124,58,237,0.25);color:#c084fc;padding:2px 7px;border-radius:6px;font-weight:800;">KN</span>
-            </div>
-            <button onclick="closeVideoPlayer()" style="background:rgba(255,255,255,0.1);border:none;border-radius:50%;width:32px;height:32px;color:#cbd5e1;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;" aria-label="Close Video">✕</button>
-        </div>
 
-        <h4 id="videoModalTitle" style="margin:4px 0 8px;font-size:14.5px;font-weight:800;color:var(--text-main);line-height:1.35;"></h4>
-
-        <!-- On-Demand Loaded 16:9 Responsive Video Player -->
-        <div class="video-iframe-wrap" id="videoIframeWrap">
-            <!-- iframe inserted only on demand -->
-        </div>
-
-        <p id="videoModalDesc" style="font-size:11.5px;color:var(--text-muted);margin:8px 0 12px;line-height:1.45;"></p>
-
-        <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--item-separator);gap:8px;">
-            <span id="videoModalAuthor" style="font-size:11px;color:#94a3b8;font-weight:600;"></span>
-            <div style="display:flex;gap:6px;">
-                <a id="videoModalYtLink" href="#" target="_blank" rel="noopener noreferrer" style="padding:7px 12px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.35);border-radius:10px;color:#f87171;font-size:11px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">
-                    <span>▶</span> <span id="videoModalYtText">YouTube</span>
-                </a>
-                <button onclick="closeVideoPlayer()" style="padding:7px 14px;background:linear-gradient(135deg,#7c3aed,#06b6d4);border:none;border-radius:10px;color:white;font-size:11px;font-weight:800;cursor:pointer;">
-                    <span id="videoModalCloseBtn">ಮುಚ್ಚಿ (Close)</span>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script>
 // ============================================
@@ -4152,293 +4078,124 @@ window.clearCatchLogs = function() {
 
 // ============================================
 // ============================================
-// 🎬 FISHREELS · ಮೀನು ಕಲಿಯೋಣ (MOBILE VERTICAL VIDEO FEED)
+// 🎬 FISHREELS · ಮೀನು ಕಲಿಯೋಣ (15–45s EDUCATIONAL SHORTS FEED)
 // ============================================
 const FISH_VIDEOS = [
-    // 1. Fish Identification (ಮೀನು ಗುರುತಿಸುವಿಕೆ)
+    // 1. Kannada: Mangalore Port Mackerel (Bangude) Live Catch & Price (15s)
     {
-        id: "EBjX-stIX2s",
-        category: "identification",
+        id: "I8N1KersEzM",
         lang: "kn",
-        titleKn: "ಮಲ್ಪೆ ಮೀನುಗಾರಿಕೆ ಬಂದರು — ಪ್ರಮುಖ ಕರಾವಳಿ ಮೀನುಗಳ ಪರಿಚಯ",
-        titleEn: "Malpe Fishing Harbour — Coastal Fish Species & Market Tour",
-        factKn: "ಬಂಗಡೆ ಮತ್ತು ಬೂತಾಯಿ ಕರಾವಳಿ ಮೀನುಗಾರಿಕೆಯ ಪ್ರಮುಖ ಆರ್ಥಿಕ ಬೆನ್ನೆಲುಬು.",
-        factEn: "Mackerel and sardines form the economic backbone of Karnataka's coastal landings.",
-        author: "Masala Chai Media",
-        duration: "10:14",
-        descKn: "ಉಡುಪಿ ಮಲ್ಪೆ ಬಂದರಿನಲ್ಲಿ ಬಂಗಡೆ, ಬೂತಾಯಿ, ಅಂಜಲ್, ಮಾಂಜಿ ಸೇರಿದಂತೆ ವಿವಿಧ ಕರಾವಳಿ ಮೀನುಗಳ ಪರಿಚಯ.",
-        descEn: "Live tour of Malpe fishing port showcasing mackerel, sardine, seer fish, pomfret and regional catch species."
+        titleKn: "ಮಂಗಳೂರು ಬಂದರು — ಬಂಗಡೆ (Bangude) ಆವಕ & ದರ",
+        titleEn: "Mangalore Port Catch — Mackerel (Bangude) Rate Guide",
+        factKn: "ಬಂಗಡೆ ಮತ್ತು ಬೂತಾಯಿ ಮೀನುಗಳು ಒಮೆಗಾ-3 ಕೊಬ್ಬಿನಾಮ್ಲಗಳಿಂದ ಸಮೃದ್ಧವಾಗಿದ್ದು, ಕರಾವಳಿ ಮೀನುಗಾರರ ಪ್ರಮುಖ ಆದಾಯದ ಮೂಲ.",
+        factEn: "Indian Mackerel is rich in Omega-3 fatty acids and forms the economic backbone of coastal landings.",
+        author: "Jyothsna Vlogs",
+        duration: "0:15",
+        seconds: 15
     },
+    // 2. Kannada: Coastal Fish Varieties & Port Market Guide (36s)
     {
         id: "dg5XPW-iFNE",
-        category: "identification",
         lang: "kn",
         titleKn: "ಕರಾವಳಿ ಮೀನುಗಳ ಪ್ರಭೇದಗಳು ಮತ್ತು ಮಾರುಕಟ್ಟೆ ದರ ವಿವರ",
         titleEn: "Karavali Sea Fish Varieties & Port Rates",
-        factKn: "ಅಂಜಲ್ (Seer Fish) ಮಲ್ಪೆ ಮತ್ತು ಮಂಗಳೂರು ಬಂದರುಗಳಲ್ಲಿ ಅತ್ಯಧಿಕ ಮಾರುಕಟ್ಟೆ ಬೆಲೆ ಗಳಿಸುತ್ತದೆ.",
+        factKn: "ಅಂಜಲ್ (Kingfish) ಮತ್ತು ಮಾಂಜಿ (Pomfret) ಕರಾವಳಿ ಬಂದರುಗಳಲ್ಲಿ ಅತ್ಯಧಿಕ ಮಾರುಕಟ್ಟೆ ಬೆಲೆ ಗಳಿಸುವ ಮೀನುಗಳು.",
         factEn: "Seer fish (King Mackerel) commands the highest premium value at Karavali ports.",
         author: "News Beat Kannada",
-        duration: "6:28",
-        descKn: "ಕರಾವಳಿ ತೀರದ ಜನಪ್ರಿಯ ಸಮುದ್ರ ಮೀನುಗಳ ತಳಿಗಳು, ಸ್ಥಳೀಯ ಹೆಸರುಗಳು ಮತ್ತು ಬಂದರು ಮಾರುಕಟ್ಟೆ ವಿವರ.",
-        descEn: "Guide to local coastal marine fish varieties, regional names, and port wholesale identification."
+        duration: "0:36",
+        seconds: 36
     },
+    // 3. Kannada: Sagar Fish - Freshness Testing by Gills & Elasticity (25s)
     {
-        id: "I8N1KersEzM",
-        category: "identification",
+        id: "ZiKAKKjWUqA",
         lang: "kn",
-        titleKn: "ಮಂಗಳೂರು ಬಂದರು — ಬಂಗಡೆ, ಬೂತಾಯಿ ಮೀನುಗಳ ಪರಿಚಯ",
-        titleEn: "Mangalore Port Catch — Mackerel & Sardine Species Guide",
-        factKn: "ಬೂತಾಯಿ (Sardine) ಒಮೆಗಾ-3 ಕೊಬ್ಬಿನಾಮ್ಲಗಳಿಂದ ಸಮೃದ್ಧವಾದ ಪೌಷ್ಟಿಕ ಸಮುದ್ರ ಆಹಾರ.",
-        factEn: "Oil sardines are an exceptional natural source of Omega-3 fatty acids and nutrients.",
-        author: "Jyothsna Vlogs",
-        duration: "4:05",
-        descKn: "ಮಂಗಳೂರು ಬಂದರಿನಲ್ಲಿ ಕರಾವಳಿ ಮೀನುಗಳ ದೈನಂದಿನ ಆವಕ ಮತ್ತು ಬಂಗಡೆ, ಬೂತಾಯಿ ಗುರುತಿಸುವಿಕೆ.",
-        descEn: "Port landings overview focusing on Indian Mackerel, Sardine, and common pelagic species."
+        titleKn: "ತಾಜಾ ಮೀನು ಗುರುತಿಸುವ ಸುಲಭ ಪರೀಕ್ಷೆ — ಕಿವಿರು ಮತ್ತು ಚರ್ಮ",
+        titleEn: "How to Check Fish Freshness — Gills & Skin Elasticity",
+        factKn: "ತಾಜಾ ಮೀನಿನ ಕಿವಿರುಗಳು (Gills) ಪ್ರಕಾಶಮಾನ ಕೆಂಪು ಬಣ್ಣದಲ್ಲಿದ್ದು, ಚರ್ಮವನ್ನು ಬೆರಳಿನಿಂದ ಒತ್ತಿದಾಗ ಗುಳಿ ಬೀಳದೆ ತಕ್ಷಣ ಪುಟಿಯುತ್ತದೆ.",
+        factEn: "Fresh fish have bright red gills and firm elastic flesh that springs back immediately when pressed.",
+        author: "sagar fish world hoodi",
+        duration: "0:25",
+        seconds: 25
     },
+    // 4. Kannada: Types of Coastal Marine Fish Species (40s)
     {
         id: "WDeUemcRjOU",
-        category: "identification",
         lang: "kn",
-        titleKn: "ಕರಾವಳಿ ಮೀನುಗಳ ವಿಧಗಳು — ಸಮುದ್ರ ಮೀನು ಪರಿಚಯ",
+        titleKn: "ಕರಾವಳಿ ಮೀನುಗಳ ಪ್ರಮುಖ ತಳಿಗಳು — ಸಮುದ್ರ ಮೀನು ಪರಿಚಯ",
         titleEn: "Types of Coastal Fishes & Marine Species Reference",
-        factKn: "ಕರ್ನಾಟಕ ಕರಾವಳಿಯಲ್ಲಿ 120 ಕ್ಕೂ ಹೆಚ್ಚು ವಾಣಿಜ್ಯ ಸಮುದ್ರ ಮೀನು ಪ್ರಭೇದಗಳು ಲಭ್ಯ.",
+        factKn: "ಕರ್ನಾಟಕ ಕರಾವಳಿಯ ಅರಬ್ಬೀ ಸಮುದ್ರದಲ್ಲಿ 120 ಕ್ಕೂ ಹೆಚ್ಚು ವಾಣಿಜ್ಯ ಸಮುದ್ರ ಮೀನು ಪ್ರಭೇದಗಳು ಲಭ್ಯವಿವೆ.",
         factEn: "Over 120 commercial marine fish species are harvested along Karnataka's Arabian Sea coast.",
         author: "Yuvakeerthiraj_Official",
-        duration: "3:40",
-        descKn: "ಕರಾವಳಿ ಸಮುದ್ರದಲ್ಲಿ ಸಿಗುವ ಮೀನುಗಳ ವೈವಿಧ್ಯತೆ ಮತ್ತು ಮೀನುಗಾರರ ಪ್ರಮುಖ ತಳಿಗಳ ಪಟ್ಟಿ.",
-        descEn: "Overview of diverse coastal marine species harvested along the Arabian Sea coast."
+        duration: "0:40",
+        seconds: 40
     },
+    // 5. Kannada: Fresh Seashore Catch Quality & Handling (21s)
     {
-        id: "bewKmVYrok0",
-        category: "identification",
-        lang: "en",
-        titleKn: "ಮಲ್ಪೆ ಬಂದರು ಸೀಫುಡ್ & ಸಮುದ್ರ ತಳಿಗಳ ಮಾರ್ಗದರ್ಶಿ",
-        titleEn: "Malpe Port Seafood & Species Reference Guide",
-        factKn: "ಮಲ್ಪೆ ಬಂದರು ಭಾರತದ ಅತಿದೊಡ್ಡ ಯಾಂತ್ರಿಕೃತ ಟ್ರಾಲರ್ ಮೀನುಗಾರಿಕೆ ಬಂದರುಗಳಲ್ಲಿ ಒಂದಾಗಿದೆ.",
-        factEn: "Malpe is one of South India's largest mechanized deep-sea fishing harbors.",
-        author: "MutantChef",
-        duration: "8:52",
-        descKn: "ಮಲ್ಪೆ ಬಂದರಿನ ಸಮಗ್ರ ಸೀಫುಡ್ ತಳಿಗಳು, ಕಿಂಗ್‌ಫಿಶ್, ಸಿಗಡಿ ಮತ್ತು ಸ್ಕ್ವಿಡ್ ಗುರುತಿಸುವಿಕೆ.",
-        descEn: "Detailed walk-through of coastal marine catches including kingfish, squid, prawns and pomfret."
+        id: "C8X0KOgkDB0",
+        lang: "kn",
+        titleKn: "ಕರಾವಳಿ ಕಡಲ ಕಿನಾರೆಯಲ್ಲಿ ತಾಜಾ ಮೀನುಗಾರಿಕೆ",
+        titleEn: "Fresh Coastal Catch at the Seashore — Quality Handling",
+        factKn: "ಸಮುದ್ರದಿಂದ ಹಿಡಿದ ತಕ್ಷಣ ತಂಪಾದ ಐಸ್ ಬಾಕ್ಸ್‌ನಲ್ಲಿಟ್ಟ ಮೀನುಗಳು 24 ರಿಂದ 36 ಗಂಟೆಗಳವರೆಗೆ ನೈಸರ್ಗಿಕ ತಾಜಾತನ ಉಳಿಸಿಕೊಳ್ಳುತ್ತವೆ.",
+        factEn: "Fish iced immediately after harvest retain their peak natural firmness and ocean freshness for 24 to 36 hours.",
+        author: "Aashraya vlogs",
+        duration: "0:21",
+        seconds: 21
     },
-
-    // 2. Marine Life (ಸಮುದ್ರ ಜೀವವೈವಿಧ್ಯ)
+    // 6. Kannada: Malpe Reef Grouper Marine Catch (14s)
     {
-        id: "OEUJbuCbS9U",
-        category: "marine_life",
-        lang: "en",
-        titleKn: "ಸಮುದ್ರದ ಆಳದ ಅದ್ಭುತ ಜೀವಿಗಳು — BBC Earth",
-        titleEn: "Mysterious Underwater Creatures of the Deep — BBC Earth",
-        factKn: "ಆಳ ಸಮುದ್ರದ 90% ಜೀವಿಗಳು ಕತ್ತಲೆಯಲ್ಲಿ ಸಂವಹನ ನಡೆಸಲು ಜೈವಿಕ ಬೆಳಕು (Bioluminescence) ಸೂಸುತ್ತವೆ.",
-        factEn: "Over 90% of deep-sea marine animals produce their own bioluminescent light.",
-        author: "BBC Earth",
-        duration: "12:30",
-        descKn: "ಸಾಗರದ ಆಳದಲ್ಲಿ ವಾಸಿಸುವ ಅಪರೂಪದ ಸಮುದ್ರ ಜೀವಿಗಳು, ಬಣ್ಣ ಬದಲಿಸುವ ಶಕ್ತಿ ಮತ್ತು ಜೈವಿಕ ಪ್ರಕಾಶ.",
-        descEn: "BBC Earth exploration of bioluminescent deep-sea creatures, coral inhabitants, and ocean wonders."
+        id: "IDQ2LwvPAA4",
+        lang: "kn",
+        titleKn: "ಮಲ್ಪೆ ಬಂದರು — ಗ್ರೂಪರ್ (ಕಲ್ಲೂರು) ಸಮುದ್ರ ಮೀನುಗಾರಿಕೆ",
+        titleEn: "Malpe Port — Reef Grouper Marine Catch",
+        factKn: "ಮಲ್ಪೆ ಮತ್ತು ಕಾರವಾರದ ಹವಳದ ಬಂಡೆಗಳ ಬಳಿ ಸಿಗುವ ಗ್ರೂಪರ್ (ಕಲ್ಲೂರು) ಮೀನು ಅತ್ಯುತ್ತಮ ಪ್ರೋಟೀನ್ ಮತ್ತು ಪೋಷಕಾಂಶಗಳನ್ನು ಹೊಂದಿದೆ.",
+        factEn: "Reef Grouper caught around Malpe rocky reefs is high in protein and commands strong coastal demand.",
+        author: "malpe angular",
+        duration: "0:14",
+        seconds: 14
     },
-    {
-        id: "rA2j6CrmCkw",
-        category: "marine_life",
-        lang: "en",
-        titleKn: "ಸಮುದ್ರದ ಶೇಪ್‌ಶಿಫ್ಟರ್ — ಮಿಮಿಕ್ ಆಕ್ಟೋಪಸ್ ಮತ್ತು ಲಯನ್‌ಫಿಶ್",
-        titleEn: "Nature's Ocean Shapeshifter — Mimic Octopus & Lionfish",
-        factKn: "ಮಿಮಿಕ್ ಆಕ್ಟೋಪಸ್ ಅಪಾಯದ ಸಮಯದಲ್ಲಿ ಲಯನ್‌ಫಿಶ್, ಹಾವಿನಂತೆ 15 ಕ್ಕೂ ಹೆಚ್ಚು ಜೀವಿಗಳ ಆಕಾರ ತಳೆಯಬಲ್ಲದು!",
-        factEn: "The mimic octopus can impersonate over 15 different predatory sea creatures to avoid danger.",
-        author: "Gurish Discovery",
-        duration: "5:18",
-        descKn: "ಸಮುದ್ರ ಜೀವಿಗಳ ರಕ್ಷಣಾ ತಂತ್ರಗಳು, ಸಮುದ್ರ ಆಕ್ಟೋಪಸ್ ಅಪಾಯದಿಂದ ತಪ್ಪಿಸಿಕೊಳ್ಳಲು ಲಯನ್‌ಫಿಶ್ ರೂಪ ತಾಳುವ ಅಚ್ಚರಿ.",
-        descEn: "Amazing survival camouflage and marine biology behaviors of mimic octopuses and reef predators."
-    },
+    // 7. Deep Sea: Rare Marine Creatures & Abyss Wonders (15s)
     {
         id: "-FkEBIu_tg8",
-        category: "marine_life",
         lang: "en",
-        titleKn: "ಅಪರೂಪದ ಆಳ ಸಮುದ್ರ ಜೀವಿಗಳ ಸಾಕ್ಷ್ಯಚಿತ್ರ",
-        titleEn: "Rarely Seen Deep Sea Creatures — Forrest Galante",
-        factKn: "ಕಡಲಿನ ಅತೀ ಆಳದಲ್ಲಿ ವಾತಾವರಣದ ಒತ್ತಡವು ಭೂಮಿಯ ಮೇಲ್ಮೈಗಿಂತ 1,000 ಪಟ್ಟು ಹೆಚ್ಚಿರುತ್ತದೆ.",
+        titleKn: "ಅಪರೂಪದ ಆಳ ಸಮುದ್ರ ಜೀವಿಗಳು — ಸಾಗರದ ರಹಸ್ಯ",
+        titleEn: "Rarely Seen Deep Sea Creatures — Marine Biology",
+        factKn: "ಸಾಗರದ ಅತೀ ಆಳದಲ್ಲಿ ವಾತಾವರಣದ ಒತ್ತಡವು ಭೂಮಿಯ ಮೇಲ್ಮೈಗಿಂತ 1,000 ಪಟ್ಟು ಹೆಚ್ಚಿರುತ್ತದೆ, ಆದರೂ ವಿಚಿತ್ರ ಜೀವಿಗಳು ಇಲ್ಲಿ ಜೀವಿಸುತ್ತವೆ.",
         factEn: "Deep-sea benthic organisms survive under pressures exceeding 1,000 times atmospheric pressure.",
         author: "Forrest Galante",
-        duration: "9:45",
-        descKn: "ಸಾಗರ ಜೀವಶಾಸ್ತ್ರಜ್ಞರಿಂದ ಅಪರೂಪದ ಸಮುದ್ರ ತಳಿಗಳು ಮತ್ತು ಕಡಲಿನ ಆಳದ ಸಂಶೋಧನೆ.",
-        descEn: "Wildlife biologist examination of elusive deep sea organisms and benthic zone wildlife."
+        duration: "0:15",
+        seconds: 15
     },
-    {
-        id: "e3QiPb5c_jM",
-        category: "marine_life",
-        lang: "en",
-        titleKn: "ದಿ ಬಿಗ್ ಬ್ಲೂ — ಸಾಗರದ ಅಲೆಗಳು ಮತ್ತು ತಿಮಿಂಗಿಲಗಳ ಜೀವನ",
-        titleEn: "The Big Blue — Ocean Stories & Marine Ecosystems",
-        factKn: "ಭೂಮಿಯ ಆಮ್ಲಜನಕದ ಶೇಕಡಾ 50 ಕ್ಕಿಂತ ಹೆಚ್ಚು ಭಾಗ ಸಮುದ್ರದ ಸಸ್ಯಪ್ಲವಕಗಳು (Phytoplankton) ಉತ್ಪಾದಿಸುತ್ತವೆ.",
-        factEn: "Ocean phytoplankton produce more than 50% of the entire Earth's oxygen supply.",
-        author: "Free Documentary Nature",
-        duration: "48:10",
-        descKn: "ಕಡಲಿನ ಬೃಹತ್ ಜೀವಿಗಳು, ಶಾರ್ಕ್, ಡಾಲ್ಫಿನ್ ಮತ್ತು ಹವಳದ ದಿಬ್ಬಗಳ ರಕ್ಷಣೆಯ ಸಮಗ್ರ ಸಾಕ್ಷ್ಯಚಿತ್ರ.",
-        descEn: "In-depth documentary on open ocean ecosystems, marine mammals, pelagic schools, and reef biodiversity."
-    },
-
-    // 3. Sustainable Fishing (ಸುಸ್ಥಿರ ಮೀನುಗಾರಿಕೆ)
-    {
-        id: "FfA-Oah4T2I",
-        category: "sustainable",
-        lang: "kn",
-        titleKn: "ಕರಾವಳಿ ಮೀನುಗಾರರೊಂದಿಗೆ 6 ದಿನಗಳ ಸಮುದ್ರ ಯಾನ — ಸಾಂಪ್ರದಾಯಿಕ ಬೇಟೆ",
-        titleEn: "6-Day Sea Expedition With Coastal Karnataka Fishermen",
-        factKn: "ಪರ್ಸ್-ಸೀನ್ ಬಲೆಗಳು ತೀರದಿಂದ 12-25 ನಾಟಿಕಲ್ ಮೈಲಿ ದೂರದ ಆಳ ಸಮುದ್ರದಲ್ಲಿ ಬಂಗಡೆ ಹಿಡಿಯಲು ಸೂಕ್ತ.",
-        factEn: "Purse-seine nets allow coastal crews to sustainably harvest pelagic shoals 12-25 miles offshore.",
-        author: "Arun Travel Stories",
-        duration: "15:20",
-        descKn: "ಕರ್ನಾಟಕ ಕರಾವಳಿ ಮೀನುಗಾರರ ಸಮುದ್ರ ಸಾಹಸ, ಸಾಂಪ್ರದಾಯಿಕ ಬಲೆಗಳ ಬಳಕೆ ಮತ್ತು ಜವಾಬ್ದಾರಿಯುತ ಮೀನುಗಾರಿಕೆ ಪದ್ಧತಿ.",
-        descEn: "Real-life sea voyage with coastal Karnataka fishermen, showing traditional purse-seining and maritime skills."
-    },
-    {
-        id: "XPCBzcb49_M",
-        category: "sustainable",
-        lang: "en",
-        titleKn: "ಸುಸ್ಥಿರ ಮೀನುಗಾರಿಕೆ ಎಂದರೇನು? ಸಮುದ್ರದ ಸಂಪನ್ಮೂಲ ರಕ್ಷಣೆ",
-        titleEn: "Sustainable Fishing Explained — Protecting Ocean Stocks",
-        factKn: "ದೊಡ್ಡ ಕಣ್ಣಿನ ಬಲೆಗಳನ್ನು ಬಳಸುವುದರಿಂದ ಸಣ್ಣ ಮರಿ ಮೀನುಗಳು ತಪ್ಪಿಸಿಕೊಂಡು ಸಂತತಿ ವೃದ್ಧಿಯಾಗುತ್ತದೆ.",
-        factEn: "Increasing net mesh sizes allows juvenile fish to escape and sustain future ocean breeding stocks.",
-        author: "Marine Stewardship Council",
-        duration: "4:12",
-        descKn: "ಭವಿಷ್ಯದ ಪೀಳಿಗೆಗೆ ಮೀನುಗಳ ಸಂಖ್ಯೆ ಕ್ಷೀಣಿಸದಂತೆ ಜವಾಬ್ದಾರಿಯುತವಾಗಿ ಮೀನು ಹಿಡಿಯುವ ವಿಜ್ಞಾನ ಮತ್ತು ಮಾರ್ಗಸೂಚಿಗಳು.",
-        descEn: "Global guidelines on quota management, bycatch reduction, and selective gear to preserve wild fisheries."
-    },
+    // 8. Sustainable Fishing: Protecting Marine Stocks with Net Mesh (20s)
     {
         id: "ADP1j6Uukvw",
-        category: "sustainable",
         lang: "en",
-        titleKn: "ಸ್ಮಾರ್ಟ್ ಮೀನುಗಾರಿಕೆ: ಕಡಲಿನ ಪರಿಸರ ಸಂರಕ್ಷಣೆ",
-        titleEn: "Smart Fishing: How Responsible Fishermen Protect Oceans",
-        factKn: "ಮಳೆಗಾಲದ ಸಂತಾನೋತ್ಪತ್ತಿ ನಿಷೇಧ ಅವಧಿ (Monsoon Fishing Ban) ಕಡಲ ಸಂಪತ್ತು ರಕ್ಷಣೆಗೆ ಅತಿಮುಖ್ಯ.",
-        factEn: "Observing regional monsoon fishing bans protects breeding stocks and preserves yields.",
+        titleKn: "ಸುಸ್ಥಿರ ಮೀನುಗಾರಿಕೆ: ಕಡಲಿನ ಮೀನಿನ ಸಂತತಿ ಸಂರಕ್ಷಣೆ",
+        titleEn: "Smart Fishing: How Sustainable Fishermen Protect Oceans",
+        factKn: "ದೊಡ್ಡ ಕಣ್ಣಿನ ಬಲೆಗಳನ್ನು ಬಳಸುವುದರಿಂದ ಸಣ್ಣ ಮರಿ ಮೀನುಗಳು ತಪ್ಪಿಸಿಕೊಂಡು ಸಮುದ್ರದಲ್ಲಿ ಮೀನಿನ ಸಂತತಿ ನಿರಂತರವಾಗಿ ಬೆಳೆಯುತ್ತದೆ.",
+        factEn: "Increasing net mesh sizes allows juvenile fish to escape and sustain future ocean breeding stocks.",
         author: "Koshur Kashtkar",
-        duration: "3:45",
-        descKn: "ಅತಿಯಾದ ಮೀನುಗಾರಿಕೆ ತಪ್ಪಿಸುವುದು ಮತ್ತು ತೀರದ ಪರಿಸರವನ್ನು ಸಮತೋಲನದಲ್ಲಿಡುವುದು ಹೇಗೆ.",
-        descEn: "Practical practices to avoid juvenile fish catch, maintain breeding seasons, and protect coastal reefs."
+        duration: "0:20",
+        seconds: 20
     },
-
-    // 4. Fish Freshness (ಮೀನಿನ ತಾಜಾತನ)
-    {
-        id: "KEwol923d7k",
-        category: "freshness",
-        lang: "kn",
-        titleKn: "ಮಾರುಕಟ್ಟೆಯಲ್ಲಿ ತಾಜಾ ಮೀನು ಗುರುತಿಸುವುದು ಹೇಗೆ? ಕಿವಿರು & ಕಣ್ಣು ಪರೀಕ್ಷೆ",
-        titleEn: "How to Identify Fresh Fish in Market — Eyes & Gills Test",
-        factKn: "ತಾಜಾ ಮೀನಿನ ಕಿವಿರುಗಳು ಗಾಢ ರಕ್ತಗೆಂಪು ಬಣ್ಣದಲ್ಲಿರುತ್ತವೆ ಮತ್ತು ಜಿಗುಟಾಗಿರುವುದಿಲ್ಲ.",
-        factEn: "Fresh fish gills should always be bright ruby red and moist, never brown or slimy.",
-        author: "SuddiYaana",
-        duration: "5:15",
-        descKn: "ಮೀನು ಖರೀದಿಸುವಾಗ ಅಥವಾ ಬಂದರಿನಲ್ಲಿ ತಾಜಾತನ ಪರೀಕ್ಷಿಸಲು ಕಿವಿರುಗಳ ಕೆಂಪು ಬಣ್ಣ, ಕಣ್ಣಿನ ಹೊಳಪು ಮತ್ತು ಗಡಸುತನ ಪರಿಶೀಲನೆ.",
-        descEn: "Essential freshness checklist in Kannada: inspecting bright red gills, clear protruding eyes, and firm elastic flesh."
-    },
-    {
-        id: "ndNdZk0OnkM",
-        category: "freshness",
-        lang: "kn",
-        titleKn: "ತಾಜಾ ಮೀನು ಗುರುತಿಸುವ ಸರಳ ಸಲಹೆಗಳು — ಮಂಗಳೂರು ವ್ಲಾಗ್ಸ್",
-        titleEn: "Tips to Pick Fresh Fish — Mangalore Coastal Guide",
-        factKn: "ಮೀನಿನ ಕಣ್ಣುಗಳು ಉಬ್ಬಿಕೊಂಡಿದ್ದು ಸ್ಪಷ್ಟ ಕಾಂತಿಯುತವಾಗಿದ್ದರೆ ಅದು ತಾಜಾ ಮೀನಿನ ಮುಖ್ಯ ಲಕ್ಷಣ.",
-        factEn: "Bulging, crystal-clear eyes indicate fish caught fresh within 24 to 36 hours.",
-        author: "Jyothsna Vlogs",
-        duration: "4:32",
-        descKn: "ಮಂಗಳೂರು ಬಂದರಿನಲ್ಲಿ ತಾಜಾ ಬಂಗಡೆ, ಅಂಜಲ್ ಆರಿಸುವ ಪ್ರಾಯೋಗಿಕ ಸಲಹೆಗಳು ಮತ್ತು ಐಸ್ ನಿರ್ವಹಣೆ.",
-        descEn: "Practical coastal tips from Mangalore markets for verifying freshness, iced storage, and avoiding spoiled catch."
-    },
-    {
-        id: "oFv8k3aSUiE",
-        category: "freshness",
-        lang: "en",
-        titleKn: "ತಾಜಾ ಮೀನು ಗುರುತಿಸಲು 4 ಪ್ರಮುಖ ನಿಯಮಗಳು",
-        titleEn: "How to Identify Fresh Fish — 4 Golden Rules",
-        factKn: "ಬೆರಳಿನಿಂದ ಒತ್ತಿದಾಗ ಮೀನಿನ ಮಾಂಸ ತಕ್ಷಣ ತನ್ನ ಮೂಲ ರೂಪಕ್ಕೆ ಮರಳಿದರೆ ಅದು ನೂರಕ್ಕೆ ನೂರು ತಾಜಾ.",
-        factEn: "If fish flesh springs back instantly when pressed gently, it is completely fresh.",
-        author: "Food Fusion",
-        duration: "2:40",
-        descKn: "ಮೀನಿನ ಮಾಂಸದ ಸ್ಥಿತಿಸ್ಥಾಪಕತ್ವ (Elasticity), ನೈಸರ್ಗಿಕ ಸಮುದ್ರದ ವಾಸನೆ ಮತ್ತು ಮಾಪನ ನಿಯಮಗಳು.",
-        descEn: "Quick 4-step checklist covering finger indentation test, natural brine aroma, gill color, and scale adhesion."
-    },
+    // 9. Fish Freshness: Rapid Freshness & Quality Test (38s)
     {
         id: "zorz2KwxrPk",
-        category: "freshness",
         lang: "en",
-        titleKn: "ಅತ್ಯಂತ ತಾಜಾ ಮೀನು ಆರಿಸುವ ಸುಲಭ ವಿಧಾನ",
-        titleEn: "How to Pick the FRESHEST Fish (Chef Test)",
-        factKn: "ತಾಜಾ ಸಮುದ್ರ ಮೀನಿಗೆ ಎಂದಿಗೂ ಕೆಟ್ಟ ವಾಸನೆ ಇರುವುದಿಲ್ಲ; ಅದಕ್ಕೆ ಕಡಲ ನೀರಿನ ನೈಸರ್ಗಿಕ ಸುವಾಸನೆ ಇರುತ್ತದೆ.",
-        factEn: "Truly fresh marine fish never smells bad — it carries a clean, mild ocean brine aroma.",
+        titleKn: "ತಾಜಾ ಮೀನಿನ ಕಣ್ಣು ಮತ್ತು ಆಕಾರ ಪರೀಕ್ಷೆ",
+        titleEn: "How to Pick the FRESHEST Fish (Rapid Chef Test)",
+        factKn: "ತಾಜಾ ಮೀನಿನ ಕಣ್ಣುಗಳು ಗಾಜಿನಂತೆ ಸ್ವಚ್ಛವಾಗಿದ್ದು, ದುರ್ವಾಸನೆ ಇರದೆ ನೈಸರ್ಗಿಕ ಸಮುದ್ರದ ಉಪ್ಪುನೀರಿನ ಸುವಾಸನೆ ಇರುತ್ತದೆ.",
+        factEn: "Clear protruding crystal eyes and fresh oceanic sea-salt aroma are definite hallmarks of peak freshness.",
         author: "Made With Lau",
-        duration: "1:05",
-        descKn: "ವೃತ್ತಿಪರ ಬಾಣಸಿಗರಿಂದ ತಾಜಾ ಮೀನಿನ ಕಣ್ಣುಗಳು, ಮಾಂಸದ ಗಡಸುತನ ಮತ್ತು ಹೊಳಪು ಪರೀಕ್ಷಿಸುವ ವಿಧಾನ.",
-        descEn: "Chef's rapid physical test for verifying ocean-fresh catch at market counters."
-    },
-
-    // 5. Amazing Fish Facts (ಆಶ್ಚರ್ಯಕರ ಮೀನು ಮಾಹಿತಿಗಳು)
-    {
-        id: "pYJoo7pXVgI",
-        category: "facts",
-        lang: "kn",
-        titleKn: "ಸಮುದ್ರದ ಆಳದ ನಿಗೂಢ ರಹಸ್ಯಗಳು — ಮರಿಯಾನಾ ಟ್ರೆಂಚ್ ಜೀವಿಗಳು",
-        titleEn: "Deep Ocean Mysteries & Mariana Trench Secrets",
-        factKn: "ಮರಿಯಾನಾ ಕಂದಕದ ಆಳ 11,034 ಮೀಟರ್ — ಎವರೆಸ್ಟ್ ಶಿಖರಕ್ಕಿಂತಲೂ ಹೆಚ್ಚು ಆಳ!",
-        factEn: "The Mariana Trench reaches 11,034 meters deep — deep enough to fully submerge Mount Everest.",
-        author: "RJ Facts in Kannada",
-        duration: "8:12",
-        descKn: "ಸಾಗರದ ಆಳದ ಮರಿಯಾನಾ ಕಂದಕದಲ್ಲಿ ಬೆಳಕಿಲ್ಲದೆ ಬದುಕುವ ಅಸಾಮಾನ್ಯ ಮೀನುಗಳು ಮತ್ತು ಅಚ್ಚರಿಯ ಸತ್ಯಗಳು.",
-        descEn: "Kannada science exploration of extreme pressure deep-sea creatures living below 10,000 meters."
-    },
-    {
-        id: "8msrTou40E8",
-        category: "facts",
-        lang: "kn",
-        titleKn: "ಸಮುದ್ರದ ಆಳದ ನಿಗೂಢ ಜಗತ್ತು: ಅಚ್ಚರಿಯ ಮೀನು ಸತ್ಯಗಳು!",
-        titleEn: "The Mystery of Deep Sea World — Amazing Fish Facts",
-        factKn: "ಸೈಲ್‌ಫಿಶ್ (Sailfish) ಗಂಟೆಗೆ 110 ಕಿ.ಮೀ ವೇಗದಲ್ಲಿ ಈಜುವ ವಿಶ್ವದ ಅತಿ ವೇಗದ ಸಮುದ್ರ ಮೀನು.",
-        factEn: "The sailfish can swim up to 110 km/h, making it the fastest swimmer in the world ocean.",
-        author: "KK. TV",
-        duration: "6:45",
-        descKn: "ಸಮುದ್ರದ ವಿಚಿತ್ರ ಮೀನುಗಳು, ವಿದ್ಯುತ್ ಉತ್ಪಾದಿಸುವ ಈಲ್, ಮತ್ತು ಅತಿ ವೇಗದ ಕತ್ತಿಮೀನು ಮಾಹಿತಿಗಳು.",
-        descEn: "Fascinating marine biology facts on electric eels, speed of sailfish, and deep oceanic predators."
-    },
-    {
-        id: "VdOtTcZZJZg",
-        category: "facts",
-        lang: "kn",
-        titleKn: "ಸಮುದ್ರದ ಆಳದ ವಿಚಿತ್ರ ಜೀವಿ: ದೈತ್ಯ ಓರ್‌ಫಿಶ್ (Oarfish) ರಹಸ್ಯ! 🌊",
-        titleEn: "Mysterious Giant Oarfish — The King of Herrings",
-        factKn: "ದೈತ್ಯ ಓರ್‌ಫಿಶ್ (Giant Oarfish) 36 ಅಡಿ ಉದ್ದ ಬೆಳೆಯುವ ವಿಶ್ವದ ಅತಿ ಉದ್ದದ ಮೂಳೆ ಮೀನು.",
-        factEn: "The giant oarfish can grow up to 36 feet long, making it the longest bony fish on planet Earth.",
-        author: "Solo Thrilling Information",
-        duration: "4:20",
-        descKn: "30 ಅಡಿ ಉದ್ದ ಬೆಳೆಯುವ ಸಮುದ್ರದ ದೈತ್ಯ ಓರ್‌ಫಿಶ್ ಮೀನಿನ ವೈಶಿಷ್ಟ್ಯ ಮತ್ತು ಸಮುದ್ರಶಾಸ್ತ್ರದ ಅಚ್ಚರಿಗಳು.",
-        descEn: "The incredible biology of the world's longest bony fish, legendary deep sea sightings and folklore."
-    },
-    {
-        id: "ODyAk439JjM",
-        category: "facts",
-        lang: "en",
-        titleKn: "ವಿಶ್ವದ 5 ಅತ್ಯಂತ ಅಪರೂಪದ ಸಮುದ್ರ ಮೀನುಗಳು",
-        titleEn: "Top 5 Rarest Fish in the World",
-        factKn: "ಕೋಯಿಲಾಕಾಂತ್ (Coelacanth) ಡೈನೋಸಾರ್ ಕಾಲಕ್ಕಿಂತಲೂ ಹಿಂದಿನ 40 ಕೋಟಿ ವರ್ಷಗಳ ಜೀವಂತ ಪಳೆಯುಳಿಕೆ ಮೀನು!",
-        factEn: "The coelacanth is a living fossil that predates dinosaurs by 400 million years.",
-        author: "FlashSlice",
-        duration: "3:15",
-        descKn: "ವಿಶ್ವಾದ್ಯಂತ ವಿಜ್ಞಾನಿಗಳು ಅಪರೂಪವಾಗಿ ಮಾತ್ರ ನೋಡುವ ವಿಚಿತ್ರ ಸಮುದ್ರ ಮೀನುಗಳ ಪರಿಚಯ.",
-        descEn: "Discover the handfish, coelacanth, blob fish, and world's most elusive marine species."
+        duration: "0:38",
+        seconds: 38
     }
-];
-
-const VIDEO_CATEGORIES = [
-    { key: 'all', labelKn: 'ಎಲ್ಲಾ (All)', labelEn: 'All Videos' },
-    { key: 'identification', labelKn: 'ಮೀನು ಗುರುತಿಸುವಿಕೆ', labelEn: 'Fish Identification', icon: '🐟' },
-    { key: 'marine_life', labelKn: 'ಸಮುದ್ರ ಜೀವವೈವಿಧ್ಯ', labelEn: 'Marine Life', icon: '🌊' },
-    { key: 'sustainable', labelKn: 'ಸುಸ್ಥಿರ ಮೀನುಗಾರಿಕೆ', labelEn: 'Sustainable Fishing', icon: '🌿' },
-    { key: 'freshness', labelKn: 'ಮೀನಿನ ತಾಜಾತನ', labelEn: 'Fish Freshness', icon: '✨' },
-    { key: 'facts', labelKn: 'ಅಚ್ಚರಿಯ ಮೀನು ಸತ್ಯಗಳು', labelEn: 'Amazing Fish Facts', icon: '💡' }
 ];
 
 // STATE VARIABLES
 let currentReelIndex = 0;
 let isReelsMuted = true;
 let isReelsPlaying = true;
+let isFactVisible = true;
 let currentReelsLangFilter = 'all'; // 'all' or 'kn'
 let reelsObserver = null;
 let reelsVideoList = [];
@@ -4450,7 +4207,7 @@ function getReelsFilteredList() {
     if (currentReelsLangFilter === 'kn') {
         list = list.filter(v => v.lang === 'kn');
     }
-    // Prioritize Kannada-language videos first
+    // Always prioritize Kannada-language shorts first
     list.sort((a, b) => {
         if (a.lang === 'kn' && b.lang !== 'kn') return -1;
         if (a.lang !== 'kn' && b.lang === 'kn') return 1;
@@ -4469,7 +4226,7 @@ function openFishReels(targetIndex = 0) {
     const isKn = (currentLang === 'kn');
     openMoreFeature(isKn ? '🎬 ಮೀನು ಕಲಿಯೋಣ' : '🎬 FishReels');
 
-    // Add .reels-active to parent layout containers so feed occupies full viewport height between header & dock
+    // Add .reels-active to parent layout containers so feed occupies full viewport height
     const contentArea = document.getElementById('contentArea');
     const pageMore = document.getElementById('page-more');
     const featureView = document.getElementById('moreFeatureView');
@@ -4500,71 +4257,42 @@ function buildReelsFeedMarkup() {
 
     let slidesHTML = reelsVideoList.map((video, index) => {
         const title = isKn ? video.titleKn : video.titleEn;
-        const fact = isKn ? video.factKn : video.factEn;
-        const catObj = VIDEO_CATEGORIES.find(c => c.key === video.category);
-        const catLabel = catObj ? (isKn ? catObj.labelKn : catObj.labelEn) : video.category;
-        const catIcon = catObj && catObj.icon ? catObj.icon : '🐟';
+        const fact = video.factKn; // Display genuine Kannada fact as required
 
         return `
             <div class="reel-slide" data-index="${index}" data-id="${video.id}" id="reelSlide_${index}">
-                <!-- Ambient Backdrop -->
-                <div class="reel-backdrop" style="background-image: url('https://i.ytimg.com/vi/${video.id}/hqdefault.jpg');"></div>
-                <div class="reel-backdrop-vignette"></div>
-
-                <!-- Center Player Frame -->
+                <!-- Full-Screen Vertical Player Frame -->
                 <div class="reel-player-box" onclick="onReelCenterTap(${index})" title="${isKn ? 'ಪ್ಲೇ / ವಿರಾಮಕ್ಕಾಗಿ ಒತ್ತಿ' : 'Tap to Play / Pause'}">
                     <div class="reel-player-mount" id="reelMount_${index}">
                         <img src="https://i.ytimg.com/vi/${video.id}/hqdefault.jpg" alt="${title}" class="reel-poster-img" loading="lazy">
                         <div class="reel-poster-play-glow">▶</div>
                     </div>
 
-                    <!-- Center Feedback Badge -->
+                    <!-- Center Play/Pause Ripple Feedback Badge -->
                     <div class="reel-tap-feedback" id="reelTapFeedback_${index}">▶</div>
 
                     <!-- Spinner -->
                     <div class="reel-spinner" id="reelSpinner_${index}" style="display:none;">
                         <div class="reel-spinner-fish">🎣</div>
-                        <div class="reel-spinner-text">${isKn ? 'ವೀಡಿಯೊ ಲೋಡ್ ಆಗುತ್ತಿದೆ...' : 'Loading Reel...'}</div>
+                        <div class="reel-spinner-text">${isKn ? 'ಶಾರ್ಟ್ಸ್ ಲೋಡ್ ಆಗುತ್ತಿದೆ...' : 'Loading Short...'}</div>
                     </div>
 
                     <!-- Error Fallback -->
                     <div class="reel-error-card" id="reelError_${index}" style="display:none;">
-                        <div style="font-size:26px;margin-bottom:6px;">⚠️</div>
-                        <div style="font-size:12px;font-weight:700;line-height:1.3;margin-bottom:8px;color:#f87171;">
-                            ${isKn ? 'ಆ್ಯಪ್‌ನಲ್ಲಿ ವೀಡಿಯೊ ಪ್ಲೇಬ್ಯಾಕ್ ಲಭ್ಯವಿಲ್ಲ' : 'In-app playback restricted for this video'}
+                        <div style="font-size:28px;margin-bottom:8px;">⚠️</div>
+                        <div style="font-size:12px;font-weight:700;line-height:1.35;margin-bottom:12px;color:#f87171;">
+                            ${isKn ? 'ವೀಡಿಯೊ ಪ್ಲೇಬ್ಯಾಕ್ ಲಭ್ಯವಿಲ್ಲ' : 'In-app playback restricted for this video'}
                         </div>
-                        <a href="https://www.youtube.com/watch?v=${video.id}" target="_blank" rel="noopener" class="reel-error-btn primary">
-                            ▶ ${isKn ? 'ಯೂಟ್ಯೂಬ್‌ನಲ್ಲಿ ವೀಕ್ಷಿಸಿ' : 'Watch on YouTube'}
-                        </a>
-                        <button onclick="event.stopPropagation(); retryReel(${index});" class="reel-error-btn secondary">
+                        <button onclick="event.stopPropagation(); retryReel(${index});" class="reel-error-btn primary">
                             🔄 ${isKn ? 'ಮರುಪ್ರಯತ್ನಿಸಿ' : 'Retry'}
                         </button>
+                        <a href="https://www.youtube.com/watch?v=${video.id}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" class="reel-error-btn secondary">
+                            ↗️ ${isKn ? 'ಯೂಟ್ಯೂಬ್‌ನಲ್ಲಿ ವೀಕ್ಷಿಸಿ' : 'Watch on YouTube'}
+                        </a>
                     </div>
                 </div>
 
-                <!-- Top Badge Pill -->
-                <div class="reel-slide-top-badge">
-                    <span class="reel-cat-pill">${catIcon} ${catLabel}</span>
-                    <span class="reel-lang-pill ${video.lang === 'kn' ? 'kn' : 'en'}">
-                        ${video.lang === 'kn' ? '⭐ ಕನ್ನಡ' : '🌐 EN'}
-                    </span>
-                </div>
-
-                <!-- Bottom Info Overlay (Above Floating Dock) -->
-                <div class="reel-bottom-overlay">
-                    <div class="reel-video-title">${title}</div>
-                    <div class="reel-fact-badge">
-                        <span class="reel-fact-icon">💡</span>
-                        <div class="reel-fact-text">${fact}</div>
-                    </div>
-                    <div class="reel-meta-row">
-                        <span>📺 ${video.author}</span>
-                        <span>•</span>
-                        <span>⏱️ ${video.duration}</span>
-                    </div>
-                </div>
-
-                <!-- Right Action Bar -->
+                <!-- Minimal Right Action Bar (Sound, Fact Toggle, Next/Prev) -->
                 <div class="reel-action-bar">
                     <!-- Sound Button -->
                     <button class="reel-action-btn reel-action-btn-sound ${isReelsMuted ? 'muted' : 'unmuted'}" 
@@ -4572,46 +4300,44 @@ function buildReelsFeedMarkup() {
                             aria-label="Toggle Sound" 
                             title="${isReelsMuted ? 'Unmute' : 'Mute'}">
                         <span class="reel-action-icon">${isReelsMuted ? '🔇' : '🔊'}</span>
-                        <span class="reel-action-label">${isReelsMuted ? (isKn ? 'ಧ್ವನಿ ಆನ್' : 'Sound') : (isKn ? 'ಮ್ಯೂಟ್' : 'Mute')}</span>
                     </button>
 
-                    <!-- Play / Pause Button -->
-                    <button class="reel-action-btn reel-action-btn-play" 
-                            onclick="event.stopPropagation(); toggleReelPlayPause();" 
-                            aria-label="Play or Pause" 
-                            title="Play / Pause">
-                        <span class="reel-action-icon">${isReelsPlaying ? '⏸' : '▶'}</span>
-                        <span class="reel-action-label">${isReelsPlaying ? (isKn ? 'ವಿರಾಮ' : 'Pause') : (isKn ? 'ಪ್ಲೇ' : 'Play')}</span>
+                    <!-- Kannada Fact Visibility Toggle Button -->
+                    <button class="reel-action-btn reel-action-btn-fact ${isFactVisible ? 'fact-active' : ''}" 
+                            data-index="${index}"
+                            onclick="event.stopPropagation(); toggleReelFact(${index});" 
+                            aria-label="Toggle Kannada Fact" 
+                            title="${isKn ? 'ಮಾಹಿತಿ' : 'Toggle Fact'}">
+                        <span class="reel-action-icon">💡</span>
                     </button>
 
-                    <!-- Direct YouTube Link -->
-                    <a href="https://www.youtube.com/watch?v=${video.id}" 
-                       target="_blank" 
-                       rel="noopener" 
-                       class="reel-action-btn" 
-                       onclick="event.stopPropagation();" 
-                       aria-label="Open in YouTube" 
-                       title="Watch on YouTube">
-                        <span class="reel-action-icon">↗</span>
-                        <span class="reel-action-label">YouTube</span>
-                    </a>
-
-                    <!-- Previous Reel Button -->
-                    <button class="reel-action-btn nav-btn reel-nav-prev" 
-                            onclick="event.stopPropagation(); goToReel(${index - 1});" 
-                            ${index === 0 ? 'disabled style="opacity:0.3;pointer-events:none;"' : ''} 
-                            aria-label="Previous Reel" 
-                            title="Previous Reel">
-                        <span class="reel-action-icon">▲</span>
+                    <!-- Nav Up (if not first) -->
+                    ${index > 0 ? `
+                    <button class="reel-action-btn" onclick="event.stopPropagation(); goToReel(${index - 1});" aria-label="Previous Video" title="Previous">
+                        <span class="reel-action-icon" style="font-size:13px;">▲</span>
                     </button>
+                    ` : ''}
 
-                    <!-- Next Reel Button -->
-                    <button class="reel-action-btn nav-btn reel-nav-next" 
-                            onclick="event.stopPropagation(); goToReel(${index + 1});" 
-                            ${index === totalReels - 1 ? 'disabled style="opacity:0.3;pointer-events:none;"' : ''} 
-                            aria-label="Next Reel" 
-                            title="Next Reel">
-                        <span class="reel-action-icon">▼</span>
+                    <!-- Nav Down (if not last) -->
+                    ${index < totalReels - 1 ? `
+                    <button class="reel-action-btn" onclick="event.stopPropagation(); goToReel(${index + 1});" aria-label="Next Video" title="Next">
+                        <span class="reel-action-icon" style="font-size:13px;">▼</span>
+                    </button>
+                    ` : ''}
+                </div>
+
+                <!-- Bottom Fact Overlay (Video Title + Short Optional Kannada Fact) -->
+                <div class="reel-bottom-overlay">
+                    <div class="reel-title-row">
+                        <h4 class="reel-video-title">${title}</h4>
+                        <span class="reel-duration-pill">${video.duration}</span>
+                    </div>
+                    <div class="reel-fact-snippet ${isFactVisible ? '' : 'collapsed'}" id="reelFactSnippet_${index}" onclick="event.stopPropagation(); toggleReelFact(${index});" title="${isKn ? 'ಮಾಹಿತಿ ಮರೆಮಾಚಲು ಒತ್ತಿ' : 'Tap to collapse fact'}">
+                        <span class="reel-fact-icon">💡</span>
+                        <span class="reel-fact-text">${fact}</span>
+                    </div>
+                    <button class="reel-show-fact-btn ${isFactVisible ? 'hidden' : ''}" id="reelShowFactBtn_${index}" onclick="event.stopPropagation(); toggleReelFact(${index});" aria-label="Show Kannada Fact">
+                        💡 <span>${isKn ? 'ಮಾಹಿತಿ ವೀಕ್ಷಿಸಿ' : 'View Fact'}</span>
                     </button>
                 </div>
             </div>
@@ -4633,7 +4359,7 @@ function buildReelsFeedMarkup() {
                 </div>
                 <div class="reels-hud-right">
                     <button class="reels-hud-lang-btn" id="reelsLangFilterBtn" onclick="toggleReelsLangFilter()" title="Toggle Language Filter">
-                        ${currentReelsLangFilter === 'kn' ? '⭐ ಕನ್ನಡ ಮಾತ್ರ' : (isKn ? '🌐 ಎಲ್ಲಾ ವೀಡಿಯೊ' : '🌐 All Videos')}
+                        ${currentReelsLangFilter === 'kn' ? '⭐ ಕನ್ನಡ ಮಾತ್ರ' : (isKn ? '🌐 ಎಲ್ಲಾ (Shorts)' : '🌐 All Shorts')}
                     </button>
                     <span class="reels-hud-counter" id="reelsCounterBadge">${currentReelIndex + 1} / ${totalReels}</span>
                 </div>
@@ -4676,7 +4402,7 @@ function initReelsObserversAndControls() {
     const slides = viewport.querySelectorAll('.reel-slide');
     slides.forEach(slide => reelsObserver.observe(slide));
 
-    // Touch Swipe Event Listeners for smooth momentum swipe
+    // Touch Swipe Event Listeners for smooth momentum swipe on Android mobile
     let touchStartY = 0;
     let touchStartTime = 0;
 
@@ -4694,7 +4420,7 @@ function initReelsObserversAndControls() {
             const elapsed = Date.now() - touchStartTime;
 
             // Fast vertical flick gesture
-            if (Math.abs(diffY) > 50 && elapsed < 350) {
+            if (Math.abs(diffY) > 40 && elapsed < 350) {
                 if (diffY > 0 && currentReelIndex < reelsVideoList.length - 1) {
                     goToReel(currentReelIndex + 1);
                 } else if (diffY < 0 && currentReelIndex > 0) {
@@ -4781,7 +4507,7 @@ function onReelChanged(newIndex) {
     activeMount.innerHTML = `
         <iframe 
             id="activeReelIframe"
-            src="https://www.youtube-nocookie.com/embed/${activeVideo.id}?enablejsapi=1&autoplay=1&mute=${isReelsMuted ? 1 : 0}&playsinline=1&rel=0&modestbranding=1&controls=1" 
+            src="https://www.youtube-nocookie.com/embed/${activeVideo.id}?enablejsapi=1&autoplay=1&mute=${isReelsMuted ? 1 : 0}&playsinline=1&rel=0&modestbranding=1&controls=0&loop=1&playlist=${activeVideo.id}" 
             title="${title}" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
             allowfullscreen 
@@ -4836,10 +4562,7 @@ function toggleReelSound() {
 
     // Update sound buttons across slides
     document.querySelectorAll('.reel-action-btn-sound').forEach(btn => {
-        btn.innerHTML = `
-            <span class="reel-action-icon">${isReelsMuted ? '🔇' : '🔊'}</span>
-            <span class="reel-action-label">${isReelsMuted ? (isKn ? 'ಧ್ವನಿ ಆನ್' : 'Sound') : (isKn ? 'ಮ್ಯೂಟ್' : 'Mute')}</span>
-        `;
+        btn.innerHTML = `<span class="reel-action-icon">${isReelsMuted ? '🔇' : '🔊'}</span>`;
         btn.classList.toggle('unmuted', !isReelsMuted);
     });
 
@@ -4875,7 +4598,6 @@ function onReelCenterTap(index) {
     }
     playTapSound();
     isReelsPlaying = !isReelsPlaying;
-    const isKn = (currentLang === 'kn');
 
     // Animated Center Feedback Badge
     const feedback = document.getElementById(`reelTapFeedback_${index}`);
@@ -4889,14 +4611,6 @@ function onReelCenterTap(index) {
         }, 600);
     }
 
-    // Update play buttons across slides
-    document.querySelectorAll('.reel-action-btn-play').forEach(btn => {
-        btn.innerHTML = `
-            <span class="reel-action-icon">${isReelsPlaying ? '⏸' : '▶'}</span>
-            <span class="reel-action-label">${isReelsPlaying ? (isKn ? 'ವಿರಾಮ' : 'Pause') : (isKn ? 'ಪ್ಲೇ' : 'Play')}</span>
-        `;
-    });
-
     // Send postMessage command to active iframe
     const iframe = document.getElementById('activeReelIframe');
     if (iframe && iframe.contentWindow) {
@@ -4909,6 +4623,20 @@ function onReelCenterTap(index) {
             console.warn('postMessage play/pause error:', e);
         }
     }
+}
+
+function toggleReelFact(index) {
+    playTapSound();
+    isFactVisible = !isFactVisible;
+    document.querySelectorAll('.reel-fact-snippet').forEach(el => {
+        el.classList.toggle('collapsed', !isFactVisible);
+    });
+    document.querySelectorAll('.reel-show-fact-btn').forEach(el => {
+        el.classList.toggle('hidden', isFactVisible);
+    });
+    document.querySelectorAll('.reel-action-btn-fact').forEach(el => {
+        el.classList.toggle('fact-active', isFactVisible);
+    });
 }
 
 function toggleReelsLangFilter() {
@@ -5266,9 +4994,9 @@ const translations = {
         fishScanCardTitle: 'ಮೀನು ಮಾಹಿತಿ ಮಾರ್ಗದರ್ಶಿ',
         fishScanCardSub: 'ತಳಿಗಳು, ಬಂದರು ದರ & ಋತುಮಾನದ ವಿವರ',
         videosCardTitle: 'ಮೀನು ಕಲಿಯೋಣ (FishReels)',
-        videosCardSub: 'ಮೊಬೈಲ್ ಲಂಬ ರೀಲ್ಸ್: ಕಿರು ಶೈಕ್ಷಣಿಕ ಮೀನು & ಕಡಲ ವೀಡಿಯೊಗಳು',
+        videosCardSub: '15–45 ಸೆಕೆಂಡುಗಳ ಕಿರು ಶೈಕ್ಷಣಿಕ ಮೀನು & ಕಡಲ ವೀಡಿಯೊಗಳು (Shorts)',
         videosPageTitle: '🎬 ಮೀನು ಕಲಿಯೋಣ (FishReels)',
-        videosPageSub: 'ಕರಾವಳಿ ಮೀನುಗಾರರ ಲಂಬ ವೀಡಿಯೊ ರೀಲ್ಸ್ · ಕನ್ನಡಕ್ಕೆ ಮೊದಲ ಆದ್ಯತೆ ⭐',
+        videosPageSub: '15–45 ಸೆ. ಮೊಬೈಲ್ ಲಂಬ ಶಾರ್ಟ್ಸ್ · ಕನ್ನಡಕ್ಕೆ ಮೊದಲ ಆದ್ಯತೆ ⭐',
         videosBadge: '🎬 ಮೀನು ಕಲಿಯೋಣ',
         predictionCardTitle: 'ಋತುಮಾನ ಮಾರ್ಗದರ್ಶಿ',
         predictionCardSub: 'ಕರಾವಳಿ ಮೀನು ಲಭ್ಯತೆ ಸೂಚ್ಯಂಕ',
@@ -5376,9 +5104,9 @@ const translations = {
         fishScanCardTitle: 'Fish Species Guide (ಮೀನು ಪರಿಚಯ)',
         fishScanCardSub: 'Photo & catalog reference: species, port rates & season',
         videosCardTitle: 'FishReels · ಮೀನು ಕಲಿಯೋಣ',
-        videosCardSub: 'Mobile vertical video feed: bite-sized educational fish & marine clips',
+        videosCardSub: '15–45s short educational fish & marine clips (Shorts)',
         videosPageTitle: '🎬 FishReels',
-        videosPageSub: 'Mobile-first vertical video reels for coastal communities · Kannada-First ⭐',
+        videosPageSub: '15–45s Mobile vertical educational Shorts · Kannada-First ⭐',
         videosBadge: '🎬 FishReels',
         predictionCardTitle: 'Seasonal Guide',
         predictionCardSub: 'Karavali landing trends',
@@ -5724,9 +5452,9 @@ loadBestTime();
 // Register Service Worker for PWA & Deep-Sea Offline Support
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=13')
+        navigator.serviceWorker.register('./sw.js?v=14')
             .then(reg => {
-                console.log('🐟 [PWA] Service Worker v13 registered:', reg.scope);
+                console.log('🐟 [PWA] Service Worker v14 registered:', reg.scope);
                 reg.update();
             })
             .catch(err => console.log('🐟 [PWA] SW registration failed:', err));

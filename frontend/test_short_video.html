@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>FishReels Single Experience Test</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .reel-player-container {
+            width: 100%;
+            max-width: 460px;
+            height: 100dvh;
+            height: 100vh;
+            position: relative;
+            background: #050b14;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            user-select: none;
+        }
+
+        /* Ambient Video Fill */
+        .reel-video-wrapper {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            cursor: pointer;
+        }
+
+        .reel-video-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: auto;
+        }
+
+        .reel-poster {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 2;
+            transition: opacity 0.3s ease;
+        }
+
+        .reel-loading-spinner {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(3, 7, 18, 0.7);
+            z-index: 4;
+            gap: 10px;
+        }
+        .reel-spinner-icon {
+            font-size: 34px;
+            animation: pulseFish 1s infinite alternate ease-in-out;
+        }
+        @keyframes pulseFish {
+            from { transform: translateY(0) scale(1); }
+            to { transform: translateY(-8px) scale(1.1); }
+        }
+
+        /* Center Tap Play/Pause Ripple */
+        .reel-tap-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.85);
+            border: 2px solid rgba(56, 189, 248, 0.85);
+            color: #38bdf8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            z-index: 10;
+            pointer-events: none;
+            opacity: 0;
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
+        }
+        .reel-tap-icon.show {
+            transform: translate(-50%, -50%) scale(1.15);
+            opacity: 1;
+        }
+
+        /* Top Bar */
+        .reel-top-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, transparent 100%);
+            z-index: 20;
+            pointer-events: auto;
+        }
+        .reel-back-btn {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .reel-badge-pill {
+            background: rgba(124, 58, 237, 0.4);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(168, 85, 247, 0.5);
+            color: #f3e8ff;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        /* Right Floating Action Column */
+        .reel-actions-column {
+            position: absolute;
+            right: 12px;
+            bottom: 100px;
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .reel-action-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .reel-action-btn:active {
+            transform: scale(0.92);
+        }
+        .reel-action-btn.active {
+            border-color: rgba(56, 189, 248, 0.8);
+            color: #38bdf8;
+            box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+        }
+        .reel-action-btn span.label {
+            font-size: 8px;
+            font-weight: 700;
+            margin-top: 1px;
+        }
+
+        /* Bottom Fact Overlay */
+        .reel-bottom-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 64px;
+            padding: 20px 16px 24px;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+            z-index: 20;
+            pointer-events: auto;
+        }
+        .reel-title-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+        }
+        .reel-video-title {
+            font-size: 13.5px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.2px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+            line-height: 1.3;
+            margin: 0;
+        }
+        .reel-duration-pill {
+            font-size: 10px;
+            font-weight: 800;
+            color: #38bdf8;
+            background: rgba(6, 182, 212, 0.2);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            padding: 1px 6px;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+        .reel-fact-snippet {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 6px 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .reel-fact-snippet.collapsed {
+            display: none;
+        }
+        .reel-fact-icon {
+            font-size: 13px;
+            flex-shrink: 0;
+            line-height: 1.3;
+        }
+        .reel-fact-text {
+            font-size: 11.5px;
+            line-height: 1.4;
+            color: #f1f5f9;
+            font-weight: 600;
+            margin: 0;
+        }
+        .reel-show-fact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(124, 58, 237, 0.35);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(168, 85, 247, 0.5);
+            color: #f3e8ff;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 10.5px;
+            font-weight: 750;
+            cursor: pointer;
+            align-self: flex-start;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: all 0.2s ease;
+        }
+        .reel-show-fact-btn.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="reel-player-container" id="playerContainer">
+    <!-- Top HUD -->
+    <div class="reel-top-bar">
+        <button class="reel-back-btn" onclick="alert('Exit FishReels')">← ಹಿಂತಿರುಗಿ (Back)</button>
+        <span class="reel-badge-pill">⭐ ಕನ್ನಡ (15s Short)</span>
+    </div>
+
+    <!-- Video Mount Wrapper -->
+    <div class="reel-video-wrapper" id="videoWrapper" onclick="togglePlayPause()">
+        <img id="posterImg" src="https://i.ytimg.com/vi/I8N1KersEzM/hqdefault.jpg" alt="Poster" class="reel-poster">
+        
+        <div class="reel-loading-spinner" id="spinner">
+            <div class="reel-spinner-icon">🎣</div>
+            <div style="font-size:12px;color:#38bdf8;font-weight:700;">ಲೋಡ್ ಆಗುತ್ತಿದೆ...</div>
+        </div>
+
+        <iframe 
+            id="videoIframe"
+            src="https://www.youtube-nocookie.com/embed/I8N1KersEzM?enablejsapi=1&autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1&controls=0&loop=1&playlist=I8N1KersEzM" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen 
+            loading="eager">
+        </iframe>
+    </div>
+
+    <!-- Center Tap Play/Pause Ripple -->
+    <div class="reel-tap-icon" id="tapIcon">▶</div>
+
+    <!-- Right Side Actions -->
+    <div class="reel-actions-column">
+        <!-- Sound Toggle -->
+        <button class="reel-action-btn" id="soundBtn" onclick="toggleSound()" title="Sound">
+            <span id="soundIcon">🔇</span>
+            <span class="label" id="soundLabel">Mute</span>
+        </button>
+
+        <!-- Fact Toggle -->
+        <button class="reel-action-btn active" id="factToggleBtn" onclick="toggleFactVisibility()" title="Fact">
+            <span>💡</span>
+            <span class="label">ಮಾಹಿತಿ</span>
+        </button>
+    </div>
+
+    <!-- Bottom Fact Overlay -->
+    <div class="reel-bottom-bar" id="bottomBar">
+        <div class="reel-title-row">
+            <h4 class="reel-video-title">ಮಂಗಳೂರು ಬಂದರು — ಬಂಗಡೆ (Bangude) ಆವಕ & ದರ</h4>
+            <span class="reel-duration-pill">0:15</span>
+        </div>
+        <div class="reel-fact-snippet" id="factSnippet" onclick="toggleFactVisibility()">
+            <span class="reel-fact-icon">💡</span>
+            <span class="reel-fact-text">ಬಂಗಡೆ ಮತ್ತು ಬೂತಾಯಿ ಮೀನುಗಳು ಒಮೆಗಾ-3 ಕೊಬ್ಬಿನಾಮ್ಲಗಳಿಂದ ಸಮೃದ್ಧವಾಗಿದ್ದು, ಕರಾವಳಿ ಮೀನುಗಾರರ ಪ್ರಮುಖ ಆದಾಯದ ಮೂಲ.</span>
+        </div>
+        <button class="reel-show-fact-btn hidden" id="showFactBtn" onclick="toggleFactVisibility()">
+            💡 <span>ಮಾಹಿತಿ ವೀಕ್ಷಿಸಿ</span>
+        </button>
+    </div>
+</div>
+
+<script>
+    let isMuted = true;
+    let isPlaying = true;
+    let isFactVisible = true;
+
+    const iframe = document.getElementById('videoIframe');
+    const poster = document.getElementById('posterImg');
+    const spinner = document.getElementById('spinner');
+    const tapIcon = document.getElementById('tapIcon');
+    const soundBtn = document.getElementById('soundBtn');
+    const soundIcon = document.getElementById('soundIcon');
+    const soundLabel = document.getElementById('soundLabel');
+    const factSnippet = document.getElementById('factSnippet');
+    const showFactBtn = document.getElementById('showFactBtn');
+    const factToggleBtn = document.getElementById('factToggleBtn');
+
+    iframe.onload = () => {
+        setTimeout(() => {
+            if (spinner) spinner.style.display = 'none';
+            if (poster) poster.style.opacity = '0';
+        }, 600);
+    };
+
+    function toggleSound() {
+        isMuted = !isMuted;
+        soundIcon.textContent = isMuted ? '🔇' : '🔊';
+        soundLabel.textContent = isMuted ? 'Mute' : 'Audio';
+        soundBtn.classList.toggle('active', !isMuted);
+
+        if (iframe && iframe.contentWindow) {
+            iframe.contentWindow.postMessage(JSON.stringify({
+                event: 'command',
+                func: isMuted ? 'mute' : 'unMute'
+            }), '*');
+            if (!isMuted) {
+                iframe.contentWindow.postMessage(JSON.stringify({
+                    event: 'command',
+                    func: 'setVolume',
+                    args: [100]
+                }), '*');
+            }
+        }
+    }
+
+    function togglePlayPause() {
+        isPlaying = !isPlaying;
+        tapIcon.textContent = isPlaying ? '▶' : '⏸';
+        tapIcon.classList.add('show');
+        setTimeout(() => tapIcon.classList.remove('show'), 500);
+
+        if (iframe && iframe.contentWindow) {
+            iframe.contentWindow.postMessage(JSON.stringify({
+                event: 'command',
+                func: isPlaying ? 'playVideo' : 'pauseVideo'
+            }), '*');
+        }
+    }
+
+    function toggleFactVisibility() {
+        isFactVisible = !isFactVisible;
+        if (isFactVisible) {
+            factSnippet.classList.remove('collapsed');
+            showFactBtn.classList.add('hidden');
+            factToggleBtn.classList.add('active');
+        } else {
+            factSnippet.classList.add('collapsed');
+            showFactBtn.classList.remove('hidden');
+            factToggleBtn.classList.remove('active');
+        }
+    }
+</script>
+</body>
+</html>
