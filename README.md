@@ -109,7 +109,7 @@ Fishermen-AI/
 │   └── render.yaml            # Render deployment manifest
 ├── frontend/
 │   ├── index.html             # Single Page Application (UI + FishReels + Logic)
-│   ├── sw.js                  # PWA Service Worker (v15 cache & network-first)
+│   ├── sw.js                  # PWA Service Worker (v17 cache & network-first)
 │   ├── manifest.json          # Web App Manifest
 │   └── icon.svg               # Marine application icon
 ├── tests/
@@ -124,7 +124,7 @@ Fishermen-AI/
 | **Frontend UI** | HTML5, CSS3 Glassmorphism, Vanilla ES6+ JavaScript |
 | **Video Engine** | FishReels YouTube IFrame API Embeds (No-Cookie, Lazy-Loaded, Fullscreen) |
 | **Voice & Audio** | Web Speech API (`SpeechRecognition`, `SpeechSynthesis`), Web Audio API |
-| **Offline / PWA** | Service Worker v15, Web App Manifest, Cache API |
+| **Offline / PWA** | Service Worker v17, Web App Manifest, Cache API |
 | **Backend API** | Python 3.10+, Flask, Flask-CORS |
 | **Telemetry** | OpenWeatherMap API, Local Marine Cache Fallback |
 | **Deployment** | Frontend on **Vercel**, Backend API on **Render** |
