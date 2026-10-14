@@ -723,105 +723,454 @@
         }
         .voice-replay-pill:active { transform: scale(0.98); }
 
-        /* RAPID EMERGENCY LIFELINE (SOS) BANNER */
-        .home-sos-btn {
-            width: 100%;
-            margin-top: var(--space-3xl, 32px);
-            margin-bottom: var(--space-lg, 16px);
-            padding: 9px 14px;
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #991b1b 100%);
-            border: 1px solid rgba(254, 202, 202, 0.35);
-            border-radius: 14px;
-            color: white;
-            cursor: pointer;
-            box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
+        /* ============================================ */
+        /* 🐟 SIMPLIFIED & HIGH-UTILITY HOMEPAGE CSS    */
+        /* ============================================ */
+        .home-hero-header {
+            text-align: center;
+            margin: 4px 0 14px;
+        }
+        .home-brand-title {
+            font-size: 20px;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 0.6px;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(56, 189, 248, 0.3);
+        }
+        .home-brand-subtitle {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-top: 3px;
+            letter-spacing: 0.2px;
+        }
+
+        /* 🌦️ TODAY'S FISHING CONDITIONS CARD */
+        .home-conditions-card {
+            background: var(--surface-card);
+            border: 1px solid var(--surface-border);
+            border-radius: 20px;
+            padding: 16px;
+            margin-bottom: 14px;
+            box-shadow: var(--app-shadow);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .conditions-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .conditions-card-title {
+            font-size: 14px;
+            font-weight: 850;
+            color: #38bdf8;
             display: flex;
             align-items: center;
+            gap: 6px;
+        }
+        .conditions-live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 9px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--text-muted);
+            letter-spacing: 0.4px;
+        }
+        .live-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #94a3b8;
+            display: inline-block;
+        }
+        .live-dot.online {
+            background: #10b981;
+            box-shadow: 0 0 8px #10b981;
+            animation: pulseDot 1.8s infinite;
+        }
+        .live-dot.cached {
+            background: #f59e0b;
+            box-shadow: 0 0 8px #f59e0b;
+        }
+        .live-dot.offline {
+            background: #ef4444;
+            box-shadow: 0 0 8px #ef4444;
+        }
+
+        /* HERO FISHING RECOMMENDATION BOX */
+        .recommendation-hero-box {
+            padding: 14px 16px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1.5px solid rgba(255, 255, 255, 0.12);
             transition: all 0.25s ease;
         }
-        .home-sos-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 8px 22px rgba(239, 68, 68, 0.45);
+        .recommendation-hero-box.go {
+            border-color: #10b981;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.12));
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.25);
         }
-        .home-sos-btn:active { transform: scale(0.98); }
-
-        /* QUICK TELEMETRY SHORTCUT BANNER */
-        .weather-link-banner {
-            width: 100%;
-            margin-top: 0;
-            margin-bottom: var(--space-lg, 16px);
-            padding: var(--space-lg, 16px) 14px;
-            background: rgba(15, 23, 42, 0.65);
-            border: 1px solid rgba(56, 189, 248, 0.22);
-            border-radius: 14px;
-            color: white;
+        .recommendation-hero-box.caution {
+            border-color: #f59e0b;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.12));
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.25);
+        }
+        .recommendation-hero-box.dontgo {
+            border-color: #ef4444;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.24), rgba(185, 28, 28, 0.16));
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+        }
+        .rec-label-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .rec-label {
+            font-size: 10px;
+            font-weight: 850;
+            letter-spacing: 0.6px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+        .rec-audio-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 750;
+            padding: 3px 10px;
+            border-radius: 12px;
             cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .rec-audio-btn:hover {
+            background: rgba(255, 255, 255, 0.22);
+            transform: scale(1.03);
+        }
+        .rec-status-value {
+            font-size: 21px;
+            font-weight: 950;
+            color: #ffffff;
+            margin: 6px 0 3px;
+            letter-spacing: 0.2px;
+            line-height: 1.25;
+        }
+        .recommendation-hero-box.go .rec-status-value { color: #34d399; }
+        .recommendation-hero-box.caution .rec-status-value { color: #fbbf24; }
+        .recommendation-hero-box.dontgo .rec-status-value { color: #f87171; }
+        .rec-advisory-sub {
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #e2e8f0;
+            line-height: 1.35;
+            opacity: 0.95;
+        }
+
+        /* CONDITIONS 3-METRIC ROWS */
+        .conditions-metrics-list {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 8px;
+        }
+        .cond-metric-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 2px;
+            border-bottom: 1px solid var(--item-separator);
+        }
+        .cond-metric-item:last-child {
+            border-bottom: none;
+        }
+        .cond-metric-label {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .cond-metric-icon {
+            font-size: 14px;
+            line-height: 1;
+        }
+        .cond-metric-value {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-main);
+            text-align: right;
+            max-width: 60%;
+        }
+
+        /* TIMESTAMP & REFRESH FOOTER */
+        .cond-footer-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 4px;
+            padding-top: 8px;
+            border-top: 1px solid var(--item-separator);
+        }
+        .cond-timestamp-info {
+            font-size: 10.5px;
+            color: var(--text-muted);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .cond-refresh-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            flex-shrink: 0;
+        }
+        .cond-refresh-action:hover {
+            background: rgba(255, 255, 255, 0.16);
+            color: var(--text-main);
+        }
+
+        /* FOUR LARGE ACTION BUTTONS */
+        .home-features-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .home-feature-button {
+            width: 100%;
+            min-height: 64px;
+            padding: 12px 14px;
+            border-radius: 16px;
+            background: var(--surface-card);
+            border: 1px solid var(--surface-border);
+            box-shadow: var(--app-shadow);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            transition: transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            text-align: left;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .home-feature-button:hover {
+            border-color: rgba(56, 189, 248, 0.45);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-1px);
+        }
+        .home-feature-button:active {
+            transform: scale(0.98);
+        }
+        .home-feature-button.primary-voice-action {
+            border-color: rgba(6, 182, 212, 0.45);
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(124, 58, 237, 0.08));
+        }
+        .feature-icon-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .feature-icon-circle.voice-glow {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.25), rgba(124, 58, 237, 0.3));
+            border: 1px solid rgba(6, 182, 212, 0.45);
+            box-shadow: 0 0 16px rgba(6, 182, 212, 0.25);
+        }
+        .feature-icon-circle.sea-icon {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.25), rgba(2, 132, 199, 0.3));
+            border: 1px solid rgba(14, 165, 233, 0.45);
+        }
+        .feature-icon-circle.market-icon {
+            background: linear-gradient(135deg, rgba(250, 204, 21, 0.22), rgba(245, 158, 11, 0.28));
+            border: 1px solid rgba(250, 204, 21, 0.45);
+        }
+        .feature-icon-circle.fuel-icon {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.22), rgba(5, 150, 105, 0.28));
+            border: 1px solid rgba(16, 185, 129, 0.45);
+        }
+        .feature-details {
+            flex: 1;
+            min-width: 0;
+        }
+        .feature-title {
+            font-size: 15px;
+            font-weight: 850;
+            color: var(--text-main);
+            line-height: 1.25;
+            margin-bottom: 2px;
+        }
+        .feature-purpose {
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--text-muted);
+            line-height: 1.25;
+        }
+        .feature-action-cue {
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+        .feature-arrow {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        /* IN-PLACE VOICE LISTENING DRAWER / PANEL */
+        .home-voice-active-panel {
+            background: rgba(15, 23, 42, 0.95);
+            border: 1.5px solid rgba(6, 182, 212, 0.45);
+            border-radius: 16px;
+            padding: 14px;
+            margin-top: -4px;
+            margin-bottom: 10px;
+            box-shadow: 0 8px 30px rgba(6, 182, 212, 0.2);
+            animation: slideFade 0.25s ease-out;
+        }
+        .voice-state-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 800;
+            color: #38bdf8;
+            margin-bottom: 8px;
+        }
+        .voice-live-transcript {
+            background: rgba(3, 7, 18, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 10px 12px;
+            font-size: 12px;
+            color: #cbd5e1;
+            font-weight: 600;
+            text-align: center;
+            margin: 8px 0;
+        }
+        .home-text-input-row {
+            display: flex;
+            gap: 6px;
+            margin: 8px 0;
+        }
+        .home-text-input-row input {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 10px;
+            background: rgba(3, 7, 18, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 12px;
+            outline: none;
+        }
+        .home-text-input-row input:focus {
+            border-color: #38bdf8;
+        }
+        .home-text-send-btn {
+            padding: 8px 14px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #0ea5e9, #2563eb);
+            border: none;
+            color: white;
+            font-weight: 800;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .home-voice-controls-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .home-voice-sub-action {
+            flex: 1;
+            padding: 6px 10px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #e2e8f0;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+        }
+        .home-voice-sub-action.stop-btn {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: rgba(239, 68, 68, 0.35);
+            color: #fca5a5;
+        }
+
+        /* EMERGENCY QUICK ACCESS PILL */
+        .home-emergency-strip {
+            margin-top: 6px;
+            margin-bottom: 20px;
+        }
+        .emergency-quick-pill {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(185, 28, 28, 0.2));
+            border: 1px solid rgba(239, 68, 68, 0.35);
             display: flex;
             align-items: center;
             justify-content: space-between;
+            cursor: pointer;
             transition: all 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
         }
-        .weather-link-banner:hover {
-            background: rgba(15, 23, 42, 0.85);
-            border-color: rgba(56, 189, 248, 0.45);
+        .emergency-quick-pill:hover {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.25), rgba(185, 28, 28, 0.3));
+            border-color: rgba(239, 68, 68, 0.5);
             transform: translateY(-1px);
         }
-        .weather-link-banner:active { transform: scale(0.98); }
-
-        /* TYPE QUERY BUBBLE BUTTON */
-        .type-toggle-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 7px;
-            margin: var(--space-xl, 20px) auto 0;
-            padding: 6px 14px;
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 58, 138, 0.92));
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1.5px solid #38bdf8;
-            border-radius: 9999px;
+        .emergency-quick-pill:active {
+            transform: scale(0.98);
+        }
+        .emergency-sos-badge {
+            background: #ef4444;
             color: #ffffff;
+            font-size: 10px;
+            font-weight: 900;
+            padding: 3px 7px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+        }
+        .emergency-text {
             font-size: 11.5px;
             font-weight: 750;
-            letter-spacing: 0.2px;
-            cursor: pointer;
-            box-shadow: 0 4px 14px rgba(6, 182, 212, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.25);
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-            user-select: none;
-            text-decoration: none;
-            font-family: inherit;
+            color: #fca5a5;
         }
-        .type-toggle-btn .type-btn-icon {
-            font-size: 16px;
-            line-height: 1;
-            filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.7));
-        }
-        .type-toggle-btn .type-btn-text {
-            color: #ffffff;
-            font-weight: 800;
-        }
-        .type-toggle-btn .type-btn-arrow {
-            font-size: 14px;
-            font-weight: 900;
-            color: #38bdf8;
-            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-            line-height: 1;
-        }
-        .type-toggle-btn:hover {
-            color: #ffffff;
-            background: linear-gradient(135deg, #0284c7, #2563eb);
-            border-color: #bae6fd;
-            box-shadow: 0 8px 28px rgba(14, 165, 233, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-            transform: translateY(-2px) scale(1.03);
-        }
-        .type-toggle-btn:hover .type-btn-arrow {
-            transform: translateX(4px);
-            color: #ffffff;
-        }
-        .type-toggle-btn:active {
-            transform: translateY(0) scale(0.97);
-            box-shadow: 0 3px 12px rgba(6, 182, 212, 0.4);
+        .emergency-call-icon {
+            font-size: 13px;
+            color: #ef4444;
         }
 
         /* ACTION TILES: SOS & MARKET */
@@ -1802,21 +2151,62 @@
             color: #1e293b;
             border-top: 1px solid var(--item-separator) !important;
         }
-        [data-theme="light"] .weather-link-banner {
-            background: rgba(255, 255, 255, 0.95);
-            border-color: rgba(14, 165, 233, 0.3);
-            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+        [data-theme="light"] .home-brand-title { color: #0284c7; text-shadow: none; }
+        [data-theme="light"] .home-brand-subtitle { color: #64748b; }
+        [data-theme="light"] .home-conditions-card {
+            background: #ffffff;
+            border-color: rgba(0, 0, 0, 0.08);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
+        }
+        [data-theme="light"] .conditions-live-badge {
+            background: rgba(0, 0, 0, 0.04);
+            border-color: rgba(0, 0, 0, 0.08);
+            color: #64748b;
+        }
+        [data-theme="light"] .recommendation-hero-box {
+            background: rgba(248, 250, 252, 0.95);
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+        [data-theme="light"] .recommendation-hero-box.go {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(6, 182, 212, 0.08));
+            border-color: #10b981;
+        }
+        [data-theme="light"] .recommendation-hero-box.caution {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(217, 119, 6, 0.08));
+            border-color: #f59e0b;
+        }
+        [data-theme="light"] .recommendation-hero-box.dontgo {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.12), rgba(185, 28, 28, 0.08));
+            border-color: #ef4444;
+        }
+        [data-theme="light"] .rec-advisory-sub { color: #334155; }
+        [data-theme="light"] .rec-audio-btn {
+            background: rgba(0, 0, 0, 0.06);
+            border-color: rgba(0, 0, 0, 0.1);
             color: #0f172a;
         }
-        [data-theme="light"] .weather-link-banner:hover {
+        [data-theme="light"] .cond-refresh-action {
+            background: rgba(0, 0, 0, 0.04);
+            border-color: rgba(0, 0, 0, 0.08);
+            color: #64748b;
+        }
+        [data-theme="light"] .home-feature-button {
             background: #ffffff;
-            border-color: #0284c7;
+            border-color: rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
         }
-        [data-theme="light"] #weatherLinkTitle {
-            color: #0284c7 !important;
+        [data-theme="light"] .home-feature-button.primary-voice-action {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.08), rgba(124, 58, 237, 0.05));
+            border-color: rgba(6, 182, 212, 0.35);
         }
-        [data-theme="light"] #weatherLinkSub {
-            color: #475569 !important;
+        [data-theme="light"] .home-voice-active-panel {
+            background: #ffffff;
+            border-color: rgba(6, 182, 212, 0.35);
+        }
+        [data-theme="light"] .voice-live-transcript {
+            background: #f8fafc;
+            border-color: rgba(0, 0, 0, 0.08);
+            color: #334155;
         }
         [data-theme="light"] .bento-tool-card {
             background: rgba(255, 255, 255, 0.95);
@@ -2341,90 +2731,190 @@
         <!-- ================= HOME PAGE ================= -->
         <div class="page active" id="page-home">
 
-            <!-- BIOLUMINESCENT SONAR VOICE COCKPIT -->
-            <div class="voice-cockpit">
-                <div class="mic-stage" id="micStage">
-                    <div class="sonar-ring-1"></div>
-                    <div class="sonar-ring-2"></div>
-                    <button class="mic-btn" id="micBtn" aria-label="Press to Speak">
-                        <span id="micIcon">🎤</span>
-                        <span id="micText">ಒತ್ತಿ ಮಾತನಾಡಿ</span>
+            <!-- 1. HEADER BRANDING -->
+            <div class="home-hero-header">
+                <div class="home-brand-title">FISHERMEN-AI 🐟</div>
+                <div class="home-brand-subtitle" id="homeBrandSubtitle">Your fishing companion</div>
+            </div>
+
+            <!-- 2. TODAY'S FISHING CONDITIONS & FISHING RECOMMENDATION (HERO CARD) -->
+            <div class="home-conditions-card" id="homeConditionsCard">
+                <div class="conditions-header-row">
+                    <div class="conditions-card-title" id="condCardTitle">
+                        🌦️ Today's Fishing Conditions
+                    </div>
+                    <div class="conditions-live-badge" id="condLiveBadge">
+                        <span class="live-dot online" id="condLiveDot"></span>
+                        <span id="condLiveStatus">LIVE</span>
+                    </div>
+                </div>
+
+                <!-- FISHING RECOMMENDATION (PROMINENT HERO STATUS) -->
+                <div class="recommendation-hero-box go" id="homeRecommendationBox">
+                    <div class="rec-label-row">
+                        <span class="rec-label" id="recLabelTitle">FISHING RECOMMENDATION</span>
+                        <button id="homeReplayVoiceBtn" onclick="replayCurrentDecisionVoice()" class="rec-audio-btn" title="Listen in Audio" aria-label="Listen recommendation in audio">
+                            <span>🔊</span> <span id="homeReplayBtnText">Listen</span>
+                        </button>
+                    </div>
+                    <div class="rec-status-value" id="homeDecisionStatus">
+                        🟢 GO (CONDITIONS FAVORABLE)
+                    </div>
+                    <div class="rec-advisory-sub" id="homeAdvisorySub">
+                        Generally favorable marine conditions · Good for coastal craft
+                    </div>
+                </div>
+
+                <!-- 3 KEY CONDITION METRICS: Weather, Wind, Sea conditions -->
+                <div class="conditions-metrics-list">
+                    <!-- Weather -->
+                    <div class="cond-metric-item">
+                        <div class="cond-metric-label">
+                            <span class="cond-metric-icon">⛅</span>
+                            <span id="condWeatherLabel">Weather:</span>
+                        </div>
+                        <div class="cond-metric-value" id="condWeatherVal">Loading conditions...</div>
+                    </div>
+
+                    <!-- Wind -->
+                    <div class="cond-metric-item">
+                        <div class="cond-metric-label">
+                            <span class="cond-metric-icon">💨</span>
+                            <span id="condWindLabel">Wind:</span>
+                        </div>
+                        <div class="cond-metric-value" id="condWindVal">Loading wind...</div>
+                    </div>
+
+                    <!-- Sea Conditions -->
+                    <div class="cond-metric-item">
+                        <div class="cond-metric-label">
+                            <span class="cond-metric-icon">🌊</span>
+                            <span id="condSeaLabel">Sea conditions:</span>
+                        </div>
+                        <div class="cond-metric-value" id="condSeaVal">Loading sea state...</div>
+                    </div>
+                </div>
+
+                <!-- LAST-UPDATED TIMESTAMP & DATA ACCURACY BAR -->
+                <div class="cond-footer-bar">
+                    <div class="cond-timestamp-info" id="condTimestampInfo">
+                        <span id="condTimestampIcon">🕒</span>
+                        <span id="condTimestampText">Fetching live telemetry...</span>
+                    </div>
+                    <button class="cond-refresh-action" onclick="refreshHomeConditions()" title="Refresh telemetry" aria-label="Refresh conditions">
+                        <span>🔄</span> <span id="condRefreshText">Refresh</span>
                     </button>
                 </div>
-                <div class="mic-sub" id="micSub">ನಿಮ್ಮ ಮಾತಲ್ಲೇ ಕೇಳಿ (ಕನ್ನಡ / English)</div>
+            </div>
 
-                <!-- Animated Waveform Equalizer -->
-                <div class="equalizer-wave" id="equalizerWave">
-                    <span class="eq-bar"></span>
-                    <span class="eq-bar"></span>
-                    <span class="eq-bar"></span>
-                    <span class="eq-bar"></span>
-                    <span class="eq-bar"></span>
+            <!-- 3. FOUR LARGE FEATURE BUTTONS -->
+            <div class="home-features-section">
+                <!-- Button 1: 🎙️ Ask Fishermen-AI -->
+                <button class="home-feature-button primary-voice-action" id="askVoiceFeatureBtn" onclick="toggleHomeVoice()" aria-label="Ask Fishermen-AI using voice">
+                    <div class="feature-icon-circle voice-glow">
+                        <span class="feature-icon" id="homeMicIcon">🎙️</span>
+                    </div>
+                    <div class="feature-details">
+                        <div class="feature-title" id="homeVoiceFeatureTitle">Ask Fishermen-AI</div>
+                        <div class="feature-purpose" id="homeVoiceFeatureSub">Ask questions using voice</div>
+                    </div>
+                    <div class="feature-action-cue">
+                        <span class="feature-arrow" id="homeVoiceArrow">🎤</span>
+                    </div>
+                </button>
+
+                <!-- In-Place Voice Listening Panel (appears when voice button tapped) -->
+                <div class="home-voice-active-panel" id="homeVoicePanel" style="display: none;">
+                    <div class="voice-state-indicator" id="homeVoiceState">
+                        <span class="pulse-dot"></span>
+                        <span id="homeVoiceStateText">Listening... Speak in Kannada or English</span>
+                    </div>
+                    <div class="equalizer-wave active" id="homeEqualizerWave">
+                        <span class="eq-bar"></span>
+                        <span class="eq-bar"></span>
+                        <span class="eq-bar"></span>
+                        <span class="eq-bar"></span>
+                        <span class="eq-bar"></span>
+                    </div>
+                    <div class="voice-live-transcript" id="homeLiveTranscript">
+                        "ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ? / Should I go fishing?"
+                    </div>
+                    <!-- Keyboard Fallback Row -->
+                    <div class="home-text-input-row" id="homeTextInputRow" style="display: none;">
+                        <input type="text" id="homeTextQueryInput" placeholder="Type question: Fish rate? Wind?..." onkeydown="if(event.key==='Enter') submitHomeTextQuery()" />
+                        <button onclick="submitHomeTextQuery()" class="home-text-send-btn">➔</button>
+                    </div>
+                    <div class="home-voice-controls-row">
+                        <button class="home-voice-sub-action" onclick="toggleHomeTextFallback()" id="homeTypeToggleBtn">
+                            ⌨️ <span id="homeTypeToggleText">Type query</span>
+                        </button>
+                        <button class="home-voice-sub-action stop-btn" onclick="stopRecording()">
+                            ⏹️ <span id="homeStopVoiceText">Stop</span>
+                        </button>
+                    </div>
                 </div>
 
-                <!-- Voice Status Badge -->
-                <div class="voice-state" id="voiceState">
-                    <span class="pulse-dot"></span>
-                    <span class="pulse-dot"></span>
-                    <span class="pulse-dot"></span>
-                    <span id="voiceStateText">Listening...</span>
-                </div>
+                <!-- Button 2: 🌊 Sea & Weather -->
+                <button class="home-feature-button" onclick="openHomeWeather()" aria-label="Sea & Weather">
+                    <div class="feature-icon-circle sea-icon">
+                        <span class="feature-icon">🌊</span>
+                    </div>
+                    <div class="feature-details">
+                        <div class="feature-title" id="homeSeaFeatureTitle">Sea & Weather</div>
+                        <div class="feature-purpose" id="homeSeaFeatureSub">Check fishing conditions</div>
+                    </div>
+                    <div class="feature-action-cue">
+                        <span class="feature-arrow">➔</span>
+                    </div>
+                </button>
 
-                <!-- Live Voice Transcript / Subtle Prompt -->
-                <div class="transcript" id="transcriptText" onclick="runVoicePrompt(1)" title="Ask this prompt">"ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ? / Should I go fishing?"</div>
+                <!-- Button 3: 💰 Fish Market -->
+                <button class="home-feature-button" onclick="openHomeMarket()" aria-label="Fish Market">
+                    <div class="feature-icon-circle market-icon">
+                        <span class="feature-icon">💰</span>
+                    </div>
+                    <div class="feature-details">
+                        <div class="feature-title" id="homeMarketFeatureTitle">Fish Market</div>
+                        <div class="feature-purpose" id="homeMarketFeatureSub">Check market prices</div>
+                    </div>
+                    <div class="feature-action-cue">
+                        <span class="feature-arrow">➔</span>
+                    </div>
+                </button>
 
-                <!-- Keyboard Fallback (Subtle & clean) -->
-                <div class="text-fallback" id="textFallback">
-                    <input type="text" id="textInput" placeholder="Type: Naale kadlige hogbahuda? / Fish rate..." />
-                    <button id="textSubmitBtn" onclick="submitTextInput()">Analyze Question</button>
-                </div>
-
-                <button type="button" onclick="toggleTextFallback()" class="type-toggle-btn" aria-label="Type your query">
-                    <span class="type-btn-icon">⌨️</span>
-                    <span class="type-btn-text" id="typeBtnText">Type your query</span>
-                    <span class="type-btn-arrow">→</span>
+                <!-- Button 4: ⛽ Fuel Calculator -->
+                <button class="home-feature-button" onclick="openHomeFuelCalculator()" aria-label="Fuel Calculator">
+                    <div class="feature-icon-circle fuel-icon">
+                        <span class="feature-icon">⛽</span>
+                    </div>
+                    <div class="feature-details">
+                        <div class="feature-title" id="homeFuelFeatureTitle">Fuel Calculator</div>
+                        <div class="feature-purpose" id="homeFuelFeatureSub">Estimate fuel requirements</div>
+                    </div>
+                    <div class="feature-action-cue">
+                        <span class="feature-arrow">➔</span>
+                    </div>
                 </button>
             </div>
 
-            <!-- DECISION RESULT CARD -->
-            <div class="result-container" id="resultContainer">
-                <div class="decision-card" id="decisionCard">
-                    <h2 id="decisionStatus">🟢 ಹೋಗಿ (GO)</h2>
-
-                    <!-- Audio Replay Button for Illiterate Fishermen -->
-                    <button id="replayVoiceBtn" onclick="replayCurrentDecisionVoice()" class="voice-replay-pill">
-                        <span style="font-size:18px;">🔊</span>
-                        <span id="replayBtnText">ಧ್ವನಿಯಲ್ಲಿ ಮತ್ತೆ ಕೇಳಿ (Listen Again)</span>
-                    </button>
-
-                    <div id="decisionReasons"></div>
-                    <div id="decisionDetails"></div>
-                </div>
+            <!-- 4. SUBTLE EMERGENCY DISTRESS SOS BAR -->
+            <div class="home-emergency-strip">
+                <button class="emergency-quick-pill" onclick="openSOS()" aria-label="Coast Guard Emergency Hotline 1554">
+                    <span class="emergency-sos-badge">SOS</span>
+                    <span class="emergency-text" id="homeEmergencySosText">Coast Guard Distress Hotline: 1554</span>
+                    <span class="emergency-call-icon">📞</span>
+                </button>
             </div>
 
-            <!-- RAPID EMERGENCY LIFELINE (SOS) -->
-            <button class="home-sos-btn" id="sosBtn" aria-label="Coast Guard Distress SOS">
-                <div style="display:flex;align-items:center;gap:10px;width:100%;">
-                    <span style="font-size:20px;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3));line-height:1;">🆘</span>
-                    <div style="flex:1;text-align:left;">
-                        <div style="font-size:15px;font-weight:900;letter-spacing:0.5px;line-height:1.2;" id="sosHomeTitle">SOS · ತುರ್ತು ಸಹಾಯ</div>
-                        <div style="font-size:10px;font-weight:600;opacity:0.9;margin-top:2px;line-height:1.2;" id="sosHomeSub">ಕೋಸ್ಟ್ ಗಾರ್ಡ್ ರಕ್ಷಣೆ (1554)</div>
-                    </div>
-                    <span style="font-size:14px;opacity:0.85;">📞</span>
+            <!-- Hidden container for decision card references to ensure backwards compatibility -->
+            <div id="resultContainer" style="display:none;">
+                <div id="decisionCard">
+                    <div id="decisionStatus"></div>
+                    <div id="decisionReasons"></div>
+                    <div id="decisionDetails"></div>
+                    <div id="replayBtnText"></div>
                 </div>
-            </button>
-
-            <!-- QUICK LINK TO DETAILED MARINE WEATHER -->
-            <button class="weather-link-banner" onclick="showPage('page-safety')">
-                <div style="display:flex;align-items:center;gap:9px;">
-                    <span style="font-size:16px;">🌊</span>
-                    <div style="text-align:left;">
-                        <div style="font-size:11.5px;font-weight:700;color:#38bdf8;" id="weatherLinkTitle">ಗಾಳಿ & ಅಲೆಗಳ ವಿವರ ನೋಡಿ</div>
-                        <div style="font-size:9.5px;color:#94a3b8;margin-top:1px;" id="weatherLinkSub">Wind speed, wave height, tides & solunar times ➔</div>
-                    </div>
-                </div>
-                <span style="font-size:11px;color:#38bdf8;font-weight:700;">➔</span>
-            </button>
+            </div>
 
         </div>
 
@@ -2959,6 +3449,378 @@ let isRecording = false;
 let recognition = null;
 
 // ============================================
+// 🌦️ TODAY'S FISHING CONDITIONS & HOMEPAGE LOGIC
+// ============================================
+let lastConditionsData = null;
+let lastConditionsDecision = null;
+let lastConditionsTimestamp = null;
+let lastConditionsIsCached = false;
+
+function getWindDirectionText(deg, isKn) {
+    if (deg === undefined || deg === null || isNaN(deg)) return isKn ? 'ಪಶ್ಚಿಮ (W)' : 'W (West)';
+    const directionsEn = [
+        'N (North)', 'NNE', 'NE', 'ENE',
+        'E (East)', 'ESE', 'SE', 'SSE',
+        'S (South)', 'SSW', 'SW', 'WSW',
+        'W (West)', 'WNW', 'NW', 'NNW'
+    ];
+    const directionsKn = [
+        'ಉತ್ತರ (N)', 'ಉತ್ತರ-ಈಶಾನ್ಯ (NNE)', 'ಈಶಾನ್ಯ (NE)', 'ಪೂರ್ವ-ಈಶಾನ್ಯ (ENE)',
+        'ಪೂರ್ವ (E)', 'ಪೂರ್ವ-ಆಗ್ನೇಯ (ESE)', 'ಆಗ್ನೇಯ (SE)', 'ದಕ್ಷಿಣ-ಆಗ್ನೇಯ (SSE)',
+        'ದಕ್ಷಿಣ (S)', 'ದಕ್ಷಿಣ-ನೈಋತ್ಯ (SSW)', 'ನೈಋತ್ಯ (SW)', 'ಪಶ್ಚಿಮ-ನೈಋತ್ಯ (WSW)',
+        'ಪಶ್ಚಿಮ (W)', 'ಪಶ್ಚಿಮ-ವಾಯುವ್ಯ (WNW)', 'ವಾಯುವ್ಯ (NW)', 'ಉತ್ತರ-ವಾಯುವ್ಯ (NNW)'
+    ];
+    const index = Math.round(deg / 22.5) % 16;
+    return isKn ? directionsKn[index] : directionsEn[index];
+}
+
+function getSeaConditionText(windSpeed, isKn) {
+    const w = parseFloat(windSpeed) || 0;
+    if (w >= 32) {
+        return isKn ? 'ಪ್ರಕ್ಷುಬ್ಧ ಅಲೆಗಳು (>2.0m ತರಂಗ, ಎಚ್ಚರಿಕೆ)' : 'Rough (>2.0m swell, hazardous)';
+    } else if (w >= 22) {
+        return isKn ? 'ಚಂಚಲ ಕಡಲು (1.4m–1.8m ಅಲೆಗಳು)' : 'Choppy (1.4m–1.8m wave surge)';
+    } else if (w >= 12) {
+        return isKn ? 'ಮಧ್ಯಮ ಕಡಲು (0.8m–1.3m ಅಲೆಗಳು)' : 'Moderate (0.8m–1.3m swell)';
+    } else {
+        return isKn ? 'ಶಾಂತ ಸಮುದ್ರ (0.4m–0.7m ಸಣ್ಣ ಅಲೆಗಳು)' : 'Calm (0.4m–0.7m gentle swell)';
+    }
+}
+
+function formatWeatherSummary(desc, temp, isKn) {
+    if (!desc) return isKn ? 'ಲಭ್ಯವಿಲ್ಲ' : 'Unavailable';
+    const d = desc.toLowerCase();
+    const weatherMapKn = {
+        'clear sky': 'ಸ್ವಚ್ಛ ಆಕಾಶ (Clear Sky)',
+        'few clouds': 'ಸ್ವಲ್ಪ ಮೋಡ (Few Clouds)',
+        'scattered clouds': 'ಚದುರಿದ ಮೋಡ (Scattered Clouds)',
+        'broken clouds': 'ಭಾಗಶಃ ಮೋಡ (Broken Clouds)',
+        'overcast clouds': 'ದಟ್ಟ ಮೋಡ (Overcast)',
+        'light rain': 'ಹಗುರ ಮಳೆ (Light Rain)',
+        'moderate rain': 'ಸಾಧಾರಣ ಮಳೆ (Moderate Rain)',
+        'heavy intensity rain': 'ಭಾರೀ ಮಳೆ (Heavy Rain)',
+        'thunderstorm': 'ಗುಡುಗು ಸಹಿತ ಮಳೆ (Thunderstorm)',
+        'mist': 'ಮಂಜು (Mist)',
+        'haze': 'ಮಬ್ಬು (Haze)'
+    };
+    const descText = isKn ? (weatherMapKn[d] || desc) : (desc.charAt(0).toUpperCase() + desc.slice(1));
+    return temp ? `${descText} · ${temp}°C` : descText;
+}
+
+function formatRelativeTime(timestamp, isKn) {
+    if (!timestamp) return '';
+    const date = new Date(timestamp);
+    const timeStr = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const diffMins = Math.floor((Date.now() - date.getTime()) / 60000);
+    if (diffMins <= 2) {
+        return isKn ? `${timeStr} (ಈಗಷ್ಟೇ ನವೀಕರಿಸಲಾಗಿದೆ)` : `${timeStr} (Just updated)`;
+    } else if (diffMins < 60) {
+        return isKn ? `${timeStr} (${diffMins} ನಿಮಿಷಗಳ ಹಿಂದೆ)` : `${timeStr} (${diffMins} mins ago)`;
+    } else {
+        const hours = Math.floor(diffMins / 60);
+        const mins = diffMins % 60;
+        return isKn ? `${timeStr} (${hours} ಗಂಟೆ ${mins} ನಿಮಿಷಗಳ ಹಿಂದೆ)` : `${timeStr} (${hours}h ${mins}m ago)`;
+    }
+}
+
+function renderConditionsData(weatherData, decision, timestamp, isCached) {
+    lastConditionsData = weatherData;
+    lastConditionsDecision = decision;
+    lastConditionsTimestamp = timestamp || Date.now();
+    lastConditionsIsCached = !!isCached;
+
+    const isKn = (currentLang === 'kn');
+    const recBox = document.getElementById('homeRecommendationBox');
+    const statusEl = document.getElementById('homeDecisionStatus');
+    const subEl = document.getElementById('homeAdvisorySub');
+    const weatherVal = document.getElementById('condWeatherVal');
+    const windVal = document.getElementById('condWindVal');
+    const seaVal = document.getElementById('condSeaVal');
+    const timeText = document.getElementById('condTimestampText');
+    const timeIcon = document.getElementById('condTimestampIcon');
+    const liveDot = document.getElementById('condLiveDot');
+    const liveStatus = document.getElementById('condLiveStatus');
+
+    // 1. Recommendation Box
+    let status = decision && decision.status ? decision.status : 'UNKNOWN';
+    if (!decision && weatherData) {
+        const w = parseFloat(weatherData.wind) || 0;
+        const d = (weatherData.weather || '').toLowerCase();
+        if (w >= 32 || d.includes('thunderstorm') || d.includes('squall') || d.includes('heavy rain')) {
+            status = "DON'T GO";
+        } else if (w >= 22 || d.includes('rain')) {
+            status = 'CAUTION';
+        } else {
+            status = 'GO';
+        }
+    }
+
+    const isFavorable = (status === 'FAVORABLE' || status === 'GO');
+    const isCaution = (status === 'CAUTION');
+    const isRough = (status === 'ROUGH' || status === "DON'T GO");
+
+    if (recBox && statusEl) {
+        recBox.className = 'recommendation-hero-box ' + (isFavorable ? 'go' : isCaution ? 'caution' : 'dontgo');
+        if (isFavorable) {
+            statusEl.textContent = isKn ? '🟢 ಹೋಗಿ (GO - ಪರಿಸ್ಥಿತಿ ಅನುಕೂಲಕರ)' : '🟢 GO (CONDITIONS FAVORABLE)';
+            if (subEl) subEl.textContent = isKn
+                ? 'ಕರಾವಳಿ ಸಣ್ಣ ಮತ್ತು ಯಾಂತ್ರಿಕ ದೋಣಿಗಳಿಗೆ ಶಾಂತ ಕಡಲು · ಸುರಕ್ಷಿತ ಪ್ರಯಾಣ'
+                : 'Generally favorable marine conditions · Good for coastal craft';
+        } else if (isCaution) {
+            statusEl.textContent = isKn ? '🟡 ಎಚ್ಚರಿಕೆ (CAUTION - ಜಾಗರೂಕರಾಗಿರಿ)' : '🟡 CAUTION (MONITOR CONDITIONS)';
+            if (subEl) subEl.textContent = isKn
+                ? 'ಮಧ್ಯಮ ಅಲೆಗಳು ಅಥವಾ ಗಾಳಿ · ಹವಾಮಾನ ಎಚ್ಚರಿಕೆಯೊಂದಿಗೆ ಕಡಲಿಗೆ ಇಳಿಯಿರಿ'
+                : 'Moderate swell or breezy conditions · Monitor local harbor flags';
+        } else if (isRough) {
+            statusEl.textContent = isKn ? '🔴 ಹೋಗಬೇಡಿ (DON\'T GO - ಅಪಾಯಕಾರಿ)' : '🔴 DON\'T GO (HAZARDOUS SEA)';
+            if (subEl) subEl.textContent = isKn
+                ? 'ಪ್ರಕ್ಷುಬ್ಧ ಅಲೆಗಳು ಅಥವಾ ಬಿರುಗಾಳಿ ಗಾಳಿ · ಕಡಲಿಗೆ ಹೋಗುವುದನ್ನು ತಪ್ಪಿಸಿ'
+                : 'Hazardous sea state or strong winds detected · Stay ashore in port';
+        } else {
+            statusEl.textContent = isKn ? '⚠️ ಪರಿಶೀಲಿಸಿ (CHECK HARBOR)' : '⚠️ CHECK HARBOR FLAGS';
+            if (subEl) subEl.textContent = isKn
+                ? 'ಬಂದರಿನ ಧ್ವಜ ಮತ್ತು ಕೋಸ್ಟ್ ಗಾರ್ಡ್ ಸೂಚನೆ ಪರಿಶೀಲಿಸಿ'
+                : 'Verify official port signal flags before setting out';
+        }
+
+        if (decision && decision.voice_text) {
+            lastDecisionVoiceText = decision.voice_text;
+        } else {
+            lastDecisionVoiceText = isKn
+                ? (isFavorable ? 'ಇಂದಿನ ಕಡಲು ಶಾಂತವಾಗಿದೆ, ಮೀನುಗಾರಿಕೆಗೆ ಹೋಗಲು ಅನುಕೂಲಕರವಾಗಿದೆ.' : isCaution ? 'ಕಡಲಿನಲ್ಲಿ ಮಧ್ಯಮ ಅಲೆಗಳಿವೆ, ಎಚ್ಚರಿಕೆಯಿಂದ ಇರಿ.' : 'ಕಡಲು ಪ್ರಕ್ಷುಬ್ಧವಾಗಿದೆ, ದಯವಿಟ್ಟು ಇಂದು ಕಡಲಿಗೆ ಹೋಗಬೇಡಿ.')
+                : (isFavorable ? 'Today conditions are favorable. Safe to go fishing.' : isCaution ? 'Caution advised. Monitor wave conditions.' : 'Rough conditions detected. Do not go fishing today.');
+        }
+    }
+
+    // 2. Metrics: Weather, Wind, Sea Conditions
+    if (weatherVal && weatherData) {
+        weatherVal.textContent = formatWeatherSummary(weatherData.weather, weatherData.temp, isKn);
+    }
+    if (windVal && weatherData) {
+        const windSpeed = weatherData.wind !== undefined ? `${weatherData.wind} km/h` : 'N/A';
+        const windDir = getWindDirectionText(weatherData.wind_deg, isKn);
+        windVal.textContent = `${windSpeed} (${windDir})`;
+    }
+    if (seaVal && weatherData) {
+        seaVal.textContent = getSeaConditionText(weatherData.wind, isKn);
+    }
+
+    // 3. Timestamp & Accuracy Badge
+    const formattedTime = formatRelativeTime(timestamp, isKn);
+    const diffMins = Math.floor((Date.now() - new Date(timestamp).getTime()) / 60000);
+    const isOutdated = isCached || diffMins > 30;
+
+    if (timeText) {
+        if (isOutdated) {
+            timeText.textContent = isKn ? `⚠️ ಹಳೆಯ ಮಾಹಿತಿ: ${formattedTime}` : `⚠️ Outdated data: ${formattedTime}`;
+            if (timeIcon) timeIcon.textContent = '⚠️';
+        } else {
+            timeText.textContent = isKn ? `🕒 ನವೀಕರಿಸಲಾಗಿದೆ: ${formattedTime}` : `🕒 Updated: ${formattedTime}`;
+            if (timeIcon) timeIcon.textContent = '🕒';
+        }
+    }
+
+    if (liveDot && liveStatus) {
+        if (isOutdated) {
+            liveDot.className = 'live-dot stale';
+            liveStatus.textContent = isKn ? 'ಹಳೆಯ ಮಾಹಿತಿ' : 'OUTDATED';
+        } else {
+            liveDot.className = 'live-dot online';
+            liveStatus.textContent = isKn ? 'ಲೈವ್' : 'LIVE';
+        }
+    }
+
+    // Keep Safety HUD elements in sync
+    const hudWind = document.getElementById('hudWind');
+    const hudTemp = document.getElementById('hudTemp');
+    const hudWave = document.getElementById('hudWave');
+    if (weatherData) {
+        if (hudWind) hudWind.textContent = `${weatherData.wind} km/h`;
+        if (hudTemp) hudTemp.textContent = `${weatherData.temp}°C`;
+        if (hudWave) hudWave.textContent = getSeaConditionText(weatherData.wind, isKn);
+    }
+}
+
+function renderConditionsUnavailable() {
+    lastConditionsData = null;
+    lastConditionsDecision = null;
+    lastConditionsTimestamp = null;
+    lastConditionsIsCached = false;
+
+    const isKn = (currentLang === 'kn');
+    const recBox = document.getElementById('homeRecommendationBox');
+    const statusEl = document.getElementById('homeDecisionStatus');
+    const subEl = document.getElementById('homeAdvisorySub');
+    const weatherVal = document.getElementById('condWeatherVal');
+    const windVal = document.getElementById('condWindVal');
+    const seaVal = document.getElementById('condSeaVal');
+    const timeText = document.getElementById('condTimestampText');
+    const timeIcon = document.getElementById('condTimestampIcon');
+    const liveDot = document.getElementById('condLiveDot');
+    const liveStatus = document.getElementById('condLiveStatus');
+
+    if (recBox && statusEl) {
+        recBox.className = 'recommendation-hero-box caution';
+        statusEl.textContent = isKn ? '⚠️ ಮಾಹಿತಿ ಅಲಭ್ಯ (ಬಂದರು ಸಿಗ್ನಲ್ ಪರಿಶೀಲಿಸಿ)' : '⚠️ UNKNOWN (CHECK HARBOR FLAGS)';
+        if (subEl) subEl.textContent = isKn
+            ? 'ಲೈವ್ ಹವಾಮಾನ ಸಂಪರ್ಕ ಲಭ್ಯವಿಲ್ಲ · ಬಂದರಿನ ಅಧಿಕೃತ ಸಿಗ್ನಲ್ ಇಲ್ಲದೆ ತೆರಳಬೇಡಿ'
+            : 'Live telemetry unavailable · Verify local port signal flags before sailing';
+        lastDecisionVoiceText = isKn
+            ? 'ಹವಾಮಾನ ಮಾಹಿತಿ ಲಭ್ಯವಿಲ್ಲ. ದಯವಿಟ್ಟು ಬಂದರಿನ ಅಧಿಕೃತ ಸಿಗ್ನಲ್ ಪರಿಶೀಲಿಸಿ.'
+            : 'Live telemetry unavailable. Verify local port signal flags before setting out.';
+    }
+
+    const unavailText = isKn ? 'ಅಲಭ್ಯ (ಆಫ್‌ಲೈನ್)' : 'Unavailable (Offline)';
+    if (weatherVal) weatherVal.textContent = unavailText;
+    if (windVal) windVal.textContent = unavailText;
+    if (seaVal) seaVal.textContent = unavailText;
+
+    if (timeText) {
+        timeText.textContent = isKn ? '❌ ಮಾಹಿತಿ ಸಿಗಲಿಲ್ಲ · ಕೋಸ್ಟ್ ಗಾರ್ಡ್ 1554 ಸಂಪರ್ಕಿಸಿ' : '❌ Telemetry unavailable · Contact Coast Guard 1554';
+        if (timeIcon) timeIcon.textContent = '❌';
+    }
+    if (liveDot && liveStatus) {
+        liveDot.className = 'live-dot offline';
+        liveStatus.textContent = isKn ? 'ಆಫ್‌ಲೈನ್' : 'OFFLINE';
+    }
+}
+
+async function loadHomeConditions(forceRefresh = false) {
+    const timeText = document.getElementById('condTimestampText');
+    const isKn = (currentLang === 'kn');
+
+    if (forceRefresh && timeText) {
+        timeText.textContent = isKn ? '🔄 ನವೀಕರಿಸಲಾಗುತ್ತಿದೆ...' : '🔄 Fetching live data...';
+    }
+
+    try {
+        const weatherPromise = fetch(BACKEND_URL + '/weather', { signal: AbortSignal.timeout(6000) });
+        const decisionPromise = fetch(BACKEND_URL + '/api/decision', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: '' }),
+            signal: AbortSignal.timeout(6000)
+        });
+
+        const [weatherRes, decisionRes] = await Promise.allSettled([weatherPromise, decisionPromise]);
+
+        let weatherData = null;
+        let decisionData = null;
+
+        if (weatherRes.status === 'fulfilled' && weatherRes.value.ok) {
+            weatherData = await weatherRes.value.json();
+        }
+        if (decisionRes.status === 'fulfilled' && decisionRes.value.ok) {
+            const d = await decisionRes.value.json();
+            if (d && d.success) decisionData = d.decision;
+        }
+
+        if (weatherData && weatherData.weather) {
+            const now = Date.now();
+            try {
+                localStorage.setItem('fishermen_telemetry_cache', JSON.stringify({
+                    weather: weatherData,
+                    decision: decisionData,
+                    timestamp: now
+                }));
+            } catch (e) {}
+
+            renderConditionsData(weatherData, decisionData, now, false);
+            return;
+        }
+        throw new Error('Incomplete weather payload');
+    } catch (err) {
+        console.warn('Live telemetry fetch failed, checking cache:', err);
+        try {
+            const cached = localStorage.getItem('fishermen_telemetry_cache');
+            if (cached) {
+                const parsed = JSON.parse(cached);
+                if (parsed && parsed.weather) {
+                    renderConditionsData(parsed.weather, parsed.decision, parsed.timestamp, true);
+                    return;
+                }
+            }
+        } catch (e) {}
+
+        renderConditionsUnavailable();
+    }
+}
+
+function refreshHomeConditions() {
+    playTapSound();
+    loadHomeConditions(true);
+}
+
+function toggleHomeVoice() {
+    playTapSound();
+    if (isRecording) {
+        stopRecording();
+        return;
+    }
+    const panel = document.getElementById('homeVoicePanel');
+    if (panel) {
+        panel.style.display = 'block';
+        panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    if (!recognition) initSpeech();
+    if (recognition) {
+        try {
+            recognition.start();
+        } catch (err) {
+            console.log('Mic start error:', err);
+        }
+    }
+}
+
+function toggleHomeTextFallback() {
+    playTapSound();
+    const row = document.getElementById('homeTextInputRow');
+    if (!row) return;
+    if (row.style.display === 'none' || !row.style.display) {
+        row.style.display = 'flex';
+        const input = document.getElementById('homeTextQueryInput');
+        if (input) input.focus();
+    } else {
+        row.style.display = 'none';
+    }
+}
+
+function submitHomeTextQuery() {
+    playTapSound();
+    const input = document.getElementById('homeTextQueryInput');
+    if (!input) return;
+    const q = input.value.trim();
+    if (!q) return;
+
+    const transcript = document.getElementById('homeLiveTranscript');
+    if (transcript) {
+        transcript.textContent = '📝 "' + q + '"';
+        transcript.dataset.userSpoke = 'true';
+    }
+    const stateText = document.getElementById('homeVoiceStateText');
+    if (stateText) stateText.textContent = (currentLang === 'kn') ? '⏳ ಪ್ರಶ್ನೆ ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ...' : '⏳ Processing question...';
+
+    sendToBackend(q);
+    input.value = '';
+}
+
+function openHomeWeather() {
+    playTapSound();
+    showPage('page-safety');
+}
+
+function openHomeMarket() {
+    playTapSound();
+    showPage('page-market');
+}
+
+function openHomeFuelCalculator() {
+    playTapSound();
+    showPage('page-more');
+    renderFuelCalculator();
+}
+
+// ============================================
 // BACKEND HEALTH CHECK
 // ============================================
 async function checkBackend() {
@@ -2999,6 +3861,12 @@ function initSpeech() {
         }
         if (micBtn) micBtn.classList.add('recording');
         if (micBtn2) micBtn2.classList.add('recording');
+        const askVoiceBtn = document.getElementById('askVoiceFeatureBtn');
+        if (askVoiceBtn) askVoiceBtn.classList.add('recording');
+        const homeVoiceArrow = document.getElementById('homeVoiceArrow');
+        if (homeVoiceArrow) homeVoiceArrow.textContent = '⏹️';
+        const homeEq = document.getElementById('homeEqualizerWave');
+        if (homeEq) homeEq.classList.add('active');
         const micStage = document.getElementById('micStage');
         if (micStage) micStage.classList.add('recording');
         if (transcriptText) transcriptText.classList.add('active-listening');
@@ -3009,6 +3877,8 @@ function initSpeech() {
         const listenText = currentLang === 'kn' ? 'ಕೇಳಿಸಿಕೊಳ್ಳುತ್ತಿದ್ದೇವೆ...' : 'Listening...';
         if (micText) micText.textContent = listenText;
         if (document.getElementById('micText2')) document.getElementById('micText2').textContent = listenText;
+        const homeVoiceState = document.getElementById('homeVoiceStateText');
+        if (homeVoiceState) homeVoiceState.textContent = currentLang === 'kn' ? 'ಕೇಳಿಸಿಕೊಳ್ಳುತ್ತಿದ್ದೇವೆ... ಮಾತನಾಡಿ' : 'Listening... Speak in Kannada or English';
         if (equalizerWave) equalizerWave.classList.add('active');
         showVoiceState('listening', currentLang === 'kn' ? '🎙️ ಕೇಳಿಸಿಕೊಳ್ಳುತ್ತಿದ್ದೇವೆ... ಮಾತನಾಡಿ' : '🎙️ Listening... Please speak now');
     };
@@ -3019,8 +3889,16 @@ function initSpeech() {
             if (event.results[i].isFinal) final += event.results[i][0].transcript;
         }
         if (final) {
-            transcriptText.textContent = '📝 "' + final + '"';
-            if (document.getElementById('transcriptText2')) document.getElementById('transcriptText2').textContent = '📝 "' + final + '"';
+            if (transcriptText) transcriptText.textContent = '📝 "' + final + '"';
+            const t2 = document.getElementById('transcriptText2');
+            if (t2) t2.textContent = '📝 "' + final + '"';
+            const homeTranscript = document.getElementById('homeLiveTranscript');
+            if (homeTranscript) {
+                homeTranscript.textContent = '📝 "' + final + '"';
+                homeTranscript.dataset.userSpoke = 'true';
+            }
+            const homeVoiceState = document.getElementById('homeVoiceStateText');
+            if (homeVoiceState) homeVoiceState.textContent = currentLang === 'kn' ? '⏳ ಪ್ರಶ್ನೆ ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ...' : '⏳ Processing question...';
             showVoiceState('processing', currentLang === 'kn' ? '⏳ ಪ್ರಶ್ನೆ ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ...' : '⏳ Processing your question...');
             sendToBackend(final);
         }
@@ -3043,6 +3921,12 @@ function stopRecording() {
     isRecording = false;
     if (micBtn) micBtn.classList.remove('recording');
     if (micBtn2) micBtn2.classList.remove('recording');
+    const askVoiceBtn = document.getElementById('askVoiceFeatureBtn');
+    if (askVoiceBtn) askVoiceBtn.classList.remove('recording');
+    const homeVoiceArrow = document.getElementById('homeVoiceArrow');
+    if (homeVoiceArrow) homeVoiceArrow.textContent = '🎤';
+    const homeEq = document.getElementById('homeEqualizerWave');
+    if (homeEq) homeEq.classList.remove('active');
     const micStage = document.getElementById('micStage');
     if (micStage) micStage.classList.remove('recording');
     if (transcriptText) transcriptText.classList.remove('active-listening');
@@ -3164,9 +4048,27 @@ function showResult(decision) {
 
     const emoji = isFavorable ? '🟢' : isCaution ? '🟡' : '🔴';
     const statusLabel = isKn
-        ? (isFavorable ? 'ಹೋಗಿ (GO - ಸುರಕ್ಷಿತ)' : isCaution ? 'ಎಚ್ಚರಿಕೆ (CAUTION)' : 'ಹೋಗಬೇಡಿ (DON\'T GO)')
-        : (isFavorable ? 'GO (SAFE TO SAIL)' : isCaution ? 'CAUTION (MONITOR CONDITIONS)' : 'DON\'T GO (HAZARDOUS SEA)');
-    statusEl.innerHTML = `<span style="font-size:32px;display:inline-block;vertical-align:middle;margin-right:8px;">${emoji}</span>${statusLabel}`;
+        ? (isFavorable ? 'ಹೋಗಿ (GO - ಪರಿಸ್ಥಿತಿ ಅನುಕೂಲಕರ)' : isCaution ? 'ಎಚ್ಚರಿಕೆ (CAUTION - ಜಾಗರೂಕರಾಗಿರಿ)' : 'ಹೋಗಬೇಡಿ (DON\'T GO - ಅಪಾಯಕಾರಿ)')
+        : (isFavorable ? 'GO (CONDITIONS FAVORABLE)' : isCaution ? 'CAUTION (MONITOR CONDITIONS)' : 'DON\'T GO (HAZARDOUS SEA)');
+    if (statusEl) {
+        statusEl.innerHTML = `<span style="font-size:32px;display:inline-block;vertical-align:middle;margin-right:8px;">${emoji}</span>${statusLabel}`;
+    }
+
+    // Prominent Homepage hero recommendation box update
+    const homeBox = document.getElementById('homeRecommendationBox');
+    const homeStatus = document.getElementById('homeDecisionStatus');
+    const homeSub = document.getElementById('homeAdvisorySub');
+    if (homeBox && homeStatus) {
+        homeBox.className = 'recommendation-hero-box ' + (isFavorable ? 'go' : isCaution ? 'caution' : 'dontgo');
+        homeStatus.textContent = `${emoji} ${statusLabel}`;
+        if (homeSub) {
+            homeSub.textContent = decision.advisory_text || (isKn ? 'ಹವಾಮಾನ ಮತ್ತು ಮಾರುಕಟ್ಟೆ ಮುನ್ಸೂಚನೆ ಲಭ್ಯವಿದೆ.' : 'Advisory calculated from live telemetry.');
+        }
+    }
+    const homeVoiceState = document.getElementById('homeVoiceStateText');
+    if (homeVoiceState) {
+        homeVoiceState.textContent = isKn ? '✅ ಸಲಹೆ ಸಿದ್ಧವಾಗಿದೆ (Advisory ready)' : '✅ Advisory ready';
+    }
 
     if (replayTextEl) {
         replayTextEl.textContent = isKn ? 'ಧ್ವನಿಯಲ್ಲಿ ಮತ್ತೆ ಕೇಳಿ' : 'Listen Again in Audio';
@@ -4832,6 +5734,28 @@ const translations = {
         weatherLinkSub: 'ಗಾಳಿಯ ವೇಗ, ಅಲೆಗಳ ಎತ್ತರ, ಉಬ್ಬರವಿಳಿತ & ಸೂರ್ಯೋದಯ ➔',
         replayText: 'ಧ್ವನಿಯಲ್ಲಿ ಮತ್ತೆ ಕೇಳಿ (Listen Again)',
 
+        // Homepage Conditions & Quick Actions
+        homeBrandSubtitle: 'ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಒಡನಾಡಿ',
+        condCardTitle: '🌦️ ಇಂದಿನ ಮೀನುಗಾರಿಕೆ ಪರಿಸ್ಥಿತಿ',
+        condLiveStatus: 'ಲೈವ್',
+        recLabelTitle: 'ಮೀನುಗಾರಿಕೆ ನಿರ್ಧಾರ (RECOMMENDATION)',
+        homeReplayBtnText: 'ಕೇಳಿ',
+        condWeatherLabel: 'ಹವಾಮಾನ:',
+        condWindLabel: 'ಗಾಳಿ:',
+        condSeaLabel: 'ಸಮುದ್ರ ಪರಿಸ್ಥಿತಿ:',
+        condRefreshText: 'ನವೀಕರಿಸಿ',
+        homeVoiceFeatureTitle: 'Fishermen-AI ಗೆ ಕೇಳಿ',
+        homeVoiceFeatureSub: 'ಧ್ವನಿ ಮೂಲಕ ಪ್ರಶ್ನೆಗಳನ್ನು ಕೇಳಿ',
+        homeSeaFeatureTitle: 'ಸಮುದ್ರ & ಹವಾಮಾನ',
+        homeSeaFeatureSub: 'ಮೀನುಗಾರಿಕೆ ಪರಿಸ್ಥಿತಿ ಪರಿಶೀಲಿಸಿ',
+        homeMarketFeatureTitle: 'ಮೀನು ಮಾರುಕಟ್ಟೆ',
+        homeMarketFeatureSub: 'ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳನ್ನು ಪರಿಶೀಲಿಸಿ',
+        homeFuelFeatureTitle: 'ಇಂಧನ ಲೆಕ್ಕಾಚಾರ',
+        homeFuelFeatureSub: 'ಇಂಧನ ಅಗತ್ಯಗಳನ್ನು ಅಂದಾಜಿಸಿ',
+        homeEmergencySosText: 'ಕೋಸ್ಟ್ ಗಾರ್ಡ್ ತುರ್ತು ಸಹಾಯವಾಣಿ: 1554',
+        homeTypeToggleText: 'ಬರೆದು ಕೇಳಿ',
+        homeStopVoiceText: 'ನಿಲ್ಲಿಸಿ',
+
         // Voice Tab
         voicePageTitle: '🎤 ಕರಾವಳಿ ಧ್ವನಿ ಕಾಕ್‌ಪಿಟ್',
         voicePageSub: 'ಕನ್ನಡ ಅಥವಾ ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿ ನೇರವಾಗಿ ಮಾತನಾಡಿ.',
@@ -4941,6 +5865,28 @@ const translations = {
         weatherLinkTitle: 'View Live Marine Telemetry',
         weatherLinkSub: 'Wind speed, wave height, tides & solunar times ➔',
         replayText: 'Listen Again in Audio',
+
+        // Homepage Conditions & Quick Actions
+        homeBrandSubtitle: 'Your fishing companion',
+        condCardTitle: "🌦️ Today's Fishing Conditions",
+        condLiveStatus: 'LIVE',
+        recLabelTitle: 'FISHING RECOMMENDATION',
+        homeReplayBtnText: 'Listen',
+        condWeatherLabel: 'Weather:',
+        condWindLabel: 'Wind:',
+        condSeaLabel: 'Sea conditions:',
+        condRefreshText: 'Refresh',
+        homeVoiceFeatureTitle: 'Ask Fishermen-AI',
+        homeVoiceFeatureSub: 'Ask questions using voice',
+        homeSeaFeatureTitle: 'Sea & Weather',
+        homeSeaFeatureSub: 'Check fishing conditions',
+        homeMarketFeatureTitle: 'Fish Market',
+        homeMarketFeatureSub: 'Check market prices',
+        homeFuelFeatureTitle: 'Fuel Calculator',
+        homeFuelFeatureSub: 'Estimate fuel requirements',
+        homeEmergencySosText: 'Coast Guard Distress Hotline: 1554',
+        homeTypeToggleText: 'Type query',
+        homeStopVoiceText: 'Stop',
 
         // Voice Tab
         voicePageTitle: '🎤 Karavali Voice Cockpit',
@@ -5070,6 +6016,38 @@ function applyLanguage(lang) {
     setTxt('weatherLinkSub', t.weatherLinkSub);
     setTxt('replayBtnText', t.replayText);
 
+    // Homepage Localizations
+    setTxt('homeBrandSubtitle', t.homeBrandSubtitle);
+    setTxt('condCardTitle', t.condCardTitle);
+    setTxt('condLiveStatus', t.condLiveStatus);
+    setTxt('recLabelTitle', t.recLabelTitle);
+    setTxt('homeReplayBtnText', t.homeReplayBtnText);
+    setTxt('condWeatherLabel', t.condWeatherLabel);
+    setTxt('condWindLabel', t.condWindLabel);
+    setTxt('condSeaLabel', t.condSeaLabel);
+    setTxt('condRefreshText', t.condRefreshText);
+    setTxt('homeVoiceFeatureTitle', t.homeVoiceFeatureTitle);
+    setTxt('homeVoiceFeatureSub', t.homeVoiceFeatureSub);
+    setTxt('homeSeaFeatureTitle', t.homeSeaFeatureTitle);
+    setTxt('homeSeaFeatureSub', t.homeSeaFeatureSub);
+    setTxt('homeMarketFeatureTitle', t.homeMarketFeatureTitle);
+    setTxt('homeMarketFeatureSub', t.homeMarketFeatureSub);
+    setTxt('homeFuelFeatureTitle', t.homeFuelFeatureTitle);
+    setTxt('homeFuelFeatureSub', t.homeFuelFeatureSub);
+    setTxt('homeEmergencySosText', t.homeEmergencySosText);
+    setTxt('homeTypeToggleText', t.homeTypeToggleText);
+    setTxt('homeStopVoiceText', t.homeStopVoiceText);
+
+    const homeInput = document.getElementById('homeTextQueryInput');
+    if (homeInput) homeInput.placeholder = (lang === 'kn') ? 'ಪ್ರಶ್ನೆ ಟೈಪ್ ಮಾಡಿ: ಮೀನು ಬೆಲೆ? ಗಾಳಿ?...' : 'Type question: Fish rate? Wind?...';
+
+    const homeLiveTranscript = document.getElementById('homeLiveTranscript');
+    if (homeLiveTranscript && (!homeLiveTranscript.dataset.userSpoke || homeLiveTranscript.dataset.userSpoke === 'false')) {
+        homeLiveTranscript.textContent = (lang === 'kn')
+            ? '"ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ? / Should I go fishing?"'
+            : '"Should I go fishing tomorrow? / ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ?"';
+    }
+
     if (transcriptText && (!transcriptText.dataset.userSpoke || transcriptText.dataset.userSpoke === 'false')) {
         transcriptText.textContent = currentLang === 'kn' ? '"ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ? / Should I go fishing?"' : '"Should I go fishing tomorrow? / ನಾಳೆ ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ?"';
     }
@@ -5175,6 +6153,10 @@ function applyLanguage(lang) {
     const marketPage = document.getElementById('page-market');
     if (marketPage && marketPage.classList.contains('active')) {
         loadMarket();
+    }
+    // Update Homepage conditions if loaded
+    if (lastConditionsData) {
+        renderConditionsData(lastConditionsData, lastConditionsDecision, lastConditionsTimestamp, lastConditionsIsCached);
     }
     updateThemeToggleUI();
 }
@@ -5320,15 +6302,25 @@ applyTheme(currentTheme);
 applyLanguage(currentLang);
 checkBackend();
 setInterval(checkBackend, 30000);
+loadHomeConditions();
 loadHomeWeather();
 loadBestTime();
+
+window.addEventListener('online', () => {
+    checkBackend();
+    loadHomeConditions(true);
+});
+window.addEventListener('offline', () => {
+    checkBackend();
+    loadHomeConditions();
+});
 
 // Register Service Worker for PWA & Deep-Sea Offline Support
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=15')
+        navigator.serviceWorker.register('./sw.js?v=16')
             .then(reg => {
-                console.log('🐟 [PWA] Service Worker v15 registered:', reg.scope);
+                console.log('🐟 [PWA] Service Worker v16 registered:', reg.scope);
                 reg.update();
             })
             .catch(err => console.log('🐟 [PWA] SW registration failed:', err));
