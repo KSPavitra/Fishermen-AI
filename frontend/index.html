@@ -312,6 +312,247 @@
             transform: scale(0.95);
         }
 
+        /* KANNADA VOICE GUIDANCE HEADER TOGGLE */
+        .voice-guide-toggle-compact {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(15, 23, 42, 0.75);
+            padding: 3px 8px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            color: #94a3b8;
+            font-size: 11px;
+            font-weight: 750;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            line-height: 1;
+            height: 28px;
+        }
+        .voice-guide-toggle-compact:hover {
+            color: #ffffff;
+            border-color: rgba(56, 189, 248, 0.4);
+            background: rgba(14, 165, 233, 0.12);
+        }
+        .voice-guide-toggle-compact.active {
+            color: #38bdf8;
+            border-color: rgba(56, 189, 248, 0.6);
+            background: rgba(6, 182, 212, 0.18);
+            box-shadow: 0 0 12px rgba(6, 182, 212, 0.25);
+        }
+        .voice-guide-toggle-compact .vguide-icon {
+            font-size: 12px;
+            display: inline-block;
+            transition: transform 0.2s ease;
+        }
+        .voice-guide-toggle-compact.active .vguide-icon {
+            transform: scale(1.1);
+        }
+        .voice-guide-toggle-compact.speaking {
+            animation: pulseVoiceToggle 1.4s infinite;
+        }
+        @keyframes pulseVoiceToggle {
+            0%, 100% { border-color: rgba(56, 189, 248, 0.6); box-shadow: 0 0 12px rgba(6, 182, 212, 0.25); }
+            50% { border-color: rgba(168, 85, 247, 0.8); box-shadow: 0 0 16px rgba(168, 85, 247, 0.45); }
+        }
+
+        /* SCREEN INSTRUCTION VOICE PILLS */
+        .screen-voice-banner {
+            display: flex;
+            align-items: center;
+            margin: 2px 0 10px;
+        }
+        .screen-voice-guide-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 18px;
+            font-size: 11.5px;
+            font-weight: 750;
+            cursor: pointer;
+            background: rgba(6, 182, 212, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            color: #38bdf8;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            box-shadow: 0 2px 8px rgba(6, 182, 212, 0.1);
+        }
+        .screen-voice-guide-btn:hover {
+            background: rgba(6, 182, 212, 0.22);
+            border-color: rgba(56, 189, 248, 0.6);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(6, 182, 212, 0.22);
+        }
+        .screen-voice-guide-btn:active {
+            transform: scale(0.96);
+        }
+        .screen-voice-guide-btn .vguide-pill-speaker {
+            font-size: 13px;
+        }
+        .screen-voice-guide-btn .vguide-pill-cue {
+            font-size: 9px;
+            opacity: 0.8;
+            margin-left: 1px;
+        }
+        .feature-audio-guide-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            background: rgba(6, 182, 212, 0.18);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            color: #38bdf8;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .feature-audio-guide-btn:hover {
+            background: rgba(6, 182, 212, 0.3);
+            border-color: rgba(56, 189, 248, 0.7);
+        }
+        .sos-audio-guide-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            padding: 9px 12px;
+            border-radius: 12px;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 6px;
+            transition: all 0.2s ease;
+        }
+        .sos-audio-guide-btn:hover {
+            background: rgba(239, 68, 68, 0.25);
+            color: #ffffff;
+        }
+
+        /* FLOATING VOICE GUIDANCE HUD */
+        .voice-guide-hud {
+            position: fixed;
+            bottom: 64px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 24px);
+            max-width: 440px;
+            background: rgba(11, 19, 41, 0.94);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(56, 189, 248, 0.45);
+            box-shadow: 0 10px 32px rgba(0, 0, 0, 0.7), 0 0 20px rgba(6, 182, 212, 0.25);
+            border-radius: 18px;
+            padding: 9px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            z-index: 999;
+            animation: slideUpHud 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
+            cursor: pointer;
+        }
+        @keyframes slideUpHud {
+            from { opacity: 0; transform: translate(-50%, 14px) scale(0.97); }
+            to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+        }
+        .voice-guide-hud-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+            flex: 1;
+        }
+        .voice-guide-hud-icon {
+            font-size: 18px;
+            line-height: 1;
+            flex-shrink: 0;
+            animation: pulseSpeaker 1s infinite alternate;
+        }
+        @keyframes pulseSpeaker {
+            from { transform: scale(1); }
+            to { transform: scale(1.18); }
+        }
+        .voice-guide-hud-text {
+            min-width: 0;
+            flex: 1;
+        }
+        .voice-guide-hud-title {
+            font-size: 11px;
+            font-weight: 850;
+            color: #38bdf8;
+            letter-spacing: -0.2px;
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .voice-guide-hud-sub {
+            font-size: 10px;
+            color: #cbd5e1;
+            font-weight: 500;
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 1px;
+        }
+        .voice-guide-hud-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .vguide-equalizer {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            height: 16px;
+        }
+        .vguide-equalizer span {
+            width: 3px;
+            height: 100%;
+            background: #38bdf8;
+            border-radius: 2px;
+            animation: eqPulse 0.8s infinite ease-in-out;
+        }
+        .vguide-equalizer span:nth-child(2) { animation-delay: 0.2s; height: 75%; background: #c084fc; }
+        .vguide-equalizer span:nth-child(3) { animation-delay: 0.4s; height: 90%; background: #38bdf8; }
+        @keyframes eqPulse {
+            0%, 100% { transform: scaleY(0.3); }
+            50% { transform: scaleY(1); }
+        }
+        .voice-guide-stop-pill {
+            background: rgba(239, 68, 68, 0.22);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            color: #fca5a5;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 10.5px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+        }
+        .voice-guide-stop-pill:hover {
+            background: rgba(239, 68, 68, 0.38);
+            color: #ffffff;
+        }
+
         .sr-only {
             position: absolute;
             width: 1px;
@@ -1426,7 +1667,8 @@
         body.shorts-mode-active footer,
         body.shorts-mode-active .aurora-orb-1,
         body.shorts-mode-active .aurora-orb-2,
-        body.shorts-mode-active .more-nav-bar {
+        body.shorts-mode-active .more-nav-bar,
+        body.shorts-mode-active #voiceGuideHud {
             display: none !important;
         }
 
@@ -2313,6 +2555,39 @@
             color: #0284c7;
             border-color: rgba(14, 165, 233, 0.3);
         }
+        [data-theme="light"] .voice-guide-toggle-compact {
+            background: #ffffff;
+            border-color: rgba(14, 165, 233, 0.3);
+            color: #0369a1;
+        }
+        [data-theme="light"] .voice-guide-toggle-compact.active {
+            background: rgba(14, 165, 233, 0.12);
+            border-color: #0284c7;
+            color: #0284c7;
+            box-shadow: 0 0 10px rgba(14, 165, 233, 0.2);
+        }
+        [data-theme="light"] .screen-voice-guide-btn {
+            background: rgba(14, 165, 233, 0.1);
+            border-color: rgba(14, 165, 233, 0.4);
+            color: #0369a1;
+            box-shadow: 0 2px 8px rgba(14, 165, 233, 0.1);
+        }
+        [data-theme="light"] .feature-audio-guide-btn {
+            background: rgba(14, 165, 233, 0.14);
+            border-color: rgba(14, 165, 233, 0.45);
+            color: #0284c7;
+        }
+        [data-theme="light"] .voice-guide-hud {
+            background: rgba(255, 255, 255, 0.98);
+            border-color: rgba(14, 165, 233, 0.4);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15), 0 0 15px rgba(14, 165, 233, 0.15);
+        }
+        [data-theme="light"] .voice-guide-hud-title {
+            color: #0284c7;
+        }
+        [data-theme="light"] .voice-guide-hud-sub {
+            color: #334155;
+        }
         [data-theme="light"] .tab-bar {
             background: rgba(255, 255, 255, 0.98) !important;
             border-top: 1px solid rgba(14, 165, 233, 0.25) !important;
@@ -2708,6 +2983,12 @@
                 <button class="lang-link lang-btn active" data-lang="kn" aria-label="ಕನ್ನಡಕ್ಕೆ ಬದಲಾಯಿಸಿ">ಕನ್ನಡ</button>
             </div>
 
+            <!-- KANNADA VOICE GUIDANCE TOGGLE -->
+            <button id="voiceGuideToggleBtn" class="voice-guide-toggle-compact active" onclick="toggleVoiceGuide()" aria-label="ಧ್ವನಿ ಮಾರ್ಗದರ್ಶಿ / Voice Guide" title="ಧ್ವನಿ ಮಾರ್ಗದರ್ಶಿ (Voice Guidance: ON/OFF)">
+                <span id="voiceGuideIcon" class="vguide-icon">🔊</span>
+                <span id="voiceGuideText" class="vguide-text">ಧ್ವನಿ ON</span>
+            </button>
+
             <!-- COMPACT THEME TOGGLE -->
             <button id="themeToggleBtn" class="theme-toggle-compact" onclick="toggleTheme()" aria-label="Toggle Light / Dark Mode" title="Toggle Theme">
                 <span id="themeToggleIcon">☀️</span>
@@ -2743,6 +3024,15 @@
             <div class="home-hero-header">
                 <div class="home-brand-title">FISHERMEN-AI 🐟</div>
                 <div class="home-brand-subtitle" id="homeBrandSubtitle">Your fishing companion</div>
+            </div>
+
+            <!-- KANNADA VOICE GUIDANCE QUICK ACCESS -->
+            <div class="screen-voice-banner">
+                <button class="screen-voice-guide-btn" onclick="playCurrentScreenGuidance()" aria-label="ಧ್ವನಿ ಮಾರ್ಗದರ್ಶನ ಕೇಳಿ">
+                    <span class="vguide-pill-speaker">🔊</span>
+                    <span id="homeVoiceGuideBtnText">ಸರಳ ಧ್ವನಿ ಸೂಚನೆ ಕೇಳಿ (ಕನ್ನಡ)</span>
+                    <span class="vguide-pill-cue">▶️</span>
+                </button>
             </div>
 
             <!-- 2. TODAY'S FISHING CONDITIONS & FISHING RECOMMENDATION (HERO CARD) -->
@@ -2929,7 +3219,14 @@
         <!-- ================= VOICE COCKPIT TAB ================= -->
         <div class="page" id="page-voice">
             <h2 class="page-title" id="voicePageTitle">🎤 Karavali Voice Cockpit</h2>
-            <p id="voicePageSub" style="font-size:13px;color:#94a3b8;margin-bottom:16px;">Speak directly in Kannada or English.</p>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
+                <p id="voicePageSub" style="font-size:13px;color:#94a3b8;margin:0;">Speak directly in Kannada or English.</p>
+                <button class="screen-voice-guide-btn" onclick="playCurrentScreenGuidance()" aria-label="ಬಳಸುವ ವಿಧಾನ ಕೇಳಿ">
+                    <span class="vguide-pill-speaker">🔊</span>
+                    <span id="voiceVoiceGuideBtnText">ಬಳಸುವ ವಿಧಾನ ಕೇಳಿ (ಕನ್ನಡ)</span>
+                    <span class="vguide-pill-cue">▶️</span>
+                </button>
+            </div>
 
             <div class="voice-cockpit">
                 <div class="mic-stage">
@@ -2965,17 +3262,31 @@
 
         <!-- ================= MARKET TAB ================= -->
         <div class="page" id="page-market">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
                 <h2 class="page-title" id="marketPageTitle" style="margin-bottom:0;">📊 Harbor Catch Rates</h2>
                 <span id="marketPageBadge" style="font-size:10px;background:rgba(6,182,212,0.12);color:#38bdf8;padding:2px 8px;border-radius:10px;border:1px solid rgba(6,182,212,0.25);font-weight:700;">MALPE & MANGALORE</span>
             </div>
-            <p id="marketPageSub" style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Daily wholesale rate index with Kannada & Tulu names.</p>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+                <p id="marketPageSub" style="font-size:12px;color:var(--text-muted);margin:0;flex:1;min-width:160px;">Daily wholesale rate index with Kannada & Tulu names.</p>
+                <button class="screen-voice-guide-btn" onclick="playCurrentScreenGuidance()" aria-label="ದರಗಳ ಮಾಹಿತಿ ಕೇಳಿ">
+                    <span class="vguide-pill-speaker">🔊</span>
+                    <span id="marketVoiceGuideBtnText">ದರಗಳ ಮಾಹಿತಿ ಕೇಳಿ (ಕನ್ನಡ)</span>
+                    <span class="vguide-pill-cue">▶️</span>
+                </button>
+            </div>
             <div id="marketList" class="clean-menu-list"><p style="opacity:0.6;font-size:13px;padding:12px 0;">Loading market rates...</p></div>
         </div>
 
         <!-- ================= SAFETY & SOS TAB ================= -->
         <div class="page" id="page-safety">
-            <h2 class="page-title" id="safetyPageTitle">🆘 Emergency & Safety HUD</h2>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+                <h2 class="page-title" id="safetyPageTitle" style="margin-bottom:0;">🆘 Emergency & Safety HUD</h2>
+                <button class="screen-voice-guide-btn" onclick="playCurrentScreenGuidance()" aria-label="ಸುರಕ್ಷತಾ ಸೂಚನೆ ಕೇಳಿ">
+                    <span class="vguide-pill-speaker">🔊</span>
+                    <span id="safetyVoiceGuideBtnText">ಸುರಕ್ಷತಾ ಸೂಚನೆ ಕೇಳಿ (ಕನ್ನಡ)</span>
+                    <span class="vguide-pill-cue">▶️</span>
+                </button>
+            </div>
 
             <!-- SOS Hero Trigger -->
             <button onclick="openSOS()" style="width:100%;padding:18px;background:linear-gradient(135deg,#ef4444,#dc2626);border:none;border-radius:20px;color:white;font-size:17px;font-weight:900;cursor:pointer;margin-bottom:16px;box-shadow:0 8px 30px rgba(239,68,68,0.45);display:flex;align-items:center;justify-content:center;gap:8px;">
@@ -3077,7 +3388,14 @@
             <!-- MORE MENU HUB (8-FEATURE GRID) -->
             <div id="moreMenuHub">
                 <h2 class="page-title" id="morePageTitle">⚙️ Fishermen Feature Hub</h2>
-                <p id="morePageSub" style="font-size:12px;color:#94a3b8;margin-bottom:14px;">Select an advisory tool or community marine service:</p>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
+                    <p id="morePageSub" style="font-size:12px;color:#94a3b8;margin:0;flex:1;min-width:160px;">Select an advisory tool or community marine service:</p>
+                    <button class="screen-voice-guide-btn" onclick="playCurrentScreenGuidance()" aria-label="ಪರಿಕರಗಳ ಮಾಹಿತಿ ಕೇಳಿ">
+                        <span class="vguide-pill-speaker">🔊</span>
+                        <span id="moreVoiceGuideBtnText">ಪರಿಕರಗಳ ಮಾಹಿತಿ ಕೇಳಿ (ಕನ್ನಡ)</span>
+                        <span class="vguide-pill-cue">▶️</span>
+                    </button>
+                </div>
 
                 <!-- Feature Bento Grid -->
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
@@ -3159,13 +3477,37 @@
                         <span class="back-arrow">←</span>
                         <span id="moreBackBtnText">Back to Tools (ಮೆನು)</span>
                     </button>
-                    <span id="moreFeatureBadge" class="more-feature-badge">Feature</span>
+                    <div style="display:flex;align-items:center;gap:6px;">
+                        <button id="moreAudioGuideBtn" class="feature-audio-guide-btn" onclick="playCurrentScreenGuidance()" title="ಧ್ವನಿ ಸೂಚನೆ ಕೇಳಿ" aria-label="ಧ್ವನಿ ಸೂಚನೆ ಕೇಳಿ">
+                            <span>🔊</span> <span id="moreAudioGuideText">ಕೇಳಿ</span>
+                        </button>
+                        <span id="moreFeatureBadge" class="more-feature-badge">Feature</span>
+                    </div>
                 </div>
                 <!-- Dynamic Container for Selected Feature -->
                 <div id="moreContainer"></div>
             </div>
         </div>
 
+    </div>
+
+    <!-- FLOATING VOICE GUIDANCE HUD -->
+    <div id="voiceGuideHud" class="voice-guide-hud" style="display:none;" onclick="stopVoiceGuidance()">
+        <div class="voice-guide-hud-left">
+            <span class="voice-guide-hud-icon">🔊</span>
+            <div class="voice-guide-hud-text">
+                <div class="voice-guide-hud-title" id="voiceGuideHudTitle">ಧ್ವನಿ ಮಾರ್ಗದರ್ಶಿ (Voice Guide)</div>
+                <div class="voice-guide-hud-sub" id="voiceGuideHudSub">ಸೂಚನೆ ನುಡಿಯುತ್ತಿದೆ...</div>
+            </div>
+        </div>
+        <div class="voice-guide-hud-actions">
+            <div class="vguide-equalizer">
+                <span></span><span></span><span></span>
+            </div>
+            <button class="voice-guide-stop-pill" onclick="event.stopPropagation(); stopVoiceGuidance();" aria-label="ನಿಲ್ಲಿಸಿ">
+                ⏹️ <span id="voiceGuideStopPillText">ನಿಲ್ಲಿಸಿ</span>
+            </button>
+        </div>
     </div>
 
     <!-- FLOATING DOCK BOTTOM NAVIGATION -->
@@ -3206,6 +3548,11 @@
         <div style="font-size:38px;margin-bottom:4px;">🚨</div>
         <h3 style="color:#f87171;font-size:20px;font-weight:900;letter-spacing:-0.3px;" id="sosModalTitle">COASTAL DISTRESS & RESCUE</h3>
         <p style="font-size:11px;color:#94a3b8;margin-top:2px;" id="sosModalSub">Read coordinates out loud to maritime rescue operator</p>
+
+        <!-- KANNADA AUDIO GUIDANCE BUTTON -->
+        <button class="sos-audio-guide-btn" onclick="playVoiceGuidance('sos-modal', true)" aria-label="ತುರ್ತು ಸೂಚನೆ ಧ್ವನಿಯಲ್ಲಿ ಕೇಳಿ">
+            <span>🔊</span> <span id="sosAudioGuideText">ತುರ್ತು ಸೂಚನೆ ಧ್ವನಿಯಲ್ಲಿ ಕೇಳಿ (ಕನ್ನಡ)</span>
+        </button>
 
         <!-- LIVE GPS TELEMETRY BOX -->
         <div id="sosGpsBox" style="margin:14px 0 10px;background:rgba(3,7,18,0.7);padding:12px 14px;border-radius:14px;border:1px solid rgba(56,189,248,0.25);text-align:left;">
@@ -3383,6 +3730,11 @@ function showPage(pageId) {
         loadTide();
         loadCalendar();
     }
+
+    // Auto Spoken Voice Guidance
+    if (typeof onScreenNavigated === 'function') {
+        onScreenNavigated(pageId);
+    }
 }
 
 document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -3411,6 +3763,11 @@ function openMoreFeature(badgeText) {
     const contentArea = document.getElementById('contentArea');
     if (contentArea) contentArea.scrollTop = 0;
     window.scrollTo({ top: 0, behavior: 'instant' });
+
+    // Auto Spoken Voice Guidance for specific sub-tool
+    if (typeof onScreenNavigated === 'function') {
+        onScreenNavigated(currentMoreFeature || 'page-more');
+    }
 }
 
 function closeMoreFeature(playSound = true) {
@@ -3434,6 +3791,11 @@ function closeMoreFeature(playSound = true) {
 
     if (wasShorts && window.history.state && window.history.state.modal === 'fishReels') {
         try { window.history.back(); } catch (e) {}
+    }
+
+    // Auto Spoken Voice Guidance return to hub
+    if (typeof onScreenNavigated === 'function') {
+        onScreenNavigated('page-more');
     }
 }
 
@@ -4137,14 +4499,285 @@ function showResult(decision) {
     }, 100);
 }
 
+// ============================================
+// 🔊 KANNADA VOICE GUIDANCE ENGINE
+// ============================================
+let isVoiceGuideEnabled = (localStorage.getItem('fishermen_voice_guide') !== 'false'); // Defaults to ON
+let isVoiceGuideSpeaking = false;
+let voiceGuideTimer = null;
+let currentGuidanceKey = null;
+let cachedVoicesList = [];
+
+const VOICE_GUIDES = {
+    'page-home': {
+        titleKn: 'ಮುಖಪುಟ ಮಾರ್ಗದರ್ಶನ',
+        titleEn: 'Home Screen Guidance',
+        kn: 'ಫಿಶರ್‌ಮೆನ್-ಎಐ ಮುಖಪುಟಕ್ಕೆ ಸುಸ್ವಾಗತ. ಇಂದಿನ ಕಡಲ ಪರಿಸ್ಥಿತಿ ಮತ್ತು ಮೀನುಗಾರಿಕೆ ಶಿಫಾರಸು ಇಲ್ಲಿದೆ. ಧ್ವನಿ ಮೂಲಕ ಪ್ರಶ್ನೆ ಕೇಳಲು ಮೈಕ್ ಬಟನ್ ಒತ್ತಿ, ಅಥವಾ ಹವಾಮಾನ, ಮಾರುಕಟ್ಟೆ ದರ ಮತ್ತು ಇಂಧನ ಲೆಕ್ಕಾಚಾರ ಬಟನ್ ಒತ್ತಿ.',
+        en: 'Welcome to Fishermen-AI. Check today\'s marine conditions and fishing recommendation here. Tap the mic button to ask questions by voice, or tap the buttons for sea weather, fish market, and fuel calculator.'
+    },
+    'page-voice': {
+        titleKn: 'ಧ್ವನಿ ಕಾಕ್‌ಪಿಟ್ ಮಾರ್ಗದರ್ಶನ',
+        titleEn: 'Voice Cockpit Guidance',
+        kn: 'ಇದು ಧ್ವನಿ ಸಹಾಯಕ. ನೀಲಿ ಮೈಕ್ ಬಟನ್ ಒತ್ತಿ ನಿಮ್ಮ ಮಾತಲ್ಲೇ ಪ್ರಶ್ನೆ ಕೇಳಿ. ಉದಾಹರಣೆಗೆ: ಇಂದು ಕಡಲಿಗೆ ಹೋಗಬಹುದಾ? ಅಥವಾ ಬಂಗಡೆ ಮೀನಿನ ಬೆಲೆ ಎಷ್ಟು? ಎಂದು ಕೇಳಿ.',
+        en: 'This is the voice cockpit. Press the blue mic button and speak your question. For example, ask: Should I go fishing today? or What is the price of mackerel?'
+    },
+    'page-market': {
+        titleKn: 'ಬಂದರು ಮಾರುಕಟ್ಟೆ ದರಗಳು',
+        titleEn: 'Harbor Fish Rates',
+        kn: 'ಇಲ್ಲಿ ಮಲ್ಪೆ ಮತ್ತು ಮಂಗಳೂರು ಬಂದರಿನ ಇಂದಿನ ಸಗಟು ಮೀನು ದರಗಳಿವೆ. ಬಂಗಡೆ, ಅಂಜಲ್, ಮಾಂಜಿ ಸೇರಿದಂತೆ ವಿವಿಧ ಮೀನುಗಳ ಕೆಜಿ ದರಗಳನ್ನು ಇಲ್ಲಿ ಪರಿಶೀಲಿಸಿ.',
+        en: 'Here are today\'s harbor wholesale fish rates for Malpe and Mangalore. Check the latest per-kilogram prices for mackerel, kingfish, pomfret, and more.'
+    },
+    'page-safety': {
+        titleKn: 'ಕಡಲ ಸುರಕ್ಷತಾ ಕೇಂದ್ರ',
+        titleEn: 'Maritime Safety HUD',
+        kn: 'ಇದು ಕಡಲ ಸುರಕ್ಷತಾ ಕೇಂದ್ರ. ಇಲ್ಲಿ ಗಾಳಿ ವೇಗ, ಅಲೆಗಳ ಎತ್ತರ, ಉಬ್ಬರ-ವಿಳಿತದ ಸಮಯ ಮತ್ತು ತುರ್ತು ಕೋಸ್ಟ್ ಗಾರ್ಡ್ ಸಹಾಯವಾಣಿ ಸಂಖ್ಯೆಗಳಿವೆ. ಅಪಾಯದ ಸಂದರ್ಭದಲ್ಲಿ ಕೆಂಪು ಎಸ್-ಒ-ಎಸ್ ಬಟನ್ ಬಳಸಿ.',
+        en: 'This is the maritime safety dashboard. Here you can check wind speed, wave swell, tide timings, and Coast Guard emergency numbers. Tap the red SOS button in case of danger.'
+    },
+    'page-more': {
+        titleKn: 'ಮೀನುಗಾರರ ಉಪಕರಣಗಳ ಕೇಂದ್ರ',
+        titleEn: 'Feature Hub Guidance',
+        kn: 'ಇದು ಮೀನುಗಾರರ ಉಪಕರಣಗಳ ಕೇಂದ್ರ. ಇಲ್ಲಿ ಮೀನು ಕಲಿಯೋಣ ವೀಡಿಯೊಗಳು, ದೋಣಿಯ ಇಂಧನ ಲೆಕ್ಕಾಚಾರ, ಸರ್ಕಾರಿ ಸಬ್ಸಿಡಿಗಳು ಮತ್ತು ಮೀನು ಬೇಟೆ ದಾಖಲೆ ಪರಿಕರಗಳಿವೆ. ನಿಮಗೆ ಬೇಕಾದ ಉಪಕರಣವನ್ನು ಆಯ್ಕೆ ಮಾಡಿ.',
+        en: 'This is the Feature Hub. Access fish learning videos, boat fuel calculator, government subsidies, and catch logger tools. Tap any tool to open.'
+    },
+    'fuel': {
+        titleKn: 'ದೋಣಿ ಇಂಧನ ಲೆಕ್ಕಾಚಾರ',
+        titleEn: 'Fuel Calculator',
+        kn: 'ಇದು ದೋಣಿ ಇಂಧನ ಲೆಕ್ಕಾಚಾರ ಸಾಧನ. ನಿಮ್ಮ ಎಂಜಿನ್ ಅಶ್ವಶಕ್ತಿ ಮತ್ತು ಪ್ರಯಾಣದ ನಾಟಿಕಲ್ ಮೈಲಿ ನಮೂದಿಸಿ. ಅಗತ್ಯವಿರುವ ಡೀಸೆಲ್ ಲೀಟರ್ ಮತ್ತು ಅಂದಾಜು ಖರ್ಚನ್ನು ಸುಲಭವಾಗಿ ತಿಳಿಯಿರಿ.',
+        en: 'This is the boat fuel calculator. Enter your engine horsepower and nautical miles to calculate required fuel liters and estimated voyage expense.'
+    },
+    'videos': {
+        titleKn: 'ಮೀನು ಕಲಿಯೋಣ (FishReels)',
+        titleEn: 'FishReels Guidance',
+        kn: 'ಮೀನು ಕಲಿಯೋಣ ಕಿರು ವೀಡಿಯೊಗಳು. ಮುಂದಿನ ವೀಡಿಯೊ ನೋಡಲು ಮೇಲಕ್ಕೆ ಸ್ವೈಪ್ ಮಾಡಿ, ಹಿಂದಿನ ವೀಡಿಯೊಗೆ ಕೆಳಕ್ಕೆ ಸ್ವೈಪ್ ಮಾಡಿ. ಧ್ವನಿ ಕೇಳಲು ಮೇಲಿನ ಸ್ಪೀಕರ್ ಬಟನ್ ಬಳಸಿ.',
+        en: 'Fish learning short videos. Swipe up for the next video, swipe down for the previous video. Use the speaker button at the top to toggle audio.'
+    },
+    'catchLog': {
+        titleKn: 'ಮೀನು ಬೇಟೆ ದಾಖಲೆ',
+        titleEn: 'Catch Logger',
+        kn: 'ಇದು ದೈನಂದಿನ ಮೀನು ಬೇಟೆ ಲಾಗ್‌ಬುಕ್. ಇಂದು ಹಿಡಿದ ಮೀನಿನ ತಳಿ, ಒಟ್ಟು ತೂಕ ಮತ್ತು ಬಂದರಿನ ಗಳಿಕೆಯನ್ನು ಇಲ್ಲಿ ದಾಖಲಿಸಿ ಇಟ್ಟುಕೊಳ್ಳಿ. ಇದು ಇಂಟರ್ನೆಟ್ ಇಲ್ಲದಿದ್ದರೂ ಉಳಿಯುತ್ತದೆ.',
+        en: 'This is the daily catch logger. Record the species, total weight in kilograms, and harbor earnings. Your logs remain saved even offline.'
+    },
+    'fishGuide': {
+        titleKn: 'ಮೀನು ತಳಿ ಮಾರ್ಗದರ್ಶಿ',
+        titleEn: 'Fish Species Guide',
+        kn: 'ಇದು ಮೀನು ತಳಿ ಮಾರ್ಗದರ್ಶಿ. ಮೀನಿನ ಫೋಟೋ ತೆಗೆಯಿರಿ ಅಥವಾ ಪಟ್ಟಿಯಿಂದ ಆಯ್ಕೆ ಮಾಡಿ. ಮೀನಿನ ಸ್ಥಳೀಯ ಹೆಸರು, ತಾಜಾತನ ಪರೀಕ್ಷೆ ಮತ್ತು ಮಾರುಕಟ್ಟೆ ದರವನ್ನು ತಿಳಿಯಿರಿ.',
+        en: 'This is the fish species guide. Take a photo or browse the catalog to check local names, freshness indicators, and harbor price.'
+    },
+    'prediction': {
+        titleKn: 'ಋತುಮಾನ ಮೀನು ಮಾರ್ಗದರ್ಶಿ',
+        titleEn: 'Seasonal Guide',
+        kn: 'ಇದು ಋತುಮಾನ ಮೀನು ಮಾರ್ಗದರ್ಶಿ. ಕರಾವಳಿಯಲ್ಲಿ ಈ ತಿಂಗಳಲ್ಲಿ ಯಾವ ಮೀನುಗಳು ಹೆಚ್ಚು ಸಿಗುತ್ತವೆ ಎಂಬುದನ್ನು ಇಲ್ಲಿ ನೋಡಿ.',
+        en: 'This is the seasonal fish guide. See which fish species have peak landings along the coast during this month.'
+    },
+    'schemes': {
+        titleKn: 'ಸರ್ಕಾರಿ ಯೋಜನೆಗಳು',
+        titleEn: 'Govt Schemes',
+        kn: 'ಇಲ್ಲಿ ಪ್ರಧಾನಮಂತ್ರಿ ಮತ್ಸ್ಯ ಸಂಪದ ಯೋಜನೆ, ದೋಣಿ ಇಂಜಿನ್ ಸಬ್ಸಿಡಿ ಮತ್ತು ಮೀನುಗಾರರ ವಿಮಾ ಸೌಲಭ್ಯಗಳ ಸರ್ಕಾರಿ ವಿವರಗಳಿವೆ.',
+        en: 'Here are government schemes, including PM Matsya Sampada Yojana, boat engine subsidies, and insurance programs for fishermen.'
+    },
+    'dashboard': {
+        titleKn: 'ಪ್ರಯಾಣದ ಅಂಕಿಅಂಶ',
+        titleEn: 'Voyage Stats',
+        kn: 'ಇಲ್ಲಿ ನಿಮ್ಮ ಹಿಂದಿನ ಕಡಲ ಪ್ರವಾಸಗಳ ಸುರಕ್ಷತಾ ನಿರ್ಧಾರಗಳು, ಅನುಕೂಲಕರ ದಿನಗಳ ಪ್ರಮಾಣ ಮತ್ತು ಅಂಕಿಅಂಶಗಳಿವೆ.',
+        en: 'Here you can review your voyage safety statistics and the log of past recommendations.'
+    },
+    'history': {
+        titleKn: 'ಸಲಹೆಗಳ ಇತಿಹಾಸ',
+        titleEn: 'Advisory History',
+        kn: 'ಇಲ್ಲಿ ನೀವು ಈ ಹಿಂದೆ ಪಡೆದ ಕಡಲ ಸುರಕ್ಷತಾ ಸಲಹೆಗಳ ದಿನಾಂಕ ಮತ್ತು ಇತಿಹಾಸವಿದೆ.',
+        en: 'Here is the history of all past weather advisories and safety decisions recorded for your device.'
+    },
+    'export': {
+        titleKn: 'ಪ್ರವಾಸ ವರದಿ ಡೌನ್‌ಲೋಡ್',
+        titleEn: 'Export Voyage',
+        kn: 'ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಪ್ರವಾಸ ಮತ್ತು ಸುರಕ್ಷತಾ ವರದಿಯನ್ನು ಪಠ್ಯ ಕಡತದ ರೂಪದಲ್ಲಿ ಮೊಬೈಲ್‌ಗೆ ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ಇಲ್ಲಿ ಒತ್ತಿ.',
+        en: 'Tap here to export and download your voyage telemetry and safety log file.'
+    },
+    'sos-modal': {
+        titleKn: 'ತುರ್ತು ಕಡಲ ರಕ್ಷಣೆ',
+        titleEn: 'Emergency SOS',
+        kn: 'ತುರ್ತು ರಕ್ಷಣಾ ಕೇಂದ್ರ. ನಿಮ್ಮ ಜಿಪಿಎಸ್ ಸ್ಥಾನವನ್ನು ಕೋಸ್ಟ್ ಗಾರ್ಡ್ 1554 ಅಥವಾ ಕರಾವಳಿ ಪೊಲೀಸ್ 1093 ಗೆ ತಕ್ಷಣ ತಿಳಿಸಿ. ವಾಟ್ಸಾಪ್ ಮೂಲಕ ಲೊಕೇಶನ್ ಕಳುಹಿಸಲು ಕೆಳಗಿನ ಬಟನ್ ಒತ್ತಿ.',
+        en: 'Emergency assistance. Share your live GPS coordinates with the Indian Coast Guard 1554 or Coastal Police 1093. Tap the WhatsApp button to dispatch location.'
+    }
+};
+
+function warmUpVoices() {
+    if ('speechSynthesis' in window) {
+        cachedVoicesList = window.speechSynthesis.getVoices() || [];
+    }
+}
+if ('speechSynthesis' in window) {
+    window.speechSynthesis.onvoiceschanged = warmUpVoices;
+    warmUpVoices();
+}
+
+function getBestGuidanceVoice(lang) {
+    if (!('speechSynthesis' in window)) return null;
+    const voices = (cachedVoicesList && cachedVoicesList.length) ? cachedVoicesList : (window.speechSynthesis.getVoices() || []);
+    if (!voices || voices.length === 0) return null;
+
+    if (lang === 'kn') {
+        return voices.find(v => v.lang && (v.lang.toLowerCase() === 'kn-in' || v.lang.toLowerCase() === 'kn')) ||
+               voices.find(v => v.name && (v.name.toLowerCase().includes('kannada') || v.name.includes('ಕನ್ನಡ'))) ||
+               voices.find(v => v.lang && v.lang.toLowerCase().startsWith('kn')) || null;
+    } else {
+        return voices.find(v => v.lang && v.lang.toLowerCase() === 'en-in') ||
+               voices.find(v => v.lang && v.lang.toLowerCase().startsWith('en')) || null;
+    }
+}
+
+function updateVoiceGuideToggleUI() {
+    const btn = document.getElementById('voiceGuideToggleBtn');
+    const textEl = document.getElementById('voiceGuideText');
+    const iconEl = document.getElementById('voiceGuideIcon');
+    const isKn = (currentLang === 'kn');
+
+    if (btn) {
+        btn.classList.toggle('active', isVoiceGuideEnabled);
+        btn.setAttribute('title', isVoiceGuideEnabled
+            ? (isKn ? 'ಧ್ವನಿ ಮಾರ್ಗದರ್ಶಿ ಆನ್ ಆಗಿದೆ (ಟ್ಯಾಪ್ ಮಾಡಿ ಆಫ್ ಮಾಡಲು)' : 'Voice Guidance is ON (Tap to mute)')
+            : (isKn ? 'ಧ್ವನಿ ಮಾರ್ಗದರ್ಶಿ ಆಫ್ ಆಗಿದೆ (ಟ್ಯಾಪ್ ಮಾಡಿ ಆನ್ ಮಾಡಲು)' : 'Voice Guidance is OFF (Tap to enable)'));
+        btn.setAttribute('aria-label', isVoiceGuideEnabled ? 'Voice Guidance ON' : 'Voice Guidance OFF');
+    }
+    if (textEl) {
+        textEl.textContent = isVoiceGuideEnabled
+            ? (isKn ? 'ಧ್ವನಿ ON' : 'Voice ON')
+            : (isKn ? 'ಧ್ವನಿ OFF' : 'Voice OFF');
+    }
+    if (iconEl) {
+        iconEl.textContent = isVoiceGuideEnabled ? '🔊' : '🔈';
+    }
+}
+
+function toggleVoiceGuide() {
+    playTapSound();
+    isVoiceGuideEnabled = !isVoiceGuideEnabled;
+    localStorage.setItem('fishermen_voice_guide', isVoiceGuideEnabled ? 'true' : 'false');
+    updateVoiceGuideToggleUI();
+
+    if (!isVoiceGuideEnabled) {
+        stopVoiceGuidance();
+    } else {
+        const isKn = (currentLang === 'kn');
+        speakGuidance(
+            isKn ? 'ಧ್ವನಿ ಮಾರ್ಗದರ್ಶಿ ಆನ್ ಆಗಿದೆ. ಪ್ರತಿಯೊಂದು ಪರದೆಯ ಸೂಚನೆಗಳನ್ನು ನೀವು ಧ್ವನಿಯಲ್ಲಿ ಕೇಳಬಹುದು.' : 'Voice guidance enabled. You will hear spoken instructions across screens.',
+            isKn ? 'ಧ್ವನಿ ಮಾರ್ಗದರ್ಶಿ ಸಕ್ರಿಯ' : 'Voice Guide Active'
+        );
+    }
+}
+
+function stopVoiceGuidance() {
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+    }
+    isVoiceGuideSpeaking = false;
+    const hud = document.getElementById('voiceGuideHud');
+    if (hud) hud.style.display = 'none';
+
+    const toggleBtn = document.getElementById('voiceGuideToggleBtn');
+    if (toggleBtn) toggleBtn.classList.remove('speaking');
+}
+
+function speakGuidance(text, titleText) {
+    if (!('speechSynthesis' in window) || !text) return;
+
+    window.speechSynthesis.cancel();
+
+    const isKn = (currentLang === 'kn') || /[\u0C80-\u0CFF]/.test(text);
+    const utterance = new SpeechSynthesisUtterance(text);
+    const chosenVoice = getBestGuidanceVoice(isKn ? 'kn' : 'en');
+    if (chosenVoice) {
+        utterance.voice = chosenVoice;
+    }
+    utterance.lang = isKn ? 'kn-IN' : 'en-IN';
+    utterance.rate = isKn ? 0.88 : 0.94; // Calm, clear tempo
+    utterance.pitch = 1.0;
+
+    // Show floating Voice HUD
+    const hud = document.getElementById('voiceGuideHud');
+    const hudTitle = document.getElementById('voiceGuideHudTitle');
+    const hudSub = document.getElementById('voiceGuideHudSub');
+    const toggleBtn = document.getElementById('voiceGuideToggleBtn');
+
+    if (hud) {
+        if (hudTitle) hudTitle.textContent = titleText || (isKn ? '🔊 ಧ್ವನಿ ಮಾರ್ಗದರ್ಶನ' : '🔊 Voice Guidance');
+        if (hudSub) hudSub.textContent = text.length > 55 ? text.substring(0, 52) + '...' : text;
+        hud.style.display = 'flex';
+    }
+
+    if (toggleBtn) toggleBtn.classList.add('speaking');
+    isVoiceGuideSpeaking = true;
+
+    utterance.onend = function() {
+        isVoiceGuideSpeaking = false;
+        if (hud) hud.style.display = 'none';
+        if (toggleBtn) toggleBtn.classList.remove('speaking');
+    };
+
+    utterance.onerror = function() {
+        isVoiceGuideSpeaking = false;
+        if (hud) hud.style.display = 'none';
+        if (toggleBtn) toggleBtn.classList.remove('speaking');
+    };
+
+    window.speechSynthesis.speak(utterance);
+}
+
+function getCurrentScreenKey() {
+    if (document.body.classList.contains('shorts-mode-active')) return 'videos';
+    const sosModal = document.getElementById('sosModal');
+    if (sosModal && sosModal.style.display !== 'none') return 'sos-modal';
+
+    const moreView = document.getElementById('moreFeatureView');
+    if (moreView && moreView.style.display !== 'none' && currentMoreFeature) {
+        return currentMoreFeature;
+    }
+
+    const activePage = document.querySelector('.page.active');
+    return activePage ? activePage.id : 'page-home';
+}
+
+function playVoiceGuidance(key, force = false) {
+    if (!force && !isVoiceGuideEnabled) return;
+    if (document.body.classList.contains('shorts-mode-active') && !force) return; // Don't interrupt reels unless tapped
+
+    const isKn = (currentLang === 'kn');
+    const guide = VOICE_GUIDES[key];
+    if (!guide) return;
+
+    currentGuidanceKey = key;
+    const text = isKn ? guide.kn : (guide.en || guide.kn);
+    const title = isKn ? guide.titleKn : (guide.titleEn || guide.titleKn);
+
+    speakGuidance(text, title);
+}
+
+function playCurrentScreenGuidance() {
+    playTapSound();
+    const key = getCurrentScreenKey();
+    playVoiceGuidance(key, true); // force=true ensures playback even if auto-mode was turned off
+}
+
+function onScreenNavigated(screenKey) {
+    if (!isVoiceGuideEnabled) return;
+    if (voiceGuideTimer) clearTimeout(voiceGuideTimer);
+    voiceGuideTimer = setTimeout(() => {
+        playVoiceGuidance(screenKey, false);
+    }, 280);
+}
+
 function speakResponse(text) {
     if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
         showVoiceState('responding', '🔊 Speaking response...');
         const utterance = new SpeechSynthesisUtterance(text);
         const hasKannada = /[\u0C80-\u0CFF]/.test(text);
+        const chosenVoice = getBestGuidanceVoice(hasKannada ? 'kn' : 'en');
+        if (chosenVoice) {
+            utterance.voice = chosenVoice;
+        }
         utterance.lang = hasKannada ? 'kn-IN' : 'en-IN';
-        utterance.rate = 0.92;
+        utterance.rate = hasKannada ? 0.88 : 0.94;
         utterance.onend = function() { hideVoiceState(); };
         utterance.onerror = function() { hideVoiceState(); };
         window.speechSynthesis.speak(utterance);
@@ -5627,11 +6260,18 @@ function openSOS() {
         if (coordEl) coordEl.textContent = isKn ? '❌ ಈ ಸಾಧನದಲ್ಲಿ ಜಿಪಿಎಸ್ ಬೆಂಬಲಿಸುವುದಿಲ್ಲ' : '❌ GPS Not Supported';
         if (statusEl) { statusEl.textContent = isKn ? 'ಲಭ್ಯವಿಲ್ಲ' : 'Unavailable'; statusEl.style.color = '#ef4444'; }
     }
+
+    if (typeof onScreenNavigated === 'function') {
+        onScreenNavigated('sos-modal');
+    }
 }
 
 function closeSOS() {
     const modal = document.getElementById('sosModal');
     if (modal) modal.style.display = 'none';
+    if (typeof stopVoiceGuidance === 'function') {
+        stopVoiceGuidance();
+    }
 }
 
 function copyGpsCoordinates() {
@@ -5952,7 +6592,20 @@ const translations = {
         iosStep1: 'ಬ್ರೌಸರ್ ಮೆನು ಅಥವಾ ಹಂಚಿಕೆ ಬಟನ್ Share (⎋) ಟ್ಯಾಪ್ ಮಾಡಿ.',
         iosStep2: 'ಕೆಳಗೆ ಸ್ಕ್ರಾಲ್ ಮಾಡಿ \'Add to Home Screen\' (➕) ಆಯ್ಕೆಮಾಡಿ.',
         iosStep3: 'ಮೇಲ್ಭಾಗದಲ್ಲಿ \'Add\' ಒತ್ತಿ. ಬ್ರೌಸರ್ ಬಾರ್ ಇಲ್ಲದೆ ಆ್ಯಪ್ ತೆರೆಯುತ್ತದೆ!',
-        iosModalOkBtn: 'ಅರ್ಥವಾಯಿತು (Got it)'
+        iosModalOkBtn: 'ಅರ್ಥವಾಯಿತು (Got it)',
+
+        // Voice Guidance Localizations
+        voiceGuideHeaderOn: 'ಧ್ವನಿ ON',
+        voiceGuideHeaderOff: 'ಧ್ವನಿ OFF',
+        homeVoiceGuideBtnText: 'ಸರಳ ಧ್ವನಿ ಸೂಚನೆ ಕೇಳಿ (ಕನ್ನಡ)',
+        voiceVoiceGuideBtnText: 'ಬಳಸುವ ವಿಧಾನ ಕೇಳಿ (ಕನ್ನಡ)',
+        marketVoiceGuideBtnText: 'ದರಗಳ ಮಾಹಿತಿ ಕೇಳಿ (ಕನ್ನಡ)',
+        safetyVoiceGuideBtnText: 'ಸುರಕ್ಷತಾ ಸೂಚನೆ ಕೇಳಿ (ಕನ್ನಡ)',
+        moreVoiceGuideBtnText: 'ಪರಿಕರಗಳ ಮಾಹಿತಿ ಕೇಳಿ (ಕನ್ನಡ)',
+        moreAudioGuideText: 'ಕೇಳಿ',
+        sosAudioGuideText: 'ತುರ್ತು ಸೂಚನೆ ಧ್ವನಿಯಲ್ಲಿ ಕೇಳಿ (ಕನ್ನಡ)',
+        voiceGuideHudTitle: 'ಧ್ವನಿ ಮಾರ್ಗದರ್ಶಿ',
+        voiceGuideStopPillText: 'ನಿಲ್ಲಿಸಿ'
     },
     'en': {
         marineTag: '🌊 MARINE WEATHER ADVISORY',
@@ -6084,7 +6737,20 @@ const translations = {
         iosStep1: 'Tap the browser Share button (⎋) or menu.',
         iosStep2: 'Scroll down and select \'Add to Home Screen\' (➕).',
         iosStep3: 'Tap \'Add\' in the top corner to launch without browser UI.',
-        iosModalOkBtn: 'Got it'
+        iosModalOkBtn: 'Got it',
+
+        // Voice Guidance Localizations
+        voiceGuideHeaderOn: 'Voice ON',
+        voiceGuideHeaderOff: 'Voice OFF',
+        homeVoiceGuideBtnText: 'Listen to Simple Instructions',
+        voiceVoiceGuideBtnText: 'Listen to Voice Instructions',
+        marketVoiceGuideBtnText: 'Listen to Prices (Audio)',
+        safetyVoiceGuideBtnText: 'Listen to Safety Instructions',
+        moreVoiceGuideBtnText: 'Listen to Tools Overview',
+        moreAudioGuideText: 'Listen',
+        sosAudioGuideText: 'Listen to Emergency Guidance',
+        voiceGuideHudTitle: 'Voice Guidance',
+        voiceGuideStopPillText: 'Stop'
     }
 };
 
@@ -6263,6 +6929,21 @@ function applyLanguage(lang) {
     if (lastConditionsData) {
         renderConditionsData(lastConditionsData, lastConditionsDecision, lastConditionsTimestamp, lastConditionsIsCached);
     }
+
+    // Update Voice Guidance UI elements
+    setTxt('homeVoiceGuideBtnText', t.homeVoiceGuideBtnText);
+    setTxt('voiceVoiceGuideBtnText', t.voiceVoiceGuideBtnText);
+    setTxt('marketVoiceGuideBtnText', t.marketVoiceGuideBtnText);
+    setTxt('safetyVoiceGuideBtnText', t.safetyVoiceGuideBtnText);
+    setTxt('moreVoiceGuideBtnText', t.moreVoiceGuideBtnText);
+    setTxt('moreAudioGuideText', t.moreAudioGuideText);
+    setTxt('sosAudioGuideText', t.sosAudioGuideText);
+    setTxt('voiceGuideStopPillText', t.voiceGuideStopPillText);
+    setTxt('voiceGuideHudTitle', t.voiceGuideHudTitle);
+    if (typeof updateVoiceGuideToggleUI === 'function') {
+        updateVoiceGuideToggleUI();
+    }
+
     updateThemeToggleUI();
 }
 
@@ -6423,9 +7104,9 @@ window.addEventListener('offline', () => {
 // Register Service Worker for PWA & Deep-Sea Offline Support
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=17')
+        navigator.serviceWorker.register('./sw.js?v=18')
             .then(reg => {
-                console.log('🐟 [PWA] Service Worker v17 registered:', reg.scope);
+                console.log('🐟 [PWA] Service Worker v18 registered:', reg.scope);
                 reg.update();
             })
             .catch(err => console.log('🐟 [PWA] SW registration failed:', err));

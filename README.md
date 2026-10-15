@@ -34,11 +34,13 @@ Fishermen simply tap the microphone and ask: *"ನಾಳೆ ಕಡಲಿಗೆ �
 
 ## ✨ Key Features
 
-### 🎙️ 1. Bioluminescent Voice Co-Pilot
-- **Bilingual Speech Engine**: Full voice interaction powered by the Web Speech API with native **🇮🇳 ಕನ್ನಡ (Kannada)** (`kn-IN`) and **🇬🇧 English** (`en-US`).
-- **Hands-Free Audio Readback**: Clear spoken synthesizer responses so crew members can hear advisories without reading text.
-- **Sonar Waveform HUD**: Visual pulsating wave equalizer and audio chime cues synthesized via Web Audio API.
-- **Glassmorphic Quick Query Input**: Subtle glowing pill button (`⌨️ Type your query →`) with keyboard input fallback.
+### 🎙️ 1. Bioluminescent Voice Co-Pilot & System-Wide Kannada Voice Guidance (ಧ್ವನಿ ಮಾರ್ಗದರ್ಶಿ)
+- **Spoken Guidance Across Every Screen**: Simple, natural spoken instructions in native **🇮🇳 ಕನ್ನಡ (Kannada)** across the entire website — Home, Voice Cockpit, Fish Market, Sea & Weather / Safety, Feature Hub, Fuel Calculator, Catch Logger, Govt Schemes, FishReels, and Emergency SOS.
+- **Header Voice Guide Toggle (ಧ್ವನಿ ON/OFF)**: One-tap header controller with persistent memory (`localStorage`) and active glowing waveform feedback.
+- **One-Tap "🔊 ಕೇಳಿ" (Listen) Buttons**: Instant audio guidance button on every page, feature hub tool, and emergency modal allowing fishermen to listen immediately without reading text.
+- **Floating Audio HUD**: Non-intrusive floating guidance bar with animated 3-bar equalizer and one-tap stop button (`⏹️ ನಿಲ್ಲಿಸಿ`).
+- **Hands-Free Audio Readback**: Voice assistant decision output and question answering powered by Web Speech API (`kn-IN` & `en-IN`).
+- **Sonar Waveform Equalizer**: Pulsating wave animation and synthetic audio chime cues via Web Audio API.
 
 ### 🛡️ 2. Deterministic Safety Decision Engine
 - Evaluates real-time wind speed, air/sea surface temperature, sky clarity, and harbor profit potential.
@@ -109,7 +111,7 @@ Fishermen-AI/
 │   └── render.yaml            # Render deployment manifest
 ├── frontend/
 │   ├── index.html             # Single Page Application (UI + FishReels + Logic)
-│   ├── sw.js                  # PWA Service Worker (v17 cache & network-first)
+│   ├── sw.js                  # PWA Service Worker (v18 cache & network-first)
 │   ├── manifest.json          # Web App Manifest
 │   └── icon.svg               # Marine application icon
 ├── tests/
@@ -124,7 +126,7 @@ Fishermen-AI/
 | **Frontend UI** | HTML5, CSS3 Glassmorphism, Vanilla ES6+ JavaScript |
 | **Video Engine** | FishReels YouTube IFrame API Embeds (No-Cookie, Lazy-Loaded, Fullscreen) |
 | **Voice & Audio** | Web Speech API (`SpeechRecognition`, `SpeechSynthesis`), Web Audio API |
-| **Offline / PWA** | Service Worker v17, Web App Manifest, Cache API |
+| **Offline / PWA** | Service Worker v18, Web App Manifest, Cache API |
 | **Backend API** | Python 3.10+, Flask, Flask-CORS |
 | **Telemetry** | OpenWeatherMap API, Local Marine Cache Fallback |
 | **Deployment** | Frontend on **Vercel**, Backend API on **Render** |
