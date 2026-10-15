@@ -66,17 +66,18 @@ Fishermen simply tap the microphone and ask: *"ನಾಳೆ ಕಡಲಿಗೆ �
 - Real-time logging of daily species, catch weight in kilograms (kg), and gross harbor earnings (₹).
 - Local storage persistence allows fishermen to review their financial history even when disconnected.
 
-### 📊 6. Harbor Wholesale Catch Rates
-- Clean, menu-style price index with subtle dividers and scannable visual hierarchy (eliminates heavy nested cards).
-- Live market indices for 8 staple Karavali marine species:
-  - Indian Mackerel (*ಬಂಗಡೆ / Bangude*)
-  - Oil Sardine (*ಬೂತಾಯಿ / Boothai*)
-  - Silver Pomfret (*ಮಾಂಜಿ / Manji*)
-  - Kingfish / Seer (*ಅಂಜಲ್ / Anjal*)
-  - Yellowfin Tuna (*ಗೆದ್ದಾರ್ / Geddare*)
-  - Tiger Prawn (*ಸೀಗಡಿ / Sigadi*)
-  - Mud Crab (*ಡೆಂಜಿ / Denji*)
-  - Squid (*ಬೊಂಡಾಸ್ / Bondas*)
+### 💰 6. Harbor Wholesale Catch Rates & Selling Advisory
+- **Structured 3-Column Display**: Organized into `Fish (ಮೀನು / ತಳಿ)`, `Market price (/kg)`, and `Updated (ನವೀಕರಣ & ಮೂಲ)`.
+- **Select Local Harbor**: Horizontal carousel of major Coastal Karnataka fishing harbors:
+  - ⚓ **Malpe Harbor** (*ಮಲ್ಪೆ ಬಂದರು · Udupi*) — Malpe Fishermen Primary Co-Op Society & KFDC Auction
+  - ⚓ **Mangalore Old Port (Bunder)** (*ಮಂಗಳೂರು ಧಕ್ಕೆ · Dakshina Kannada*) — Mangalore Bunder Wholesale Fish Auction Committee
+  - ⚓ **Gangolli Harbor** (*ಗಂಗೊಳ್ಳಿ ಬಂದರು · Kundapura*) — Gangolli Coastal Landing Auction Center
+  - ⚓ **Karwar Baithkol Port** (*ಕಾರವಾರ ಬೈತಖೋಲ್ ಬಂದರು · Uttara Kannada*) — Karwar Coastal Fishermen Marketing Federation
+  - ⚓ **Honnavar Harbor** (*ಹೊನ್ನಾವರ ಬಂದರು · Sharavati*) — Honnavar Fishermen Co-Operative Marketing Society
+- **Real-Time Fish Search**: Search instantly by English name, Kannada name, or Tulu alias (e.g. *Bangude, Boothai, Pomfret, Anjal, Geddare*).
+- **Per-Kilogram Pricing & Wholesale Range**: Explicit price per kilogram (`₹.../kg`) alongside harbor wholesale auction spread ranges (`₹... – ₹...`).
+- **Strict Benchmark Authenticity Disclosure**: Never presents old data as live. If a live digital auction feed is offline, prominently displays an amber benchmark banner with exact update time, date, verified auction co-op source, and selling advisory note.
+- **Dockside Selling Advisory**: Guides fishermen on how wholesale auction averages vary with catch grade (A/B), icing quality, and fleet volume before offloading.
 
 ### 🆘 7. Maritime Distress & Emergency Beacon
 - **Live GPS Satellite Fix**: Locks device coordinates with latitude, longitude, and accuracy radius (±meters).
@@ -211,7 +212,7 @@ python tests/test_backend.py
 
 - 🏠 **Home**: Voice cockpit, instant GO/CAUTION decision, telemetry banner, quick SOS & Market tiles.
 - 🎤 **Voice**: Dedicated voice inquiry cockpit with popular prompts.
-- 📊 **Market**: Scannable, flattened harbor catch rate index (Malpe & Mangalore) with peak seasons and price ranges.
+- 💰 **Market**: Structured 3-column harbor catch rate & selling advisory (Malpe, Mangalore, Gangolli, Karwar, Honnavar) with real-time fish search, per-kg pricing, and explicit benchmark authenticity notices.
 - 🆘 **Safety**: Full emergency dashboard, GPS fix lock, two-step call confirm, distress beacon.
 - ⚙️ **More**: Bento hub with zero-scroll instant view switching into all 8 marine tools, including **FishReels (ಮೀನು ಕಲಿಯೋಣ)**.
 

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'fishermen-ai-v18';
+const CACHE_NAME = 'fishermen-ai-v19';
 const STATIC_ASSETS = [
   './',
   './index.html',
