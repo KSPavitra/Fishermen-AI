@@ -180,20 +180,30 @@
             border-radius: 50%;
         }
 
-        /* HEADER (COMPACT TOOL HUD) */
-        header {
+        /* HEADER (CLEAN 2-ROW RESPONSIVE MOBILE HUD) */
+        header, .app-header {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 2px 0 8px;
+            flex-direction: column;
+            gap: 7px;
+            padding: 4px 0 10px;
             border-bottom: 1px solid var(--header-border);
             flex-shrink: 0;
+            width: 100%;
+        }
+
+        /* ROW 1: Fish logo & Title on Left, Theme Toggle on Right, Subtitle below Title */
+        .header-top-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
             gap: 10px;
+            width: 100%;
         }
         .header-brand {
             display: flex;
             flex-direction: column;
             min-width: 0;
+            flex: 1;
             text-align: left;
         }
         .brand-title-row {
@@ -202,11 +212,11 @@
             gap: 6px;
         }
         .brand-title {
-            font-size: 16px;
+            font-size: 16.5px;
             font-weight: 850;
             letter-spacing: -0.3px;
             margin: 0;
-            line-height: 1.2;
+            line-height: 1.25;
             background: var(--title-gradient);
             -webkit-background-clip: text;
             background-clip: text;
@@ -217,6 +227,7 @@
             display: inline-flex;
             align-items: center;
             flex-shrink: 0;
+            margin-left: 2px;
         }
         .status-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
         .status-dot.online { background: #10b981; box-shadow: 0 0 8px #10b981; animation: radarPing 2s infinite; }
@@ -226,22 +237,63 @@
             50% { transform: scale(1.3); opacity: 0.5; }
         }
 
+        /* Kannada Subtitle placed below Title - Readable and never needlessly truncated */
         .subtitle {
-            font-size: 10px;
+            font-size: 11px;
             color: var(--text-muted);
-            font-weight: 600;
-            margin: 1px 0 0;
-            line-height: 1.2;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            font-weight: 550;
+            margin: 3px 0 0;
+            line-height: 1.35;
+            white-space: normal;
+            word-break: normal;
+            overflow: visible;
         }
 
-        .header-controls {
+        /* ROW 1 RIGHT: COMPACT THEME TOGGLE */
+        .theme-toggle-compact {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            justify-content: center;
+            gap: 4px;
+            height: 30px;
+            padding: 0 9px;
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            color: var(--text-main);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
             flex-shrink: 0;
+            align-self: flex-start;
+            margin-top: 1px;
+        }
+        .theme-toggle-compact:hover {
+            border-color: rgba(56, 189, 248, 0.5);
+            background: rgba(56, 189, 248, 0.12);
+            transform: translateY(-1px);
+        }
+        .theme-toggle-compact:active {
+            transform: scale(0.96);
+        }
+        .theme-toggle-text {
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            line-height: 1;
+        }
+
+        /* ROW 2: Language Selector and Voice Assistant Toggle with Balanced Spacing */
+        .header-actions-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            width: 100%;
+            padding-top: 2px;
         }
 
         /* CONDENSED LANGUAGE TOGGLE (EN | ಕನ್ನಡ) */
@@ -250,21 +302,23 @@
             align-items: center;
             gap: 2px;
             background: rgba(15, 23, 42, 0.75);
-            padding: 3px 8px;
+            padding: 2px 8px;
+            height: 30px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            flex-shrink: 0;
         }
         .lang-link.lang-btn {
             background: transparent;
             border: none;
-            padding: 2px 4px;
+            padding: 4px 6px;
             color: #94a3b8;
-            font-size: 11.5px;
+            font-size: 11px;
             font-weight: 700;
             cursor: pointer;
             line-height: 1;
             transition: all 0.18s ease;
-            border-radius: 4px;
+            border-radius: 6px;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
@@ -274,51 +328,25 @@
         .lang-link.lang-btn.active {
             color: #38bdf8;
             font-weight: 900;
-            text-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+            background: rgba(56, 189, 248, 0.12);
+            text-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
         }
         .lang-sep {
-            color: rgba(255, 255, 255, 0.25);
+            color: rgba(255, 255, 255, 0.22);
             font-size: 10px;
             line-height: 1;
             user-select: none;
             margin: 0 1px;
         }
 
-        /* COMPACT THEME TOGGLE */
-        .theme-toggle-compact {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: var(--text-main);
-            cursor: pointer;
-            font-size: 13px;
-            padding: 0;
-            transition: all 0.2s ease;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-            flex-shrink: 0;
-        }
-        .theme-toggle-compact:hover {
-            background: rgba(255, 255, 255, 0.18);
-            border-color: rgba(56, 189, 248, 0.5);
-            transform: scale(1.05);
-        }
-        .theme-toggle-compact:active {
-            transform: scale(0.95);
-        }
-
-        /* KANNADA VOICE GUIDANCE HEADER TOGGLE */
+        /* KANNADA VOICE GUIDANCE HEADER TOGGLE (SINGLETON) */
         .voice-guide-toggle-compact {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
             background: rgba(15, 23, 42, 0.75);
-            padding: 3px 8px;
+            padding: 2px 10px;
+            height: 30px;
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.14);
             color: #94a3b8;
@@ -329,7 +357,7 @@
             user-select: none;
             -webkit-tap-highlight-color: transparent;
             line-height: 1;
-            height: 28px;
+            flex-shrink: 0;
         }
         .voice-guide-toggle-compact:hover {
             color: #ffffff;
@@ -343,12 +371,17 @@
             box-shadow: 0 0 12px rgba(6, 182, 212, 0.25);
         }
         .voice-guide-toggle-compact .vguide-icon {
-            font-size: 12px;
+            font-size: 12.5px;
             display: inline-block;
             transition: transform 0.2s ease;
         }
         .voice-guide-toggle-compact.active .vguide-icon {
             transform: scale(1.1);
+        }
+        .voice-guide-toggle-compact .vguide-text {
+            font-size: 10.5px;
+            font-weight: 750;
+            letter-spacing: 0.2px;
         }
         .voice-guide-toggle-compact.speaking {
             animation: pulseVoiceToggle 1.4s infinite;
@@ -2675,6 +2708,13 @@
         [data-theme="light"] .lang-sep {
             color: rgba(0, 0, 0, 0.2) !important;
         }
+        [data-theme="light"] header,
+        [data-theme="light"] .app-header {
+            border-bottom-color: rgba(14, 165, 233, 0.18);
+        }
+        [data-theme="light"] .subtitle {
+            color: #475569 !important;
+        }
         [data-theme="light"] .hero-prompt-card {
             background: linear-gradient(135deg, rgba(224, 242, 254, 0.95), rgba(219, 234, 254, 0.8));
             border-color: rgba(56, 189, 248, 0.45);
@@ -3343,9 +3383,33 @@
         }
 
         /* Mobile vs Desktop Viewport Architecture */
-        @media (max-width: 400px) {
+        @media (max-width: 340px) {
+            .brand-title {
+                font-size: 15px;
+            }
             .theme-toggle-text {
                 display: none;
+            }
+            .theme-toggle-compact {
+                padding: 0;
+                width: 30px;
+                justify-content: center;
+            }
+            .subtitle {
+                font-size: 10.5px;
+            }
+            .lang-toggle-compact {
+                padding: 2px 6px;
+            }
+            .lang-link.lang-btn {
+                padding: 3px 5px;
+                font-size: 10.5px;
+            }
+            .voice-guide-toggle-compact {
+                padding: 2px 8px;
+            }
+            .voice-guide-toggle-compact .vguide-text {
+                font-size: 10px;
             }
             .marine-tag {
                 max-width: 170px;
@@ -3434,21 +3498,31 @@
 
 <div id="app">
 
-    <!-- HEADER HUD (COMPACT TOOL HEADER) -->
-    <header>
-        <div class="header-brand">
-            <div class="brand-title-row">
-                <h1 class="brand-title">🐟 Fishermen-AI</h1>
-                <div class="connection-status-dot" title="Server Status">
-                    <span class="status-dot online" id="connectionDot"></span>
-                    <span id="connectionText" class="sr-only">Online</span>
+    <!-- HEADER HUD (CLEAN 2-ROW RESPONSIVE MOBILE HEADER) -->
+    <header class="app-header">
+        <!-- ROW 1: Logo & Title on Left, Theme Toggle on Right, Kannada Subtitle below Title -->
+        <div class="header-top-row">
+            <div class="header-brand">
+                <div class="brand-title-row">
+                    <h1 class="brand-title">🐟 Fishermen-AI</h1>
+                    <div class="connection-status-dot" title="Server Status">
+                        <span class="status-dot online" id="connectionDot"></span>
+                        <span id="connectionText" class="sr-only">Online</span>
+                    </div>
                 </div>
+                <p class="subtitle" id="appSubtitle">ಕರಾವಳಿ ಮೀನುಗಾರರ ಹವಾಮಾನ & ಸುರಕ್ಷತಾ ಸಹಾಯಕ · Karavali Coast</p>
+                <span class="marine-tag sr-only" id="marineTag">🌊 MARINE WEATHER ADVISORY</span>
             </div>
-            <p class="subtitle" id="appSubtitle">Marine Weather & Safety Co-Pilot · Karavali Coast</p>
-            <span class="marine-tag sr-only" id="marineTag">🌊 MARINE WEATHER ADVISORY</span>
+
+            <!-- COMPACT THEME TOGGLE (Row 1 Right) -->
+            <button id="themeToggleBtn" class="theme-toggle-compact" onclick="toggleTheme()" aria-label="Toggle Light / Dark Mode" title="Toggle Theme">
+                <span id="themeToggleIcon">☀️</span>
+                <span id="themeToggleText" class="theme-toggle-text">Light</span>
+            </button>
         </div>
 
-        <div class="header-controls">
+        <!-- ROW 2: Language Selector and Voice Assistant Toggle with Balanced Spacing -->
+        <div class="header-actions-row">
             <!-- CONDENSED LANGUAGE TOGGLE: EN | ಕನ್ನಡ -->
             <div class="lang-toggle-compact" role="group" aria-label="Language Selector">
                 <button class="lang-link lang-btn" data-lang="en" aria-label="Switch to English">EN</button>
@@ -3456,16 +3530,10 @@
                 <button class="lang-link lang-btn active" data-lang="kn" aria-label="ಕನ್ನಡಕ್ಕೆ ಬದಲಾಯಿಸಿ">ಕನ್ನಡ</button>
             </div>
 
-            <!-- KANNADA VOICE GUIDANCE TOGGLE -->
+            <!-- KANNADA VOICE GUIDANCE TOGGLE (SINGLETON SHARED INSTANCE) -->
             <button id="voiceGuideToggleBtn" class="voice-guide-toggle-compact active" onclick="toggleVoiceGuide()" aria-label="ಧ್ವನಿ ಮಾರ್ಗದರ್ಶಿ / Voice Guide" title="ಧ್ವನಿ ಮಾರ್ಗದರ್ಶಿ (Voice Guidance: ON/OFF)">
                 <span id="voiceGuideIcon" class="vguide-icon">🔊</span>
                 <span id="voiceGuideText" class="vguide-text">ಧ್ವನಿ ON</span>
-            </button>
-
-            <!-- COMPACT THEME TOGGLE -->
-            <button id="themeToggleBtn" class="theme-toggle-compact" onclick="toggleTheme()" aria-label="Toggle Light / Dark Mode" title="Toggle Theme">
-                <span id="themeToggleIcon">☀️</span>
-                <span id="themeToggleText" class="sr-only">Light</span>
             </button>
         </div>
     </header>
@@ -7932,9 +8000,9 @@ window.addEventListener('offline', () => {
 // Register Service Worker for PWA & Deep-Sea Offline Support
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=19')
+        navigator.serviceWorker.register('./sw.js?v=20')
             .then(reg => {
-                console.log('🐟 [PWA] Service Worker v19 registered:', reg.scope);
+                console.log('🐟 [PWA] Service Worker v20 registered:', reg.scope);
                 reg.update();
             })
             .catch(err => console.log('🐟 [PWA] SW registration failed:', err));
