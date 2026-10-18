@@ -1,4 +1,4 @@
-const CACHE_NAME = 'fishermen-ai-v22';
+const CACHE_NAME = 'fishermen-ai-v23';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -10,7 +10,7 @@ const STATIC_ASSETS = [
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      console.log('🐟 [Service Worker v22] Caching App Shell');
+      console.log('🐟 [Service Worker v23] Caching App Shell');
       return cache.addAll(STATIC_ASSETS);
     })
   );
