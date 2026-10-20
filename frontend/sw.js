@@ -1,16 +1,31 @@
-const CACHE_NAME = 'fishermen-ai-v23';
+const CACHE_NAME = 'fishermen-ai-v24';
 const STATIC_ASSETS = [
   './',
   './index.html',
   './manifest.json',
-  './icon.svg'
+  './icon.svg',
+  './css/styles.css',
+  './js/config.js',
+  './js/state.js',
+  './js/audio.js',
+  './js/theme.js',
+  './js/localization.js',
+  './js/navigation.js',
+  './js/safety.js',
+  './js/telemetry.js',
+  './js/market.js',
+  './js/features.js',
+  './js/fishreels.js',
+  './js/voice.js',
+  './js/pwa.js',
+  './js/app.js'
 ];
 
 // Install event - Cache static assets
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      console.log('🐟 [Service Worker v23] Caching App Shell');
+      console.log('🐟 [Service Worker v24] Caching App Shell & Modular Assets');
       return cache.addAll(STATIC_ASSETS);
     })
   );
@@ -23,7 +38,7 @@ self.addEventListener('activate', event => {
     caches.keys().then(keys => {
       return Promise.all(
         keys.filter(key => key !== CACHE_NAME).map(key => {
-          console.log('🐟 [Service Worker v16] Removing old cache:', key);
+          console.log('🐟 [Service Worker v24] Removing old cache:', key);
           return caches.delete(key);
         })
       );
@@ -53,7 +68,7 @@ self.addEventListener('fetch', event => {
   }
 
   // 2. API requests: Network-First with offline cache fallback
-  if (url.pathname.includes('/weather') || url.pathname.includes('/market-prices') || url.pathname.includes('/best-time') || url.pathname.includes('/tide') || url.pathname.includes('/schemes') || url.pathname.includes('/calendar') || url.pathname.includes('/fish-prediction')) {
+  if (url.pathname.includes('/weather') || url.pathname.includes('/market-prices') || url.pathname.includes('/best-time') || url.pathname.includes('/tide') || url.pathname.includes('/schemes') || url.calendar || url.pathname.includes('/calendar') || url.pathname.includes('/fish-prediction')) {
     event.respondWith(
       fetch(event.request)
         .then(response => {

@@ -130,8 +130,25 @@ Fishermen-AI/
 │   ├── requirements.txt       # Python dependencies
 │   └── render.yaml            # Render deployment manifest
 ├── frontend/
-│   ├── index.html             # Single Page Application (UI + Voice + FishReels + Logic)
-│   ├── sw.js                  # PWA Service Worker (v23 cache & network-first)
+│   ├── index.html             # Clean Semantic HTML Shell (~915 lines)
+│   ├── css/
+│   │   └── styles.css         # Glassmorphism, coastal theme, light/dark daylight modes
+│   ├── js/
+│   │   ├── config.js          # Backend URL, fish catalog, and video registry
+│   │   ├── state.js           # Shared reactive application state
+│   │   ├── audio.js           # Web Audio API sound synthesizer
+│   │   ├── theme.js           # Daylight sunlight / deep-sea night theme controller
+│   │   ├── localization.js    # Kannada / English translations & language switcher
+│   │   ├── navigation.js      # Page, tab-bar, and harbor selector navigation
+│   │   ├── safety.js          # Maritime distress SOS & beacon broadcast
+│   │   ├── telemetry.js       # Weather, marine conditions, tides, and solunar calendar
+│   │   ├── market.js          # Harbor auction catch rates & selling advisory
+│   │   ├── features.js        # Fuel calculator, catch logger, CMFRI seasonal guide, schemes
+│   │   ├── fishreels.js       # FishReels full-screen educational shorts video feed
+│   │   ├── voice.js           # Global reusable voice assistant & Kannada guidance engine
+│   │   ├── pwa.js             # PWA installation banner, iOS modal, and offline helpers
+│   │   └── app.js             # Master bootstrapper & lifecycle orchestrator
+│   ├── sw.js                  # PWA Service Worker (v24 modular cache & network-first)
 │   ├── manifest.json          # Web App Manifest
 │   └── icon.svg               # Marine application icon
 ├── tests/
