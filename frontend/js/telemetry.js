@@ -250,12 +250,12 @@ async function loadHomeConditions(forceRefresh = false) {
     }
 
     try {
-        const weatherPromise = fetch(BACKEND_URL + '/weather', { signal: AbortSignal.timeout(6000) });
+        const weatherPromise = fetch(BACKEND_URL + '/weather', { signal: AbortSignal.timeout(12000) });
         const decisionPromise = fetch(BACKEND_URL + '/api/decision', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ text: '' }),
-            signal: AbortSignal.timeout(6000)
+            signal: AbortSignal.timeout(12000)
         });
 
         const [weatherRes, decisionRes] = await Promise.allSettled([weatherPromise, decisionPromise]);
@@ -314,7 +314,7 @@ function refreshHomeConditions() {
 // ============================================
 async function checkBackend() {
     try {
-        const res = await fetch(BACKEND_URL + '/health', { signal: AbortSignal.timeout(4000) });
+        const res = await fetch(BACKEND_URL + '/health', { signal: AbortSignal.timeout(8000) });
         if (res.ok) {
             if (connectionDot) { connectionDot.className = 'status-dot online'; }
             if (connectionText) { connectionText.textContent = 'Online'; }
