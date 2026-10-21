@@ -24,7 +24,7 @@ function updateThemeToggleUI() {
     const icon = document.getElementById('themeToggleIcon');
     const text = document.getElementById('themeToggleText');
     const btn = document.getElementById('themeToggleBtn');
-    const t = (typeof translations !== 'undefined' && translations[currentLang]) ? translations[currentLang] : (translations ? translations.kn : null);
+    const t = (typeof translations !== 'undefined' && translations) ? (translations[currentLang] || translations.kn) : null;
     if (currentTheme === 'dark') {
         if (icon) icon.textContent = '☀️';
         if (text) text.textContent = (t && t.themeLight) ? t.themeLight : 'Light';

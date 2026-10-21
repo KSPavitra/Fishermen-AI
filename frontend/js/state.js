@@ -7,6 +7,8 @@ let isVoiceGuideEnabled = (localStorage.getItem('fishermen_voice_guide') !== 'fa
 let selectedMarketId = 'malpe';
 let lastConditionsData = null;
 let currentMoreFeature = null;
+let currentDecision = null;
+let lastDecisionVoiceText = '';
 
 // Voice Assistant & Recording State
 let isAssistantSpeaking = false;

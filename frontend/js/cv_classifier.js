@@ -191,15 +191,25 @@ async function initFishClassifier() {
         ort.env.wasm.wasmPaths = './libs/';
         ort.env.wasm.numThreads = 1;
 
-        console.log('🐟 [Fish-CV] Initializing MobileNetV3 ONNX Runtime Web Session...');
-        fishOnnxSession = await ort.InferenceSession.create('./models/fish_mobilenet_v3.onnx', {
-            executionProviders: ['wasm', 'webgl'],
-            graphOptimizationLevel: 'all'
-        });
-
-        console.log('✅ [Fish-CV] MobileNetV3 In-Browser Model Loaded Successfully!');
-        isClassifierLoading = false;
-        return fishOnnxSession;
+        try {
+            console.log('🐟 [Fish-CV] Initializing MobileNetV3 ONNX Runtime Web Session...');
+            fishOnnxSession = await ort.InferenceSession.create('./models/fish_mobilenet_v3.onnx', {
+                executionProviders: ['wasm', 'webgl'],
+                graphOptimizationLevel: 'all'
+            });
+            console.log('✅ [Fish-CV] MobileNetV3 In-Browser Model Loaded Successfully!');
+            isClassifierLoading = false;
+            return fishOnnxSession;
+        } catch (localErr) {
+            console.warn('🐟 [Fish-CV] Local wasm provider retry with unthreaded wasm:', localErr);
+            ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0-dev.20250206-b333cfc163/dist/';
+            fishOnnxSession = await ort.InferenceSession.create('./models/fish_mobilenet_v3.onnx', {
+                executionProviders: ['wasm']
+            });
+            console.log('✅ [Fish-CV] MobileNetV3 Loaded via fallback!');
+            isClassifierLoading = false;
+            return fishOnnxSession;
+        }
     } catch (err) {
         console.error('❌ [Fish-CV] Failed to initialize ONNX model:', err);
         isClassifierLoading = false;

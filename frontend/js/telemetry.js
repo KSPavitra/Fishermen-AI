@@ -328,22 +328,8 @@ async function checkBackend() {
 }
 
 
-    el.className = 'voice-state active ' + state;
-    if (txt) txt.textContent = message;
-
-    if (state === 'responding' || state === 'error') {
-        setTimeout(() => {
-            el.classList.remove('active');
-        }, 4000);
-    }
-}
-function hideVoiceState() {
-    const el = document.getElementById('voiceState');
-    if (el) el.classList.remove('active');
-}
-
-let lastDecisionVoiceText = '';
-let currentDecision = null;
+// State for current marine weather decision
+// (currentDecision and lastDecisionVoiceText are defined in state.js)
 
 function replayCurrentDecisionVoice() {
     playTapSound();

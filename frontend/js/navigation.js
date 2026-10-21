@@ -224,3 +224,17 @@ function showVoiceState(state, message) {
     const el = document.getElementById('voiceState');
     const txt = document.getElementById('voiceStateText');
     if (!el) return;
+    el.className = 'voice-state active ' + state;
+    if (txt) txt.textContent = message;
+
+    if (state === 'responding' || state === 'error') {
+        setTimeout(() => {
+            el.classList.remove('active');
+        }, 4000);
+    }
+}
+
+function hideVoiceState() {
+    const el = document.getElementById('voiceState');
+    if (el) el.classList.remove('active');
+}

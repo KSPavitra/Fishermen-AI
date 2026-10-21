@@ -1,13 +1,11 @@
-const CACHE_NAME = 'fishermen-ai-v25';
-const STATIC_ASSETS = [
+const CACHE_NAME = 'fishermen-ai-v26';
+const CORE_STATIC_ASSETS = [
   './',
   './index.html',
   './manifest.json',
   './icon.svg',
   './css/styles.css',
   './libs/ort.all.min.js',
-  './libs/ort-wasm-simd-threaded.wasm',
-  './models/fish_mobilenet_v3.onnx',
   './models/fish_classes.json',
   './js/config.js',
   './js/state.js',
@@ -26,12 +24,25 @@ const STATIC_ASSETS = [
   './js/app.js'
 ];
 
-// Install event - Cache static assets
+const HEAVY_AI_ASSETS = [
+  './libs/ort-wasm-simd-threaded.wasm',
+  './models/fish_mobilenet_v3.onnx'
+];
+
+// Install event - Cache static assets with high resiliency
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      console.log('🐟 [Service Worker v25] Caching App Shell & Modular Assets');
-      return cache.addAll(STATIC_ASSETS);
+    caches.open(CACHE_NAME).then(async cache => {
+      console.log('🐟 [Service Worker v26] Caching App Shell & Core Modules');
+      // 1. Cache core lightweight UI shell first
+      await cache.addAll(CORE_STATIC_ASSETS);
+
+      // 2. Cache heavy AI binary models asynchronously so network hiccups never break installation
+      HEAVY_AI_ASSETS.forEach(asset => {
+        cache.add(asset).catch(err => {
+          console.warn('🐟 [Service Worker v26] Background cache note for:', asset, err.message);
+        });
+      });
     })
   );
   self.skipWaiting();
@@ -43,7 +54,7 @@ self.addEventListener('activate', event => {
     caches.keys().then(keys => {
       return Promise.all(
         keys.filter(key => key !== CACHE_NAME).map(key => {
-          console.log('🐟 [Service Worker v25] Removing old cache:', key);
+          console.log('🐟 [Service Worker v26] Removing old cache:', key);
           return caches.delete(key);
         })
       );
@@ -73,7 +84,7 @@ self.addEventListener('fetch', event => {
   }
 
   // 2. API requests: Network-First with offline cache fallback
-  if (url.pathname.includes('/weather') || url.pathname.includes('/market-prices') || url.pathname.includes('/best-time') || url.pathname.includes('/tide') || url.pathname.includes('/schemes') || url.calendar || url.pathname.includes('/calendar') || url.pathname.includes('/fish-prediction')) {
+  if (url.pathname.includes('/weather') || url.pathname.includes('/market-prices') || url.pathname.includes('/best-time') || url.pathname.includes('/tide') || url.pathname.includes('/schemes') || url.pathname.includes('/calendar') || url.pathname.includes('/fish-prediction')) {
     event.respondWith(
       fetch(event.request)
         .then(response => {
@@ -101,7 +112,10 @@ self.addEventListener('fetch', event => {
           });
         }
         return networkResponse;
-      }).catch(() => cachedResponse);
+      }).catch(err => {
+        // Suppress expected offline fetch errors for cached resources
+        return null;
+      });
 
       return cachedResponse || fetchPromise;
     })
