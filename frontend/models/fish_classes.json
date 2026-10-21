@@ -1,0 +1,252 @@
+[
+  {
+    "id": 0,
+    "key": "mackerel",
+    "name": "Indian Mackerel",
+    "scientific_name": "Rastrelliger kanagurta",
+    "kannada": "ಬಂಗಡೆ (Bangude)",
+    "tulu": "Bangude",
+    "price": 220,
+    "min_price": 180,
+    "max_price": 260,
+    "season": "Aug - Dec",
+    "habitat": "Coastal pelagic, in schools",
+    "freshness_guide": "Bright iridescent golden-green sheen along the back; gills clear red without mucus; firm belly.",
+    "base_color_rgb": [
+      70,
+      140,
+      110
+    ],
+    "flank_color_rgb": [
+      210,
+      220,
+      215
+    ],
+    "aspect_ratio": 0.28
+  },
+  {
+    "id": 1,
+    "key": "sardine",
+    "name": "Oil Sardine",
+    "scientific_name": "Sardinella longiceps",
+    "kannada": "ಬೂತಾಯಿ (Boothai)",
+    "tulu": "Boothai",
+    "price": 150,
+    "min_price": 120,
+    "max_price": 180,
+    "season": "Sep - Jan",
+    "habitat": "Inshore pelagic surface waters",
+    "freshness_guide": "Glistening silver scales firmly attached; golden spot on post-opercle; crystal clear black pupils.",
+    "base_color_rgb": [
+      40,
+      80,
+      130
+    ],
+    "flank_color_rgb": [
+      235,
+      240,
+      245
+    ],
+    "aspect_ratio": 0.24
+  },
+  {
+    "id": 2,
+    "key": "pomfret",
+    "name": "Silver Pomfret",
+    "scientific_name": "Pampus argenteus",
+    "kannada": "ಮಾಂಜಿ / ರಾವ (Manji)",
+    "tulu": "Manji",
+    "price": 450,
+    "min_price": 380,
+    "max_price": 550,
+    "season": "Oct - Feb",
+    "habitat": "Coastal waters over muddy bottom",
+    "freshness_guide": "Pure metallic silver body; intact delicate skin without black bruises; stiff tail fin.",
+    "base_color_rgb": [
+      170,
+      185,
+      195
+    ],
+    "flank_color_rgb": [
+      245,
+      248,
+      252
+    ],
+    "aspect_ratio": 0.65
+  },
+  {
+    "id": 3,
+    "key": "seer",
+    "name": "Kingfish / Seer Fish",
+    "scientific_name": "Scomberomorus commerson",
+    "kannada": "ಅಂಜಲ್ / ಸೀರ್ (Anjal)",
+    "tulu": "Anjal / Surmai",
+    "price": 580,
+    "min_price": 500,
+    "max_price": 750,
+    "season": "Sep - Mar",
+    "habitat": "Deep coastal shelf waters",
+    "freshness_guide": "Prominent dark wavy vertical bars along silvery flanks; flesh firm and elastic to thumb pressure.",
+    "base_color_rgb": [
+      60,
+      85,
+      105
+    ],
+    "flank_color_rgb": [
+      195,
+      205,
+      215
+    ],
+    "aspect_ratio": 0.22
+  },
+  {
+    "id": 4,
+    "key": "tuna",
+    "name": "Yellowfin Tuna",
+    "scientific_name": "Thunnus albacares",
+    "kannada": "ಗೆದ್ದಾರ್ / ತುನಾ (Geddare)",
+    "tulu": "Geddare",
+    "price": 340,
+    "min_price": 280,
+    "max_price": 420,
+    "season": "Year-round",
+    "habitat": "Pelagic oceanic & shelf waters",
+    "freshness_guide": "Vibrant yellow finlets; dark metallic blue dorsal; belly shiny without brown discoloration.",
+    "base_color_rgb": [
+      25,
+      45,
+      90
+    ],
+    "flank_color_rgb": [
+      210,
+      180,
+      50
+    ],
+    "aspect_ratio": 0.32
+  },
+  {
+    "id": 5,
+    "key": "prawn",
+    "name": "Tiger Prawn",
+    "scientific_name": "Penaeus monodon",
+    "kannada": "ಸೀಗಡಿ (Sigadi)",
+    "tulu": "Ett",
+    "price": 420,
+    "min_price": 350,
+    "max_price": 520,
+    "season": "Aug - Nov",
+    "habitat": "Sandy & muddy bottom estuaries and coastal sea",
+    "freshness_guide": "Translucent carapace with crisp cross-bands; head firmly attached to body; no blackening (melanosis).",
+    "base_color_rgb": [
+      85,
+      90,
+      80
+    ],
+    "flank_color_rgb": [
+      180,
+      160,
+      120
+    ],
+    "aspect_ratio": 0.3
+  },
+  {
+    "id": 6,
+    "key": "crab",
+    "name": "Mud Crab",
+    "scientific_name": "Scylla serrata",
+    "kannada": "ಡೆಂಜಿ / ಏಡಿ (Denji)",
+    "tulu": "Denji",
+    "price": 280,
+    "min_price": 220,
+    "max_price": 360,
+    "season": "Year-round",
+    "habitat": "Mangrove swamps, estuarine mud flats & coastal inshore",
+    "freshness_guide": "Heavy feel relative to size; active chelae movement; clean abdominal flap without fishy sour odor.",
+    "base_color_rgb": [
+      55,
+      65,
+      45
+    ],
+    "flank_color_rgb": [
+      115,
+      125,
+      95
+    ],
+    "aspect_ratio": 0.72
+  },
+  {
+    "id": 7,
+    "key": "squid",
+    "name": "Indian Squid",
+    "scientific_name": "Uroteuthis duvaucelii",
+    "kannada": "ಬೊಂಡಾಸ್ (Bondas)",
+    "tulu": "Bondas",
+    "price": 260,
+    "min_price": 200,
+    "max_price": 320,
+    "season": "Sep - Dec",
+    "habitat": "Coastal neritic waters",
+    "freshness_guide": "Dense, vibrant purple-red chromatophores on translucent mantle; firm elastic tube; no pink flesh discoloration.",
+    "base_color_rgb": [
+      140,
+      75,
+      110
+    ],
+    "flank_color_rgb": [
+      235,
+      230,
+      235
+    ],
+    "aspect_ratio": 0.26
+  },
+  {
+    "id": 8,
+    "key": "red_snapper",
+    "name": "Red Snapper",
+    "scientific_name": "Lutjanus campechanus",
+    "kannada": "ಚೆಂಬಳ್ಳಿ / ಮುರು (Chemballi)",
+    "tulu": "Muru / Chemballi",
+    "price": 380,
+    "min_price": 320,
+    "max_price": 460,
+    "season": "Sep - Apr",
+    "habitat": "Rocky reefs & shelf drop-offs",
+    "freshness_guide": "Vivid deep red to pink skin; bright red gills; convex clear eyes with ruby ring.",
+    "base_color_rgb": [
+      205,
+      55,
+      65
+    ],
+    "flank_color_rgb": [
+      235,
+      160,
+      165
+    ],
+    "aspect_ratio": 0.4
+  },
+  {
+    "id": 9,
+    "key": "anchovy",
+    "name": "Indian Anchovy",
+    "scientific_name": "Stolephorus indicus",
+    "kannada": "ಬೋಳೆ / ನತ್ತೋಲಿ (Bole)",
+    "tulu": "Kole / Bole",
+    "price": 140,
+    "min_price": 100,
+    "max_price": 170,
+    "season": "Sep - Mar",
+    "habitat": "Inshore coastal schools",
+    "freshness_guide": "Pristine silver lateral stripe along translucent body; intact bellies; delicate sea-spray scent.",
+    "base_color_rgb": [
+      160,
+      185,
+      180
+    ],
+    "flank_color_rgb": [
+      245,
+      245,
+      250
+    ],
+    "aspect_ratio": 0.2
+  }
+]

@@ -1,10 +1,14 @@
-const CACHE_NAME = 'fishermen-ai-v24';
+const CACHE_NAME = 'fishermen-ai-v25';
 const STATIC_ASSETS = [
   './',
   './index.html',
   './manifest.json',
   './icon.svg',
   './css/styles.css',
+  './libs/ort.all.min.js',
+  './libs/ort-wasm-simd-threaded.wasm',
+  './models/fish_mobilenet_v3.onnx',
+  './models/fish_classes.json',
   './js/config.js',
   './js/state.js',
   './js/audio.js',
@@ -14,6 +18,7 @@ const STATIC_ASSETS = [
   './js/safety.js',
   './js/telemetry.js',
   './js/market.js',
+  './js/cv_classifier.js',
   './js/features.js',
   './js/fishreels.js',
   './js/voice.js',
@@ -25,7 +30,7 @@ const STATIC_ASSETS = [
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      console.log('🐟 [Service Worker v24] Caching App Shell & Modular Assets');
+      console.log('🐟 [Service Worker v25] Caching App Shell & Modular Assets');
       return cache.addAll(STATIC_ASSETS);
     })
   );
@@ -38,7 +43,7 @@ self.addEventListener('activate', event => {
     caches.keys().then(keys => {
       return Promise.all(
         keys.filter(key => key !== CACHE_NAME).map(key => {
-          console.log('🐟 [Service Worker v24] Removing old cache:', key);
+          console.log('🐟 [Service Worker v25] Removing old cache:', key);
           return caches.delete(key);
         })
       );

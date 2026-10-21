@@ -55,9 +55,9 @@ window.addEventListener('offline', () => {
 // Register Service Worker for PWA & Deep-Sea Offline Support
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=24')
+        navigator.serviceWorker.register('./sw.js?v=25')
             .then(reg => {
-                console.log('🐟 [PWA] Service Worker v24 registered:', reg.scope);
+                console.log('🐟 [PWA] Service Worker v25 registered:', reg.scope);
                 reg.update();
             })
             .catch(err => console.log('🐟 [PWA] SW registration failed:', err));

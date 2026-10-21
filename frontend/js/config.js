@@ -85,6 +85,24 @@ const VOICE_FISH_CATALOG = {
         max: 320,
         season: 'Sep - Dec',
         keywords: ['squid', 'bondas', 'ಬೊಂಡಾಸ್', 'ಬೊಂದಾಸ್']
+    },
+    'red_snapper': {
+        name: 'Red Snapper',
+        kannada: 'ಚೆಂಬಳ್ಳಿ / ಮುರು (Chemballi)',
+        basePrice: 380,
+        min: 320,
+        max: 460,
+        season: 'Sep - Apr',
+        keywords: ['snapper', 'red snapper', 'chemballi', 'muru', 'ಚೆಂಬಳ್ಳಿ', 'ಮುರು', 'ಚೆಂಪಲ್ಲಿ']
+    },
+    'anchovy': {
+        name: 'Indian Anchovy',
+        kannada: 'ಬೋಳೆ / ನತ್ತೋಲಿ (Bole)',
+        basePrice: 140,
+        min: 100,
+        max: 170,
+        season: 'Sep - Mar',
+        keywords: ['anchovy', 'bole', 'nethili', 'kole', 'ಬೋಳೆ', 'ನತ್ತೋಲಿ', 'ಕೊಳೆ']
     }
 };
 

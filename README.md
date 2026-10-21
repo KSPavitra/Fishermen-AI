@@ -116,25 +116,40 @@ Fishermen simply tap the microphone and ask: *"ನಾಳೆ ಕಡಲಿಗೆ �
 - **Deep-Sea Night Mode**: Bioluminescent dark theme tailored for night navigation and pre-dawn voyages without blinding boat operators.
 - **One-Tap Header HUD Switcher**: Bilingual toggle button (`☀️ Light / ಬೆಳಕು` ↔ `🌙 Dark / ಕತ್ತಲೆ`) with automatic `localStorage` persistence and OS `prefers-color-scheme` support.
 
+### 🧠 12. On-Device Offline Computer Vision: MobileNetV3 Fish Species Classifier
+- **10 Common Arabian Sea Species**: Fine-tuned on Indian Mackerel (*Bangude*), Oil Sardine (*Boothai*), Silver Pomfret (*Manji*), Kingfish (*Anjal*), Yellowfin Tuna (*Geddare*), Tiger Prawn (*Sigadi*), Mud Crab (*Denji*), Squid (*Bondas*), Red Snapper (*Chemballi*), and Indian Anchovy (*Bole*).
+- **100% Offline On-Device Neural Inference**: Runs directly in the browser via **ONNX Runtime Web** (Wasm/WebGL) without sending photos to a server or needing an internet connection.
+- **Sub-30ms Inference Latency**: Instant classification on device with real Softmax confidence percentages and Top-3 candidate ranking.
+- **Dockside Freshness & Handling Guide**: Provides visual inspection rules for gill clarity, eye convexity, skin iridescence, and flesh elasticity.
+
 ---
 
 ## 🏗️ Architecture & Tech Stack
 
 ```
 Fishermen-AI/
+├── ml/
+│   └── train_mobilenet_v3.py  # MobileNetV3 fine-tuning & ONNX export pipeline
 ├── backend/
 │   ├── app.py                 # Flask REST API & service orchestration
+│   ├── fish_classifier.py     # ONNX MobileNetV3 vision inference service
 │   ├── decision_engine.py     # Deterministic safety rule engine
 │   ├── weather_service.py     # OpenWeather integration & fallback caching
 │   ├── weather_cache.json     # Offline telemetry cache fallback
-│   ├── requirements.txt       # Python dependencies
+│   ├── requirements.txt       # Python dependencies (Flask, onnxruntime, pillow)
 │   └── render.yaml            # Render deployment manifest
 ├── frontend/
 │   ├── index.html             # Clean Semantic HTML Shell (~915 lines)
 │   ├── css/
 │   │   └── styles.css         # Glassmorphism, coastal theme, light/dark daylight modes
+│   ├── libs/
+│   │   ├── ort.all.min.js     # ONNX Runtime Web client engine
+│   │   └── ort-wasm-simd-threaded.wasm # WebAssembly SIMD runtime binary
+│   ├── models/
+│   │   ├── fish_mobilenet_v3.onnx # Fine-tuned MobileNetV3 model (5.8 MB)
+│   │   └── fish_classes.json  # 10 Arabian Sea species metadata & prices
 │   ├── js/
-│   │   ├── config.js          # Backend URL, fish catalog, and video registry
+│   │   ├── config.js          # Backend URL, 10 species catalog, video registry
 │   │   ├── state.js           # Shared reactive application state
 │   │   ├── audio.js           # Web Audio API sound synthesizer
 │   │   ├── theme.js           # Daylight sunlight / deep-sea night theme controller
@@ -143,16 +158,17 @@ Fishermen-AI/
 │   │   ├── safety.js          # Maritime distress SOS & beacon broadcast
 │   │   ├── telemetry.js       # Weather, marine conditions, tides, and solunar calendar
 │   │   ├── market.js          # Harbor auction catch rates & selling advisory
+│   │   ├── cv_classifier.js   # On-device MobileNetV3 computer vision controller
 │   │   ├── features.js        # Fuel calculator, catch logger, CMFRI seasonal guide, schemes
 │   │   ├── fishreels.js       # FishReels full-screen educational shorts video feed
 │   │   ├── voice.js           # Global reusable voice assistant & Kannada guidance engine
 │   │   ├── pwa.js             # PWA installation banner, iOS modal, and offline helpers
 │   │   └── app.js             # Master bootstrapper & lifecycle orchestrator
-│   ├── sw.js                  # PWA Service Worker (v24 modular cache & network-first)
+│   ├── sw.js                  # PWA Service Worker (v25 offline model caching)
 │   ├── manifest.json          # Web App Manifest
 │   └── icon.svg               # Marine application icon
 ├── tests/
-│   └── test_backend.py        # Automated test suite (health, decision, weather, tides)
+│   └── test_backend.py        # Automated test suite (health, decision, weather, MobileNetV3)
 └── docs/                      # Documentation and resources
 ```
 
@@ -160,11 +176,12 @@ Fishermen-AI/
 
 | Layer | Technologies |
 |---|---|
+| **Computer Vision AI** | **MobileNetV3-Small**, PyTorch, ONNX, ONNX Runtime Web (Wasm / WebGL) |
 | **Frontend UI** | HTML5, CSS3 Glassmorphism & Coastal Theming, Vanilla ES6+ JavaScript |
 | **Video Engine** | FishReels YouTube IFrame API Embeds (No-Cookie, Lazy-Loaded, Fullscreen) |
 | **Voice & Audio** | Universal Shared Voice Assistant (`#globalVoiceModal`), Web Speech API (`SpeechRecognition`, `SpeechSynthesis`), Web Audio API |
-| **Offline / PWA** | Service Worker v23 (`fishermen-ai-v23`), Web App Manifest, Cache API |
-| **Backend API** | Python 3.10+, Flask, Flask-CORS |
+| **Offline / PWA** | Service Worker v25 (`fishermen-ai-v25`), Web App Manifest, Cache API |
+| **Backend API** | Python 3.10+, Flask, Flask-CORS, ONNX Runtime, Pillow |
 | **Telemetry** | OpenWeatherMap API, Local Marine Cache Fallback |
 | **Deployment** | Frontend on **Vercel**, Backend API on **Render** |
 

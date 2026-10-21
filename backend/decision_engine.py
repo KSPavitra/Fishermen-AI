@@ -77,6 +77,24 @@ class DecisionEngine:
                 'max_price': 320,
                 'season': 'Sep - Dec',
                 'keywords': ['squid', 'bondas', 'ಬೊಂಡಾಸ್', 'ಬೊಂದಾಸ್']
+            },
+            'red_snapper': {
+                'name': 'Red Snapper',
+                'kannada': 'ಚೆಂಬಳ್ಳಿ / ಮುರು (Chemballi)',
+                'price': 380,
+                'min_price': 320,
+                'max_price': 460,
+                'season': 'Sep - Apr',
+                'keywords': ['snapper', 'red snapper', 'chemballi', 'muru', 'ಚೆಂಬಳ್ಳಿ', 'ಮುರು', 'ಚೆಂಪಲ್ಲಿ']
+            },
+            'anchovy': {
+                'name': 'Indian Anchovy',
+                'kannada': 'ಬೋಳೆ / ನತ್ತೋಲಿ (Bole)',
+                'price': 140,
+                'min_price': 100,
+                'max_price': 170,
+                'season': 'Sep - Mar',
+                'keywords': ['anchovy', 'bole', 'nethili', 'kole', 'ಬೋಳೆ', 'ನತ್ತೋಲಿ', 'ಕೊಳೆ']
             }
         }
 
